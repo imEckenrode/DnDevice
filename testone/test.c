@@ -93,21 +93,23 @@ void orderArray(Fighter list[], short size){
     }
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
+void turn()
 
 void battle(){  //A function that runs the battle simulation until 
     initiative();
-    bool end = false;
     short currentTurn = 0;
-    //int currentRound = 1;
+    int currentRound = 1;
 
     orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
     
     printf("Top of %d fighters is %s",fSize,fList[0]);
     printf("\n----- Battle Begin! -----")
-    //while(!end){
-
+    while(true){
+        for(currentTurn=0;currentTurn<fSize;currentTurn++){
+            turn();         //Simple "turn" function for now, will need more complex in the future
+        }
         
-    //}
+    }
 };
 
 int main(){
