@@ -14,7 +14,7 @@ short const fMAX_SIZE = 10;
 Fighter fList[10];
 short fSize;
 
-int optionSelect(char options[][30],short count){    //This should give me a pointer to an array of character arrays (strings)  
+int optionSelect(char options[][30],short count){    //This should give me access -(pointer)- to an array of character arrays (strings)  
     printf("\n");
     for (int i=0;i<count;++i){
         printf("%d) %s\n",i,options[i]);
@@ -62,20 +62,28 @@ void setup(){
     }}
 }
 
+void predefined(){
+    Fighter tempBuf = {"Char1",3,7};    //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    fList[0]=tempBuf;
+    Fighter tempBuf1 = {"Char2",165,13};
+    fList[1]=tempBuf1;
+    Fighter tempBuf2 = {"Char3",1,17};
+    fList[2]=tempBuf2;
+    fSize=3;
+}
+
 void initiative(){
     printf("Will Implement Rerolling Here, Rolled In Character Creation For Now\n");
 }
-
-
 
 void orderArray(Fighter list[], short size){
     //Currently implemented with a Selection Sort (described below)
     //Loop through list, find highest initiative, move the current start to that position, and move the highest value to the start
         //Repeat this through the whole list until the whole list is sorted
-    for(short i;i<size;i++){
+    for(short i=0;i<size;i++){
         Fighter fTopInit = list[i];
         short bigPos = i;
-        for(short j;j<size;j++){
+        for(short j=i+1;j<size;j++){
             if(list[j].Initiative>fTopInit.Initiative){
                 fTopInit = list[j];
                 bigPos = j;
@@ -86,7 +94,7 @@ void orderArray(Fighter list[], short size){
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
 
-void battle(){
+void battle(){  //A function that runs the battle simulation until 
     initiative();
     bool end = false;
     short currentTurn = 0;
@@ -94,23 +102,13 @@ void battle(){
 
     orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
     
-    printf("Done, Top of %d fighters is %s",fSize,fList[0]);
-    //while(!end){
+    printf("Top of %d fighters is %s",fSize,fList[0]);
+    printf("\n----- Battle Begin! -----")
+    while(!end){
 
         
-    //}
-
+    }
 };
-
-void predefined(){
-    Fighter tempBuf = {"Char1",3,7};    //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
-    fList[0]=tempBuf;
-    Fighter tempBuf1 = {"Char2",165,13};
-    fList[1]=tempBuf1;
-    Fighter tempBuf2 = {"Char3",1,17};
-    fList[2]=tempBuf2;
-    fSize=3;
-}
 
 int main(){
     printf("\n Code Start! \n");
