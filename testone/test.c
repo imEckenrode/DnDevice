@@ -104,10 +104,10 @@ void battle(){  //A function that runs the battle simulation until
     
     printf("Top of %d fighters is %s",fSize,fList[0]);
     printf("\n----- Battle Begin! -----")
-    while(!end){
+    //while(!end){
 
         
-    }
+    //}
 };
 
 int main(){
