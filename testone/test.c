@@ -2,6 +2,11 @@
 #include <stdbool.h>
 
 
+char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
+short const TURN_OPTIONS_COUNT = 4;
+char TURN_OPTIONS[TURN_OPTIONS_COUNT][30]={"End Turn","End Combat","Attack","AoE"};  //Hold Turn, Heal
+                    typedef enum turnStatus{endTurn,endCombat,ERROR,passTurn=4} turnStatus;
+
 typedef struct{
     char name[30];
     short HP;
@@ -9,6 +14,8 @@ typedef struct{
     //struct Fighter *nextFighter;
 }
 Fighter;
+
+
 
 short const fMAX_SIZE = 10;
 Fighter fList[10];
@@ -93,7 +100,29 @@ void orderArray(Fighter list[], short size){
     }
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
-void turn()
+
+void makeAtk(Fighter attacker){
+    printf("This is next.");
+}
+
+short turn(Fighter f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have an Active Fighter (which would be the fighter per device)
+    printf("%s, what would you like to do?",f.name);
+    while(true){
+        switch (optionSelect(TURN_OPTIONS,TURN_OPTIONS_COUNT)){
+            case endTurn:
+                return endTurn;
+            case endCombat:
+                return endCombat;
+            case 2:                     //It'd be real nice to define the enum and char arrays to the same values
+                makeAtk(f);
+            case 3:
+                aoe(f);
+            default:
+                printf("Invalid option/not implemented yet.\n");
+        }
+        printf("%s, what else would you like to do?",f.name);
+    }
+}
 
 void battle(){  //A function that runs the battle simulation until 
     initiative();
@@ -103,10 +132,10 @@ void battle(){  //A function that runs the battle simulation until
     orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
     
     printf("Top of %d fighters is %s",fSize,fList[0]);
-    printf("\n----- Battle Begin! -----")
+    printf("\n----- Battle Begin! -----");
     while(true){
         for(currentTurn=0;currentTurn<fSize;currentTurn++){
-            turn();         //Simple "turn" function for now, will need more complex in the future
+            turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future
         }
         
     }
