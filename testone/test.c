@@ -70,7 +70,7 @@ void setup(){
 }
 
 void predefined(){
-    Fighter tempBuf = {"Char1",3,7};    //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    Fighter tempBuf = {"Char1",3,7};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
     fList[0]=tempBuf;
     Fighter tempBuf1 = {"Char2",165,13};
     fList[1]=tempBuf1;
@@ -137,7 +137,7 @@ void battle(){  //A function that runs the battle simulation until
         for(currentTurn=0;currentTurn<fSize;currentTurn++){
             turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future
         }
-        
+        currentRound++;
     }
 };
 
