@@ -3,8 +3,8 @@
 
 
 char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
-short const TURN_OPTIONS_COUNT = 4;
-char TURN_OPTIONS[TURN_OPTIONS_COUNT][30]={"End Turn","End Combat","Attack","AoE"};  //Hold Turn, Heal
+const short TURN_OPTIONS_COUNT = 4;
+char TURN_OPTIONS[4][30]={"End Turn","End Combat","Attack","AoE"};  //Hold Turn, Heal
                     typedef enum turnStatus{endTurn,endCombat,ERROR,passTurn=4} turnStatus;
 
 typedef struct{
@@ -115,8 +115,8 @@ short turn(Fighter f){     //Change this to a pointer.      //Instead of passing
                 return endCombat;
             case 2:                     //It'd be real nice to define the enum and char arrays to the same values
                 makeAtk(f);
-            case 3:
-                aoe(f);
+            //case 3:
+                //aoe(f);
             default:
                 printf("Invalid option/not implemented yet.\n");
         }
@@ -143,8 +143,8 @@ void battle(){  //A function that runs the battle simulation until
 
 int main(){
     printf("\n Code Start! \n");
-    //setup();
-    predefined();
+    setup();
+    //predefined();
 
     battle();
     printf("\n Output Done \n");
