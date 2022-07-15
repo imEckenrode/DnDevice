@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
 
 char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
 const short TURN_OPTIONS_COUNT = 4;
@@ -79,11 +79,12 @@ void predefined(){
     fSize=3;
 }
 
+
 void initiative(){
     printf("Will Implement Rerolling Here, Rolled In Character Creation For Now\n");
 }
 
-void orderArray(Fighter list[], short size){
+void orderFighterArray(Fighter list[], short size){
     //Currently implemented with a Selection Sort (described below)
     //Loop through list, find highest initiative, move the current start to that position, and move the highest value to the start
         //Repeat this through the whole list until the whole list is sorted
@@ -101,9 +102,32 @@ void orderArray(Fighter list[], short size){
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
 
-void makeAtk(Fighter attacker){
-    printf("This is next.");
+
+Fighter chooseFromFighters(){
+    char fNames[fMAX_SIZE][30];
+    for(short i=0;i<fSize;i++){
+        strcpy(fNames[i],fList[i].name);
+    }
+    return fList[optionSelect(fNames,fSize)];
 }
+
+void makeAtk(Fighter attacker){
+    int dmg;
+    printf("Who are you attacking?");
+    Fighter target = chooseFromFighters();
+    printf("Attack roll would go here.\n");
+    printf("How much damage? (Negative to heal)\n> ");
+    scanf("%d",&dmg);
+
+    target.HP -= dmg;
+    if(target.HP<1){
+        target.HP=0;
+        printf("%s reduced to 0 HP\n",target.name);
+    }else{
+        printf("Attacked %s, dealing %d damage\n",target.name,dmg);
+    }
+}
+
 
 short turn(Fighter f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have an Active Fighter (which would be the fighter per device)
     printf("%s, what would you like to do?",f.name);
@@ -115,8 +139,9 @@ short turn(Fighter f){     //Change this to a pointer.      //Instead of passing
                 return endCombat;
             case 2:                     //It'd be real nice to define the enum and char arrays to the same values
                 makeAtk(f);
-            case 3:
-                makeAtk(f);
+                break;
+            //case 3:
+                //makeAtk(f);
                 //aoe(f);
             default:
                 printf("Invalid option/not implemented yet.\n");
@@ -129,16 +154,19 @@ void battle(){  //A function that runs the battle simulation until
     initiative();
     short currentTurn = 0;
     int currentRound = 1;
-    short result=0;
+    short result = 0;
 
-    orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
+    orderFighterArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
     
     printf("Top of %d fighters is %s",fSize,fList[0]);
-    printf("\n----- Battle Begin! -----");
+    printf("\n----- Battle Begin! -----\n");
     while(true){
+        printf("Round %d\n",currentRound);
         for(currentTurn=0;currentTurn<fSize;currentTurn++){
-            result=turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future
-            if(result=endCombat){
+            result=turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future (to track passed turns)
+
+            if(result==endCombat){
+                printf("Battle Over!");
                 return;
             }
         }
@@ -148,8 +176,8 @@ void battle(){  //A function that runs the battle simulation until
 
 int main(){
     printf("\n Code Start! \n");
-    setup();
-    //predefined();
+    //setup();
+    predefined();
 
     battle();
     printf("\n Output Done \n");
