@@ -115,7 +115,8 @@ short turn(Fighter f){     //Change this to a pointer.      //Instead of passing
                 return endCombat;
             case 2:                     //It'd be real nice to define the enum and char arrays to the same values
                 makeAtk(f);
-            //case 3:
+            case 3:
+                makeAtk(f);
                 //aoe(f);
             default:
                 printf("Invalid option/not implemented yet.\n");
@@ -128,6 +129,7 @@ void battle(){  //A function that runs the battle simulation until
     initiative();
     short currentTurn = 0;
     int currentRound = 1;
+    short result=0;
 
     orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
     
@@ -135,7 +137,10 @@ void battle(){  //A function that runs the battle simulation until
     printf("\n----- Battle Begin! -----");
     while(true){
         for(currentTurn=0;currentTurn<fSize;currentTurn++){
-            turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future
+            result=turn(fList[currentTurn]);         //Simple "turn" function for now, will need more complex in the future
+            if(result=endCombat){
+                return;
+            }
         }
         currentRound++;
     }
@@ -150,4 +155,3 @@ int main(){
     printf("\n Output Done \n");
     return 0;
 }
-
