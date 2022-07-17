@@ -5,7 +5,16 @@
 		},
 		{
 			"path": ".\\firststuff"
+		},
+		{
+			"path": "commsTesting"
 		}
 	],
-	"settings": {}
+	"settings": {
+		"files.associations": {
+			"esp_now.h": "c",
+			"stdio.h": "c",
+			"*.inc": "c"
+		}
+	}
 }
