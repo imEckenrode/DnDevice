@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "esp_now.h"
 #include "esp_wifi.h"
 #include "esp_log.h"
@@ -13,6 +14,7 @@
 */
 
 #define BROADCAST_MAC {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
+#define CURRENT_TEST {0x24, 0x6f, 0x28, 0x15, 0xe0, 0x51}
 
 static const char *TAG = "MyDevice";
 
@@ -20,18 +22,29 @@ static const char *TAG = "MyDevice";
 static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     ESP_LOGI(TAG, "I heard something! It was %d long",len);
 
+    uint8_t mac_here[6] = CURRENT_TEST;
+    //memcpy(mac_here,mac_addr,6*sizeof(uint8_t));
+
     const esp_now_peer_info_t new_buddy = {
-        .peer_addr = {*mac_addr},       //The compiler wanted {braces} to initialize
+        .peer_addr = {0x24, 0x6f, 0x28, 0x15, 0xe0, 0x51},       //The compiler wanted {braces} to initialize
         .channel = 1,
         .ifidx = ESP_IF_WIFI_AP
     };
+
     if((int)*data==1 /*&& esp_now_get_peer()==ESP_ERR_ESPNOW_NOT_FOUND */){
-        esp_now_add_peer(&new_buddy);   
+        esp_now_add_peer(&new_buddy);
     }
+    
+    printf("MAC %x:%x:%x:%x:%x:%x", mac_here[0],mac_here[1],mac_here[2],mac_here[3],mac_here[4],mac_here[5]);
 
-    //printf("%s\n",(char *)*mac_addr); //Still figuring out how to save the MAC Address...How about a custom struct that has esp_now_oeer_info_t as a subset
+    short two = 2;
+    esp_err_t err = esp_now_send(mac_here, (uint8_t*) &two, sizeof(two));   //A send to NULL means that the device sends to ALL peers    
+    if(err != ESP_OK){
+        ESP_LOGE(TAG, "Send Error (%x)",err);           //0x3069 = Peer Not Found
+        return;
+    }
 }
-
+            //How about a custom struct that has esp_now_peer_info_t as a subset
 
 static void packet_sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status)
 {
