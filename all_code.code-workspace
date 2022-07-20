@@ -14,7 +14,9 @@
 		"files.associations": {
 			"esp_now.h": "c",
 			"stdio.h": "c",
-			"*.inc": "c"
+			"*.inc": "c",
+			"task.h": "c",
+			"freertos.h": "c"
 		}
 	}
 }

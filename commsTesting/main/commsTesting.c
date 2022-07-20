@@ -7,14 +7,13 @@
 #include "nvs_flash.h"
 
 
-/*
+
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "freertos/queue.h"
-*/
+
 
 #define BROADCAST_MAC {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF}
-#define CURRENT_TEST {0x24, 0x6f, 0x28, 0x15, 0xe0, 0x51}
 
 static const char *TAG = "MyDevice";
 
@@ -22,14 +21,16 @@ static const char *TAG = "MyDevice";
 static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     ESP_LOGI(TAG, "I heard something! It was %d long",len);
 
-    uint8_t mac_here[6] = CURRENT_TEST;
-    //memcpy(mac_here,mac_addr,6*sizeof(uint8_t));
+    uint8_t mac_here[6];
+    memcpy(mac_here,mac_addr,6*sizeof(uint8_t));
 
-    const esp_now_peer_info_t new_buddy = {
-        .peer_addr = {0x24, 0x6f, 0x28, 0x15, 0xe0, 0x51},       //The compiler wanted {braces} to initialize
+    esp_now_peer_info_t new_buddy = {
+        //.peer_addr = {mac_here},       //The compiler wanted {braces} to initialize
         .channel = 1,
         .ifidx = ESP_IF_WIFI_AP
     };
+
+    memcpy(new_buddy.peer_addr,mac_here,6*sizeof(uint8_t));
 
     if((int)*data==1 /*&& esp_now_get_peer()==ESP_ERR_ESPNOW_NOT_FOUND */){
         esp_now_add_peer(&new_buddy);
@@ -82,6 +83,8 @@ static void fullInit(){
 
 void app_main(void)
 {
+    //s_evt_group = xEventGroupCreate();
+
     esp_err_t ret = nvs_flash_init();
     ESP_ERROR_CHECK(ret);
     fullInit();
