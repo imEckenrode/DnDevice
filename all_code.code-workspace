@@ -8,6 +8,9 @@
 		},
 		{
 			"path": "commsTesting"
+		},
+		{
+			"path": "MASTER\\DnDevice"
 		}
 	],
 	"settings": {
