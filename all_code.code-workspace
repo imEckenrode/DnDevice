@@ -11,6 +11,9 @@
 		},
 		{
 			"path": "MASTER\\DnDevice"
+		},
+		{
+			"path": "consoleTest1"
 		}
 	],
 	"settings": {
