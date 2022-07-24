@@ -8,7 +8,7 @@
 static int hello_cmd(int argc, char **argv){
     printf("\nHello there! I am the working command line system!\n");
     return 0;
-}
+}   //The actual commands should be accessible to both the command line and the communication system
 
 
 
