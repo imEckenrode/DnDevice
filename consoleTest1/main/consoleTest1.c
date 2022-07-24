@@ -1,9 +1,32 @@
 #include <stdio.h>
-#include "console.h"
+#include "esp_console.h"
+
+#include "cliCommands.h"
+
+#include "esp_err.h"
+
+
+//static const char* TAG = "DnDevice";
+#define PROMPT_STR "DnDevice"
+
+
+
+
+
+
 
 void app_main(void)
-{}
-    linenoiseClearScreen();
-    linenoise();
-    linenoiseFree();
-//}
+{
+    esp_console_repl_t *repl = NULL;
+    esp_console_repl_config_t repl_config = ESP_CONSOLE_REPL_CONFIG_DEFAULT();
+    esp_console_dev_uart_config_t uart_config = ESP_CONSOLE_DEV_UART_CONFIG_DEFAULT();
+
+    repl_config.prompt = PROMPT_STR ">";        //Make this dynamic
+    repl_config.max_cmdline_length = 1024; //CONFIG_CONSOLE_MAX_COMMAND_LINE_LENGTH; from sdkconfig, idk
+
+    register_commands();
+
+
+    ESP_ERROR_CHECK(esp_console_new_repl_uart(&uart_config, &repl_config, &repl));
+    ESP_ERROR_CHECK(esp_console_start_repl(repl));
+}
