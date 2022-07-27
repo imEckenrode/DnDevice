@@ -1,6 +1,9 @@
 {
 	"folders": [
 		{
+			"path": "cScratchPaper"
+		},
+		{
 			"path": ".\\testone"
 		},
 		{
@@ -10,11 +13,11 @@
 			"path": "commsTesting"
 		},
 		{
-			"path": "MASTER\\DnDevice"
-		},
-		{
 			"path": "consoleTest1"
 		}
+		{
+			"path": "MASTER\\DnDevice"
+		},
 	],
 	"settings": {
 		"files.associations": {

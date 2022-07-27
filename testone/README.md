@@ -1,14 +1,17 @@
+
+# This folder needs renamed eventually
+
 # What This Is
 This code is a prototype for the DnDevice Battle Flow without any microcontroller requirements
 
 # Where This Is
-This is in a private repo under testenvironmentx, my test env
+This is in a private repo under my real account now
 
 # How This Is
 Probably bad. Oh well
 
 # Who This Is
-Xavier Xander
+Me
 
 # When This Is
 7/10/22

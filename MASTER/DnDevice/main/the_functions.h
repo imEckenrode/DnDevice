@@ -32,6 +32,11 @@ struct context_s{
 } current_context = {false,false,false,false,false};
 
 
+//Different .h files for send and receive? Or one .h file and two .c    (Can always copy and paste somewhere else later)
+
+
+
+/*      Sending Functions       */
 
 
 
@@ -41,11 +46,7 @@ struct context_s{
 
 
 
-
-
-
-
-
+/*      Receiving Functions     */
 
 
 
