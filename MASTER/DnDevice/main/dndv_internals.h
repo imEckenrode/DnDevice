@@ -7,13 +7,13 @@
 
 /* What is this?
 
- All shared varibles, function-specific structures, and function declarations for the DnDevice can be found in here
+ All global varibles and structures for the DnDevice can be found in here
 
 
  That means functions can be called from the screen, from comms, from console, or from wherever else
-    Just import "the_functions.h"
+    Just import "dndv_internals.h"
 
-    This will allow the usage of the_functions.c code anywhere that incluced "the_functions.h"
+    This will allow the usage of the internal variables anywhere that includes "dndv_internals.h"
 
 order:      (global variables on top, then)
     Title
@@ -30,24 +30,6 @@ struct context_s{
     bool DMHere;            //Set to True if the DM is selected (so there's no point sending ESPNow to yourself in the event of MultiPlayers)
     //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
 } current_context = {false,false,false,false};
-
-
-//Different .h files for send and receive? Or one .h file and two .c    (Can always copy and paste somewhere else later)
-
-
-
-/*      Sending Functions       */
-
-
-
-
-
-
-
-
-
-/*      Receiving Functions     */
-
 
 
 
