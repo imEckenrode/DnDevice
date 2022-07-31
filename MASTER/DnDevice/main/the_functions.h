@@ -29,7 +29,7 @@ struct context_s{
     bool onePC;             //Set to True if one character is selected 
     bool DMHere;            //Set to True if the DM is selected (so there's no point sending ESPNow to yourself in the event of MultiPlayers)
     //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
-} current_context = {false,false,false,false,false};
+} current_context = {false,false,false,false};
 
 
 //Different .h files for send and receive? Or one .h file and two .c    (Can always copy and paste somewhere else later)
