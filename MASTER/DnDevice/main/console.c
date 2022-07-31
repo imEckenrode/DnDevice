@@ -1,8 +1,9 @@
+#include "esp_console.h"
+#include "esp_err.h"
 
 
 
-
-
+#define PROMPT_STR "DnDevice"
 
 void console_init(void){
     esp_console_repl_t *repl = NULL;
@@ -14,7 +15,20 @@ void console_init(void){
 
     register_commands();
 
-
     ESP_ERROR_CHECK(esp_console_new_repl_uart(&uart_config, &repl_config, &repl));
-    ESP_ERROR_CHECK(esp_console_start_repl(repl));
+    ESP_ERROR_CHECK(esp_console_start_repl(repl));  //Gonna need a thread for this
+}
+
+/*  Register all the console commands
+        the r is for register (found in header file)    */
+void register_commands(){
+    ping_r();       
+    //Can also check for errors here if desired
+}
+
+/* --- Console Command Definitions --- */
+
+static int ping_cmd(int argc, char **argv){
+    printf("And now we send it!");
+    return 0;
 }
