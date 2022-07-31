@@ -2,9 +2,10 @@
 #include <stdbool.h>
 #include <string.h>
 
-//#include "function_ptr_calling.h"
-//Guess I can keep the scratch paper arround for future reference by pasting it into another c code
 
+#include "b.h"
+
+int five = 5;
 
 int f1(){
     return 1;
@@ -26,7 +27,11 @@ void printTheNum(int num){
 }
 
 int main(){
+    
+    call();
+/*
     printTheNum(0);
     printf("\n")
     printTheNum(1);
+*/
 }
