@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "console.h"
-
+#include "dndv_comms.h"
 /*
     init.c
     
@@ -12,5 +12,7 @@
 
 void app_main(void)
 {
+    comms_init();
+    send_exampleAwake();
     console_init();
 }

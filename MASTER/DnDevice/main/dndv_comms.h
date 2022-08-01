@@ -1,7 +1,9 @@
-# ifndef dndv_comms.h
-# define dndv_comms.h
+#pragma once
+/*# ifndef dndv_comms.h
+# define dndv_comms.h*/
 
-#include "dndv_internals.h"
+//#include "dndv_internals.h"
+#include "esp_now.h"
 
 /*
  All communcation (over ESP-NOW) can be found in here.
@@ -22,10 +24,19 @@
     Function
 */
 
+void comms_init(void);
+
+void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
+
+typedef struct{     //Change inside away from uint8_t and pack the struct
+    uint8_t ID;
+    uint8_t data[250]; //Change to a pointer
+} sending_data;
 
 /*      Sending Functions      */
 
 
+esp_err_t send_exampleAwake(void);
 
 
 
@@ -41,6 +52,8 @@
 
 /*      Receiving Functions     */
 
+void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len);
+//Note: rcv, not recv
 
 
 
@@ -49,5 +62,4 @@
 
 
 
-
-#endif
+//#endif

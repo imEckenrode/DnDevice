@@ -1,5 +1,6 @@
-#ifndef the_functions.h
-# define the_functions.h
+#pragma once
+//#ifndef the_functions.h   //(I think these need quotations around the name)
+//# define the_functions.h
 
 #include <stdbool.h>
 
@@ -22,6 +23,8 @@ order:      (global variables on top, then)
     Function
 */
 
+/*
+
 // current_context tracks what state the device is in, so it cannot attack when no one is logged in
 struct context_s{
     bool connected;         //Set to True when the device connects to the DM    (set DM to True)
@@ -31,6 +34,6 @@ struct context_s{
     //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
 } current_context = {false,false,false,false};
 
+*/
 
-
-#endif
+//#endif

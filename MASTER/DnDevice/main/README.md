@@ -1,5 +1,7 @@
 # Code Layout
 
+(For some reason, it is requiring me to add everything to the CMakeList...may try resetting that)
+
 ## dndv_internals
 
 This is the lowest level of code on the dependency tree; everything can import this, while this does not import any custom code.

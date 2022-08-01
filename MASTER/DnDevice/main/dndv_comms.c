@@ -1,31 +1,71 @@
-# ifndef dndv_comms.h
-# define dndv_comms.h
+//#pragma once
 
+#include "dndv_comms.h"
 #include "dndv_internals.h"
 
-/*
- All communcation (over ESP-NOW) can be found in here.
+#include "esp_wifi.h"
+#include "esp_log.h"
 
-  SENDING
+#define TAG "DnDevice"
+#define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
 
-    Simply call dndv_send() to send the data to the specified player (decoded into the proper MAC address)
+void comms_init(void){
+  const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK( esp_netif_init());
+    ESP_ERROR_CHECK( esp_event_loop_create_default() );
+    ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
+    //ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );      //default is Flash
+    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_AP) );     //Should this be APSTA?
+    ESP_ERROR_CHECK( esp_wifi_start() );
 
-  RECEIVING
+    ESP_ERROR_CHECK( esp_now_init() );
+    ESP_ERROR_CHECK( esp_now_register_recv_cb(rcv_cb) );
+    ESP_ERROR_CHECK( esp_now_register_send_cb(sent_cb) );
+    //ESP_ERROR_CHECK( esp_now_set_pmk((const uint8_t *)MY_ESPNOW_PMK) );
 
-    Each ID has its own function, which then call other functions (forward declared)
+    const esp_now_peer_info_t broadcast_destination = {
+        .peer_addr = BROADCAST_MAC,
+        .channel = 1,
+        .ifidx = ESP_IF_WIFI_AP
+    };
+
+    ESP_ERROR_CHECK( esp_now_add_peer(&broadcast_destination) );
+}
 
 
- The same format remains:
-    Title
-    Struct
-    Comment about what the function will do
-    Function
-*/
+void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
+  if (mac_addr == NULL) {
+      ESP_LOGE(TAG, "Send cb arg error");
+      return;
+  }
 
+  if(status==0){
+    ESP_LOGI(TAG, "Successfully sent data.");
+  }else{
+    ESP_LOGE(TAG, "Failed to send data.");
+  }
+  printf("Send Status: %d (0 is Success)\n",status);
+  //xEventGroupSetBits(s_evt_group, BIT(status));
+}
 
 /*      Sending Functions      */
 
+esp_err_t send_exampleAwake(void){
+    const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
+    sending_data dat;
+    dat.ID = 1;
+
+    esp_err_t err = esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
+
+    if(err != ESP_OK)
+    {
+        ESP_LOGE(TAG, "Send error (%d)", err);
+        return ESP_FAIL;
+    }
+    return ESP_OK;
+    //Could wait for callback here
+}
 
 
 
@@ -40,6 +80,9 @@
 
 
 /*      Receiving Functions     */
+void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
+  ESP_LOGI(TAG, "Saw some data out there.");
+}
 
 
 
@@ -49,5 +92,4 @@
 
 
 
-
-#endif
+//#endif
