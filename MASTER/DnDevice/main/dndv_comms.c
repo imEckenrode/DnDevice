@@ -11,13 +11,13 @@
 
 void comms_init(void){
   const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+
     ESP_ERROR_CHECK( esp_netif_init());
     ESP_ERROR_CHECK( esp_event_loop_create_default() );
     ESP_ERROR_CHECK( esp_wifi_init(&cfg) );
-    //ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );      //default is Flash
-    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_AP) );     //Should this be APSTA?
+    ESP_ERROR_CHECK( esp_wifi_set_storage(WIFI_STORAGE_RAM) );      //default is Flash, can turn into RAM
+    ESP_ERROR_CHECK( esp_wifi_set_mode(WIFI_MODE_APSTA) );     //Should this be APSTA?
     ESP_ERROR_CHECK( esp_wifi_start() );
-
     ESP_ERROR_CHECK( esp_now_init() );
     ESP_ERROR_CHECK( esp_now_register_recv_cb(rcv_cb) );
     ESP_ERROR_CHECK( esp_now_register_send_cb(sent_cb) );
@@ -49,6 +49,8 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 }
 
 /*      Sending Functions      */
+
+//Make a default sending function
 
 esp_err_t send_exampleAwake(void){
     const uint8_t broadcast_mac[] = BROADCAST_MAC;

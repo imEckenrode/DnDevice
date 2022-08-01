@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "dndv_internals.h"
 #include "console.h"
 #include "dndv_comms.h"
 /*
@@ -12,7 +13,8 @@
 
 void app_main(void)
 {
+    nvs_init();
     comms_init();
-    send_exampleAwake();
+    //send_exampleAwake();
     console_init();
 }

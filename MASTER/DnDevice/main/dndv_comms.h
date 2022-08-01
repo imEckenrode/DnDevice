@@ -30,7 +30,7 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 
 typedef struct{     //Change inside away from uint8_t and pack the struct
     uint8_t ID;
-    uint8_t data[250]; //Change to a pointer
+    uint8_t data[2]; //Change to a pointer
 } sending_data;
 
 /*      Sending Functions      */

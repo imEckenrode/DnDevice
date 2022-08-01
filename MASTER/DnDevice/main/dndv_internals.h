@@ -36,4 +36,6 @@ struct context_s{
 
 */
 
+void nvs_init(void);
+
 //#endif
