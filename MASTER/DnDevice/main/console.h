@@ -5,7 +5,7 @@
 
 /*
 
-
+    Not much is needed in this file, as everything is done internally
 
 */
 
@@ -13,5 +13,3 @@ void console_init(void);
 
 void register_commands();
 
-//static int ping_cmd(int argc, char **argv);
-esp_err_t ping_r(void);

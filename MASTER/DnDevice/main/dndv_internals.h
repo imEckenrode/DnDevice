@@ -23,19 +23,54 @@ order:      (global variables on top, then)
     Function
 */
 
-/*
-
-// current_context tracks what state the device is in, so it cannot attack when no one is logged in
-struct context_s{
-    bool connected;         //Set to True when the device connects to the DM    (set DM to True)
-    bool loggedIn;          //Set to True when the player
-    bool onePC;             //Set to True if one character is selected 
-    bool DMHere;            //Set to True if the DM is selected (so there's no point sending ESPNow to yourself in the event of MultiPlayers)
-    //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
-} current_context = {false,false,false,false};
-
+/*  Old Code
+            // current_context tracks what state the device is in, so it cannot attack when no one is logged in
+            struct context_s{
+                bool connected;         //Set to True when the device connects to the DM    (set DM to True)
+                bool loggedIn;          //Set to True when the player
+                bool onePC;             //Set to True if one character is selected 
+                bool DM;            //Set to True if the DM is selected (so there's no point sending ESPNow to yourself in the event of MultiPlayers)
+                //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
+            } current_context = {false,false,false,false};
 */
 
+/* The character struct (save data into a file) */
+typedef struct character_s{
+    //short id;
+    char name[40];
+    short MaxHP;
+    short HP;
+    //uint8 level;
+} Character;
+
+/* The player [and DM] struct (save data into a file) */
+typedef struct player_s{
+    //short id;
+    char name[20];
+    bool canDM;
+    //bool babyMode;
+} Player;
+
+
+struct user_s{      //change this into a union
+    bool DM;
+    Player* player;
+    Character* character;
+};
+
+
+/*        GLOBAL VARIABLES           */
+Character currentPC;
+Player currentPlayer;
+struct user_s currentUser;
+
+
+
 void nvs_init(void);
+
+// And finally, tests:      //
+void testPCInit(void);
+void testDMInit(void);
+
 
 //#endif

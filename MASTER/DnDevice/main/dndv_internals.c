@@ -1,5 +1,7 @@
+#include "dndv_internals.h"
 #include <stdbool.h>
 #include "nvs_flash.h"
+
 
 
 void nvs_init(void){
@@ -9,4 +11,23 @@ void nvs_init(void){
         ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+}
+
+void testPCInit(void){
+
+    Player examplePlayer = {"Bob",0};
+    currentPlayer=examplePlayer;
+    Character examplePC = {"PowerWizard",5,3};
+    currentPC=examplePC;
+
+    currentUser.DM = false;
+    currentUser.player = &currentPlayer;
+    currentUser.character = &currentPC;
+    printf("Test Player Initialized\n");
+}
+
+void testDMInit(void){
+    currentUser.DM = true;
+
+    printf("DM Mode Activated (Test DM Initialized)\n");
 }

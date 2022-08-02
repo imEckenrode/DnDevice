@@ -13,8 +13,6 @@
 
 
 
-
-
 void app_main(void)
 {
     esp_console_repl_t *repl = NULL;
