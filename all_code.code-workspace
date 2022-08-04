@@ -1,23 +1,21 @@
 {
 	"folders": [
 		{
+			"path": "MASTER\\DnDevice"
+		},
+		{
+			"path": "consoleTestEnv"
+		},
+		{
 			"path": "cScratchPaper"
 		},
 		{
 			"path": ".\\testone"
 		},
 		{
-			"path": ".\\firststuff"
-		},
-		{
 			"path": "commsTesting"
-		},
-		{
-			"path": "consoleTest1"
 		}
-		{
-			"path": "MASTER\\DnDevice"
-		},
+
 	],
 	"settings": {
 		"files.associations": {
