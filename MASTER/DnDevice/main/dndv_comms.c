@@ -30,6 +30,17 @@ void comms_init(void){
     };
 
     ESP_ERROR_CHECK( esp_now_add_peer(&broadcast_destination) );
+
+
+    esp_event_loop_args_t loop_args = {
+        .queue_size = 5,
+        .task_name = "rcv_task",     //A task will be created automatically 
+        .task_priority = uxTaskPriorityGet(NULL),
+        .task_stack_size = 2048,      //Up the stack size if this keeps running out of memory, but it should be fine
+        .task_core_id = tskNO_AFFINITY
+    };
+
+    esp_event_loop_create(&loop_args, &rcv_event_handle);
 }
 
 
@@ -76,14 +87,30 @@ esp_err_t send_exampleAwake(void){
 
 
 
+/*      Receiving Function     
 
+    When any ESP-NOW data is received, post it to the event loop
+  In another file, use esp_event_handle_register_with to receive the 
+*/
 
+ESP_EVENT_DECLARE_BASE(RCV_BASE);
+ESP_EVENT_DEFINE_BASE(RCV_BASE);
 
+enum {
+  EVENT_AWAKE_BROADCAST,
+  EVENT_KEYIN,
+  EVENT_SYNC_REQUEST,
+  EVENT_FIGHT_ACTION,
+  EVENT_FIGHT_CONTROL,
+  EVENT_SYS,
+  EVENT_TEST
+};
 
-
-/*      Receiving Functions     */
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
   ESP_LOGI(TAG, "Saw some data out there.");
+  esp_event_post_to(rcv_event_handle, RCV_BASE,EVENT_TEST,data,len,0);
+  ESP_LOGI(TAG, "Should be recorded now.");
+  //Data is automatically managed by the event loop, so a pointer to the data is safe
 }
 
 

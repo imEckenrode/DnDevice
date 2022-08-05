@@ -14,8 +14,10 @@
 
   RECEIVING
 
-    Each ID has its own function, which then call other functions (forward declared)
-
+    To receive data, register to the event loop by calling esp_event_handler_register_with() in your desired file.
+    
+    Then use the structures in this file to decipher the type of data received based on the first byte received
+  
 
  The same format remains:
     Title
@@ -51,6 +53,8 @@ esp_err_t send_exampleAwake(void);
 
 
 /*      Receiving Functions     */
+
+esp_event_loop_handle_t rcv_event_handle;
 
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len);
 //Note: rcv, not recv

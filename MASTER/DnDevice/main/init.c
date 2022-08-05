@@ -3,6 +3,7 @@
 #include "dndv_internals.h"
 #include "console.h"
 #include "dndv_comms.h"
+#include "dndv_log.h"
 /*
     init.c
     
@@ -15,6 +16,8 @@ void app_main(void)
 {
     nvs_init();
     comms_init();
-    //send_exampleAwake();
+    log_init();
+
+    send_exampleAwake();
     console_init();
 }

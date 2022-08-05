@@ -23,7 +23,10 @@
 			"stdio.h": "c",
 			"*.inc": "c",
 			"task.h": "c",
-			"freertos.h": "c"
+			"freertos.h": "c",
+			"dndv_log.h": "c",
+			"dndv_comms.h": "c",
+			"thread": "c"
 		}
 	}
 }

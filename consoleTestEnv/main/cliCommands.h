@@ -4,7 +4,7 @@
 
 
 
-v
+
 static int hello_cmd(int argc, char **argv){
     printf("\nHello there! I am the working command line system!\n");
     return 0;
@@ -20,6 +20,24 @@ esp_err_t r_hello(void){
     };
     return esp_console_cmd_register(&command);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 void register_commands(){
