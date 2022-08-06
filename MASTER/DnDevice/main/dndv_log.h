@@ -9,5 +9,5 @@
 */
 
 
-
+/*  Initialize Logs */
 void log_init(void);

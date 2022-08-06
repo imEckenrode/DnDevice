@@ -9,7 +9,9 @@
 
 */
 
+//  Initialize console
 void console_init(void);
 
+//  This command registers all the console commandsss
 void register_commands();
 

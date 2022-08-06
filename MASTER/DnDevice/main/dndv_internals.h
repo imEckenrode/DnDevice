@@ -52,6 +52,7 @@ typedef struct player_s{
 } Player;
 
 
+/*  Structure for keeping track of the device's user data   */
 struct user_s{      //change this into a union
     bool DM;
     Player* player;
@@ -60,17 +61,19 @@ struct user_s{      //change this into a union
 
 
 /*        GLOBAL VARIABLES           */
-Character currentPC;
-Player currentPlayer;
-struct user_s currentUser;
+Character currentPC;        //The currently selected player character
+Player currentPlayer;       //The currently selected player
+struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
 
 
-
+/* Initialize the non-volatile storage library to persist data 
+    Required for: ESP-NOW   */
 void nvs_init(void);
 
-// And finally, tests:      //
-void testPCInit(void);
-void testDMInit(void);
+// And finally, tests:      
+    //(TODO: pull player from storage instead of initializing)
+void testPCInit(void);  //Initialize a test character into the currentPC 
+void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
 
 
 //#endif

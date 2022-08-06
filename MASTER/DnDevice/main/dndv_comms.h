@@ -26,10 +26,24 @@
     Function
 */
 
+/*  Initialize ESP-NOW communications */
 void comms_init(void);
 
+/* Callback to when ESP-NOW sends successfully
+    
+    FOR BROADCAST:
+      status is 0 (success) if the broadcast sends [does NOT tell if received]
+      status is 1 if an internal error occurs
+
+    For everything else:
+      status is 0 if the target device receives the data successfully
+      status is 1 on an error
+    
+    ESP-NOW resends multiple times by default to maximize successful sends, but a callback TODO needs implemented
+     */
 void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 
+/*  Test Data Structure (TODO: Replace) */
 typedef struct{     //Change inside away from uint8_t and pack the struct
     uint8_t ID;
     uint8_t data[2]; //Change to a pointer
@@ -37,7 +51,7 @@ typedef struct{     //Change inside away from uint8_t and pack the struct
 
 /*      Sending Functions      */
 
-
+//  Current Test Data
 esp_err_t send_exampleAwake(void);
 
 
@@ -54,8 +68,15 @@ esp_err_t send_exampleAwake(void);
 
 /*      Receiving Functions     */
 
+/*  
+    This is the handle that runs when ESP-NOW receives data
+
+    To receive data, call esp_event_handler_instance_register_with(rcv_event_handle, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
+*/
 esp_event_loop_handle_t rcv_event_handle;
 
+/*  Callback to receiving ESP-NOW data
+    Simply pushes received data to the rcv_event_handle loop  */
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len);
 //Note: rcv, not recv
 
