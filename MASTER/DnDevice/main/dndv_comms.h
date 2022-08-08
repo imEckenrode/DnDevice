@@ -2,11 +2,10 @@
 /*# ifndef dndv_comms.h
 # define dndv_comms.h*/
 
-//#include "dndv_internals.h"
+#include "dndv_internals.h"
 #include "esp_now.h"
 
-/*
- All communcation (over ESP-NOW) can be found in here.
+/*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
   SENDING
 
@@ -26,8 +25,42 @@
     Function
 */
 
+
 /*  Initialize ESP-NOW communications */
 void comms_init(void);
+
+
+/*     - Data Structures - 
+    Define whatever set you want for your data to send, then cast it back to that on data receive based on the ID
+      This ID can be found by casting to the sending_data structure below
+
+    The ID should only be assigned through this library.
+
+    It is recommended to use __attribute__((__packed__)) to send as much data as possible, as this guarantees that no padding bytes are added.
+      This is also REQUIRED to maintain alignment if a communication structure is used in multiple places.
+*/
+
+/*  ID and Data - Data Structure */
+typedef struct __attribute__((__packed__)) sendingData{
+    uint8_t ID;
+    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly!
+} sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
+
+
+/*     - Sending Functions -     */
+
+
+// Send the data!
+
+esp_err_t dndv_send(sending_data data);
+
+
+//  Current Test Data
+esp_err_t send_exampleAwake(void);
+
+
+
 
 /* Callback to when ESP-NOW sends successfully
     
@@ -43,30 +76,12 @@ void comms_init(void);
      */
 void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 
-/*  Test Data Structure (TODO: Replace) */
-typedef struct{     //Change inside away from uint8_t and pack the struct
-    uint8_t ID;
-    uint8_t data[2]; //Change to a pointer
-} sending_data;
-
-/*      Sending Functions      */
-
-//  Current Test Data
-esp_err_t send_exampleAwake(void);
 
 
 
 
 
-
-
-
-
-
-
-
-
-/*      Receiving Functions     */
+/*     - Receiving Functions -    */
 
 /*  
     This is the handle that runs when ESP-NOW receives data
