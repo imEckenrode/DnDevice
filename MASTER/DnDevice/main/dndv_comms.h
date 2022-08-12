@@ -57,7 +57,7 @@ esp_err_t dndv_send(sending_data data);
 
 
 //  Current Test Data
-esp_err_t send_exampleAwake(void);
+esp_err_t dndv_send_onAwake(void);
 
 
 

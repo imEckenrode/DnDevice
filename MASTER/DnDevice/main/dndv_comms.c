@@ -61,9 +61,9 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 
 /*      Sending Functions      */
 
-//Make a default sending function
-
-esp_err_t send_exampleAwake(void){
+//dndv_send_onAwake
+//This function should be run when the device wakes up to broadcast its prescence to any DM devices
+esp_err_t dndv_send_onAwake(void){
     const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
     sending_data dat;
@@ -77,7 +77,7 @@ esp_err_t send_exampleAwake(void){
         return ESP_FAIL;
     }
     return ESP_OK;
-    //Could wait for callback here
+    //Could wait for callback here to call more times
 }
 
 

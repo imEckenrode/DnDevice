@@ -26,7 +26,7 @@ void console_init(void){
 
 static int ping_cmd(int argc, char **argv){
     printf("And now we send it!\n");
-    send_exampleAwake();
+    dndv_send_onAwake();
     return 0;
 }
 
