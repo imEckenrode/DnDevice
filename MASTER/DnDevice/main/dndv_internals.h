@@ -1,12 +1,9 @@
 #pragma once
 //#ifndef the_functions.h   //(I think these need quotations around the name)
 //# define the_functions.h
-
 #include <stdbool.h>
 
-
-
-/* What is this?
+/*               - - - THIS FILE DESCRIPTION - - -
 
  All global varibles and structures for the DnDevice can be found in here
 
@@ -23,33 +20,52 @@ order:      (global variables on top, then)
     Function
 */
 
-/*  Old Code
-            // current_context tracks what state the device is in, so it cannot attack when no one is logged in
-            struct context_s{
-                bool connected;         //Set to True when the device connects to the DM    (set DM to True)
-                bool loggedIn;          //Set to True when the player
-                bool onePC;             //Set to True if one character is selected 
-                bool DM;            //Set to True if the DM is selected (so there's no point sending ESPNow to yourself in the event of MultiPlayers)
-                //bool multiPlayers;       //Set to True if the device is hosting more than one player (which means it has to worry about routing) DM included
-            } current_context = {false,false,false,false};
-*/
+/*         - GLOBAL DEFINITIONS -          */
+#define MAX_PLAYER_COUNT 16
+
+
+
+/*     - Lowest Level Data Types -      */
+
+//  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
+typedef unsigned char macAddr[6];
+
+// identifier (for players and PCs) - a unique number
+typedef unsigned short Identifier;    //Can change this implementation as needed
+
+
+/*     - Device Level Data Types -      */
 
 /* The character struct (save data into a file) */
 typedef struct character_s{
-    //short id;
+    Identifier id;
     char name[40];
     short MaxHP;
     short HP;
     //uint8 level;
 } Character;
 
-/* The player [and DM] struct (save data into a file) */
+/* The player [and DM] struct (save data into a file)  */
 typedef struct player_s{
-    //short id;
+    Identifier id;
     char name[20];
     bool canDM;
     //bool babyMode;
 } Player;
+
+
+/*     FOR DM: Keeps track of connected characters.
+    Initialize this if you are a DM
+*/
+struct PlayerDevice{
+    MacAddr MAC;
+    Identifier PlayerId;
+};
+
+struct PlayerDeviceList{
+    struct PlayerDevice players[MAX_PLAYER_COUNT];
+};
+
 
 
 /*  Structure for keeping track of the device's user data   */
@@ -60,7 +76,10 @@ struct user_s{      //change this into a union
 };
 
 
-/*        GLOBAL VARIABLES           */
+
+
+
+/*       - GLOBAL VARIABLES -          */
 Character currentPC;        //The currently selected player character
 Player currentPlayer;       //The currently selected player
 struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT

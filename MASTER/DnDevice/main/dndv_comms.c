@@ -6,7 +6,7 @@
 #include "esp_wifi.h"
 #include "esp_log.h"
 
-#define TAG "DnDevice"
+#define TAG "DnDevice"  //TODO: This should be dynamic and label the PC or DM Name
 #define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
 
 void comms_init(void){
@@ -64,7 +64,8 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 //dndv_send_onAwake
 //This function should be run when the device wakes up to broadcast its prescence to any DM devices
 esp_err_t dndv_send_onAwake(void){
-    const uint8_t broadcast_mac[] = BROADCAST_MAC;
+    //const uint8_t broadcast_mac[] = BROADCAST_MAC;
+    macAddr broadcast_mac = BROADCAST_MAC;
 
     sending_data dat;
     dat.ID = 1;
