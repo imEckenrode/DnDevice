@@ -15,9 +15,9 @@ void nvs_init(void){
 
 void testPCInit(void){
 
-    Player examplePlayer = {"Bob",0};
+    Player examplePlayer = {1,"Bob",0};
     currentPlayer=examplePlayer;
-    Character examplePC = {"PowerWizard",5,3};
+    Character examplePC = {1,"PowerWizard",5,3};
     currentPC=examplePC;
 
     currentUser.DM = false;

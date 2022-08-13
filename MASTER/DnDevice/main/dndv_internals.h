@@ -25,6 +25,7 @@ order:      (global variables on top, then)
 
 
 
+
 /*     - Lowest Level Data Types -      */
 
 //  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
@@ -58,7 +59,7 @@ typedef struct player_s{
     Initialize this if you are a DM
 */
 struct PlayerDevice{
-    MacAddr MAC;
+    macAddr MAC;
     Identifier PlayerId;
 };
 

@@ -26,7 +26,11 @@
 			"freertos.h": "c",
 			"dndv_log.h": "c",
 			"dndv_comms.h": "c",
-			"thread": "c"
+			"thread": "c",
+			"*.tcc": "c",
+			"iomanip": "c",
+			"istream": "c",
+			"ostream": "c"
 		}
 	}
 }
