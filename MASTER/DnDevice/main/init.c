@@ -12,7 +12,7 @@
     
 */
 
-//For all initialization of libraries:
+//  For all initialization of libraries:
 void initAll(void){
     nvs_init();     //Initialize the inside file system
     //Initialize the SD card stuff (when needed)
@@ -22,7 +22,7 @@ void initAll(void){
     console_init();     //Initialize the Console to send commands from a PC
 }
 
-//For everything before the user's first input
+//  For everything before the user's first input
 void startup(void){
     initAll();              //Initialize all required libraries
     dndv_send_onAwake();    //Send out the "Awake" packet for active DMs to sync

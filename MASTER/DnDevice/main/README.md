@@ -18,6 +18,11 @@ All other sending functions take the inputs and convert them into the correct se
 The receiving code takes the data in, decodes it (with the ID), and calls the correct function.
 This function then calls the forward declared functions defined in the other libraries (see Other Libraries)
 
+## dnd
+
+This code houses all DnD (5e) specific items not included in dndv_internals.
+Initiative order, attacks, and turn management is all done in this file.
+
 ## init.c
 
 This code is the highest level; all initialization is done from here
@@ -30,5 +35,5 @@ All the other libraries
 
 To access globals, import dndv_internals
 To send data, inclue dndv_comms
-To receive data, modify the receiving code in dndv_comms to call the functions
+To receive data, register to the event loop (see dndv_comms.h)
 And to initialize the code, import its .h file and call its method in init.c

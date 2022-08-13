@@ -42,7 +42,6 @@ typedef struct character_s{
     Identifier id;
     char name[40];
     short MaxHP;
-    short HP;
     //uint8 level;
 } Character;
 
@@ -86,12 +85,18 @@ Player currentPlayer;       //The currently selected player
 struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
 
 
+/*      - Visible Function Declarations -       */ 
+
 /* Initialize the non-volatile storage library to persist data 
     Required for: ESP-NOW   */
 void nvs_init(void);
 
+/*  If the user just became a DM, start linking all */
+void DM_start(void);
+
+
 // And finally, tests:      
-    //(TODO: pull player from storage instead of initializing)
+    //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c
 void testPCInit(void);  //Initialize a test character into the currentPC 
 void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
 

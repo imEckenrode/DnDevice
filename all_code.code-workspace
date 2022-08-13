@@ -30,7 +30,8 @@
 			"*.tcc": "c",
 			"iomanip": "c",
 			"istream": "c",
-			"ostream": "c"
+			"ostream": "c",
+			"console.h": "c"
 		}
 	}
 }
