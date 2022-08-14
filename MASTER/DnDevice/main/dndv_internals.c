@@ -1,7 +1,7 @@
 #include "dndv_internals.h"
 #include <stdbool.h>
 #include "nvs_flash.h"
-
+#include "esp_event.h"
 
 
 void nvs_init(void){
@@ -11,6 +11,20 @@ void nvs_init(void){
         ret = nvs_flash_init();
     }
     ESP_ERROR_CHECK(ret);
+}
+
+void eventLoop_init(void){
+    ESP_ERROR_CHECK( esp_event_loop_create_default() );
+
+    esp_event_loop_args_t loop_args = {
+        .queue_size = 20,
+        .task_name = "eventLoopTask",     //A task will be created automatically 
+        .task_priority = uxTaskPriorityGet(NULL),
+        .task_stack_size = 2048,      //Up the stack size if this keeps running out of memory, but it should be fine
+        .task_core_id = tskNO_AFFINITY
+    };
+
+    esp_event_loop_create(&loop_args, &dndv_event_h);
 }
 
 void testPCInit(void){

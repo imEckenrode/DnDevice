@@ -11,6 +11,6 @@ static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void*
 
 
 void log_init(void){
-    esp_event_handler_instance_register_with(rcv_event_handle, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
 }
 

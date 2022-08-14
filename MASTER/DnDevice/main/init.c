@@ -15,6 +15,7 @@
 //  For all initialization of libraries:
 void initAll(void){
     nvs_init();     //Initialize the inside file system
+    eventLoop_init();   //Initialize the event loop library
     //Initialize the SD card stuff (when needed)
     comms_init();   //Initialize the ESP-NOW Communications implementation
     log_init();     //Initialize the logs

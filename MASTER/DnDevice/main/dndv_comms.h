@@ -52,7 +52,6 @@ typedef struct __attribute__((__packed__)) sendingData{
 
 
 // Send the data!
-
 esp_err_t dndv_send(sending_data data);
 
 
@@ -83,15 +82,8 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 
 /*     - Receiving Functions -    */
 
-/*  
-    This is the handle that runs when ESP-NOW receives data
-
-    To receive data, call esp_event_handler_instance_register_with(rcv_event_handle, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
-*/
-esp_event_loop_handle_t rcv_event_handle;
-
 /*  Callback to receiving ESP-NOW data
-    Simply pushes received data to the rcv_event_handle loop  */
+    Simply pushes received data to the dndv_event_h loop  */
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len);
 //Note: rcv, not recv
 

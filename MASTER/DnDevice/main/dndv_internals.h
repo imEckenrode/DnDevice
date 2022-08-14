@@ -22,6 +22,40 @@ order:      (global variables on top, then)
 
 /*         - GLOBAL DEFINITIONS -          */
 #define MAX_PLAYER_COUNT 16
+#define MAX_NAME_LENGTH 64  //Cound split this into Player and PC names
+
+
+
+
+
+/*          - EVENT LOOP -     
+    This is the handle that alerts all code when something is updated.
+
+    This can be an ESP-NOW receive, a local battle change, or even a message to send
+
+    To receive data, call something like esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
+*/
+esp_event_loop_handle_t dndv_event_h;
+
+
+//RCV_BASE: For any data received from ESP-NOW
+ESP_EVENT_DECLARE_BASE(RCV_BASE);
+ESP_EVENT_DEFINE_BASE(RCV_BASE);
+
+//A temporary example of IDs for this
+enum { 
+  EVENT_AWAKE_BROADCAST,
+  EVENT_KEYIN,
+  EVENT_SYNC_REQUEST,
+  EVENT_FIGHT_ACTION,
+  EVENT_FIGHT_CONTROL,
+  EVENT_SYS,
+  EVENT_TEST
+};
+
+
+//Initialize the event loop library
+void eventLoop_init(void);
 
 
 
@@ -68,7 +102,7 @@ struct PlayerDeviceList{
 
 
 
-/*  Structure for keeping track of the device's user data   */
+/*  PER USER: Structure for keeping track of the device's user data   */
 struct user_s{      //change this into a union
     bool DM;
     Player* player;
