@@ -6,7 +6,7 @@
     "config_defaults":    "",
     "app_elf":            "DnDevice.elf",
     "app_bin":            "DnDevice.bin",
-    "git_revision":       "v4.4.1-dirty",
+    "git_revision":       "v4.4.1-1-g6edbe2da27-dirty",
     "target":             "esp32",
     "rev":                "0",
     "phy_data_partition": "",

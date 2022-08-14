@@ -17,6 +17,21 @@
 
 static const char *TAG = "MyDevice";
 
+typedef uint8_t ident;
+
+/* typedef struct __attribute__((__packed__)) sendingData{
+    ident ID;
+    uint8_t data[200];
+} sending_data; */
+
+/*      -- Program Flow --
+
+    Send 1 on awake
+    Send 2 if heard a 1
+    Send 3 if received a 2
+
+    This guarantees that both devices know each other (AKA syncing success)
+*/
 
 static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     ESP_LOGI(TAG, "I heard something! It was %d long",len);
@@ -32,13 +47,34 @@ static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
     memcpy(new_buddy.peer_addr,mac_here,6*sizeof(uint8_t));
 
-    if((int)*data==1 /*&& esp_now_get_peer()==ESP_ERR_ESPNOW_NOT_FOUND */){
-        esp_now_add_peer(&new_buddy);
+    ident two = 2;
+
+    switch((ident)*data){
+        case 1: //Initial broadcast heard
+            if(esp_now_get_peer(mac_here, &new_buddy)==ESP_ERR_ESPNOW_NOT_FOUND ){
+                esp_now_add_peer(&new_buddy);
+            }
+            printf("Found a new device, attempting to pair!\n");
+            break;
+
+        case 2: //Request to pair received
+            if(esp_now_get_peer(mac_here, &new_buddy)==ESP_ERR_ESPNOW_NOT_FOUND ){
+                esp_now_add_peer(&new_buddy);
+            }
+            two = 3;
+            printf("Device asking to pair, sending back to confirm\n");
+            break;
+
+        case 3: //Confirmation of pairing received
+            printf("Pairing Successful!\n\n");
+            return;
+        default:
+            printf("New signal...not recognized.\n");
+            return;
     }
     
     printf("MAC %x:%x:%x:%x:%x:%x", mac_here[0],mac_here[1],mac_here[2],mac_here[3],mac_here[4],mac_here[5]);
 
-    short two = 2;
     esp_err_t err = esp_now_send(mac_here, (uint8_t*) &two, sizeof(two));   //A send to NULL means that the device sends to ALL peers    
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Send Error (%x)",err);           //0x3069 = Peer Not Found
@@ -91,7 +127,7 @@ void app_main(void)
     ESP_ERROR_CHECK(ret);
     fullInit();
     const uint8_t broadcast[] =  BROADCAST_MAC;
-    static int first = 1;
+    static ident first = 1;
 
 
     esp_err_t err = esp_now_send(broadcast, (uint8_t*) &first, sizeof(first));

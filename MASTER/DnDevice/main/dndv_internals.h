@@ -2,6 +2,7 @@
 //#ifndef the_functions.h   //(I think these need quotations around the name)
 //# define the_functions.h
 #include <stdbool.h>
+#include "esp_event.h"
 
 /*               - - - THIS FILE DESCRIPTION - - -
 
@@ -31,14 +32,14 @@ order:      (global variables on top, then)
 /*          - EVENT LOOP -     
     This is the handle that alerts all code when something is updated.
 
-    This can be an ESP-NOW receive, a local battle change, or even a message to send
+    This can be an ESP-NOW receive, a local battle change, or connections and settings data
 
     To receive data, call something like esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
 */
 esp_event_loop_handle_t dndv_event_h;
 
 
-//RCV_BASE: For any data received from ESP-NOW
+// RCV_BASE: For any data received from ESP-NOW  (TODO: Change this to eliminate distinction between received data and locally updated data (for DM))
 ESP_EVENT_DECLARE_BASE(RCV_BASE);
 ESP_EVENT_DEFINE_BASE(RCV_BASE);
 
@@ -76,6 +77,7 @@ typedef struct character_s{
     Identifier id;
     char name[40];
     short MaxHP;
+    short HP;
     //uint8 level;
 } Character;
 

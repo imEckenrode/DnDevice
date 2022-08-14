@@ -43,7 +43,7 @@ void comms_init(void);
 /*  ID and Data - Data Structure */
 typedef struct __attribute__((__packed__)) sendingData{
     uint8_t ID;
-    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly!
+    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
 } sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 
@@ -55,7 +55,7 @@ typedef struct __attribute__((__packed__)) sendingData{
 esp_err_t dndv_send(sending_data data);
 
 
-//  Current Test Data
+//  When a device wakes up, broadcast as such
 esp_err_t dndv_send_onAwake(void);
 
 

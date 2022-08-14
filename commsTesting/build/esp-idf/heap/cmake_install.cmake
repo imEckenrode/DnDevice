@@ -1,4 +1,4 @@
-# Install script for directory: C:/Espressif/frameworks/esp-idf-v4.4.1/components/heap
+# Install script for directory: C:/Users/iepc/Espressif/releases/esp-idf-v4.4.1/components/heap
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

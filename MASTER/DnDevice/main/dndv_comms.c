@@ -85,7 +85,7 @@ esp_err_t dndv_send_onAwake(void){
 
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
   ESP_LOGI(TAG, "Saw some data out there.");
-  esp_event_post_to(dndv_event_h, RCV_BASE,EVENT_TEST,data,len,0);
+  esp_event_post_to(dndv_event_h, RCV_BASE,EVENT_TEST,(void*)data,len,0);
   ESP_LOGI(TAG, "Should be recorded now.");
   //Data is automatically managed by the event loop, so a pointer to the data is safe
 }

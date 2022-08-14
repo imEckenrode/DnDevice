@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include "nvs_flash.h"
 #include "esp_event.h"
-
+//#include "esp_event.h" (Included in above)    //TODO: Move all includes to .h?
 
 void nvs_init(void){
     esp_err_t ret = nvs_flash_init();   //Initialize the nvs, and use "ret"urn to clear out if more space is needed
