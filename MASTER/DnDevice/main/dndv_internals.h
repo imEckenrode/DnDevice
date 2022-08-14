@@ -1,11 +1,11 @@
 #pragma once
-//#ifndef the_functions.h   //(I think these need quotations around the name)
-//# define the_functions.h
+//#ifndef DNDV_INTERNALS_H    //Cannot start with an E or an underscore, so may rename to H_...
+//#define DNDV_INTERNALS_H
 #include <stdbool.h>
 #include "esp_event.h"
 
 /*               - - - THIS FILE DESCRIPTION - - -
-
+ 
  All global varibles and structures for the DnDevice can be found in here
 
 
@@ -137,4 +137,4 @@ void testPCInit(void);  //Initialize a test character into the currentPC
 void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
 
 
-//#endif
+#endif
