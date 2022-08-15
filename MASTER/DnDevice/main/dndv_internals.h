@@ -1,6 +1,6 @@
-#pragma once
-//#ifndef DNDV_INTERNALS_H    //Cannot start with an E or an underscore, so may rename to H_...
-//#define DNDV_INTERNALS_H
+//#pragma once
+#ifndef DNDV_INTERNALS_H    //Cannot start with an E or an underscore, so may rename to H_...
+#define DNDV_INTERNALS_H
 #include <stdbool.h>
 #include "esp_event.h"
 #include "nvs_flash.h"
@@ -57,8 +57,8 @@ typedef struct player_s{
 } Player;
 
 
-/*     FOR DM: Keeps track of connected characters.
-    Initialize this if you are a DM
+/*  & FOR DM: Keeps track of connected characters.
+        Initialize this when 
 */
 struct PlayerDevice{
     macAddr MAC;
@@ -68,7 +68,6 @@ struct PlayerDevice{
 struct PlayerDeviceList{
     struct PlayerDevice players[MAX_PLAYER_COUNT];
 };
-
 
 
 /*  PER USER: Structure for keeping track of the device's user data   */
@@ -124,8 +123,9 @@ esp_event_loop_handle_t dndv_event_h;
 void eventLoop_init(void);
 
 /* MISC_BASE: For any data received that doesn't have a specific place (yet)  */
-ESP_EVENT_DECLARE_BASE(MISC_BASE);
-ESP_EVENT_DEFINE_BASE(MISC_BASE);
+ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
+//ESP_EVENT_DEFINE_BASE(MISC_BASE);
+//extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version
 
 //A temporary example of IDs for this
 enum { 
@@ -138,10 +138,10 @@ enum {
 
 /* DEVICE_BASE: For global changes to the local device (that may require further messages) 
         Used primarily for editing dndv_internals then updating accordingly
-*/
+
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
-
+*/
 //A temporary example of IDs for this
 enum {
     EVENT_KEVIN,            //EVENT_KEYIN!
@@ -154,20 +154,41 @@ enum {
 
 /* SYNC_BASE: For syncing DMs and Player devices
         Used primarily by dndv_comms
-*/
+
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 ESP_EVENT_DEFINE_BASE(SYNC_BASE);
-
+*/
 //A temporary example of IDs for this
 enum {
-    EVENT_AWAKE_BROADCAST,      //Broadcast this on awake, so any active DMs can send directly to this new device
-    EVENT_DM_BROADCAST_RCV,     //Broadcasted when a device becomes a DM. Transmits the DM
-    EVENT_DM_DM_INFO,           //Send the campaign name to 
-    EVENT_PLAYER_JOINED,            //TODO: Separate DM from PC
+    EVENT_DM_BROADCAST_RCV,         //Broadcasted when a device becomes a DM. Transmits the DM
+    EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
 
 
 
 
+/*  And finally,
+DM_RCV_BASE: For all events targeted to the DM from other devices
+    These are DM exclusive actions that should only heard by DM_ACTIVATE (minus the logs file)
+        TODO: See if this is the best way
 
-//#endif
+ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
+ESP_EVENT_DEFINE_BASE(DM_RCV_BASE);
+*/
+//A temporary example of IDs for this
+enum {
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
+    EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
+    EVENT_KEYDATA_REQUEST,      //A device requested the player name and character data for a specified key. Return the names.
+    EVENT_PC_JOINED,            //A PC has joined the adventure!
+    //EVENT_PC_READY
+};
+
+
+/*  TODO:    - DM EXCLUSIVE FUNCTIONS -
+    DM exclusive functions should always be verified by the global isDM variable...
+   
+*/
+
+
+#endif

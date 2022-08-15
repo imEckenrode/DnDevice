@@ -90,9 +90,7 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 
 
-
-
-/*    - 
+/*    - Sync DM To Player -
     For syncing at startup
 
     Under SYNC_BASE 
