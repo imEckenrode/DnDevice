@@ -3,6 +3,7 @@
 //#define DNDV_INTERNALS_H
 #include <stdbool.h>
 #include "esp_event.h"
+#include "nvs_flash.h"
 
 /*               - - - THIS FILE DESCRIPTION - - -
  
@@ -24,7 +25,7 @@ order:      (global variables on top, then)
 /*         - GLOBAL DEFINITIONS -          */
 #define MAX_PLAYER_COUNT 16
 #define MAX_NAME_LENGTH 64  //Cound split this into Player and PC names
-
+//#define MAX_NICKNAME_LENGTH 8
 
 
 
@@ -46,7 +47,7 @@ ESP_EVENT_DEFINE_BASE(RCV_BASE);
 //A temporary example of IDs for this
 enum { 
   EVENT_AWAKE_BROADCAST,
-  EVENT_KEYIN,
+  EVENT_KEVIN,      //EVENT_KEVIN     //KEY IN!
   EVENT_SYNC_REQUEST,
   EVENT_FIGHT_ACTION,
   EVENT_FIGHT_CONTROL,
@@ -75,7 +76,8 @@ typedef unsigned short Identifier;    //Can change this implementation as needed
 /* The character struct (save data into a file) */
 typedef struct character_s{
     Identifier id;
-    char name[40];
+    char name[MAX_NAME_LENGTH];
+    //char nicknames[MAX_NICKNAME_LENGTH];
     short MaxHP;
     short HP;
     //uint8 level;
@@ -84,9 +86,9 @@ typedef struct character_s{
 /* The player [and DM] struct (save data into a file)  */
 typedef struct player_s{
     Identifier id;
-    char name[20];
+    char name[MAX_NAME_LENGTH];
     bool canDM;
-    //bool babyMode;
+    //bool babyMode;    //Training Wheels Protocol
 } Player;
 
 
@@ -137,4 +139,4 @@ void testPCInit(void);  //Initialize a test character into the currentPC
 void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
 
 
-#endif
+//#endif

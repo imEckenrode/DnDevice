@@ -14,4 +14,4 @@
 
 */
 
-//Should initiative be a linked list of players? What works best for display?
+//Should initiative be a linked list of players?
