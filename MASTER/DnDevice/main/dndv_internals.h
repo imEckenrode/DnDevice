@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "esp_event.h"
 #include "nvs_flash.h"
-
+#include "esp_err.h"
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All global varibles and structures for the DnDevice can be found in here
@@ -22,12 +22,12 @@ order:      (global variables on top, then)
     Function
 */
 
-/*         - GLOBAL DEFINITIONS -          */
+/*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
 #define MAX_NAME_LENGTH 64  //Cound split this into Player and PC names
 //#define MAX_NICKNAME_LENGTH 8
 
-/*     - Lowest Level Data Types -      */
+/*     -- Lowest Level Data Types --      */
 
 //  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
 typedef unsigned char macAddr[6];
@@ -36,7 +36,7 @@ typedef unsigned char macAddr[6];
 typedef unsigned short Identifier;    //Can change this implementation as needed
 
 
-/*     - Device Level Data Types -      */
+/*     -- Device Level Data Types --      */
 
 /* The character struct (save data into a file) */
 typedef struct character_s{
@@ -56,8 +56,7 @@ typedef struct player_s{
     //bool babyMode;    //Training Wheels Protocol
 } Player;
 
-
-/*  & FOR DM: Keeps track of connected characters.
+/* FOR DM: Keeps track of connected characters.
         Initialize this when 
 */
 struct PlayerDevice{
@@ -81,13 +80,13 @@ struct user_s{      //change this into a union
 
 
 
-/*       - GLOBAL VARIABLES -          */
+/*       -- GLOBAL VARIABLES --          */
 Character currentPC;        //The currently selected player character
 Player currentPlayer;       //The currently selected player
 struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
 
 
-/*      - Visible Function Declarations -       */ 
+/*      -- Visible Function Declarations --       */ 
 
 /* Initialize the non-volatile storage library to persist data 
     Required for: ESP-NOW   */
@@ -113,7 +112,9 @@ void testDMInit(void);  //set DM boolean to true (Does not currently clear the c
     To receive data, call something like esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
                                                                                                 EVENT_BASE_HERE     EVENT_ID_HERE      ^function name
     FORMATTING:
-        Declare and define the 
+        Declare the base here with comments, then put an enumerator with all possible event IDs for that base.
+
+        Be sure to Define the base in dndv_internals.c!
 */
 
 //The handle for all dndevice events
@@ -122,10 +123,22 @@ esp_event_loop_handle_t dndv_event_h;
 //Initialize the event loop library
 void eventLoop_init(void);
 
+/*      - BASES AND IDS -        #IMPORTANT NOTE
+    In the dndv_comms system, one byte is for bases, one byte is for IDs
+    Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
+    If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
+*/
+
+/* BASE CONVERSION
+    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
+//To convert from the ELL Base to our custom numbers
+uint8_t EventBase2Num(esp_event_base_t base);
+//To convert back to the ELL Base from our custom numbers
+esp_event_base_t Num2EventBase(uint8_t num);
+
 /* MISC_BASE: For any data received that doesn't have a specific place (yet)  */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
-//ESP_EVENT_DEFINE_BASE(MISC_BASE);
-//extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version
+//extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
 
 //A temporary example of IDs for this
 enum { 
@@ -138,10 +151,10 @@ enum {
 
 /* DEVICE_BASE: For global changes to the local device (that may require further messages) 
         Used primarily for editing dndv_internals then updating accordingly
-
-ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
-ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
 */
+ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
+
+
 //A temporary example of IDs for this
 enum {
     EVENT_KEVIN,            //EVENT_KEYIN!
@@ -154,10 +167,10 @@ enum {
 
 /* SYNC_BASE: For syncing DMs and Player devices
         Used primarily by dndv_comms
-
-ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-ESP_EVENT_DEFINE_BASE(SYNC_BASE);
 */
+ESP_EVENT_DECLARE_BASE(SYNC_BASE);
+
+
 //A temporary example of IDs for this
 enum {
     EVENT_DM_BROADCAST_RCV,         //Broadcasted when a device becomes a DM. Transmits the DM
@@ -171,11 +184,11 @@ enum {
 DM_RCV_BASE: For all events targeted to the DM from other devices
     These are DM exclusive actions that should only heard by DM_ACTIVATE (minus the logs file)
         TODO: See if this is the best way
-
-ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
-ESP_EVENT_DEFINE_BASE(DM_RCV_BASE);
 */
-//A temporary example of IDs for this
+ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
+
+
+//A temporary example of IDs for this       //TODO: Split into more categories than just the sync base
 enum {
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info

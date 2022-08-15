@@ -24,9 +24,37 @@ void eventLoop_init(void){
 }
 
 /* -EVENT LOOP BASE DEFINITIONS-
-Because C doesn't like me defining a global variable every time .h is included
+Because C doesn't like me defining a global variable every time .h is included, so it must be defined here
 */
     ESP_EVENT_DEFINE_BASE(MISC_BASE);
+    ESP_EVENT_DEFINE_BASE(DM_RCV_BASE);
+    ESP_EVENT_DEFINE_BASE(SYNC_BASE);
+    ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
+
+/*  To convert back and forth between the number to send and the local base definition  */
+
+
+static esp_event_base_t* EventBases[] = {
+    MISC_BASE,
+    DEVICE_BASE,
+    SYNC_BASE,
+    DM_RCV_BASE,
+}
+
+uint8_t EventBase2Num(esp_event_base_t base){
+    uint8_t size = sizeof(EventBases)/sizeof(esp_event_base_t);
+    for(int i=0; i<size; i++){
+        if(EventBases[i]==base){
+            return i;
+        }
+    }
+    ESP_LOGE("eventBaseError","Could not locate the specified Event Base.");    //Check above to make sure it exists there
+    return 255;
+}
+
+esp_event_base_t Num2EventBase(uint8_t num){
+    return EventBases[num];
+}
 
 
 
@@ -38,7 +66,7 @@ Because C doesn't like me defining a global variable every time .h is included
 
 */
 
-void dmAct(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+void dm_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     printf("Heard some stuff out there...as a DM\n");
 }
 
@@ -50,14 +78,13 @@ void DM_Activate(void){
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
     
-    esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID, dmAct, NULL,NULL);
-}       //TODO: Change back to DM_RCV_BASE 
+    esp_event_handler_instance_register_with(dndv_event_h, DM_RCV_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
+}
 
 
 
 
 void testPCInit(void){
-
     Player examplePlayer = {1,"Bob",0};
     currentPlayer=examplePlayer;
     Character examplePC = {1,"PowerWizard",5,3};
