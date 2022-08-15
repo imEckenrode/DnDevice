@@ -57,7 +57,8 @@ esp_err_t dndv_send_onAwake(void){
     macAddr broadcast_mac = BROADCAST_MAC;
 
     sending_data dat;
-    dat.ID = 1;
+    dat.BASE = N_DM_RCV_BASE;                     //Set the correct base and ID for easy unpacking
+    dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
     esp_err_t err = esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
 
@@ -80,10 +81,11 @@ esp_err_t dndv_send_onAwake(void){
   In any other file, use esp_event_handle_register_with to receive the data
 */
 
+//When data is received, find the base and ID, then post the data to the event loop
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
-  ESP_LOGI(TAG, "Saw some data out there.");
-  esp_event_post_to(dndv_event_h, MISC_BASE,EVENT_TEST,(void*)data,len,0);
-  ESP_LOGI(TAG, "Should be recorded now.");
+  esp_event_base_t base = Num2EventBase(data[0]);
+  uint8_t id = data[1];     //TODO: strip the first two bytes from the data
+  esp_event_post_to(dndv_event_h, base, id, (void*)data,len,0);
   //Data is automatically managed by the event loop, so a pointer to the data is safe
 }
 

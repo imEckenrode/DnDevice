@@ -41,7 +41,8 @@ void comms_init(void);
 */
 
 /*  ID and Data - Data Structure */
-typedef struct __attribute__((__packed__)) sendingData{
+typedef struct __attribute__((__packed__)) sendingData{   //TODO: !probably move this to dndv_internal or its own header file!
+    uint8_t BASE;
     uint8_t ID;
     uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
 } sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array

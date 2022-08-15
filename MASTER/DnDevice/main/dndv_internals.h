@@ -2,6 +2,7 @@
 #ifndef DNDV_INTERNALS_H    //Cannot start with an E or an underscore, so may rename to H_...
 #define DNDV_INTERNALS_H
 #include <stdbool.h>
+#include <string.h> //for base comparison
 #include "esp_event.h"
 #include "nvs_flash.h"
 #include "esp_err.h"
@@ -104,7 +105,7 @@ void testDMInit(void);  //set DM boolean to true (Does not currently clear the c
 
 
 
-/*          -- EVENT LOOP --    
+/* ______  -- EVENT LOOP --  ______
     This is the handle that alerts all code when something is updated.
 
     This can be an ESP-NOW receive, a local battle change, or connections and settings data
@@ -129,13 +130,6 @@ void eventLoop_init(void);
     If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
 */
 
-/* BASE CONVERSION
-    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
-//To convert from the ELL Base to our custom numbers
-uint8_t EventBase2Num(esp_event_base_t base);
-//To convert back to the ELL Base from our custom numbers
-esp_event_base_t Num2EventBase(uint8_t num);
-
 /* MISC_BASE: For any data received that doesn't have a specific place (yet)  */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
@@ -153,7 +147,6 @@ enum {
         Used primarily for editing dndv_internals then updating accordingly
 */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
-
 
 //A temporary example of IDs for this
 enum {
@@ -198,10 +191,25 @@ enum {
 };
 
 
+/* BASE CONVERSION
+    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
+//To convert from the ELL Base to our custom numbers
+uint8_t EventBase2Num(esp_event_base_t base);
+//To convert back to the ELL Base from our custom numbers
+esp_event_base_t Num2EventBase(uint8_t num);
+
+enum{  
+    N_MISC_BASE,
+    N_DEVICE_BASE,
+    N_SYNC_BASE,
+    N_DM_RCV_BASE,
+}; //Use N_ your base to get the number automatically.
+      //Make sure this matches EventBases in dndv_internals.c
+
+//TODO: do this better, store numbers in a struct in that array, then somehow make it visible
+
 /*  TODO:    - DM EXCLUSIVE FUNCTIONS -
     DM exclusive functions should always be verified by the global isDM variable...
    
 */
-
-
 #endif

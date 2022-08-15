@@ -1,5 +1,9 @@
 #pragma once
 
+#include "dndv_internals.h"
+#include "dndv_comms.h"
+#include "esp_event.h"
+#include "esp_log.h"
 /*      dndv_log
 
     This code registers to the dndv_comms event loop.
