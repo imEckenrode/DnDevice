@@ -27,41 +27,6 @@ order:      (global variables on top, then)
 #define MAX_NAME_LENGTH 64  //Cound split this into Player and PC names
 //#define MAX_NICKNAME_LENGTH 8
 
-
-
-
-/*          - EVENT LOOP -     
-    This is the handle that alerts all code when something is updated.
-
-    This can be an ESP-NOW receive, a local battle change, or connections and settings data
-
-    To receive data, call something like esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
-*/
-esp_event_loop_handle_t dndv_event_h;
-
-
-// RCV_BASE: For any data received from ESP-NOW  (TODO: Change this to eliminate distinction between received data and locally updated data (for DM))
-ESP_EVENT_DECLARE_BASE(RCV_BASE);
-ESP_EVENT_DEFINE_BASE(RCV_BASE);
-
-//A temporary example of IDs for this
-enum { 
-  EVENT_AWAKE_BROADCAST,
-  EVENT_KEVIN,      //EVENT_KEVIN     //KEY IN!
-  EVENT_SYNC_REQUEST,
-  EVENT_FIGHT_ACTION,
-  EVENT_FIGHT_CONTROL,
-  EVENT_SYS,
-  EVENT_TEST
-};
-
-
-//Initialize the event loop library
-void eventLoop_init(void);
-
-
-
-
 /*     - Lowest Level Data Types -      */
 
 //  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
@@ -137,6 +102,72 @@ void DM_start(void);
     //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c
 void testPCInit(void);  //Initialize a test character into the currentPC 
 void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
+
+
+
+
+/*          -- EVENT LOOP --    
+    This is the handle that alerts all code when something is updated.
+
+    This can be an ESP-NOW receive, a local battle change, or connections and settings data
+
+    To receive data, call something like esp_event_handler_instance_register_with(dndv_event_h, ESP_EVENT_ANY_BASE, ESP_EVENT_ANY_ID,rcvToLog,NULL,NULL);
+                                                                                                EVENT_BASE_HERE     EVENT_ID_HERE      ^function name
+    FORMATTING:
+        Declare and define the 
+*/
+
+//The handle for all dndevice events
+esp_event_loop_handle_t dndv_event_h;
+
+//Initialize the event loop library
+void eventLoop_init(void);
+
+/* MISC_BASE: For any data received that doesn't have a specific place (yet)  */
+ESP_EVENT_DECLARE_BASE(MISC_BASE);
+ESP_EVENT_DEFINE_BASE(MISC_BASE);
+
+//A temporary example of IDs for this
+enum { 
+  EVENT_FIGHT_ACTION,
+  EVENT_FIGHT_CONTROL,
+  EVENT_SYS,
+  EVENT_TEST,
+  EVENT_STRAIGHTTOLOG
+};
+
+/* DEVICE_BASE: For global changes to the local device (that may require further messages) 
+        Used primarily for editing dndv_internals then updating accordingly
+*/
+ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
+ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
+
+//A temporary example of IDs for this
+enum {
+    EVENT_KEVIN,            //EVENT_KEYIN!
+    EVENT_DM_ACTIVATE,      //When the DM is activated
+    EVENT_PLAYER_CHOSEN,    //When a player is selected
+    EVENT_PC_CHOSEN,        //When the user selects his/her character
+    //EVENT_LOG,
+};
+
+
+/* SYNC_BASE: For syncing DMs and Player devices
+        Used primarily by dndv_comms
+*/
+ESP_EVENT_DECLARE_BASE(SYNC_BASE);
+ESP_EVENT_DEFINE_BASE(SYNC_BASE);
+
+//A temporary example of IDs for this
+enum {
+    EVENT_AWAKE_BROADCAST,      //Broadcast this on awake, so any active DMs can send directly to this new device
+    EVENT_DM_BROADCAST_RCV,     //Broadcasted when a device becomes a DM. Transmits the DM
+    EVENT_DM_DM_INFO,           //Send the campaign name to 
+    EVENT_PLAYER_JOINED,            //TODO: Separate DM from PC
+};
+
+
+
 
 
 //#endif

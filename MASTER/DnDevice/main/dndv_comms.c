@@ -74,9 +74,6 @@ esp_err_t dndv_send_onAwake(void){
 
 
 
-
-
-
 /*      Receiving Function     
 
     When any ESP-NOW data is received, post it to the event loop (dndv_event_h, in dndv_internals)
@@ -85,7 +82,7 @@ esp_err_t dndv_send_onAwake(void){
 
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
   ESP_LOGI(TAG, "Saw some data out there.");
-  esp_event_post_to(dndv_event_h, RCV_BASE,EVENT_TEST,(void*)data,len,0);
+  esp_event_post_to(dndv_event_h, MISC_BASE,EVENT_TEST,(void*)data,len,0);
   ESP_LOGI(TAG, "Should be recorded now.");
   //Data is automatically managed by the event loop, so a pointer to the data is safe
 }
@@ -95,6 +92,11 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 
 
+/*    - 
+    For syncing at startup
+
+    Under SYNC_BASE 
+*/
 
 
 
