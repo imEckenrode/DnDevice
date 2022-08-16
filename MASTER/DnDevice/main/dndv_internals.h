@@ -25,7 +25,7 @@ order:      (global variables on top, then)
 
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
-#define MAX_NAME_LENGTH 64  //Cound split this into Player and PC names
+#define MAX_NAME_LENGTH 32  //Cound split this into Player and PC names
 //#define MAX_NICKNAME_LENGTH 8
 
 /*     -- Lowest Level Data Types --      */
@@ -79,7 +79,23 @@ struct user_s{      //change this into a union
 
 
 
+/*   A structure to pass both the MAC address and the data as one variable */
+typedef struct sendIt{
+    macAddr MAC;
+    uint8_t data[]; //TODO: this
+} send_it;
 
+
+/*      Sending Structures      */
+
+typedef uint8_t* raw_data; //TODO: Should this be a flexible array with a special initialization?
+
+/*  ID and Data - Data Structure */
+typedef struct __attribute__((__packed__)) sendingData{     //Could possibly move these sending structures to their own heading file...TODO?
+    uint8_t BASE;
+    uint8_t ID;
+    raw_data data;   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
+} sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 /*       -- GLOBAL VARIABLES --          */
 Character currentPC;        //The currently selected player character
@@ -105,7 +121,7 @@ void testDMInit(void);  //set DM boolean to true (Does not currently clear the c
 
 
 
-/* ______  -- EVENT LOOP --  ______
+/* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
 
     This can be an ESP-NOW receive, a local battle change, or connections and settings data
@@ -124,17 +140,17 @@ esp_event_loop_handle_t dndv_event_h;
 //Initialize the event loop library
 void eventLoop_init(void);
 
-/*      - BASES AND IDS -        #IMPORTANT NOTE
+/*                  -- BASES AND IDS --
+    Here is the system for all the ID's used within the DnDevice
+                    #IMPORTANT NOTE
     In the dndv_comms system, one byte is for bases, one byte is for IDs
     Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
     If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
 */
 
-/* MISC_BASE: For any data received that doesn't have a specific place (yet)  */
+/* -  MISC_BASE: For any data received that doesn't have a specific place (yet)  */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
-
-//A temporary example of IDs for this
 enum { 
   EVENT_FIGHT_ACTION,
   EVENT_FIGHT_CONTROL,
@@ -143,12 +159,10 @@ enum {
   EVENT_STRAIGHTTOLOG
 };
 
-/* DEVICE_BASE: For global changes to the local device (that may require further messages) 
+/* -  DEVICE_BASE: For global changes to the local device (that may require further messages) 
         Used primarily for editing dndv_internals then updating accordingly
-*/
+        */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
-
-//A temporary example of IDs for this
 enum {
     EVENT_KEVIN,            //EVENT_KEYIN!
     EVENT_DM_ACTIVATE,      //When the DM is activated
@@ -157,31 +171,35 @@ enum {
     //EVENT_LOG,
 };
 
+//EVENT_KEVIN_LEVIN
 
-/* SYNC_BASE: For syncing DMs and Player devices
+/* -  SYNC_BASE: For syncing DMs and Player devices
         Used primarily by dndv_comms
-*/
+        */
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-
-
-//A temporary example of IDs for this
 enum {
-    EVENT_DM_BROADCAST_RCV,         //Broadcasted when a device becomes a DM. Transmits the DM
-    EVENT_DM_TITLE_INFO,             //Send the campaign name to 
+    EVENT_DM_INFO,         //Broadcasted when a device becomes a DM. Transmits the DM
+    //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
 
 
-
+/* - OUTGOING_BASE
+    This is a special base only for sending ESP-NOW-ready data.
+  Typically only used from dndv_internals, where dndv_comms is out of scope.
+*/
+ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
+enum {
+    EVENT_SEND,
+    EVENT_SEND_BROADCAST,
+    //EVENT_SEND_TO_ALL_CONTACTS    //For Players to send to all DMs, or a DM to send to all Players
+};
 
 /*  And finally,
-DM_RCV_BASE: For all events targeted to the DM from other devices
+-  DM_RCV_BASE: For all events targeted to the DM from other devices
     These are DM exclusive actions that should only heard by DM_ACTIVATE (minus the logs file)
         TODO: See if this is the best way
 */
 ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
-
-
-//A temporary example of IDs for this       //TODO: Split into more categories than just the sync base
 enum {
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
@@ -191,6 +209,7 @@ enum {
 };
 
 
+
 /* BASE CONVERSION
     ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
 //To convert from the ELL Base to our custom numbers
@@ -198,10 +217,11 @@ uint8_t EventBase2Num(esp_event_base_t base);
 //To convert back to the ELL Base from our custom numbers
 esp_event_base_t Num2EventBase(uint8_t num);
 
-enum{  
+enum{          //TODO: stop using this. Fast, but have to maintain separately
     N_MISC_BASE,
     N_DEVICE_BASE,
     N_SYNC_BASE,
+    N_OUTGOING_BASE,
     N_DM_RCV_BASE,
 }; //Use N_ your base to get the number automatically.
       //Make sure this matches EventBases in dndv_internals.c

@@ -4,7 +4,9 @@
 
 #include "dndv_internals.h"
 #include "esp_now.h"
-
+#include "esp_wifi.h"
+#include "esp_log.h"
+#include "esp_err.h"
 /*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
   SENDING
@@ -26,7 +28,7 @@
 */
 
 
-/*  Initialize ESP-NOW communications */
+/*  Initialize ESP-NOW communications (This is located last) */
 void comms_init(void);
 
 
@@ -40,20 +42,12 @@ void comms_init(void);
       This is also REQUIRED to maintain alignment if a communication structure is used in multiple places.
 */
 
-/*  ID and Data - Data Structure */
-typedef struct __attribute__((__packed__)) sendingData{   //TODO: !probably move this to dndv_internal or its own header file!
-    uint8_t BASE;
-    uint8_t ID;
-    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
-} sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
-
-
 
 /*     - Sending Functions -     */
 
 
 // Send the data!
-esp_err_t dndv_send(sending_data data);
+esp_err_t dndv_send(macAddr mac, raw_data data);
 
 
 //  When a device wakes up, broadcast as such

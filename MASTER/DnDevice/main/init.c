@@ -27,8 +27,9 @@ void initAll(void){
 void startup(void){
     initAll();              //Initialize all required libraries
     dndv_send_onAwake();    //Send out the "Awake" packet for active DMs to sync
+    
+    //testDMInit(); 
 }
-
 
 /*  And finally, the main entry point of the application  */
 void app_main(void)
