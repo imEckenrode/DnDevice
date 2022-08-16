@@ -32,7 +32,10 @@
 			"istream": "c",
 			"ostream": "c",
 			"console.h": "c",
-			"esp_err.h": "c"
+			"esp_err.h": "c",
+			"array": "c",
+			"string": "c",
+			"string_view": "c"
 		}
 	}
 }
