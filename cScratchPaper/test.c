@@ -26,9 +26,35 @@ void printTheNum(int num){
     printf("%d",(ptr[num])());
 }
 
+
+
+struct inside{
+    short in;
+    short side;
+    int* again;
+    unsigned char* hello;
+};
+
+struct outside{
+    int out;
+    struct inside inner;
+};
+
+void structTesting(void){
+    int wellwell = 5;
+    int* ptr = &wellwell;
+    char* intro = "Hello, World!";
+    struct inside hi = {1,1,ptr, intro};
+    struct outside theStruct = {3,hi};
+
+    printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
+}
+
+
 int main(){
-    
-    call();
+    structTesting();
+
+    //call();
 /*
     printTheNum(0);
     printf("\n")

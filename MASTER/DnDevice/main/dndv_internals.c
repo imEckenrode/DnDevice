@@ -75,7 +75,7 @@ esp_event_base_t Num2EventBase(uint8_t num){
 /*      - DM EXCLUSIVE FUNCTIONS -
     Here are the functions exclusive to the DM
 
-    To keep this exclusivity, DM_Activate brings 
+    To keep this exclusivity, DM_Activate activates the handle for DM only events
 
 */
 

@@ -38,6 +38,7 @@ typedef unsigned char macAddr[6];
 typedef unsigned short Identifier;    //Can change this implementation as needed
 
 
+
 /*     -- Device Level Data Types --      */
 
 /* The character struct (save data into a file) */
@@ -83,7 +84,7 @@ struct user_s{      //change this into a union
 /*   A structure to pass both the MAC address and the data as one variable */
 typedef struct sendIt{
     macAddr MAC;
-    uint8_t data[]; //TODO: this
+    data data; //TODO: this
 } send_it;
 
 
@@ -96,7 +97,7 @@ typedef struct sendIt{
 typedef struct __attribute__((__packed__)) sendingData{     //Could possibly move these sending structures to their own heading file...TODO?
     uint8_t BASE;
     uint8_t ID;
-    uint8_t* data;   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
+    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)               //HAVE TO UNPACK DATA SOMEHOW
 } sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 /*       -- GLOBAL VARIABLES --          */
@@ -183,6 +184,7 @@ enum SYNC_B_ID{
     //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
 
+//struct sync_dmInfo{}
 
 /* - OUTGOING_BASE
     This is a special base only for sending ESP-NOW-ready data.
