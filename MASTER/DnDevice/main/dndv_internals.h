@@ -37,7 +37,15 @@ typedef unsigned char macAddr[6];
 // identifier (for players and PCs) - a unique number
 typedef unsigned short Identifier;    //Can change this implementation as needed
 
+// An array struct that gives a parameter for storing the size of the data  
+/*
+typedef struct {
+    int size;
+    uint8_t data[];
+} arr;  */
 
+//For the raw data to send
+//typedef uint8_t bytes[];
 
 /*     -- Device Level Data Types --      */
 

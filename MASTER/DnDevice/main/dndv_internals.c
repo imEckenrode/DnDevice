@@ -94,9 +94,11 @@ void dm_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 
 //  Initialize all the DM functions, handles, and variables.
 void DM_Activate(void){
-    char adventureName[] = "DM AwesomeName Here";
+    char adventureName = "DM AwesomeName Here";
+    int size = 22;
+    //arr to_send = {22, malloc()
     uint8_t to_send[22] = {N_SYNC_BASE,EVENT_DM_INFO};
-    memcpy(&to_send[2],adventureName,20);  //I can simply use 20 becasue the data is uint8
+    memcpy(&to_send[2], adventureName,20);  //I can simply use 20 becasue the data is uint8
     esp_event_handler_instance_register_with(dndv_event_h, DM_RCV_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
     //Player List
     //PlayerToMAC List

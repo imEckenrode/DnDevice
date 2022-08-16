@@ -2,7 +2,6 @@
 #include <stdbool.h>
 #include <string.h>
 
-
 #include "b.h"
 
 int five = 5;
@@ -40,6 +39,8 @@ struct outside{
     struct inside inner;
 };
 
+typedef char* bytes;
+
 void structTesting(void){
     int wellwell = 5;
     int* ptr = &wellwell;
@@ -50,9 +51,20 @@ void structTesting(void){
     printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
 }
 
+#include <stdlib.h>
+void byteTesting(void){
+    bytes a = (bytes) malloc(10);
+    printf("%s\n",a);       //Lots of junk data
+    char* b = "Heya";
+    memcpy(&a[1],(void*)b,strlen(b)+1);
+    printf("%s\n",a);       //Now there's one junk data before and then actual data
+    free(a);
+}
 
 int main(){
-    structTesting();
+    //structTesting();
+
+    byteTesting();
 
     //call();
 /*
