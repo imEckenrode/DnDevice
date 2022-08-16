@@ -31,7 +31,8 @@
 			"iomanip": "c",
 			"istream": "c",
 			"ostream": "c",
-			"console.h": "c"
+			"console.h": "c",
+			"esp_err.h": "c"
 		}
 	}
 }

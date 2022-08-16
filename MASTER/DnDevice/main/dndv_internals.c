@@ -60,9 +60,13 @@ uint8_t EventBase2Num(esp_event_base_t base){
 }
 
 //Convert the number to the event base. See above.
-esp_event_base_t Num2EventBase(uint8_t num){                //TODO: Make sure this works no matter where called from. I think EventBases loses scope.
+esp_event_base_t Num2EventBase(uint8_t num){
+    if(num<(sizeof(EventBases)/sizeof(EventBases[0]))){
+        return *(EventBases[num]);  //Return the value pointed at because EventBases is filled with pointers to the data
+    }
+    ESP_LOGE("Num2EventBase","Event base out of range! Bad data received!");
+    return MISC_BASE;
     //printf("Retrieved %s\n",*(EventBases[num]));
-    return *(EventBases[num]);  //Return the value pointed at because EventBases is filled with pointers to the data
 }
 
 

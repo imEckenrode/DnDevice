@@ -27,7 +27,7 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 /*      Sending Functions      */
 
 //Send data to the specified MAC address
-esp_err_t dndv_send(macAddr mac, raw_data data){
+esp_err_t dndv_send(macAddr mac, uint8_t* data){
     esp_err_t err = esp_now_send(mac,(uint8_t*)&data,sizeof(data));
 
     if(err != ESP_OK)
@@ -39,7 +39,8 @@ esp_err_t dndv_send(macAddr mac, raw_data data){
 }
 
 
-/*  Send out any data posted to the event loop to the included MAC address if applicable */
+/*  Send out any data posted to the event loop to the included MAC address if applicable
+    This requires formatting to be done before sending, so it's recommended to use other methods */
 void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_SEND_BROADCAST:
@@ -78,7 +79,7 @@ esp_err_t dndv_send_onAwake(void){
     dat.BASE = N_DM_RCV_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
-    esp_err_t err = esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
+    esp_err_t err = dndv_send(broadcast_mac,(uint8_t*)&dat);
 
     if(err != ESP_OK)
     {
@@ -89,6 +90,18 @@ esp_err_t dndv_send_onAwake(void){
     //Could wait for callback here to call more times
 }
 
+//dndv_send_ping
+//A test broadcast to test sending and receiving
+void dndv_send_ping(void){
+    //const uint8_t broadcast_mac[] = BROADCAST_MAC;
+
+    sending_data dat;
+    dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
+    dat.ID = EVENT_PING;        //ID number 3 as of writing this...
+
+    esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
+    //Could wait for callback here to call more times
+}
 
 
 

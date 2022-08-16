@@ -47,13 +47,14 @@ void comms_init(void);
 
 
 // Send the data!
-esp_err_t dndv_send(macAddr mac, raw_data data);
+esp_err_t dndv_send(macAddr mac, uint8_t* data);
 
 
 //  When a device wakes up, broadcast as such
 esp_err_t dndv_send_onAwake(void);
 
-
+//  For testing, broadcast a ping
+void dndv_send_ping(void);
 
 
 /* Callback to when ESP-NOW sends successfully

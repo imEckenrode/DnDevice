@@ -10,7 +10,7 @@
 
 static int ping_cmd(int argc, char **argv){
     printf("And now we send it!\n");
-    dndv_send_onAwake();
+    dndv_send_ping();
     return 0;
 }
 

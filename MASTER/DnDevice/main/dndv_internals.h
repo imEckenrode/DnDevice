@@ -6,6 +6,7 @@
 #include "esp_event.h"
 #include "nvs_flash.h"
 #include "esp_err.h"
+#include "esp_log.h"
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All global varibles and structures for the DnDevice can be found in here
@@ -86,15 +87,16 @@ typedef struct sendIt{
 } send_it;
 
 
-/*      Sending Structures      */
-
-typedef uint8_t* raw_data; //TODO: Should this be a flexible array with a special initialization?
+/*      Sending Structures      
+    These are the generic sending structures
+    See the sending structures per ID under "Bases and IDs"
+*/
 
 /*  ID and Data - Data Structure */
 typedef struct __attribute__((__packed__)) sendingData{     //Could possibly move these sending structures to their own heading file...TODO?
     uint8_t BASE;
     uint8_t ID;
-    raw_data data;   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
+    uint8_t* data;   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)
 } sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 /*       -- GLOBAL VARIABLES --          */
@@ -151,19 +153,18 @@ void eventLoop_init(void);
 /* -  MISC_BASE: For any data received that doesn't have a specific place (yet)  */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
-enum { 
-  EVENT_FIGHT_ACTION,
-  EVENT_FIGHT_CONTROL,
+enum MISC_B_ID{ 
   EVENT_SYS,
   EVENT_TEST,
-  EVENT_STRAIGHTTOLOG
+  EVENT_STRAIGHTTOLOG,
+  EVENT_PING
 };
 
 /* -  DEVICE_BASE: For global changes to the local device (that may require further messages) 
         Used primarily for editing dndv_internals then updating accordingly
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
-enum {
+enum DEVICE_B_ID{
     EVENT_KEVIN,            //EVENT_KEYIN!
     EVENT_DM_ACTIVATE,      //When the DM is activated
     EVENT_PLAYER_CHOSEN,    //When a player is selected
@@ -177,7 +178,7 @@ enum {
         Used primarily by dndv_comms
         */
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-enum {
+enum SYNC_B_ID{
     EVENT_DM_INFO,         //Broadcasted when a device becomes a DM. Transmits the DM
     //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
@@ -188,7 +189,7 @@ enum {
   Typically only used from dndv_internals, where dndv_comms is out of scope.
 */
 ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
-enum {
+enum OUTGOING_B_ID{
     EVENT_SEND,
     EVENT_SEND_BROADCAST,
     //EVENT_SEND_TO_ALL_CONTACTS    //For Players to send to all DMs, or a DM to send to all Players
@@ -200,7 +201,7 @@ enum {
         TODO: See if this is the best way
 */
 ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
-enum {
+enum DM_RCV_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
     EVENT_KEYDATA_REQUEST,      //A device requested the player name and character data for a specified key. Return the names.
