@@ -43,17 +43,17 @@ void DM_Activate(void){
 void testPCInit(void){
     Player examplePlayer = {1,"Bob",0};
     currentPlayer=examplePlayer;
-    Character examplePC = {1,"PowerWizard",5,3};
+    PC examplePC = {1,"PowerWizard",5,3};
     currentPC=examplePC;
 
-    currentUser.DM = false;
+    currentUser.isDM = false;
     currentUser.player = &currentPlayer;
     currentUser.character = &currentPC;
     printf("Test Player Initialized\n");
 }
 
 void testDMInit(void){
-    currentUser.DM = true;      //TODO: Could have a semaphore something or other on the global level
+    currentUser.isDM = true;      //TODO: Could have a semaphore something or other on the global level
     DM_Activate();
     printf("DM Mode Activated (Test DM Initialized)\n");
 }

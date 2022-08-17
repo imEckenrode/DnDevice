@@ -57,7 +57,7 @@ esp_err_t testPC_r(void){
 }
 
 static int tellMeYourNameAgain_cmd(int argc, char **argv){
-    printf("Active Player: %s\nActive Character: %s\n",currentPlayer.name,currentPC.name);
+    printf("Active Player: %s\nActive PC: %s\n",currentPlayer.name,currentPC.name);
     //Alternatively, currentUser.player->name,currentUser.character->name
     return 0;
 }

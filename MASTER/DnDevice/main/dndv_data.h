@@ -31,7 +31,9 @@ order:      (global variables on top, then)
 typedef unsigned char macAddr[6];
 
 // identifier (for players and PCs) - a unique number
-typedef unsigned short Identifier;    //Can change this implementation as needed
+typedef unsigned uint8_t Identifier;    //Can change this implementation as needed
+
+
 
 // An array struct that gives a parameter for storing the size of the data  
 /*
@@ -116,7 +118,8 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
 
 /*             -- Bases and ID Declaration --
 
-    __Formatting:_________
+    __Formatting:_________(COPY BELOW)
+
     ESP_EVENT_DECLARE_BASE(NAME_OF_BASE);
     enum NAME_OF_B_ID{
         EVENT_STUFF_GOES_HERE,  //Would be nice to comment as well
@@ -135,7 +138,7 @@ enum MISC_B_ID{
   EVENT_SYS,
   EVENT_TEST,
   EVENT_STRAIGHTTOLOG,
-  EVENT_PING
+  EVENT_PING                //TODO: Maybe add a timestamp for actual ping timing capabilities
 };
 
 
@@ -167,7 +170,7 @@ enum SYNC_B_ID{
 //EVENT_DM_INFO
 struct __attribute__((__packed__)) dm_info_s{
     struct IDs event;
-    char* name;
+    char campaignName[42];
 };
 
 

@@ -58,7 +58,7 @@ typedef struct character_s{
     short MaxHP;
     short HP;
     //uint8 level;
-} Character;
+} PC;
 
 /* The player [and DM] struct (save data into a file)  */
 typedef struct player_s{
@@ -83,13 +83,14 @@ struct PlayerDeviceList{
 
 /*  PER USER: Structure for keeping track of the device's user data   */
 struct user_s{      //change this into a union
-    bool DM;
+    bool isDM;
+    union
     Player* player;
-    Character* character;
+    PC* character;
 };
 
 /*       -- GLOBAL VARIABLES --          */
-Character currentPC;        //The currently selected player character
+PC currentPC;        //The currently selected player character
 Player currentPlayer;       //The currently selected player
 struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
 

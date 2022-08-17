@@ -67,7 +67,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
     }
 }
 
-
+currentUser
 
 
 //dndv_send_onAwake
@@ -96,8 +96,8 @@ void dndv_send_ping(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
     rcvg_data dat;
-    dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
-    dat.ID = EVENT_PING;        //ID number 3 as of writing this...
+    dat.event.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
+    dat.event.ID = EVENT_PING;        //ID number 3 as of writing this...
 
     esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
     //Could wait for callback here to call more times

@@ -4,7 +4,7 @@ static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void*
     ESP_LOGI("LOG","Data Received!");
     rcvg_data* data_rcv = (rcvg_data*) event_data;
     //printf("\nBase:%s\nID:%d\n",Num2EventBase(data_rcv->BASE),data_rcv->ID);
-    printf("\nBase:%d\nID:%d\n",data_rcv->BASE,data_rcv->ID);
+    printf("\nBase:%d\nID:%d\n",data_rcv->event.BASE,data_rcv->event.ID);
 }
 
 
