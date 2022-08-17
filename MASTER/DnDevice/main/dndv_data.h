@@ -40,23 +40,26 @@ typedef struct {
     uint8_t data[];
 } arr;  */
 
-//For the raw data to send
-//typedef uint8_t bytes[];
+//For the raw data to send, use uint8_t* 
+//typedef uint8_t* data_p;
 
 //*  Device-level data is managed in dndv_internals
 
 
-/*      Sending Structures      
+/*      Sending Structures and Functions
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"
 */
 
+
+
 /*  ID and Data - Data Structure */
-typedef struct __attribute__((__packed__)) sendingData{     //Could possibly move these sending structures to their own heading file...TODO?
+typedef struct __attribute__((__packed__)) idsAndData{
     uint8_t BASE;
     uint8_t ID;
-    uint8_t data[];   //This "flexible array member"    //TODO: Make sure this works correctly! (Must allocate space dynamically)               //HAVE TO UNPACK DATA SOMEHOW
-} sending_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+    uint8_t* data;   //This "flexible array member" means dynamic allocation will be neccesary
+} rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
@@ -94,6 +97,8 @@ enum MISC_B_ID{
   EVENT_STRAIGHTTOLOG,
   EVENT_PING
 };
+
+
 
 /* -  DEVICE_BASE: For global changes to the local device (that may require further messages) 
         Used primarily for editing dndv_internals then updating accordingly
@@ -141,7 +146,7 @@ enum DM_RCV_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
     EVENT_KEYDATA_REQUEST,      //A device requested the player name and character data for a specified key. Return the names.
-    EVENT_PC_JOINED,            //A PC has joined the adventure!
+    EVENT_PC_JOINED,            //A PC has joined the adventure!.
     //EVENT_PC_READY
 };
 

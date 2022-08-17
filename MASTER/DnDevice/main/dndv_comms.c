@@ -75,7 +75,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
 esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    sending_data dat;
+    rcvg_data dat;
     dat.BASE = N_DM_RCV_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
@@ -95,7 +95,7 @@ esp_err_t dndv_send_onAwake(void){
 void dndv_send_ping(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    sending_data dat;
+    rcvg_data dat;
     dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_PING;        //ID number 3 as of writing this...
 

@@ -61,10 +61,11 @@ void byteTesting(void){
     free(a);
 }
 
+
 int main(){
     //structTesting();
 
-    byteTesting();
+    //byteTesting();
 
     //call();
 /*
@@ -72,4 +73,5 @@ int main(){
     printf("\n")
     printTheNum(1);
 */
+
 }
