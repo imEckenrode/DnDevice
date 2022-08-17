@@ -51,15 +51,23 @@ typedef struct {
     See the sending structures per ID under "Bases and IDs"
 */
 
-
+/*
+struct __attribute__((__packed__)) raw_data{
+    uint8_t data[];         //This "flexible array member" means dynamic allocation will be neccesary
+};  */
 
 /*  ID and Data - Data Structure */
+struct __attribute__((__packed__)) IDs{
+    uint8_t BASE;
+    uint8_t ID;
+};           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
 typedef struct __attribute__((__packed__)) idsAndData{
     uint8_t BASE;
     uint8_t ID;
-    uint8_t* data;   //This "flexible array member" means dynamic allocation will be neccesary
+    //uint8_t len;
+    //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
-
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
@@ -122,6 +130,12 @@ enum SYNC_B_ID{
     EVENT_DM_INFO,         //Broadcasted when a device becomes a DM. Transmits the DM
     //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
+
+//EVENT_DM_INFO
+struct dm_info{
+    char* name;
+};
+
 
 //struct sync_dmInfo{}
 
