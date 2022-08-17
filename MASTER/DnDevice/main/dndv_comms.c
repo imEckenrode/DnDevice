@@ -67,8 +67,6 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
     }
 }
 
-currentUser
-
 
 //dndv_send_onAwake
 //This function should be run when the device wakes up to broadcast its prescence to any DM devices
@@ -76,7 +74,7 @@ esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
     struct IDs dat;
-    dat.BASE = N_DM_RCV_BASE;                     //Set the correct base and ID for easy unpacking
+    dat.BASE = N_SYNC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
     esp_err_t err = dndv_send(broadcast_mac,(uint8_t*)&dat);
@@ -134,6 +132,16 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
     Under SYNC_BASE 
 */
+void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    if(currentUser.isDM)
+    switch(id){
+        case EVENT_AWAKE_BROADCAST_RCV:
+            printf("A device just woke up.\n");
+            break;
+        default:
+            printf("Heard some stuff out there syncing and whatnot.\n");
+    }
+}
 
 
 
@@ -160,6 +168,7 @@ void comms_init(void){
     ESP_ERROR_CHECK( esp_now_add_peer(&broadcast_destination) );
 
     esp_event_handler_instance_register_with(dndv_event_h, OUTGOING_BASE, ESP_EVENT_ANY_ID, send_from_event, NULL,NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, send_from_event, NULL,NULL);
 }
 
 //#endif

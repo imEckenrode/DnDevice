@@ -25,35 +25,33 @@ order:      (global variables on top, then)
     Function
 */
 
+/*      -  NVS  - 
+
+Initialize the non-volatile storage library to persist data 
+    Required for: ESP-NOW   */
+void nvs_init(void);
+
 /*     -- Lowest Level Data Types --      */
 
 //  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
 typedef unsigned char macAddr[6];
 
 // identifier (for players and PCs) - a unique number
-typedef unsigned uint8_t Identifier;    //Can change this implementation as needed
+typedef short Identifier;    //Can change this implementation as needed
 
 
-
-// An array struct that gives a parameter for storing the size of the data  
-/*
-typedef struct {
-    int size;
-    uint8_t data[];
-} arr;  */
 
 //For the raw data to send, use uint8_t* 
 //typedef uint8_t* data_p;
 
-//*  Device-level data is managed in dndv_internals
+/*   Device-level data is managed in dndv_internals   */
+
 
 
 /*      Sending Structures and Functions
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"
-*/
-
-/*
+*//*
 struct __attribute__((__packed__)) raw_data{
     uint8_t data[];         //This "flexible array member" means dynamic allocation will be neccesary
 };  */
@@ -70,6 +68,7 @@ typedef struct __attribute__((__packed__)) idsAndData{
     //uint8_t len;
     //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
@@ -163,9 +162,11 @@ enum DEVICE_B_ID{
         */
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
-    EVENT_DM_INFO,         //Broadcasted when a device becomes a DM. Transmits the DM
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
+    EVENT_DM_INFO,                      //Broadcasted when a device becomes a DM. Transmits the DM
     //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
 };
+
 
 //EVENT_DM_INFO
 struct __attribute__((__packed__)) dm_info_s{
@@ -195,7 +196,6 @@ enum OUTGOING_B_ID{
 */
 ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
 enum DM_RCV_B_ID{
-    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so this active DMs can send directly to this new device
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
     EVENT_KEYDATA_REQUEST,      //A device requested the player name and character data for a specified key. Return the names.
     EVENT_PC_JOINED,            //A PC has joined the adventure!.

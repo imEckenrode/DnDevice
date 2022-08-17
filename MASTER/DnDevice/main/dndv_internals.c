@@ -1,5 +1,10 @@
 #include "dndv_internals.h"
 
+//Initialize all global variables to the correct values
+void internals_init(){
+    currentUser.isDM = false;
+}
+
 
 /*      - DM EXCLUSIVE FUNCTIONS -
     Here are the functions exclusive to the DM
@@ -10,9 +15,9 @@
 //The handler for any DM exclusive data
 void dm_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        case EVENT_AWAKE_BROADCAST_RCV:
+        /*case EVENT_AWAKE_BROADCAST_RCV:       //This code has been moved to the sync_rcv in dndv_comms.c
             printf("A device just woke up.\n");
-            break;
+            break;  */
         default:
             printf("Heard some stuff out there...as a DM\n");
     }
@@ -28,6 +33,7 @@ void DM_Activate(void){
     uint8_t to_send[22] = {N_SYNC_BASE,EVENT_DM_INFO};
     memcpy(&to_send[2], adventureName,20);  //I can simply use 20 becasue the data is uint8
     esp_event_handler_instance_register_with(dndv_event_h, DM_RCV_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
     //Player List
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)

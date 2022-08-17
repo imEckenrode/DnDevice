@@ -89,17 +89,19 @@ struct user_s{      //change this into a union
     PC* character;
 };
 
-/*       -- GLOBAL VARIABLES --          */
+/*              -- GLOBAL VARIABLES --               */
 PC currentPC;        //The currently selected player character
 Player currentPlayer;       //The currently selected player
 struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
 
+//TODO: have a pointer to a DM list that holds a dummy value until DM is initialized?
 
-/*      -- Visible Function Declarations --       */ 
+/*          -- Visible Function Declarations --          */ 
 
-/* Initialize the non-volatile storage library to persist data 
-    Required for: ESP-NOW   */
-void nvs_init(void);
+/*Initialize the global variables correctly
+    (Set isDM to False)
+*/
+void internals_init(void);
 
 /*  If the user just became a DM, start linking all */
 void DM_start(void);
