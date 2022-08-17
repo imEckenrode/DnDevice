@@ -63,8 +63,7 @@ struct __attribute__((__packed__)) IDs{
 };           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 typedef struct __attribute__((__packed__)) idsAndData{
-    uint8_t BASE;
-    uint8_t ID;
+    struct IDs event;
     //uint8_t len;
     //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
@@ -94,6 +93,37 @@ void eventLoop_init(void);
     In the dndv_comms system, one byte is for bases, one byte is for IDs
     Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
     If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
+*/
+
+/* BASE CONVERSION
+    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
+//To convert from the ELL Base to our custom numbers
+uint8_t EventBase2Num(esp_event_base_t base);
+//To convert back to the ELL Base from our custom numbers
+esp_event_base_t Num2EventBase(uint8_t num);
+
+enum base_numbers{                       //TODO: stop using this. Fast, but have to maintain separately
+    N_MISC_BASE,
+    N_DEVICE_BASE,
+    N_SYNC_BASE,
+    N_OUTGOING_BASE,
+    N_DM_RCV_BASE,
+}; //Use N_ your base to get the number automatically.
+      //Make sure this matches EventBases in dndv_data.c
+//TODO: do this better, store numbers in a struct in that array, then somehow make it visible
+
+
+/*             -- Bases and ID Declaration --
+
+    __Formatting:_________
+    ESP_EVENT_DECLARE_BASE(NAME_OF_BASE);
+    enum NAME_OF_B_ID{
+        EVENT_STUFF_GOES_HERE,  //Would be nice to comment as well
+    };
+
+    struct stuff_goes_here{         //Finally, the actual format of the data gets its own struct for easy access
+
+    };
 */
 
 /* -  MISC_BASE: For any data received that doesn't have a specific place (yet)  */
@@ -166,23 +196,6 @@ enum DM_RCV_B_ID{
 
 
 
-/* BASE CONVERSION
-    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
-//To convert from the ELL Base to our custom numbers
-uint8_t EventBase2Num(esp_event_base_t base);
-//To convert back to the ELL Base from our custom numbers
-esp_event_base_t Num2EventBase(uint8_t num);
-
-enum{          //TODO: stop using this. Fast, but have to maintain separately
-    N_MISC_BASE,
-    N_DEVICE_BASE,
-    N_SYNC_BASE,
-    N_OUTGOING_BASE,
-    N_DM_RCV_BASE,
-}; //Use N_ your base to get the number automatically.
-      //Make sure this matches EventBases in dndv_internals.c
-
-//TODO: do this better, store numbers in a struct in that array, then somehow make it visible
 
 /*  TODO:    - DM EXCLUSIVE FUNCTIONS -
     DM exclusive functions should always be verified by the global isDM variable...
