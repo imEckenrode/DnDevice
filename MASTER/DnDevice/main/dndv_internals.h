@@ -27,7 +27,7 @@ order:      (global variables on top, then)
 
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
-#define MAX_NAME_LENGTH 32  //Cound split this into Player and PC names
+#define MAX_NAME_LENGTH 32  //Cound split this into Player and PC/Campaign names
 //#define MAX_NICKNAME_LENGTH 8
 
 /*     -- Lowest Level Data Types --      */
@@ -50,7 +50,15 @@ typedef struct {
 
 /*     -- Device Level Data Types --      */
 
-/* The character struct (save data into a file) */
+/* The player [and DM] struct (save data into a file)  */
+typedef struct __attribute__((__packed__)) player_s{
+    Identifier id;
+    char name[MAX_NAME_LENGTH];
+    bool canDM;
+    bool TrainingWheelsProtocolActive;
+} Player;
+
+/* The character struct (save data into a file) */ 
 typedef struct character_s{
     Identifier id;
     char name[MAX_NAME_LENGTH];
@@ -60,13 +68,6 @@ typedef struct character_s{
     //uint8 level;
 } PC;
 
-/* The player [and DM] struct (save data into a file)  */
-typedef struct player_s{
-    Identifier id;
-    char name[MAX_NAME_LENGTH];
-    bool canDM;
-    //bool babyMode;    //Training Wheels Protocol
-} Player;
 
 /* FOR DM: Keeps track of connected characters.
         Initialize this when 
@@ -84,7 +85,6 @@ struct PlayerDeviceList{
 /*  PER USER: Structure for keeping track of the device's user data   */
 struct user_s{      //change this into a union
     bool isDM;
-    union
     Player* player;
     PC* character;
 };

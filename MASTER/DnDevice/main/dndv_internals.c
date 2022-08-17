@@ -3,6 +3,9 @@
 //Initialize all global variables to the correct values
 void internals_init(){
     currentUser.isDM = false;
+        
+    currentUser.player = &currentPlayer;       //TODO: Pass all through currentUser instead of three variables
+    currentUser.character = &currentPC;
 }
 
 
@@ -26,19 +29,20 @@ void dm_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 
 
 //  Initialize all the DM functions, handles, and variables.
+//      currentPlayer = DM Name
+//      currentPC = Campaign Name Stuff (TODO: Find uses for HP numbers or remove this functionality)
 void DM_Activate(void){
-    char* adventureName = "DM AwesomeName Here";
     //int size = 22;
     //arr to_send = {22, malloc()
-    uint8_t to_send[22] = {N_SYNC_BASE,EVENT_DM_INFO};
-    memcpy(&to_send[2], adventureName,20);  //I can simply use 20 becasue the data is uint8
+    uint8_t to_send[2+MAX_NAME_LENGTH] = {N_SYNC_BASE,EVENT_DM_INFO};
+    memcpy(&to_send[2], currentPC.name,20);  //I can simply use 20 becasue the data is uint8
     esp_event_handler_instance_register_with(dndv_event_h, DM_RCV_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
     esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, dm_rcv, NULL,NULL);
     //Player List
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
 
-    esp_event_post_to(dndv_event_h, DEVICE_BASE, EVENT_DM_ACTIVATE, (void*)adventureName, sizeof(adventureName), 0);
+    esp_event_post_to(dndv_event_h, DEVICE_BASE, EVENT_DM_ACTIVATE, (void*)currentPC.name, sizeof(currentPC.name), 0);
     esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, (void*)to_send, sizeof(to_send), 0);  //No need to divide size of a uint8 array, because sizeof(uint8) = 1
 }
 
@@ -53,13 +57,13 @@ void testPCInit(void){
     currentPC=examplePC;
 
     currentUser.isDM = false;
-    currentUser.player = &currentPlayer;
-    currentUser.character = &currentPC;
     printf("Test Player Initialized\n");
 }
 
 void testDMInit(void){
     currentUser.isDM = true;      //TODO: Could have a semaphore something or other on the global level
+    strcpy(currentPC.name, "MeDM");
+    strcpy(currentPC.name, "AwesomeCampaignTitle");
     DM_Activate();
     printf("DM Mode Activated (Test DM Initialized)\n");
 }

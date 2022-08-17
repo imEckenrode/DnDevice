@@ -132,18 +132,42 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
     Under SYNC_BASE 
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  When any sync data is passed, act on it.
+        Different actions for DM vs. non-DM     */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
-    if(currentUser.isDM)
-    switch(id){
-        case EVENT_AWAKE_BROADCAST_RCV:
-            printf("A device just woke up.\n");
-            break;
-        default:
-            printf("Heard some stuff out there syncing and whatnot.\n");
+    if(currentUser.isDM){
+        switch(id){
+            case EVENT_AWAKE_BROADCAST_RCV:
+                printf("A device just woke up.\n");
+                
+                break;
+            default:
+                printf("Heard some syncs, but not for the DM.\n");
+        }
+    }else{
+        switch(id){
+            case EVENT_AWAKE_BROADCAST_RCV:
+                printf("A device just woke up.\n");
+                break;
+            default:
+                printf("Heard some syncs, but I'm not a DM.\n");
+        }
     }
 }
-
-
 
 void comms_init(void){
   const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
