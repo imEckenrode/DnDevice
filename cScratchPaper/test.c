@@ -62,12 +62,39 @@ void byteTesting(void){
 }
 
 
+
+struct end{
+            short tenThousand;
+            short one;
+        };
+
+struct power{
+    struct{
+        int a;
+        int b;
+    } start;
+    union hello{
+        struct end bye;
+        int fullPower;
+    } pie;
+};
+
+
+void powerTrip(void){
+    struct power ultimate = {1,2,0,1};
+    printf("%d %d %d %d %d\n",ultimate.start.a, ultimate.pie.bye, ultimate.pie.bye.one, ultimate.start, ultimate.pie);
+
+    printf("%d\n", ultimate.pie.fullPower);
+}
+
+
+
 int main(){
     //structTesting();
-
     //byteTesting();
-
     //call();
+
+    powerTrip();
 /*
     printTheNum(0);
     printf("\n")

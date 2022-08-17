@@ -62,6 +62,7 @@ struct __attribute__((__packed__)) IDs{
     uint8_t ID;
 };           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
+
 typedef struct __attribute__((__packed__)) idsAndData{
     struct IDs event;
     //uint8_t len;
@@ -121,8 +122,9 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
         EVENT_STUFF_GOES_HERE,  //Would be nice to comment as well
     };
 
-    struct stuff_goes_here{         //Finally, the actual format of the data gets its own struct for easy access
-
+    struct __attribute__((__packed__)) stuff_goes_here_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
+        struct IDs event;     //The base and ID struct
+        uint8 the_data[248];    //
     };
 */
 
@@ -135,7 +137,6 @@ enum MISC_B_ID{
   EVENT_STRAIGHTTOLOG,
   EVENT_PING
 };
-
 
 
 /* -  DEVICE_BASE: For global changes to the local device (that may require further messages) 
@@ -152,6 +153,8 @@ enum DEVICE_B_ID{
 
 //EVENT_KEVIN_LEVIN
 
+
+
 /* -  SYNC_BASE: For syncing DMs and Player devices
         Used primarily by dndv_comms
         */
@@ -162,12 +165,14 @@ enum SYNC_B_ID{
 };
 
 //EVENT_DM_INFO
-struct dm_info{
+struct __attribute__((__packed__)) dm_info_s{
+    struct IDs event;
     char* name;
 };
 
 
-//struct sync_dmInfo{}
+
+
 
 /* - OUTGOING_BASE
     This is a special base only for sending ESP-NOW-ready data.
