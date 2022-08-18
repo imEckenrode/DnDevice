@@ -2,10 +2,10 @@
 
 //Initialize all global variables to the correct values
 void internals_init(){
-    currentUser.isDM = false;
+    current.isDM = false;
         
-    currentUser.player = &currentPlayer;       //TODO: Pass all through currentUser instead of three variables
-    currentUser.character = &currentPC;
+    //current.player = &currentPlayer;       //TODO: Pass all through current instead of three variables
+    //current.character = &currentPC;
 }
 
 
@@ -51,17 +51,19 @@ void DM_Activate(void){
 //And finally, tests
 
 void testPCInit(void){
-    Player examplePlayer = {1,"Bob",0};
+    Player examplePlayer = {1,"Bob",0,false};
     currentPlayer=examplePlayer;
     PC examplePC = {1,"PowerWizard",5,3};
     currentPC=examplePC;
 
-    currentUser.isDM = false;
+    current.isDM = false;
+    strcpy(current.p_name,currentPlayer.name);
+    strcpy(current.c_name,currentPC.name);
     printf("Test Player Initialized\n");
 }
 
 void testDMInit(void){
-    currentUser.isDM = true;      //TODO: Could have a semaphore something or other on the global level
+    current.isDM = true;      //TODO: Could have a semaphore something or other on the global level
     strcpy(currentPC.name, "MeDM");
     strcpy(currentPC.name, "AwesomeCampaignTitle");
     DM_Activate();

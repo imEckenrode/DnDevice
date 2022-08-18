@@ -27,26 +27,10 @@ order:      (global variables on top, then)
 
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
-#define MAX_NAME_LENGTH 32  //Cound split this into Player and PC/Campaign names
+#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
 //#define MAX_NICKNAME_LENGTH 8
 
-/*     -- Lowest Level Data Types --      */
-
-//  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
-typedef unsigned char macAddr[6];
-
-// identifier (for players and PCs) - a unique number
-typedef unsigned short Identifier;    //Can change this implementation as needed
-
-// An array struct that gives a parameter for storing the size of the data  
-/*
-typedef struct {
-    int size;
-    uint8_t data[];
-} arr;  */
-
-//For the raw data to send
-//typedef uint8_t bytes[];
+//Lowest Level Data Types in dndv_data.h
 
 /*     -- Device Level Data Types --      */
 
@@ -55,7 +39,7 @@ typedef struct __attribute__((__packed__)) player_s{
     Identifier id;
     char name[MAX_NAME_LENGTH];
     bool canDM;
-    bool TrainingWheelsProtocolActive;
+    bool TrainingWheelsProtocol_Active;
 } Player;
 
 /* The character struct (save data into a file) */ 
@@ -68,31 +52,29 @@ typedef struct character_s{
     //uint8 level;
 } PC;
 
-
-/* FOR DM: Keeps track of connected characters.
-        Initialize this when 
+/*     - Connections Tracking and Naming -
+    For DMs, this is the list of players
+    For players, this is the list of possible DMs and the campaign names  //, and TODO should stopstops persisting after a 
 */
-struct PlayerDevice{
+struct Contact{
     macAddr MAC;
-    Identifier PlayerId;
+    Identifier Id;
+    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
+    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
 };
-
-struct PlayerDeviceList{
-    struct PlayerDevice players[MAX_PLAYER_COUNT];
-};
-
 
 /*  PER USER: Structure for keeping track of the device's user data   */
 struct user_s{      //change this into a union
     bool isDM;
-    Player* player;
-    PC* character;
+    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
+    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
+    struct Contact devices[MAX_PLAYER_COUNT];
 };
 
 /*              -- GLOBAL VARIABLES --               */
-PC currentPC;        //The currently selected player character
+PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global
 Player currentPlayer;       //The currently selected player
-struct user_s currentUser;      //The current user, global to the DnDevice  //IMPORTANT
+struct user_s current;      //The current user, global to the DnDevice  //IMPORTANT
 
 //TODO: have a pointer to a DM list that holds a dummy value until DM is initialized?
 

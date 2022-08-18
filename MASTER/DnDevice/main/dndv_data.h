@@ -107,7 +107,7 @@ esp_event_base_t Num2EventBase(uint8_t num);
 enum base_numbers{                       //TODO: stop using this. Fast, but have to maintain separately
     N_MISC_BASE,
     N_DEVICE_BASE,
-    N_SYNC_BASE,
+    N_SYNC_BASE,            //For syncing data between DMs and Players
     N_OUTGOING_BASE,
     N_DM_RCV_BASE,
 }; //Use N_ your base to get the number automatically.
@@ -116,7 +116,7 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
 
 
 /*             -- Bases and ID Declaration --
-
+        Comment out anything that is currently unused
     __Formatting:_________(COPY BELOW)
 
     ESP_EVENT_DECLARE_BASE(NAME_OF_BASE);
@@ -134,10 +134,10 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
 enum MISC_B_ID{ 
-  EVENT_SYS,
-  EVENT_TEST,
-  EVENT_STRAIGHTTOLOG,
-  EVENT_PING                //TODO: Maybe add a timestamp for actual ping timing capabilities
+    //EVENT_SYS,
+    EVENT_TEST,
+    //EVENT_STRAIGHTTOLOG,
+    EVENT_PING                //TODO: Maybe add a timestamp for actual ping timing capabilities
 };
 
 
@@ -146,10 +146,10 @@ enum MISC_B_ID{
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 enum DEVICE_B_ID{
-    EVENT_KEVIN,            //EVENT_KEYIN!
+    //EVENT_KEVIN,            //EVENT_KEYIN!
     EVENT_DM_ACTIVATE,      //When the DM is activated
-    EVENT_PLAYER_CHOSEN,    //When a player is selected
-    EVENT_PC_CHOSEN,        //When the user selects his/her character
+    //EVENT_PLAYER_CHOSEN,    //When a player is selected
+    //EVENT_PC_CHOSEN,        //When the user selects his/her character
     //EVENT_LOG,
 };
 
@@ -157,21 +157,17 @@ enum DEVICE_B_ID{
 
 
 
-/* -  SYNC_BASE: For syncing DMs and Player devices
+/* -  SYNC_BASE: For syncing data DMs and Player devices
         Used primarily by dndv_comms
+    Contains all data for syncing. Players should stop listening to these events once in.
         */
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_DM_INFO,                      //Broadcasted when a device becomes a DM. Transmits the DM
-    //EVENT_DM_TITLE_INFO,             //Send the campaign name to 
-};
+    EVENT_DM_INFO,                      //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+    //EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key. Return the names.
+    //EVENT_KEYDATA_RCV
 
-
-//EVENT_DM_INFO
-struct __attribute__((__packed__)) dm_info_s{
-    struct IDs event;
-    char campaignName[42];
 };
 
 
@@ -189,6 +185,7 @@ enum OUTGOING_B_ID{
     //EVENT_SEND_TO_ALL_CONTACTS    //For Players to send to all DMs, or a DM to send to all Players
 };
 
+
 /*  And finally,
 -  DM_RCV_BASE: For all events targeted to the DM from other devices
     These are DM exclusive actions that should only heard by DM_ACTIVATE (minus the logs file)
@@ -197,8 +194,7 @@ enum OUTGOING_B_ID{
 ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
 enum DM_RCV_B_ID{
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
-    EVENT_KEYDATA_REQUEST,      //A device requested the player name and character data for a specified key. Return the names.
-    EVENT_PC_JOINED,            //A PC has joined the adventure!.
+    //EVENT_PC_JOINED,            //A PC has joined the adventure!
     //EVENT_PC_READY
 };
 

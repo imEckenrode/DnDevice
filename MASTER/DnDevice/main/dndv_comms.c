@@ -27,8 +27,8 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 /*      Sending Functions      */
 
 //Send data to the specified MAC address
-esp_err_t dndv_send(macAddr mac, uint8_t* data){
-    esp_err_t err = esp_now_send(mac,(uint8_t*)&data,sizeof(data));
+esp_err_t dndv_send(macAddr mac, void* data, size_t size){
+    esp_err_t err = esp_now_send(mac,(void*)data,size);
 
     if(err != ESP_OK)
     {
@@ -77,7 +77,8 @@ esp_err_t dndv_send_onAwake(void){
     dat.BASE = N_SYNC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
-    esp_err_t err = dndv_send(broadcast_mac,(uint8_t*)&dat);
+    printf("sizeof: 2 = %d\n", sizeof(dat));
+    esp_err_t err = dndv_send(broadcast_mac,(void*)&dat,sizeof(dat));
 
     if(err != ESP_OK)
     {
@@ -149,11 +150,10 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 /*  When any sync data is passed, act on it.
         Different actions for DM vs. non-DM     */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
-    if(currentUser.isDM){
+    if(current.isDM){
         switch(id){
             case EVENT_AWAKE_BROADCAST_RCV:
-                printf("A device just woke up.\n");
-                
+                printf("Now it's time to send stuff\n");             
                 break;
             default:
                 printf("Heard some syncs, but not for the DM.\n");

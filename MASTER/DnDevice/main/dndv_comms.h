@@ -47,7 +47,7 @@ void comms_init(void);
 
 
 // Send the data!
-esp_err_t dndv_send(macAddr mac, uint8_t* data);
+esp_err_t dndv_send(macAddr mac, void* data, size_t size);
 
 
 //  When a device wakes up, broadcast as such
