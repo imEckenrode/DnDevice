@@ -164,7 +164,9 @@ enum DEVICE_B_ID{
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_DM_INFO,                      //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+    EVENT_DM_INFO,                    //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+    //EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
+
     //EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key. Return the names.
     //EVENT_KEYDATA_RCV
 
