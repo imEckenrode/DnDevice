@@ -8,6 +8,7 @@
 macAddr broadcast_mac = BROADCAST_MAC;
 
 
+/*     -- Sending Functions --     */
 
 void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
   if (mac_addr == NULL) {
@@ -24,7 +25,26 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
   //xEventGroupSetBits(s_evt_group, BIT(status));
 }
 
-/*      Sending Functions      */
+/*  Calls ESP-NOW's add_peer function if the MAC address is not currently a peer.
+        "Peer" = Can be sent to by ESP-NOW
+
+    IMPORTANT: Returns True if the peer already exists                */
+bool addIfNewPeer(macAddr mac){
+    bool peerExists = esp_now_is_peer_exist(mac);
+    if(peerExists){
+        return true;
+    }
+    //Now, since the peer doesn't exist, add it
+
+    const esp_now_peer_info_t info = {
+        .channel = 1,
+        .ifidx = ESP_IF_WIFI_AP,
+        .encrypt = false,
+    };
+    memcpy(info.peer_addr,mac,MAC_ADDR_SIZE);
+    esp_now_add_peer(&info);
+    return false;
+}
 
 //Send data to the specified MAC address
 esp_err_t dndv_send(macAddr mac, void* data, size_t size){
@@ -34,7 +54,7 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
     {
         ESP_LOGE(TAG, "Send error (%d)", err);
         return ESP_FAIL;
-    }
+    } 
     return ESP_OK;
 }
 
@@ -77,7 +97,6 @@ esp_err_t dndv_send_onAwake(void){
     dat.BASE = N_SYNC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_AWAKE_BROADCAST_RCV;
 
-    printf("sizeof: 2 = %d\n", sizeof(dat));
     esp_err_t err = dndv_send(broadcast_mac,(void*)&dat,sizeof(dat));
 
     if(err != ESP_OK)
@@ -107,61 +126,85 @@ void dndv_send_ping(void){
 
 
 
-/*      Receiving Function     
+/*      -- Receiving Function --     
 
     When any ESP-NOW data is received, post it to the event loop (dndv_event_h, in dndv_internals)
   In any other file, use esp_event_handle_register_with to receive the data
 */
 
 //When data is received, find the base and ID, then post the data to the event loop
+//Note: this is run in the WiFi task, so this will take precedence over other tasks
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
-  esp_event_base_t base = Num2EventBase(data[0]);
-  uint8_t id = data[1];     //TODO: strip the first two bytes from the data
-  if (base == OUTGOING_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
-      ESP_LOGE(TAG, "OUTGOING_BASE will cause an infinite loop!\nAvoid sending Outgoing Base if you want your data to arrive correctly\n");
-      return;
-  }
-  esp_event_post_to(dndv_event_h, base, id, (void*)data,len,0);
+    esp_event_base_t base = Num2EventBase(data[0]);
+    uint8_t id = data[1];     //TODO: strip the first two bytes from the data
+    if (base == OUTGOING_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
+        ESP_LOGE(TAG, "OUTGOING_BASE will cause an infinite loop!\nAvoid sending Outgoing Base if you want your data to arrive correctly\n");
+        return;
+    }
+    //The length of the mac and data struct
+    short fullDataLen = len+MAC_ADDR_SIZE+sizeof(uint8_t);     //The macAndData struct will have the length of a Mac + dataLen (a uint8 to track data) + the data length
+    macAndData* fullData = malloc(fullDataLen);     
+    //TODO: Throw an error if malloc fails here!    
+    memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
+    fullData->dataLen = len;
+    memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
+    esp_event_post_to(dndv_event_h, base, id, (void*)data,fullDataLen,0);
+    free(fullData); //This frees the malloc'd memory
   //Data is automatically managed by the event loop, so a pointer to the data is safe
 }
 
 
 
 
-/*    - Sync DM To Player -
+/*    -- Sync DM and Player --
     For syncing at startup
 
     Under SYNC_BASE 
 */
 
 
+/*  -DM Sync Actions (in order)- */
+
+//Direct Message the Dungeon Master Data
+bool DM_DM_Data(macAndData* da){
+    //dndv_send();
+    return false;
+}
+
+bool addPotentialDevice(){return false;}
+
+bool addConfirmedPC(){return false;}
 
 
+/*  -PC Sync Actions (in order)- */
+
+bool addPotentialDM(){return false;}
 
 
-
-
-
-
-
-
-
+bool selectDM(){return false;}
 
 /*  When any sync data is passed, act on it.
         Different actions for DM vs. non-DM     */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    macAndData* da = (macAndData*) event_data;
     if(current.isDM){
-        switch(id){
+        switch(id){ //If DM and you receive stuff, call functions here
             case EVENT_AWAKE_BROADCAST_RCV:
-                printf("Now it's time to send stuff\n");             
+                ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
+                bool addedBefore = addIfNewPeer(da->mac);
+                if(addedBefore){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
+                DM_DM_Data(da);
+                break;
+            case EVENT_INFO_ACK:
+                addPotentialDevice();
                 break;
             default:
                 printf("Heard some syncs, but not for the DM.\n");
         }
     }else{
-        switch(id){
-            case EVENT_AWAKE_BROADCAST_RCV:
-                printf("A device just woke up.\n");
+        switch(id){ //If not DM and you receive stuff, call functions here
+            case EVENT_DM_INFO:
+                addPotentialDM();
                 break;
             default:
                 printf("Heard some syncs, but I'm not a DM.\n");

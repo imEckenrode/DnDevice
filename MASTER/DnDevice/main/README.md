@@ -2,11 +2,18 @@
 
 (For some reason, it is requiring me to add everything to the CMakeList...may try resetting that)
 
-## dndv_internals
+## dndv_data
 
 This is the lowest level of code on the dependency tree; everything can import this, while this does not import any custom code.
 
-All the structures and global variables are (or will be) here, including player data and data access.
+All the event loop library code and structures are here, including player data and data access.
+
+
+## dndv_internals
+
+This is the second-lowest level of code on the dependency tree; this only imports dndv_dat and nearly everything imports this.
+
+All the device-level structures and global variables are  here, including player data and data access.
 
 ## dndv_comms
 
@@ -29,7 +36,7 @@ This code is the highest level; all initialization is done from here
 
 ## Other Libraries
 
-All the other libraries 
+All the other libraries are also in there, most likely functioning as their names show
 
 #### Rules for Other Libraries
 

@@ -34,7 +34,8 @@ void nvs_init(void);
 /*     -- Lowest Level Data Types --      */
 
 //  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
-typedef unsigned char macAddr[6];
+#define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
+typedef unsigned char macAddr[MAC_ADDR_SIZE];
 
 // identifier (for players and PCs) - a unique number
 typedef short Identifier;    //Can change this implementation as needed
@@ -69,6 +70,11 @@ typedef struct __attribute__((__packed__)) idsAndData{
     //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
+typedef struct __attribute__((__packed__)) macPlusData{  //fullData: MAC address and data
+    macAddr mac;
+    uint8_t dataLen;
+    uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
+} macAndData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
@@ -165,7 +171,7 @@ ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
     EVENT_DM_INFO,                    //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
-    //EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
+    EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
 
     //EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key. Return the names.
     //EVENT_KEYDATA_RCV
