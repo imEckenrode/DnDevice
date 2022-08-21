@@ -50,8 +50,18 @@ bool addIfNewPeer(macAddr mac){
 esp_err_t dndv_send(macAddr mac, void* data, size_t size){
     esp_err_t err = esp_now_send(mac,(void*)data,size);
 
-    if(err != ESP_OK)
-    {
+    if(err != ESP_OK){
+        ESP_LOGE(TAG, "Send error (%d)", err);
+        return ESP_FAIL;
+    } 
+    return ESP_OK;
+}
+
+//Send data to the specified MAC address with a macAndData struct pointer
+esp_err_t dndv_sendMAD(macAndData* mad){
+    esp_err_t err = esp_now_send(mad->mac,mad->data,mad->dataLen);
+
+    if(err != ESP_OK){
         ESP_LOGE(TAG, "Send error (%d)", err);
         return ESP_FAIL;
     } 
@@ -60,30 +70,31 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
 
 
 /*  Send out any data posted to the event loop to the included MAC address if applicable
-    This requires formatting to be done before sending, so it's recommended to use other methods */
+    This requires formatting to be done before sending, so it's recommended to use other methods
+            TODO: STANDARDIZE with macAndData, then use this always?
+     */
 void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_SEND_BROADCAST:
           ESP_LOGV(TAG, "Sending broadcast");
-          esp_err_t err = esp_now_send(broadcast_mac,event_data,22);
+          esp_err_t err = esp_now_send(broadcast_mac,event_data,22);        //TODO: always take in MAC data inside event?
 
-          if(err != ESP_OK)
-          {
+          if(err != ESP_OK){
               ESP_LOGE(TAG, "Send error (%d)", err);
               return;
           }
           ESP_LOGV(TAG, "Sending success, data away.");
           return;
-
 /*
             dndv_send(broadcast_mac,(char*)event_data);
-            break;
-        case EVENT_SEND:
-            dndv_send(((send_it*) event_data)->MAC,((send_it*) event_data)->data);   //Cast to the data type as you pass it through
             break;  */
+        case EVENT_SEND:
+            dndv_send(  ((macAndData*) event_data)->mac,
+                        ((macAndData*) event_data)->data, 
+                        ((macAndData*) event_data)->dataLen);
+            break;
         default:
-            //dndv_send_to_all(event_data);
-            printf("Here's where I send it to everyone...yeah, put it on the TODO...\n");  //TODO: send to all function
+            ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
     }
 }
 
@@ -99,10 +110,9 @@ esp_err_t dndv_send_onAwake(void){
 
     esp_err_t err = dndv_send(broadcast_mac,(void*)&dat,sizeof(dat));
 
-    if(err != ESP_OK)
-    {
+    if(err != ESP_OK){
         ESP_LOGE(TAG, "Send error (%d)", err);
-        return ESP_FAIL;
+        return ESP_FAIL; 
     }
     return ESP_OK;
     //Could wait for callback here to call more times
@@ -117,7 +127,8 @@ void dndv_send_ping(void){
     dat.event.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.event.ID = EVENT_PING;        //ID number 3 as of writing this...
 
-    esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
+    dndv_send(broadcast_mac,&dat,sizeof(dat));
+    //esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
     //Could wait for callback here to call more times
 }
 
@@ -141,10 +152,11 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
         ESP_LOGE(TAG, "OUTGOING_BASE will cause an infinite loop!\nAvoid sending Outgoing Base if you want your data to arrive correctly\n");
         return;
     }
-    //The length of the mac and data struct
-    short fullDataLen = len+MAC_ADDR_SIZE+sizeof(uint8_t);     //The macAndData struct will have the length of a Mac + dataLen (a uint8 to track data) + the data length
-    macAndData* fullData = malloc(fullDataLen);     
+
+    short fullDataLen = len+MAC_ADDR_SIZE+sizeof(uint8_t);    //The length of the mac and data struct
+    macAndData* fullData = malloc(fullDataLen);             //The macAndData struct will have the length of a Mac + dataLen (a uint8 to track data) + the data length
     //TODO: Throw an error if malloc fails here!    
+
     memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
     fullData->dataLen = len;
     memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
@@ -165,10 +177,14 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 /*  -DM Sync Actions (in order)- */
 
-//Direct Message the Dungeon Master Data
-bool DM_DM_Data(macAndData* da){
-    //dndv_send();
-    return false;
+//Direct Message the Dungeon Master Data to the desired MAC
+bool DM_DM_Data(macAddr da){
+    esp_err_t err = dndv_send(da);
+    if(err != ESP_OK){
+        ESP_LOGE(TAG, "Could not send data to the new device.");
+        return ESP_FAIL;
+    } 
+    return ESP_OK;
 }
 
 bool addPotentialDevice(){return false;}
@@ -193,7 +209,7 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
                 ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
                 bool addedBefore = addIfNewPeer(da->mac);
                 if(addedBefore){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
-                DM_DM_Data(da);
+                DM_DM_Data(da->mac);
                 break;
             case EVENT_INFO_ACK:
                 addPotentialDevice();
