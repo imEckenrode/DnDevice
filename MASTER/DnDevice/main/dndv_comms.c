@@ -204,6 +204,7 @@ bool selectDM(){return false;}
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData* da = (macAndData*) event_data;
     if(current.isDM){
+        printf("I am a DM! Yay!\n");
         switch(id){ //If DM and you receive stuff, call functions here
             case EVENT_AWAKE_BROADCAST_RCV:
                 ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
@@ -251,7 +252,7 @@ void comms_init(void){
     ESP_ERROR_CHECK( esp_now_add_peer(&broadcast_destination) );
 
     esp_event_handler_instance_register_with(dndv_event_h, OUTGOING_BASE, ESP_EVENT_ANY_ID, send_from_event, NULL,NULL);
-    esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, send_from_event, NULL,NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
 }
 
 //#endif
