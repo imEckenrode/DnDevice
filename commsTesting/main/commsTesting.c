@@ -24,6 +24,28 @@ typedef uint8_t ident;
     uint8_t data[200];
 } sending_data; */
 
+
+typedef struct __attribute__((__packed__)){
+    uint8_t ID;
+    uint8_t data[];
+} sendingData;
+
+
+void next_test(const uint8_t* mac_addr){
+    sendingData* twoP = malloc(3);
+    twoP->ID = 4;
+    twoP->data[0] = 5;
+    twoP->data[1] = 6;
+    printf("Data: %d, %d",twoP->ID,*(twoP->data));
+    esp_err_t err = esp_now_send(mac_addr, (uint8_t*) twoP, 3);//sizeof(*twoP));  
+    free(twoP);
+    if(err != ESP_OK){
+        ESP_LOGE(TAG, "Send Error (%x)",err);           //0x3069 = Peer Not Found
+        return;
+    }
+}
+
+
 /*      -- Program Flow --
 
     Send 1 on awake
@@ -32,7 +54,6 @@ typedef uint8_t ident;
 
     This guarantees that both devices know each other (AKA syncing success)
 */
-
 static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     ESP_LOGI(TAG, "I heard something! It was %d long",len);
 
@@ -67,6 +88,16 @@ static void recv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
         case 3: //Confirmation of pairing received
             printf("Pairing Successful!\n\n");
+
+            next_test((uint8_t*) mac_here);    //And now the next test
+
+            return;
+        case 4:
+            printf("MADE IT HERE\n");
+            printf("Data Rcv: %d\n",(((sendingData*)data)->ID));
+            printf("More Data: %d\n",  (((sendingData*)data)->data)[0]  );
+
+            printf("More Data: %d\n",  *(data+2)  );        //Based on this pointer, the array is stored 2 down from the ID in contiguous memory, which means we're good!
             return;
         default:
             printf("New signal...not recognized.\n");

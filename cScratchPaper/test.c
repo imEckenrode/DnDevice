@@ -41,6 +41,15 @@ struct outside{
 typedef char* bytes;
 
 
+void structTesting(void){
+    int wellwell = 5;
+    int* ptr = &wellwell;
+    char* intro = "Hello, World!";
+    struct inside hi = {1,1,ptr, intro};
+    struct outside theStruct = {3,hi};
+    //printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
+}
+
 struct __attribute__((__packed__)) readAll{
     char and;
     char now[];
@@ -50,14 +59,12 @@ struct __attribute__((__packed__)) readCopy{
     struct readAll book;
 };
 
-void structTesting(void){
-    int wellwell = 5;
-    int* ptr = &wellwell;
-    char* intro = "Hello, World!";
-    struct inside hi = {1,1,ptr, intro};
-    struct outside theStruct = {3,hi};
-    //printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
-}
+struct __attribute__((__packed__)) readMore{
+    char one;
+    char two;
+    char now[];
+};
+
 
 void structTesting2(void){   
     printf("\nNow start\n");
@@ -82,8 +89,11 @@ void structTesting2(void){
     readingTime->book.and = ((struct readAll*)reading_p)->and;
     strcpy(readingTime->book.now, ((struct readAll*)reading_p)->now);
 
-    printf("\n%d, %d, %s", *((short*) &readingTime), readingTime->book.and, readingTime->book.now);
-        //As expected, would need to memcpy the 
+    printf("\n%d, %d, %s", *((short*) readingTime), readingTime->book.and, readingTime->book.now);
+        //As expected, would need to memcpy the h
+
+    printf("\n%d, %d, %s", *((short*)reading_p), ((struct readMore*)reading_p)->one, ((struct readMore*)reading_p)->now);   //Can use a different pointer to get different data
+
     printf("\nNow free\n");
     free(reading_p);
     free(readingTime);
