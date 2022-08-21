@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-
+#include <stdlib.h>
 #include "b.h"
 
 int five = 5;
@@ -26,7 +26,6 @@ void printTheNum(int num){
 }
 
 
-
 struct inside{
     short in;
     short side;
@@ -41,17 +40,56 @@ struct outside{
 
 typedef char* bytes;
 
+
+struct __attribute__((__packed__)) readAll{
+    char and;
+    char now[];
+};
+
+struct __attribute__((__packed__)) readCopy{
+    struct readAll book;
+};
+
 void structTesting(void){
     int wellwell = 5;
     int* ptr = &wellwell;
     char* intro = "Hello, World!";
     struct inside hi = {1,1,ptr, intro};
     struct outside theStruct = {3,hi};
-
-    printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
+    //printf("%d\n%d\n%d\n%s.\n%d\n%d\n.\n",theStruct.inner.in,theStruct.out, *theStruct.inner.again, theStruct.inner.hello,  theStruct.inner, theStruct);
 }
 
-#include <stdlib.h>
+void structTesting2(void){   
+    printf("\nNow start\n");
+    char* reading_p = malloc(6);
+    if (reading_p==NULL){
+        printf("\nAllocation failed!\n");
+        return;
+    }
+
+    char a = 'a';
+    *reading_p = a;
+    //memcpy(reading_p,&a,1);
+    strcpy(reading_p+1,"abcd");
+
+    printf("%d, %d, %s", *((short*)reading_p), ((struct readAll*)reading_p)->and, ((struct readAll*)reading_p)->now);
+    //The first one is 97*256+97, which means the array data is right next to the first character. Success!
+
+    /*struct readCopy readingTime = {*((struct readAll*) reading_p)};
+    printf("\n%d != %d", &readingTime.book.now, &((struct readAll*)reading_p)->now);    //The memory addresses are not the same (where is it going to?) */
+
+    struct readCopy* readingTime = malloc(6);
+    readingTime->book.and = ((struct readAll*)reading_p)->and;
+    strcpy(readingTime->book.now, ((struct readAll*)reading_p)->now);
+
+    printf("\n%d, %d, %s", *((short*) &readingTime), readingTime->book.and, readingTime->book.now);
+        //As expected, would need to memcpy the 
+    printf("\nNow free\n");
+    free(reading_p);
+    free(readingTime);
+}
+
+
 void byteTesting(void){
     bytes a = (bytes) malloc(10);
     printf("%s\n",a);       //Lots of junk data
@@ -60,7 +98,6 @@ void byteTesting(void){
     printf("%s\n",a);       //Now there's one junk data before and then actual data
     free(a);
 }
-
 
 
 struct end{
@@ -90,11 +127,11 @@ void powerTrip(void){
 
 
 int main(){
-    //structTesting();
+    structTesting2();
     //byteTesting();
     //call();
 
-    powerTrip();
+   // powerTrip();
 /*
     printTheNum(0);
     printf("\n")

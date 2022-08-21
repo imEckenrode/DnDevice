@@ -123,9 +123,9 @@ esp_err_t dndv_send_onAwake(void){
 void dndv_send_ping(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    rcvg_data dat;
-    dat.event.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
-    dat.event.ID = EVENT_PING;        //ID number 3 as of writing this...
+    struct IDs dat;     //If there's no actual data being passed, no need to malloc anything (specific to this function)
+    dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
+    dat.ID = EVENT_PING;                    //ID number 3 as of writing this...
 
     dndv_send(broadcast_mac,&dat,sizeof(dat));
     //esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
@@ -153,9 +153,9 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
         return;
     }
 
-    short fullDataLen = len+MAC_ADDR_SIZE+sizeof(uint8_t);    //The length of the mac and data struct
-    macAndData* fullData = malloc(fullDataLen);             //The macAndData struct will have the length of a Mac + dataLen (a uint8 to track data) + the data length
-    //TODO: Throw an error if malloc fails here!    
+    short fullDataLen = sizeof(macAndData)+len;    //The length of the mac and data struct
+    macAndData* fullData = malloc(fullDataLen);             //The macAndData struct will have the length of a Mac + dataLen + the data length
+    //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
     memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
     fullData->dataLen = len;
@@ -179,7 +179,10 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 //Direct Message the Dungeon Master Data to the desired MAC
 esp_err_t DM_DM_Data(macAddr da){
-    esp_err_t err = dndv_send(da,current.c_name,sizeof(current.c_name));        //Create a struct to send both DM name and campaign name
+    idsAlone data;
+    data.event.BASE=N_SYNC_BASE;
+    data.event.ID=EVENT_DM_INFO;
+    esp_err_t err = dndv_send(da,&data,sizeof(data));        //Create a struct to send both DM name and campaign name alongside the IDs
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
         return ESP_FAIL;
@@ -194,7 +197,7 @@ bool addConfirmedPC(){return false;}
 
 /*  -PC Sync Actions (in order)- */
 
-bool addPotentialDM(){return false;}
+bool addPotentialDM(){printf("New DM info received...nice\n");return false;}    //TODO: Change to actual name
 
 
 bool selectDM(){return false;}

@@ -57,18 +57,19 @@ struct __attribute__((__packed__)) raw_data{
     uint8_t data[];         //This "flexible array member" means dynamic allocation will be neccesary
 };  */
 
-/*  ID and Data - Data Structure */
+/*  ID as Data (no other data = no Malloc required) - Data Structure */
 struct __attribute__((__packed__)) IDs{
     uint8_t BASE;
     uint8_t ID;
 };           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 
-typedef struct __attribute__((__packed__)) idsAndData{
+typedef struct __attribute__((__packed__)) idsPlusData{
     struct IDs event;
     //uint8_t len;
     //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
-} rcvg_data;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+} idsAlone;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
 
 typedef struct __attribute__((__packed__)) macPlusData{  //fullData: MAC address and data
     macAddr mac;

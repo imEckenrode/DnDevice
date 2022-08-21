@@ -1,10 +1,23 @@
 #include "dndv_log.h"
 
+#define LogTAG "DLog"
 static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
-    ESP_LOGI("LOG","Data Received!");
-    rcvg_data* data_rcv = (rcvg_data*) event_data;
-    //printf("\nBase:%s\nID:%d\n",Num2EventBase(data_rcv->BASE),data_rcv->ID);
-    printf("\nBase:%d\nID:%d\n",data_rcv->event.BASE,data_rcv->event.ID);
+    //ESP_LOGV("LOG","Data Received!");
+    idsAlone* data_rcv = (idsAlone*) event_data;
+    //printf("\nBase Name: %s",Num2EventBase(data_rcv->event.BASE));
+    //printf("\nBase:%d\nID:%d\n",data_rcv->event.BASE,data_rcv->event.ID);
+
+    switch(EventBase2Num(base)){    //
+        case 255:
+            ESP_LOGV(LogTAG, "Unidentified Base");
+            break;
+        //case N_SYNC_BASE:
+
+        default:
+            printf("Received___\nBase: %s\n ID: %d\n",base, id);  //If there's nothing custom for the event, do the default behavior
+    }
+
+    //if(base!=Num2EventBase(data_rcv->event.BASE)){ESP_LOGI(LogTAG, "This data lacks the first two elements");}
 }
 
 

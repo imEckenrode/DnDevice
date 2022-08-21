@@ -64,7 +64,7 @@ esp_event_base_t Num2EventBase(uint8_t num){
     if(num<(sizeof(EventBases)/sizeof(EventBases[0]))){
         return *(EventBases[num]);  //Return the value pointed at because EventBases is filled with pointers to the data
     }
-    ESP_LOGE("Num2EventBase","Event base out of range! Bad data received!");
+    ESP_LOGE("Num2EventBase","Event base out of range");
     return MISC_BASE;
     //printf("Retrieved %s\n",*(EventBases[num]));
 }
