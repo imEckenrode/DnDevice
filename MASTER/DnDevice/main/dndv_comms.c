@@ -179,9 +179,9 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 //Direct Message the Dungeon Master Data to the desired MAC
 esp_err_t DM_DM_Data(macAddr da){
-    idsAlone data;
-    data.event.BASE=N_SYNC_BASE;
-    data.event.ID=EVENT_DM_INFO;
+    struct IDs data;
+    data.BASE=N_SYNC_BASE;
+    data.ID=EVENT_DM_INFO;
     esp_err_t err = dndv_send(da,&data,sizeof(data));        //Create a struct to send both DM name and campaign name alongside the IDs
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");

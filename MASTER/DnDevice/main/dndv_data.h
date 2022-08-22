@@ -61,21 +61,30 @@ struct __attribute__((__packed__)) raw_data{
 struct __attribute__((__packed__)) IDs{
     uint8_t BASE;
     uint8_t ID;
-};           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+};
 
 
+
+/*
+typedef struct __attribute__((__packed__)) idsPlusData{
+    uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
+} d_pure;   */      //Cannot have only a blank member
+
+
+// Data with indexed IDs under event.base and event.ID (the standard data struct)
 typedef struct __attribute__((__packed__)) idsPlusData{
     struct IDs event;
-    //uint8_t len;
-    //uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
-} idsAlone;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
-
-
-typedef struct __attribute__((__packed__)) macPlusData{  //fullData: MAC address and data
-    macAddr mac;
-    uint8_t dataLen;
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
+} d_ids;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+
+
+ //fullData: MAC address and data (send the stuff under data)
+typedef struct __attribute__((__packed__)) macPlusData{
+    macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
+    short dataLen;          //The length of the data, for easy sending
+    d_ids data;                 //This "flexible array member" means dynamic allocation will be neccesary
 } macAndData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
+
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.
