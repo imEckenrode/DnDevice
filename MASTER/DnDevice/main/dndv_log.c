@@ -3,21 +3,26 @@
 #define LogTAG "DLog"
 static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     //ESP_LOGV("LOG","Data Received!");
-    struct IDs* data_rcv = (struct IDs*) event_data;
+    //struct IDs* data_rcv = (struct IDs*) event_data;
     //printf("\nBase Name: %s",Num2EventBase(data_rcv->event.BASE));
     //printf("\nBase:%d\nID:%d\n",data_rcv->event.BASE,data_rcv->event.ID);
+    if(localDevice.displayLogs){   //Only printLogs if the setting is enabled
 
     switch(EventBase2Num(base)){    //
+        case N_OUTGOING_BASE:
+            ESP_LOGV(LogTAG, "Readying the Data to Send (Outgoing)");
+            break;
         case 255:
             ESP_LOGV(LogTAG, "Unidentified Base");
             break;
         //case N_SYNC_BASE:
 
         default:
-            printf("Received___\nBase: %s\n ID: %d\n",base, id);  //If there's nothing custom for the event, do the default behavior
+            printf("___Received___\nBase: %s\n ID: %d\n",base, id);  //If there's nothing custom for the event, do the default behavior
     }
 
     //if(base!=Num2EventBase(data_rcv->BASE)){ESP_LOGI(LogTAG, "This data lacks the first two elements");}
+    }
 }
 
 

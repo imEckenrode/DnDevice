@@ -3,7 +3,7 @@
 //Initialize all global variables to the correct values
 void internals_init(){
     current.isDM = false;
-        
+    localDevice.displayLogs = false;   //Change this to set if dndv_log logs
     //current.player = &currentPlayer;       //TODO: Pass all through current instead of three variables
     //current.character = &currentPC;
 }

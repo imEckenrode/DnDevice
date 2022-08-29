@@ -82,8 +82,15 @@ typedef struct __attribute__((__packed__)) idsPlusData{
 typedef struct __attribute__((__packed__)) macPlusData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
     short dataLen;          //The length of the data, for easy sending
-    d_ids data;                 //This "flexible array member" means dynamic allocation will be neccesary
+    uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macAndData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
+
+ //fullData: MAC address and data (send the stuff under data)
+typedef struct __attribute__((__packed__)) macPlusIdData{
+    macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
+    short dataLen;          //The length of the data, for easy sending
+    uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
+} macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
 
 /* ______  --- EVENT LOOP ---  ______

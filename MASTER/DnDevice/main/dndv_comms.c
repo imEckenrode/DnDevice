@@ -59,7 +59,7 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
 
 //Send data to the specified MAC address with a macAndData struct pointer
 esp_err_t dndv_sendMAD(macAndData* mad){
-    esp_err_t err = esp_now_send(mad->mac,mad->data,mad->dataLen);
+    esp_err_t err = dndv_send(mad->mac,(void*)(mad->data),mad->dataLen);
 
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Send error (%d)", err);
@@ -77,7 +77,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
     switch(id){
         case EVENT_SEND_BROADCAST:
           ESP_LOGV(TAG, "Sending broadcast");
-          esp_err_t err = esp_now_send(broadcast_mac,event_data,22);        //TODO: always take in MAC data inside event?
+          esp_err_t err = esp_now_send(broadcast_mac,event_data,22);        //TODO: remove the 22...pass in data length
 
           if(err != ESP_OK){
               ESP_LOGE(TAG, "Send error (%d)", err);
@@ -89,9 +89,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
             dndv_send(broadcast_mac,(char*)event_data);
             break;  */
         case EVENT_SEND:
-            dndv_send(  ((macAndData*) event_data)->mac,
-                        ((macAndData*) event_data)->data, 
-                        ((macAndData*) event_data)->dataLen);
+            dndv_sendMAD(((macAndData*) event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
             break;
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
@@ -207,7 +205,7 @@ bool selectDM(){return false;}
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData* da = (macAndData*) event_data;
     if(current.isDM){
-        printf("I am a DM! Yay!\n");
+        printf("I'm DM, there is syncing!\n");
         switch(id){ //If DM and you receive stuff, call functions here
             case EVENT_AWAKE_BROADCAST_RCV:
                 ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement

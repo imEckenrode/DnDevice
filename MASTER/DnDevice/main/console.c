@@ -71,8 +71,34 @@ esp_err_t tellMeYourNameAgain_r(void){
 }
 
 
+//Now for enabling and disabling logs
+static int logsOn_cmd(int argc, char **argv){
+    localDevice.displayLogs = true;
+    printf("Logs Enabled\n");
+    return 0;
+}
+esp_err_t logsOn_r(void){
+    esp_console_cmd_t command = {
+        .command = "logson",
+        .help = "Enables logs printing",
+        .func = &logsOn_cmd
+    };
+    return esp_console_cmd_register(&command);
+}
 
-
+static int logsOff_cmd(int argc, char **argv){
+    localDevice.displayLogs = false;
+    printf("Logs Disabled\n");
+    return 0;
+}
+esp_err_t logsOff_r(void){
+    esp_console_cmd_t command = {
+        .command = "logsoff",
+        .help = "Disables logs printing",
+        .func = &logsOff_cmd
+    };
+    return esp_console_cmd_register(&command);
+}
 
 //And finally...
 /*  Register all the console commands   */
@@ -81,6 +107,9 @@ void register_commands(){
     testDM_r();
     testPC_r();
     tellMeYourNameAgain_r();
+
+    logsOn_r();
+    logsOff_r();
     //Could also check for errors here if desired
 }
 

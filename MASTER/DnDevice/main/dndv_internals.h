@@ -71,10 +71,17 @@ struct user_s{      //change this into a union
     struct Contact devices[MAX_PLAYER_COUNT];
 };
 
+/* PER DEVICE: Structure for keeping track of local settings */
+struct __attribute__((__packed__)) l_Device{
+    bool displayLogs;
+};
+
 /*              -- GLOBAL VARIABLES --               */
 PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global
 Player currentPlayer;       //The currently selected player
 struct user_s current;      //The current user, global to the DnDevice  //IMPORTANT
+
+struct l_Device localDevice;    //Settings for the local device
 
 //TODO: have a pointer to a DM list that holds a dummy value until DM is initialized?
 
