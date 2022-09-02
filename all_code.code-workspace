@@ -14,8 +14,10 @@
 		},
 		{
 			"path": "commsTesting"
+		},
+		{
+			"path": "lvglTesting8"
 		}
-
 	],
 	"settings": {
 		"files.associations": {
