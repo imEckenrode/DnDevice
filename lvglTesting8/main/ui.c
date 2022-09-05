@@ -25,6 +25,7 @@ lv_obj_t * ui_Label2;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
+
 static void ui_event_Screen1(lv_event_t * e)
 {
     lv_event_code_t event = lv_event_get_code(e);
@@ -68,7 +69,7 @@ void ui_Screen1_screen_init(void)
     lv_obj_set_width(ui_Button_1, 189);
     lv_obj_set_height(ui_Button_1, 77);
 
-    lv_obj_set_x(ui_Button_1, -76);
+    lv_obj_set_x(ui_Button_1, -76); //0,0 Centers This!
     lv_obj_set_y(ui_Button_1, -88);
 
     lv_obj_set_align(ui_Button_1, LV_ALIGN_CENTER);
