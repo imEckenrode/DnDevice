@@ -5,7 +5,7 @@
 #include "dndv_comms.h"
 #include "dndv_internals.h"
 
-#define PROMPT_STR "DnDevice Master Entry"
+#define PROMPT_STR "\nDnDevice Console"
 
 
 static int ping_cmd(int argc, char **argv){

@@ -12,6 +12,16 @@ void internals_init(){
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
 
+/*     --- CRUD Functions ---     */
+
+ContactInfo getMyContactInfo(){
+    ContactInfo myInfo = current.info;
+    return myInfo;
+}
+
+
+
+
 
 /*  HOME OF DEVICE_BASE HANDLING
 This function receives all DEVICE_BASEd events and processes them accordingly, possibly redirecting them to other functions.
@@ -35,17 +45,21 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
     Here are the functions exclusive to the DM.
 
     To keep this exclusivity, DM_Activate activates the handle for DM only events
-
 */
+
+
 
 //The handler for any DM exclusive data (DM_DEVICE_BASE)
 void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_DM_ACTIVATE:
-            struct dm_activate_s to_send = {N_SYNC_BASE,EVENT_DM_INFO,currentPlayer.name,currentPC.name}; //TODO: Can I just put everything in here and not strcpy???
-            //strcpy(to_send.dmName, currentPlayer.name);    //Copy in the DM's name
-            //strcpy(to_send.campaignName, currentPC.name);    //Copy in the campaign name
+            ; 
+            struct dm_info_s to_send = {
+                .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
+                .info =  getMyContactInfo()}; //current.info};
+
             esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
+            printf("Sent, right?\n%s\n",to_send.info.c_name);
             break;
         default:
             ESP_LOGE("DM Internal", "Did not recognize the internal event.");
@@ -63,10 +77,7 @@ void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 void DM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
-    uint8_t to_send[2+MAX_NAME_LENGTH] = {N_SYNC_BASE,EVENT_DM_INFO};
-    memcpy(&to_send[2], currentPC.name,20);  //I can simply use 20 becasue the data is uint8
-    esp_event_handler_instance_register_with(dndv_event_h, DM_RCV_BASE, ESP_EVENT_ANY_ID, DM_rcv, NULL,NULL);
-     
+    esp_event_handler_instance_register_with(dndv_event_h, DM_DEVICE_BASE, ESP_EVENT_ANY_ID, DM_rcv, NULL,NULL);
     esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv); 
                 //TODO: UNREGISTERING this means that you cannot deactivate DM mode without a reset (which is fine)
     
@@ -75,7 +86,7 @@ void DM_Activate(void){
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
 
-    esp_event_post_to(dndv_event_h, DM_DEVICE_BASE, EVENT_DM_ACTIVATE, NULL, NULL, 0);
+    esp_event_post_to(dndv_event_h, DM_DEVICE_BASE, EVENT_DM_ACTIVATE, NULL, 0, 0);
      //No need to divide size of a uint8 array, because sizeof(uint8) = 1
 }
 
@@ -90,15 +101,19 @@ void testPCInit(void){
     currentPC=examplePC;
 
     current.isDM = false;
-    strcpy(current.p_name,currentPlayer.name);
-    strcpy(current.c_name,currentPC.name);
+    strcpy(current.info.p_name,currentPlayer.name);
+    strcpy(current.info.c_name,currentPC.name);
     printf("Test Player Initialized\n");
 }
 
 void testDMInit(void){
     current.isDM = true;      //TODO: Could have a semaphore something or other on the global level
+    current.info.key = 0;
     strcpy(currentPlayer.name, "MeDM");
-    strcpy(currentPC.name, "AwesomeCampaignTitle");
+    strcpy(currentPC.name, "AwesomeTitleHere");
+    strcpy(current.info.p_name,currentPlayer.name);
+    strcpy(current.info.c_name,currentPC.name);
+
     DM_Activate();
     printf("DM Mode Activated (Test DM Initialized)\n");
 }

@@ -57,8 +57,8 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
     return ESP_OK;
 }
 
-//Send data to the specified MAC address with a macAndData struct pointer
-esp_err_t dndv_sendMAD(macAndData* mad){
+//Send data to the specified MAC address with a macAndData_s struct pointer
+esp_err_t dndv_sendMAD(macAndData_s* mad){
     esp_err_t err = dndv_send(mad->mac,(void*)(mad->data),mad->dataLen);
 
     if(err != ESP_OK){
@@ -71,13 +71,13 @@ esp_err_t dndv_sendMAD(macAndData* mad){
 
 /*  Send out any data posted to the event loop to the included MAC address if applicable
     This requires formatting to be done before sending, so it's recommended to use other methods
-            TODO: STANDARDIZE with macAndData, then use this always?
+            TODO: STANDARDIZE with macAndData_s, then use this always?
      */
 void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_SEND_BROADCAST:
           ESP_LOGV(TAG, "Sending broadcast");
-          esp_err_t err = esp_now_send(broadcast_mac,event_data,22);        //TODO: remove the 22...pass in data length
+          esp_err_t err = esp_now_send(broadcast_mac,event_data,sizeof(*event_data));
 
           if(err != ESP_OK){
               ESP_LOGE(TAG, "Send error (%d)", err);
@@ -89,7 +89,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
             dndv_send(broadcast_mac,(char*)event_data);
             break;  */
         case EVENT_SEND:
-            dndv_sendMAD(((macAndData*) event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
+            dndv_sendMAD(((macAndData_s*) event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
             break;
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
@@ -151,14 +151,14 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
         return;
     }
 
-    short fullDataLen = sizeof(macAndData)+len;    //The length of the mac and data struct
-    macAndData* fullData = malloc(fullDataLen);             //The macAndData struct will have the length of a Mac + dataLen + the data length
+    short fullDataLen = sizeof(macAndData_s)+len;    //The length of the mac and data struct
+    macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen + the data length
     //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
     memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
     fullData->dataLen = len;
     memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
-    esp_event_post_to(dndv_event_h, base, id, (void*)data,fullDataLen,0);
+    esp_event_post_to(dndv_event_h, base, id, (void*)fullData,fullDataLen,0);
     free(fullData); //This frees the malloc'd memory
   //Data is automatically managed by the event loop, so a pointer to the data is safe
 }
@@ -177,10 +177,9 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 //Direct Message the Dungeon Master Data to the desired MAC
 esp_err_t DM_DM_Data(macAddr da){
-    //struct dm_info_s data = {N_SYNC_BASE, EVENT_DM_INFO};
-                struct dm_info_s to_send = {N_SYNC_BASE,EVENT_DM_INFO,currentPlayer.name,currentPC.name}; //TODO: Can I just put everything in here and not strcpy???
-            //strcpy(to_send.dmName, currentPlayer.name);    //Copy in the DM's name
-            //strcpy(to_send.campaignName, currentPC.name);    //Copy in the campaign name
+    struct dm_info_s to_send = {
+        .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
+        .info =  getMyContactInfo()}; //current.info};
     esp_err_t err = dndv_send(da,&to_send,sizeof(to_send));        //Create a struct to send both DM name and campaign name alongside the IDs
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
@@ -194,9 +193,21 @@ bool addPotentialDevice(){return false;}
 bool addConfirmedPC(){return false;}
 
 
-/*  -PC Sync Actions (in order)- */
 
-bool addPotentialDM(){printf("New DM info received...nice\n");return false;}    //TODO: Change to actual name
+/*  -- PC Sync Actions (in order) --  */
+
+bool addPotentialDM(macAndData_s* mad){
+
+    struct dm_info_s* data = (mad->data);
+    ContactInfo* info = &(data->info);
+    printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);          //TODO: Testing TESTINGs
+    printMAC(mad->mac);
+
+    //FOR NOW: CONNECT IMMEDIATELY
+    //TODO: CHANGE THIS
+
+    return false;
+} 
 
 
 bool selectDM(){return false;}
@@ -204,7 +215,7 @@ bool selectDM(){return false;}
 /*  When any sync data is passed, act on it.
         Different actions for DM vs. non-DM     */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
-    macAndData* da = (macAndData*) event_data;
+    macAndData_s* da = (macAndData_s*) event_data;
     if(current.isDM){
         printf("I'm DM, there is syncing!\n");
         switch(id){ //If DM and you receive stuff, call functions here
@@ -220,10 +231,12 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             default:
                 printf("Heard some syncs, but not for the DM.\n");
         }
+
+    //If not a DM, run the player logic    
     }else{
         switch(id){ //If not DM and you receive stuff, call functions here
             case EVENT_DM_INFO:
-                addPotentialDM();
+                addPotentialDM(da);
                 break;
             default:
                 printf("Heard some syncs, but I'm not a DM.\n");

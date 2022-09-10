@@ -41,7 +41,8 @@
 			"limits.h": "c",
 			"*.ipp": "c",
 			"regex": "c",
-			"chrono": "c"
+			"chrono": "c",
+			"esp_log.h": "c"
 		}
 	}
 }

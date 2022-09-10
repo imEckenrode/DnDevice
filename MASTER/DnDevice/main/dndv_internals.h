@@ -31,7 +31,7 @@ order:      (global variables on top, then)
 
 /* The player [and DM] struct (save data into a file)  */
 typedef struct __attribute__((__packed__)) player_s{
-    Identifier id;
+    KeyIdentifier key;
     char name[MAX_NAME_LENGTH];
     bool canDM;
     bool TrainingWheelsProtocol_Active;
@@ -39,7 +39,7 @@ typedef struct __attribute__((__packed__)) player_s{
 
 /* The character struct (save data into a file) */ 
 typedef struct character_s{
-    Identifier id;
+    KeyIdentifier key;
     char name[MAX_NAME_LENGTH];
     //char nicknames[MAX_NICKNAME_LENGTH];
     short MaxHP;
@@ -51,17 +51,17 @@ typedef struct character_s{
     For DMs, this is the list of players
     For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
 */
+
+//*** contactInfo stores the ID, the player name, and the character name
+
 struct Contact{
     macAddr MAC;
-    Identifier Id;
-    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
-    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
+    ContactInfo info;
 };
 
 
 /*   - Device States -   
-All possible states the device can be in, from wakeup to 
-
+All possible states the device can be in, from wakeup to active battle
 */
 typedef enum {
     WAKEUP_S,    //On awake, initialize 
@@ -78,8 +78,7 @@ typedef enum {
 struct user_s {
     bool isDM;      //Is the current device a DM?
     deviceStates state; //The state the device is in (See "Device States" from abive)
-    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
-    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
+    ContactInfo info;    //The current device's info
     struct Contact devices[MAX_PLAYER_COUNT];
 };
 
@@ -97,16 +96,23 @@ struct l_Device localDevice;    //Settings for the local device
 
 //TODO: have a pointer to a DM list that holds a dummy value until DM is initialized?
 
-/*          -- Visible Function Declarations --          */ 
+/*          ---- Visible Function Declarations ----          */ 
 
 /*Initialize the global variables correctly
     (Set isDM to False)
 */
 void internals_init(void);
 
+/*     --- CRUD Functions ---     */
+
+//Get the key, p_name, and c_name
+ContactInfo getMyContactInfo();
+
+
+
+
 /*  If the user just became a DM, start linking all */
 void DM_start(void);
-
 
 // And finally, tests:      
     //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c

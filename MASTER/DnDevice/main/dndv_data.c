@@ -23,6 +23,20 @@ void eventLoop_init(void){
     esp_event_loop_create(&loop_args, &dndv_event_h);
 }
 
+
+/* _- Auxillary Functions -_
+
+    Nice assistant functions    */
+
+bool printMAC(macAddr MAC){
+    printf("%x:%x:%x:%x:%x:%x", MAC[0],MAC[1],MAC[2],MAC[3],MAC[4],MAC[5]);
+    return true;
+}
+
+
+
+
+
 /* -EVENT LOOP BASE DEFINITIONS-
 Because C doesn't like defining a global variable every time .h is included, so it must be defined here
 */

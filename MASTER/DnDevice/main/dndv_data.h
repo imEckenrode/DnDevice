@@ -16,7 +16,7 @@
  This file resulted from a refactoring of dndv_internals
     Just import "dndv_data.h"
 
-    This will allow the usage of the event loop library and ID structures anywhere that includes "dndv_data.h"
+This will allow the usage of the event loop library and ID structures anywhere that includes "dndv_data.h"
 
 order:      (global variables on top, then)
     Title
@@ -37,8 +37,8 @@ void nvs_init(void);
 #define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
 typedef unsigned char macAddr[MAC_ADDR_SIZE];
 
-// identifier (for players and PCs) - a unique number
-typedef short Identifier;    //Can change this implementation as needed
+// identifier (for players and PCs) - a unique number, used to key in
+typedef short KeyIdentifier;    //Can change this implementation as needed
 
 
 /*         -- GLOBAL DEFINITIONS --          */
@@ -53,8 +53,17 @@ typedef short Identifier;    //Can change this implementation as needed
 /*   Device-level data is managed in dndv_internals   */
 
 
+/* _- Auxillary Functions -_
 
-/*      Sending Structures and Functions
+    Nice assistant functions    */
+
+//Pretty prints the MAC address
+bool printMAC(macAddr MAC);
+
+
+
+/*  ---  Sending Structures and Functions ---
+
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"
 *//*
@@ -68,8 +77,6 @@ struct __attribute__((__packed__)) IDs{
     uint8_t ID;
 };
 
-
-
 /*
 typedef struct __attribute__((__packed__)) idsPlusData{
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
@@ -80,7 +87,7 @@ typedef struct __attribute__((__packed__)) idsPlusData{
 typedef struct __attribute__((__packed__)) idsPlusData{
     struct IDs event;
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
-} d_ids;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+} d_ids_s;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 
  //fullData: MAC address and data (send the stuff under data)
@@ -88,14 +95,40 @@ typedef struct __attribute__((__packed__)) macPlusData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
     short dataLen;          //The length of the data, for easy sending
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
-} macAndData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
+} macAndData_s;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
- //fullData: MAC address and data (send the stuff under data)
+//(Unused)  MAC address and data with access to the IDs (make sure to send IDs and data)
 typedef struct __attribute__((__packed__)) macPlusIdData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
     short dataLen;          //The length of the data, for easy sending
+    struct IDs ids;
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
+
+
+/*     -- GENERIC ID STRUCTURES --
+    These structures are used by multiple data types
+*/
+
+
+typedef struct __attribute__((__packed__)) contactInfo{
+    KeyIdentifier key;
+    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
+    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
+} ContactInfo;
+
+
+/*Data broadcasted when the DM is set up, or messaged directly when requested by a player
+    Used by EVENT_DM_ACTIVATE, EVENT_DM_INFO,
+*/
+struct __attribute__((__packed__)) dm_info_s {
+        struct IDs event;               //The base and ID struct
+        ContactInfo info;
+    };
+
+
+
+
 
 
 /* ______  --- EVENT LOOP ---  ______
@@ -205,7 +238,8 @@ enum DEVICE_B_ID{
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_DM_INFO,                    //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+    EVENT_DM_INFO,          /*[Uses dm_info_s]
+                            Broadcasted when a device becomes a DM. Transmits the DM name and campaign name*/
     EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
 
     EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key, so return the data 
@@ -215,12 +249,7 @@ enum SYNC_B_ID{
     EVENT_READY_TO_START_CAMPAIGN    //When the DM says Start, allow the players to start
 };
 
-    struct __attribute__((__packed__)) dm_info_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
-        struct IDs event;               //The base and ID struct
-        char dmName[MAX_NAME_LENGTH];         //DM Name
-        char campaignName[MAX_NAME_LENGTH]; //Campaign Name
-    };
-
+    //EVENT_DM_INFO uses 
 
 
 
@@ -260,15 +289,10 @@ enum DM_DEVICE_B_ID{
     //EVENT_DM_KEYIN,         //A DM keyin is handled in DEVICE_BASE, since the DM is not yet a DM
     //EVENT_DM_NAME_CAMPAIGN
 
-    EVENT_DM_ACTIVATE,       //When the DM is fully activated, send out all the data
+    EVENT_DM_ACTIVATE,       //[Uses no data]    When the DM is fully activated, broadcast out all the data (under EVENT_DM_INFO)
     EVENT_START_CAMPAIGN,
 };
 
-    struct __attribute__((__packed__)) dm_activate_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
-        struct IDs event;               //The base and ID struct
-        char dmName[MAX_NAME_LENGTH];         //DM Name
-        char campaignName[MAX_NAME_LENGTH]; //Campaign Name
-    };      //Currently identical to dm_info_s
 
 
 #endif
