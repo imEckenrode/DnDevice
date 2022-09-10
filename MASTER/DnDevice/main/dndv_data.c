@@ -32,6 +32,7 @@ Because C doesn't like defining a global variable every time .h is included, so 
     ESP_EVENT_DEFINE_BASE(OUTGOING_BASE);
 
     ESP_EVENT_DEFINE_BASE(DM_RCV_BASE); //Positioned last because DM exclusive
+    ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
 
 /*  To convert back and forth between the number to send and the local base definition...
         Uses the addresses of the variables, as the names are not required (and are not defined yet)
@@ -42,7 +43,8 @@ static esp_event_base_t* EventBases[] = {
     &SYNC_BASE,
     &OUTGOING_BASE,
     
-    &DM_RCV_BASE
+    &DM_RCV_BASE,
+    &DM_DEVICE_BASE
 };//Make sure the N_ enum in dndv_data.h matches above!     (base_numbers)
 
 //Use this function if you don't have the base hard coded. 

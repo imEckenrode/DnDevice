@@ -137,8 +137,9 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
     N_MISC_BASE,
     N_DEVICE_BASE,
     N_SYNC_BASE,            //For syncing data between DMs and Players
-    N_OUTGOING_BASE,
+    N_OUTGOING_BASE,         
     N_DM_RCV_BASE,
+    N_DMDEVICE_BASE,            //DEVICE BASE, but for DMs
 }; //Use N_ your base to get the number automatically.
       //Make sure this matches EventBases in dndv_data.c
 //TODO: do this better, store numbers in a struct in that array, then somehow make it visible
@@ -173,16 +174,15 @@ enum MISC_B_ID{
 
 /* -  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) 
         Used primarily for editing dndv_internals and changing device state
+
+    As a DM, these events will be handled differently if at all;
+    See DM_DEVICE_BASE for DM-specific functions.
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 enum DEVICE_B_ID{
-    //EVENT_KEVIN,            //EVENT_KEYIN!
-    EVENT_DM_KEYIN,         //When a DM keys in (keyin without selecting a campaign)
-    //EVENT_DM_NAME_CAMPAIGN
-    EVENT_DM_ACTIVATE,       //When the DM is activated
-    EVENT_DM_START_CAMPAIGN
+    EVENT_DM_KEYIN,     //Transfer control to DM_DEVICE_BASE if a DM keys in successfully (had DM permissions)
 
-    EVENT_CAMPAIGN_SELECTED,        //When a player selects a campaign from a broadcasting DM
+    EVENT_CAMPAIGN_SELECT,        //When a player selects a campaign from a broadcasting DM
     EVENT_PLAYER_KEYIN,    //When a player is selected through a keyin (TODO: will need to get sync data about character)
     EVENT_PC_CHOSEN,        //When the user selects his/her character
 
@@ -226,7 +226,7 @@ enum OUTGOING_B_ID{
 };
 
 
-/*  And finally,
+/*  And finally, DM Stuff
 -  DM_RCV_BASE: For all events targeted to the DM from other devices
     These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)
         TODO: See if this is the best way
@@ -236,6 +236,16 @@ enum DM_RCV_B_ID{
     EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
     //EVENT_PC_JOINED,            //A PC has joined the adventure!
     //EVENT_PC_READY
+};
+
+
+ESP_EVENT_DECLARE_BASE(DM_DEVICE_BASE);
+enum DM_DEVICE_B_ID{
+    //EVENT_DM_KEYIN,         //A DM keyin is handled in DEVICE_BASE, since the DM is not yet a DM
+    //EVENT_DM_NAME_CAMPAIGN
+
+    EVENT_DM_ACTIVATE,       //When the DM is fully activated, send out all the data
+    EVENT_START_CAMPAIGN,
 };
 
 
