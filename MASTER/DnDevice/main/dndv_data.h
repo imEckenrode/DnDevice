@@ -41,6 +41,11 @@ typedef unsigned char macAddr[MAC_ADDR_SIZE];
 typedef short Identifier;    //Can change this implementation as needed
 
 
+/*         -- GLOBAL DEFINITIONS --          */
+#define MAX_PLAYER_COUNT 16
+#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
+//#define MAX_NICKNAME_LENGTH 8
+
 
 //For the raw data to send, use uint8_t* 
 //typedef uint8_t* data_p;
@@ -145,7 +150,7 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
 //TODO: do this better, store numbers in a struct in that array, then somehow make it visible
 
 
-/*             -- Bases and ID Declaration --
+/*             =-- Bases and ID Declaration --=
         Comment out anything that is currently unused
     __Formatting:_________(COPY BELOW)
 
@@ -160,7 +165,7 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
     };
 */
 
-/* -  MISC_BASE: For any data received that doesn't have a specific place (yet)  */
+/* --  MISC_BASE: For any data received that doesn't have a specific place (yet) -- */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
 enum MISC_B_ID{ 
@@ -172,7 +177,7 @@ enum MISC_B_ID{
 };
 
 
-/* -  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) 
+/* --  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) --
         Used primarily for editing dndv_internals and changing device state
 
     As a DM, these events will be handled differently if at all;
@@ -193,7 +198,7 @@ enum DEVICE_B_ID{
 
 
 
-/* -  SYNC_BASE: For syncing data DMs and Player devices
+/* --  SYNC_BASE: For syncing data DMs and Player devices  --
         Used primarily by dndv_comms
     Contains all data for syncing. Players should stop listening to these events once in.
         */
@@ -210,11 +215,16 @@ enum SYNC_B_ID{
     EVENT_READY_TO_START_CAMPAIGN    //When the DM says Start, allow the players to start
 };
 
+    struct __attribute__((__packed__)) dm_info_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
+        struct IDs event;               //The base and ID struct
+        char dmName[MAX_NAME_LENGTH];         //DM Name
+        char campaignName[MAX_NAME_LENGTH]; //Campaign Name
+    };
 
 
 
 
-/* - OUTGOING_BASE
+/* --  OUTGOING_BASE  --
     This is a special base only for sending ESP-NOW-ready data.
   Typically only used from dndv_internals, where dndv_comms is out of scope.
 */
@@ -226,8 +236,10 @@ enum OUTGOING_B_ID{
 };
 
 
-/*  And finally, DM Stuff
--  DM_RCV_BASE: For all events targeted to the DM from other devices
+
+
+/*  == And finally, DM Stuff ==
+  --  DM_RCV_BASE: For all events targeted to the DM from other devices  --
     These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)
         TODO: See if this is the best way
 */
@@ -239,6 +251,10 @@ enum DM_RCV_B_ID{
 };
 
 
+
+/*      --  DM_DEVICE_BASE  --
+For all DM-related local events. Only accessible to a DM.
+*/
 ESP_EVENT_DECLARE_BASE(DM_DEVICE_BASE);
 enum DM_DEVICE_B_ID{
     //EVENT_DM_KEYIN,         //A DM keyin is handled in DEVICE_BASE, since the DM is not yet a DM
@@ -248,11 +264,11 @@ enum DM_DEVICE_B_ID{
     EVENT_START_CAMPAIGN,
 };
 
+    struct __attribute__((__packed__)) dm_activate_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
+        struct IDs event;               //The base and ID struct
+        char dmName[MAX_NAME_LENGTH];         //DM Name
+        char campaignName[MAX_NAME_LENGTH]; //Campaign Name
+    };      //Currently identical to dm_info_s
 
 
-
-/*  TODO:    - DM EXCLUSIVE FUNCTIONS -
-    DM exclusive functions should always be verified by the global isDM variable...
-   
-*/
 #endif

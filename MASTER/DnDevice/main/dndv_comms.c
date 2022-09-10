@@ -177,10 +177,11 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 //Direct Message the Dungeon Master Data to the desired MAC
 esp_err_t DM_DM_Data(macAddr da){
-    struct IDs data;
-    data.BASE=N_SYNC_BASE;
-    data.ID=EVENT_DM_INFO;
-    esp_err_t err = dndv_send(da,&data,sizeof(data));        //Create a struct to send both DM name and campaign name alongside the IDs
+    //struct dm_info_s data = {N_SYNC_BASE, EVENT_DM_INFO};
+                struct dm_info_s to_send = {N_SYNC_BASE,EVENT_DM_INFO,currentPlayer.name,currentPC.name}; //TODO: Can I just put everything in here and not strcpy???
+            //strcpy(to_send.dmName, currentPlayer.name);    //Copy in the DM's name
+            //strcpy(to_send.campaignName, currentPC.name);    //Copy in the campaign name
+    esp_err_t err = dndv_send(da,&to_send,sizeof(to_send));        //Create a struct to send both DM name and campaign name alongside the IDs
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
         return ESP_FAIL;

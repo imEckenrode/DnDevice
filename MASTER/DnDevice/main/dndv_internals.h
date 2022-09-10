@@ -25,12 +25,7 @@ order:      (global variables on top, then)
     Function
 */
 
-/*         -- GLOBAL DEFINITIONS --          */
-#define MAX_PLAYER_COUNT 16
-#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
-//#define MAX_NICKNAME_LENGTH 8
-
-//Lowest Level Data Types in dndv_data.h
+// ***Lowest Level Data Types in dndv_data.h***
 
 /*     -- Device Level Data Types --      */
 
