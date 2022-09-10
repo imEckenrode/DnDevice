@@ -54,7 +54,7 @@ typedef struct character_s{
 
 /*     - Connections Tracking and Naming -
     For DMs, this is the list of players
-    For players, this is the list of possible DMs and the campaign names  //, and TODO should stopstops persisting after a 
+    For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
 */
 struct Contact{
     macAddr MAC;
@@ -63,9 +63,26 @@ struct Contact{
     char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
 };
 
+
+/*   - Device States -   
+All possible states the device can be in, from wakeup to 
+
+*/
+typedef enum {
+    WAKEUP_S,    //On awake, initialize 
+    LOGIN_S,        //Key is in, currently logging in
+    AWAIT_START_S,      //Character is selected, awaiting DM.
+    RECOVERY_S,         //This device can go into recovery mode if messaged with current data from another device upon wakeup
+
+    ADVENTURE_S,        //In the adventure, but not currently battling
+    BATTLE_S,           //Currently battling
+} deviceStates;
+
+
 /*  PER USER: Structure for keeping track of the device's user data   */
-struct user_s{      //change this into a union
-    bool isDM;
+struct user_s {
+    bool isDM;      //Is the current device a DM?
+    deviceStates state; //The state the device is in (See "Device States" from abive)
     char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
     char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
     struct Contact devices[MAX_PLAYER_COUNT];
