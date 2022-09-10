@@ -113,8 +113,14 @@ esp_event_loop_handle_t dndv_event_h;
 void eventLoop_init(void);
 
 /*                  -- BASES AND IDS --
-    Here is the system for all the ID's used within the DnDevice
-                    #IMPORTANT NOTE
+    Here is the system for all the ID's used within the DnDevice.
+
+    For sync IDs, the data contains the event to be received, not to send. 
+    (e.g. a character update sending from a DM to a character would be EVENT_CHAR_UPDATE_RCV instead of EVENT_CHAR_UPDATE_REQuest)      (/TODO: Add to Readme)
+
+                     # FOR DEVELOPERS #
+    Try not to collide names, even between events, seeing as they are only enumerators
+
     In the dndv_comms system, one byte is for bases, one byte is for IDs
     Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
     If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
@@ -160,20 +166,27 @@ enum MISC_B_ID{
     //EVENT_SYS,
     EVENT_TEST,
     //EVENT_STRAIGHTTOLOG,
+    EVENT_LOG,
     EVENT_PING                //TODO: Maybe add a timestamp for actual ping timing capabilities
 };
 
 
-/* -  DEVICE_BASE: For global changes to the local device (that may require further messages) 
-        Used primarily for editing dndv_internals then updating accordingly
+/* -  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) 
+        Used primarily for editing dndv_internals and changing device state
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 enum DEVICE_B_ID{
     //EVENT_KEVIN,            //EVENT_KEYIN!
-    EVENT_DM_ACTIVATE,      //When the DM is activated
-    //EVENT_PLAYER_CHOSEN,    //When a player is selected
-    //EVENT_PC_CHOSEN,        //When the user selects his/her character
-    //EVENT_LOG,
+    EVENT_DM_KEYIN,         //When a DM keys in (keyin without selecting a campaign)
+    //EVENT_DM_NAME_CAMPAIGN
+    EVENT_DM_ACTIVATE,       //When the DM is activated
+    EVENT_DM_START_CAMPAIGN
+
+    EVENT_CAMPAIGN_SELECTED,        //When a player selects a campaign from a broadcasting DM
+    EVENT_PLAYER_KEYIN,    //When a player is selected through a keyin (TODO: will need to get sync data about character)
+    EVENT_PC_CHOSEN,        //When the user selects his/her character
+
+    EVENT_ENTER_WORLD       //
 };
 
 //EVENT_KEVIN_LEVIN
@@ -190,9 +203,11 @@ enum SYNC_B_ID{
     EVENT_DM_INFO,                    //Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
     EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
 
-    //EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key. Return the names.
-    //EVENT_KEYDATA_RCV
+    EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key, so return the data 
+    EVENT_KEYDATA_RCV,       //The data requested was received
 
+
+    EVENT_READY_TO_START_CAMPAIGN    //When the DM says Start, allow the players to start
 };
 
 
@@ -213,7 +228,7 @@ enum OUTGOING_B_ID{
 
 /*  And finally,
 -  DM_RCV_BASE: For all events targeted to the DM from other devices
-    These are DM exclusive actions that should only heard by DM_ACTIVATE (minus the logs file)
+    These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)
         TODO: See if this is the best way
 */
 ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);

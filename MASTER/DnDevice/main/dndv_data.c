@@ -43,7 +43,7 @@ static esp_event_base_t* EventBases[] = {
     &OUTGOING_BASE,
     
     &DM_RCV_BASE
-};//Make sure the N_ enum in dndv_data.h matches above!
+};//Make sure the N_ enum in dndv_data.h matches above!     (base_numbers)
 
 //Use this function if you don't have the base hard coded. 
 //For hard coded values, simply use N_(name_of_base_here)
