@@ -7,9 +7,7 @@
 
 
 //static const char* TAG = "DnDevice";
-#define PROMPT_STR "DnDevice"
-
-
+#define PROMPT_STR "Test"
 
 
 
