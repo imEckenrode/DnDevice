@@ -11,9 +11,9 @@
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All event loop, NVS, and ID structure stuff for the DnDevice can be found in here.
-    This is the only file lower than dndv_internals; dndv_internals imports this file.
+    This is the only file lower than dndv_globals; dndv_globals imports this file.
 
- This file resulted from a refactoring of dndv_internals
+ This file resulted from a refactoring of dndv_internals into dndv_globals and dndv_data
     Just import "dndv_data.h"
 
 This will allow the usage of the event loop library and ID structures anywhere that includes "dndv_data.h"
@@ -50,7 +50,7 @@ typedef short KeyIdentifier;    //Can change this implementation as needed
 //For the raw data to send, use uint8_t* 
 //typedef uint8_t* data_p;
 
-/*   Device-level data is managed in dndv_internals   */
+/*   Device-level data is managed in dndv_globals   */
 
 
 /* _- Auxillary Functions -_
@@ -211,7 +211,7 @@ enum MISC_B_ID{
 
 
 /* --  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) --
-        Used primarily for editing dndv_internals and changing device state
+        Used primarily for editing dndv_globals and changing device state
 
     As a DM, these events will be handled differently if at all;
     See DM_DEVICE_BASE for DM-specific functions.
@@ -255,7 +255,7 @@ enum SYNC_B_ID{
 
 /* --  OUTGOING_BASE  --
     This is a special base only for sending ESP-NOW-ready data.
-  Typically only used from dndv_internals, where dndv_comms is out of scope.
+  Typically only used from dndv_globals, where dndv_comms is out of scope.
 */
 ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
 enum OUTGOING_B_ID{

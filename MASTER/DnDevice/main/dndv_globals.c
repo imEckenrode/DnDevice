@@ -1,9 +1,9 @@
-#include "dndv_internals.h"
+#include "dndv_globals.h"
 
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data);
 
 //Initialize all global variables to the correct values
-void internals_init(){
+void globals_init(){
     current.isDM = false;
     localDevice.displayLogs = false;   //Change this to set if dndv_log logs
     //current.player = &currentPlayer;       //TODO: Pass all through current instead of three variables

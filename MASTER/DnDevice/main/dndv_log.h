@@ -1,6 +1,6 @@
 #pragma once
 
-#include "dndv_internals.h"
+#include "dndv_globals.h"
 #include "dndv_comms.h"
 #include "esp_event.h"
 #include "esp_log.h"

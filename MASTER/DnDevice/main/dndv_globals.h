@@ -1,6 +1,6 @@
 //#pragma once
-#ifndef DNDV_INTERNALS_H    //Cannot start with an E or an underscore, so may rename to H_...
-#define DNDV_INTERNALS_H
+#ifndef DNDV_GLOBALS_H    //Cannot start with an E or an underscore, so may rename to H_...
+#define DNDV_GLOBALS_H
 #include <stdbool.h>
 #include <string.h> //for base comparison
 #include "esp_event.h"
@@ -11,12 +11,12 @@
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All global varibles and higher-level structures for the DnDevice can be found in here
-    For the event loop library and ID-level operations, see dndv_data
+    For the event loop library, structs, and ID-level operations, see dndv_data
 
  That means functions can be called from the screen, from comms, from console, or from wherever else
-    Just import "dndv_internals.h"
+    Just import "dndv_globals.h"
 
-    This will allow the usage of the internal variables anywhere that includes "dndv_internals.h"
+    This will allow the usage of the globally-scoped variables anywhere that includes "dndv_globals.h"
 
 order:      (global variables on top, then)
     Title
@@ -101,7 +101,7 @@ struct l_Device localDevice;    //Settings for the local device
 /*Initialize the global variables correctly
     (Set isDM to False)
 */
-void internals_init(void);
+void globals_init(void);
 
 /*     --- CRUD Functions ---     */
 

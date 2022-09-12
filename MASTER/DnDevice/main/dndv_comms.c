@@ -137,7 +137,7 @@ void dndv_send_ping(void){
 
 /*      -- Receiving Function --     
 
-    When any ESP-NOW data is received, post it to the event loop (dndv_event_h, in dndv_internals)
+    When any ESP-NOW data is received, post it to the event loop (dndv_event_h, in dndv_data)
   In any other file, use esp_event_handle_register_with to receive the data
 */
 

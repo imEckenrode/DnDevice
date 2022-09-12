@@ -1,8 +1,8 @@
 #pragma once
 /*# ifndef dndv_comms.h
 # define dndv_comms.h */
-//#include "dndv_data.h" Automatically included through dndv_internals, but if dndv_internals isn't used, use this
-#include "dndv_internals.h"
+//#include "dndv_data.h" //Automatically included through dndv_globals, but if dndv_globals isn't used, use this comment
+#include "dndv_globals.h"
 #include "esp_now.h"
 #include "esp_wifi.h"
 #include "esp_log.h"

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "dndv_internals.h"
+#include "dndv_globals.h"
 #include "console.h"
 #include "dndv_comms.h"
 #include "dndv_log.h"
@@ -17,7 +17,7 @@ void initAll(void){
     nvs_init();         //Initialize the inside file system
     eventLoop_init();   //Initialize the event loop library
     //Initialize the SD card stuff (when needed)
-    internals_init();   //Initialize the global variables to the correct values, etc.
+    globals_init();   //Initialize the global variables to the correct values, etc.
 
     comms_init();       //Initialize the ESP-NOW Communications implementation
     log_init();         //Initialize the logs
