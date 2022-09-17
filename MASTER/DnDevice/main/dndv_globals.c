@@ -52,10 +52,15 @@ void updateMyPCName(char* name){            //TODO: Update this to P name and C 
 }
 
 
+
 /*          --- Data Retrieval System ---
-        Here is the system for retrieving character data. If there is not 
-        TODO: 
+        Here is the system for retrieving character data. 
+
+        TODO: Move this to the SD card while still having this option
 */
+
+
+
 
 
 

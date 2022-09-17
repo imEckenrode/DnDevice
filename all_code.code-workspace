@@ -51,7 +51,8 @@
 			"stop_token": "c",
 			"exception": "c",
 			"new": "c",
-			"stdexcept": "c"
+			"stdexcept": "c",
+			"dndv_data.h": "c"
 		}
 	}
 }

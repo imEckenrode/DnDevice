@@ -55,10 +55,35 @@ esp_err_t r_say(void){
 }
 
 
+/*
+static struct {
+    struct arg_short key;
+    struct arg_int value;
+    struct arg_end *end;
+} store_args;
+
+
+esp_err_t r_store(void){
+    store_args.key = arg_intn(NULL, "key", "<key>", 0, 255, "The key ID number")
+    store_args.say = arg_str0(NULL, NULL, "<this>", "Stuff To Say");
+   store_args.end = arg_end(2);
+
+    esp_console_cmd_t command = {
+        .command = "say",
+        .help = "Prints inputs (For testing arguments)",
+        .func = &say_cmd,
+        .argtable = &args
+    };
+    return esp_console_cmd_register(&command);
+}
+*/
+
 
 void register_commands(){
     r_hello();
     r_say();
+    //r_store();
+    //r_retrieve();
 }
 
 /* STUFF TO DO

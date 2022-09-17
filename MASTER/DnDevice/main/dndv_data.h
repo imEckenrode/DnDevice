@@ -224,7 +224,7 @@ enum DEVICE_B_ID{
     EVENT_PLAYER_KEYIN,    //When a player is selected through a keyin (TODO: will need to get sync data about character)
     EVENT_PC_CHOSEN,        //When the user selects his/her character
 
-    EVENT_ENTER_WORLD       //
+    EVENT_ENTER_WORLD       //If the DM has started the adventure, this loads the dashboard screen and removes any old initialization data
 };
 
 //EVENT_KEVIN_LEVIN
@@ -242,11 +242,12 @@ enum SYNC_B_ID{
                             Broadcasted when a device becomes a DM. Transmits the DM name and campaign name*/
     EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
 
-    EVENT_KEYDATA_REQ,      //A device requested the player name and character data for a specified key, so return the data 
-    EVENT_KEYDATA_RCV,       //The data requested was received
+    EVENT_KEYDATA_REQ,      /*  Return the data requested for a specified key.
+                             Either the player list and character list  or  character data was requested   */
+    EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
+    EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
 
-
-    EVENT_READY_TO_START_CAMPAIGN    //When the DM says Start, allow the players to start
+    EVENT_START_ADVENTURE    //When the DM says Start, allow the players to start
 };
 
     //EVENT_DM_INFO uses 
