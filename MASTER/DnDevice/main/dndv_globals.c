@@ -12,6 +12,18 @@ void globals_init(){
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
 
+/*     -- Local Functions (for use in dndv_globals.c) --   */
+
+// Broadcast data by sending to the event loop
+static bool comms_broadcastData(void* event_data, size_t event_data_size){
+    esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, event_data, event_data_size, 0); 
+    return true;
+}
+
+
+
+
+
 /*     --- CRUD Functions ---     */
 
 ContactInfo getMyContactInfo(){
@@ -19,11 +31,36 @@ ContactInfo getMyContactInfo(){
     return myInfo;
 }
 
+bool updateMyKey(KeyIdentifier newKey){current.info.key = newKey; return true;}
+
+Player getMyPlayer(){
+    return currentPlayer;
+}
+
+PC getMyPC(){
+    return currentPC;
+}
+
+void updateMyPlayerName(char* name){    
+    strcpy(currentPlayer.name, name);
+    strcpy(current.info.p_name,name);
+}
+
+void updateMyPCName(char* name){            //TODO: Update this to P name and C name
+    strcpy(currentPC.name, name); 
+    strcpy(current.info.c_name, name);
+}
+
+
+/*          --- Data Retrieval System ---
+        Here is the system for retrieving character data. If there is not 
+        TODO: 
+*/
 
 
 
 
-/*  HOME OF DEVICE_BASE HANDLING
+/*  --- HOME OF DEVICE_BASE HANDLING :
 This function receives all DEVICE_BASEd events and processes them accordingly, possibly redirecting them to other functions.
 */
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
@@ -58,7 +95,8 @@ void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
                 .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
                 .info =  getMyContactInfo()}; //current.info};
 
-            esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
+            comms_broadcastData((void*)&to_send, sizeof(to_send));
+                    //esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
             printf("Sent, right?\n%s\n",to_send.info.c_name);
             break;
         default:
@@ -78,9 +116,9 @@ void DM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
     esp_event_handler_instance_register_with(dndv_event_h, DM_DEVICE_BASE, ESP_EVENT_ANY_ID, DM_rcv, NULL,NULL);
-    esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv); 
+    //esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv);      
                 //TODO: UNREGISTERING this means that you cannot deactivate DM mode without a reset (which is fine)
-    
+                    //(If this is entirely separate from the DM_rcv, the unregister comment can work)
             //Syncing is done by dndv_comms
     //Player List
     //PlayerToMAC List
@@ -109,10 +147,8 @@ void testPCInit(void){
 void testDMInit(void){
     current.isDM = true;      //TODO: Could have a semaphore something or other on the global level
     current.info.key = 0;
-    strcpy(currentPlayer.name, "MeDM");
-    strcpy(currentPC.name, "AwesomeTitleHere");
-    strcpy(current.info.p_name,currentPlayer.name);
-    strcpy(current.info.c_name,currentPC.name);
+    updateMyPlayerName("MeDM");
+    updateMyPCName("AwesomeTitleHere");
 
     DM_Activate();
     printf("DM Mode Activated (Test DM Initialized)\n");

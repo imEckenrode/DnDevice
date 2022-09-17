@@ -8,6 +8,7 @@
 #include "esp_log.h"
 
 #include "dndv_data.h"
+
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All global varibles and higher-level structures for the DnDevice can be found in here
@@ -30,7 +31,8 @@ order:      (global variables on top, then)
 /*     -- Device Level Data Types --      */
 
 /* The player [and DM] struct (save data into a file)  */
-typedef struct __attribute__((__packed__)) player_s{
+typedef struct  __attribute__((__packed__))
+{
     KeyIdentifier key;
     char name[MAX_NAME_LENGTH];
     bool canDM;
@@ -75,10 +77,10 @@ typedef enum {
 
 
 /*  PER USER: Structure for keeping track of the device's user data   */
-struct user_s {
-    bool isDM;      //Is the current device a DM?
-    deviceStates state; //The state the device is in (See "Device States" from abive)
-    ContactInfo info;    //The current device's info
+struct current_device_s {
+    bool isDM;          //Is the current device a DM?
+    deviceStates state;     //The state the device is in (See "Device States" above)
+    ContactInfo info;       //The current device's info                             //TODO: If you need a few more bytes, remove this and format the rest to reference currentPlayer
     struct Contact devices[MAX_PLAYER_COUNT];
 };
 
@@ -90,7 +92,7 @@ struct __attribute__((__packed__)) l_Device{
 /*              -- GLOBAL VARIABLES --               */
 PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global
 Player currentPlayer;       //The currently selected player
-struct user_s current;      //The current user, global to the DnDevice  //IMPORTANT
+struct current_device_s current;      //The current user, global to the DnDevice  //IMPORTANT
 
 struct l_Device localDevice;    //Settings for the local device
 
@@ -115,7 +117,7 @@ ContactInfo getMyContactInfo();
 void DM_start(void);
 
 // And finally, tests:      
-    //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c
+    //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c?
 void testPCInit(void);  //Initialize a test character into the currentPC 
 void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
 

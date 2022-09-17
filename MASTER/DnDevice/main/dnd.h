@@ -9,7 +9,7 @@
     This is for any high-level battle sequence functions to call from anywhere.
     Initiative order, attacks, and turn management is all done in this file.
 
-    Lower-level structures, like the identifier definition for character files, are handled by dndv_internals.
+    Lower-level structures, like the identifier definition for character files, are handled by dndv_globals
     
     
 

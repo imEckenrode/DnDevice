@@ -111,7 +111,7 @@ typedef struct __attribute__((__packed__)) macPlusIdData{
 */
 
 
-typedef struct __attribute__((__packed__)) contactInfo{
+typedef struct __attribute__((__packed__)){
     KeyIdentifier key;
     char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
     char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
@@ -180,7 +180,7 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
     N_DMDEVICE_BASE,            //DEVICE BASE, but for DMs
 }; //Use N_ your base to get the number automatically.
       //Make sure this matches EventBases in dndv_data.c
-//TODO: do this better, store numbers in a struct in that array, then somehow make it visible
+//TODO: move this near the base struct, store numbers in a struct in that array, then somehow make it visible
 
 
 /*             =-- Bases and ID Declaration --=

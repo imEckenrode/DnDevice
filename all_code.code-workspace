@@ -42,7 +42,16 @@
 			"*.ipp": "c",
 			"regex": "c",
 			"chrono": "c",
-			"esp_log.h": "c"
+			"esp_log.h": "c",
+			"fstream": "c",
+			"mutex": "c",
+			"sstream": "c",
+			"streambuf": "c",
+			"memory_resource": "c",
+			"stop_token": "c",
+			"exception": "c",
+			"new": "c",
+			"stdexcept": "c"
 		}
 	}
 }

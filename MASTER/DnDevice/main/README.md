@@ -9,11 +9,11 @@ This is the lowest level of code on the dependency tree; everything can import t
 All the event loop library code and structures are here, including player data and data access.
 
 
-## dndv_internals
+## dndv_globals
 
 This is the second-lowest level of code on the dependency tree; this only imports dndv_dat and nearly everything imports this.
 
-All the device-level structures and global variables are  here, including player data and data access.
+All the global variables and player data structures are here, including player data and data access.
 
 ## dndv_comms
 
@@ -36,11 +36,11 @@ This code is the highest level; all initialization is done from here
 
 ## Other Libraries
 
-All the other libraries are also in there, most likely functioning as their names show
+All the other libraries are also in there, most likely functioning as their names describe
 
 #### Rules for Other Libraries
 
-To access globals, import dndv_internals
+To access globals, import dndv_globals
 To send data, inclue dndv_comms
-To receive data, register to the event loop (see dndv_comms.h)
-And to initialize the code, import its .h file and call its method in init.c
+To receive data, register to the event loop (see dndv_data.h)
+And to initialize the code, import its .h file to and call its method in init.c
