@@ -1,4 +1,4 @@
-#include "dndv_globals.h"
+#include "dndv_internals.h"
 
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data);
 
@@ -12,7 +12,7 @@ void globals_init(){
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
 
-/*     -- Local Functions (for use in dndv_globals.c) --   */
+/*     -- Local Functions (for use in this file, dndv_internals.c) --   */
 
 // Broadcast data by sending to the event loop
 static bool comms_broadcastData(void* event_data, size_t event_data_size){

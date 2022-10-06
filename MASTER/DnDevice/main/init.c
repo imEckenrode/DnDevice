@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "dndv_globals.h"
+#include "dndv_internals.h"
 #include "console.h"
 #include "dndv_comms.h"
 #include "dndv_log.h"

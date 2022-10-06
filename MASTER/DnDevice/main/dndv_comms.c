@@ -188,8 +188,6 @@ esp_err_t DM_DM_Data(macAddr da){
     return ESP_OK;
 }
 
-bool addPotentialDevice(){return false;}
-
 bool addConfirmedPC(){return false;}
 
 
@@ -224,9 +222,6 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
                 bool addedBefore = addIfNewPeer(da->mac);
                 if(addedBefore){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
                 DM_DM_Data(da->mac);
-                break;
-            case EVENT_INFO_ACK:
-                addPotentialDevice();
                 break;
             default:
                 printf("Heard some syncs, but not for the DM.\n");

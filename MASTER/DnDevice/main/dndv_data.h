@@ -11,9 +11,9 @@
 /*               - - - THIS FILE DESCRIPTION - - -
  
  All event loop, NVS, and ID structure stuff for the DnDevice can be found in here.
-    This is the only file lower than dndv_globals; dndv_globals imports this file.
+    This is the only file lower than dndv_internals; dndv_internals imports this file.
 
- This file resulted from a refactoring of dndv_internals into dndv_globals and dndv_data
+ This file resulted from a refactoring of dndv_internals into dndv_internals and dndv_data
     Just import "dndv_data.h"
 
 This will allow the usage of the event loop library and ID structures anywhere that includes "dndv_data.h"
@@ -44,13 +44,13 @@ typedef short KeyIdentifier;    //Can change this implementation as needed
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
 #define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
-//#define MAX_NICKNAME_LENGTH 8
+#define MAX_NICKNAME_LENGTH 8
 
 
 //For the raw data to send, use uint8_t* 
 //typedef uint8_t* data_p;
 
-/*   Device-level data is managed in dndv_globals   */
+/*   Device-level data is managed in dndv_internals   */
 
 
 /* _- Auxillary Functions -_
@@ -110,11 +110,28 @@ typedef struct __attribute__((__packed__)) macPlusIdData{
     These structures are used by multiple data types
 */
 
+typedef char name[MAX_NAME_LENGTH];
+typedef char nick[MAX_NICKNAME_LENGTH];
+typedef char* dynamicName;
+
+
+//Data Separated by the \0 string end
+typedef struct __attribute__((__packed__)){
+    char* dynamicNameData;
+} DynamicNameList;
+
+//The structure for providing the ID of a character
+typedef struct __attribute__((__packed__)){
+    KeyIdentifier key;
+    nick nick;
+} pcNick;
+
+
 
 typedef struct __attribute__((__packed__)){
     KeyIdentifier key;
-    char p_name[MAX_NAME_LENGTH];   //P is Person/Player (AKA the IRL name)
-    char c_name[MAX_NAME_LENGTH];   //C is Campaign or Character Name, depending on if DM or PC
+    name p_name;   //P is Person/Player (AKA the IRL name)
+    name c_name;   //C is Campaign or Character Name, depending on if DM or PC
 } ContactInfo;
 
 
@@ -149,6 +166,8 @@ esp_event_loop_handle_t dndv_event_h;
 
 //Initialize the event loop library
 void eventLoop_init(void);
+
+
 
 /*                  -- BASES AND IDS --
     Here is the system for all the ID's used within the DnDevice.
@@ -211,7 +230,7 @@ enum MISC_B_ID{
 
 
 /* --  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) --
-        Used primarily for editing dndv_globals and changing device state
+        Used primarily for editing dndv_internals and changing device state
 
     As a DM, these events will be handled differently if at all;
     See DM_DEVICE_BASE for DM-specific functions.
@@ -238,25 +257,41 @@ enum DEVICE_B_ID{
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_DM_INFO,          /*[Uses dm_info_s]
-                            Broadcasted when a device becomes a DM. Transmits the DM name and campaign name*/
-    EVENT_INFO_ACK,                           //DM Info Acknowledged, letting the DM keep track of potential users (in case a DM wants to directly assign a character)
+    EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
 
-    EVENT_KEYDATA_REQ,      /*  Return the data requested for a specified key.
-                             Either the player list and character list  or  character data was requested   */
+    EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
+                                //Either the player list and character list  or  character data was requested   */
     EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
     EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
+    EVENT_KEYANDPC_RCV,     //The Key and Character Data, for 
 
     EVENT_START_ADVENTURE    //When the DM says Start, allow the players to start
 };
 
-    //EVENT_DM_INFO uses 
+    //EVENT_DM_INFO uses dm_info_s
+
+struct __attribute__((__packed__)) keydata_req_s{
+    KeyIdentifier key;
+};
+//KeyData returns player info if the key is for a player, and it returns 
+
+
+struct __attribute__((__packed__)) keydata_rcv_s{
+    KeyIdentifier key;
+    Player playerInfo;      //How does this header know what Player is?
+    pcNick pcList[];         //And return a list of all the possible characters
+};
+
+struct __attribute__((__packed__)) pcdata_rcv_s{
+    KeyIdentifier key;
+    PC pcInfo;      //How does this header know what Player is?
+};
 
 
 
 /* --  OUTGOING_BASE  --
     This is a special base only for sending ESP-NOW-ready data.
-  Typically only used from dndv_globals, where dndv_comms is out of scope.
+  Typically only used from dndv_internals, where dndv_comms is out of scope.
 */
 ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
 enum OUTGOING_B_ID{

@@ -3,7 +3,7 @@
 //#include "esp_console.h"
 //#include "esp_err.h"
 #include "dndv_comms.h"
-#include "dndv_globals.h"
+#include "dndv_internals.h"
 
 #define PROMPT_STR "\nDnDevice Console"
 
