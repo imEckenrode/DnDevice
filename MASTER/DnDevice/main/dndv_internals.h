@@ -26,40 +26,8 @@ order:      (global variables on top, then)
     Function
 */
 
-// ***Lowest Level Data Types in dndv_data.h***
 
-/*     -- Device Level Data Types --      */
 
-/* The player [and DM] struct (save data into a file)  */
-typedef struct  __attribute__((__packed__))
-{
-    KeyIdentifier key;
-    char name[MAX_NAME_LENGTH];
-    bool canDM;
-    bool TrainingWheelsProtocol_Active;
-} Player;
-
-/* The character struct (save data into a file) */ 
-typedef struct character_s{
-    KeyIdentifier key;
-    char name[MAX_NAME_LENGTH];
-    //char nicknames[MAX_NICKNAME_LENGTH];
-    short MaxHP;
-    short HP;
-    //uint8 level;
-} PC;
-
-/*     - Connections Tracking and Naming -
-    For DMs, this is the list of players
-    For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
-*/
-
-//*** contactInfo stores the ID, the player name, and the character name
-
-struct Contact{
-    macAddr MAC;
-    ContactInfo info;
-};
 
 
 /*   - Device States -   

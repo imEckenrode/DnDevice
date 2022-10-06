@@ -106,10 +106,10 @@ typedef struct __attribute__((__packed__)) macPlusIdData{
 } macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
 
+
 /*     -- GENERIC ID STRUCTURES --
     These structures are used by multiple data types
 */
-
 typedef char name[MAX_NAME_LENGTH];
 typedef char nick[MAX_NICKNAME_LENGTH];
 typedef char* dynamicName;
@@ -144,6 +144,38 @@ struct __attribute__((__packed__)) dm_info_s {
     };
 
 
+/*     -- Device Level Data Types --      */
+
+/* The player [and DM] struct (save data into a file)  */
+typedef struct  __attribute__((__packed__))
+{
+    KeyIdentifier key;
+    char name[MAX_NAME_LENGTH];
+    bool canDM;
+    bool TrainingWheelsProtocol_Active;
+} Player;
+
+/* The character struct (save data into a file) */ 
+typedef struct character_s{
+    KeyIdentifier key;
+    char name[MAX_NAME_LENGTH];
+    //char nicknames[MAX_NICKNAME_LENGTH];
+    short MaxHP;
+    short HP;
+    //uint8 level;
+} PC;
+
+/*     - Connections Tracking and Naming -
+    For DMs, this is the list of players
+    For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
+*/
+
+//*** contactInfo stores the ID, the player name, and the character name
+
+struct Contact{
+    macAddr MAC;
+    ContactInfo info;
+};
 
 
 
@@ -278,13 +310,13 @@ struct __attribute__((__packed__)) keydata_req_s{
 
 struct __attribute__((__packed__)) keydata_rcv_s{
     KeyIdentifier key;
-    Player playerInfo;      //How does this header know what Player is?
+    Player playerInfo;
     pcNick pcList[];         //And return a list of all the possible characters
 };
 
 struct __attribute__((__packed__)) pcdata_rcv_s{
     KeyIdentifier key;
-    PC pcInfo;      //How does this header know what Player is?
+    PC pcInfo;
 };
 
 
