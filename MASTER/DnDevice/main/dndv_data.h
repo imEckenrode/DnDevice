@@ -93,14 +93,12 @@ typedef struct __attribute__((__packed__)) idsPlusData{
  //fullData: MAC address and data (send the stuff under data)
 typedef struct __attribute__((__packed__)) macPlusData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
-    short dataLen;          //The length of the data, for easy sending
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macAndData_s;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
 //(Unused)  MAC address and data with access to the IDs (make sure to send IDs and data)
 typedef struct __attribute__((__packed__)) macPlusIdData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
-    short dataLen;          //The length of the data, for easy sending
     struct IDs ids;
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
@@ -151,6 +149,7 @@ typedef struct  __attribute__((__packed__))
 {
     KeyIdentifier key;
     char name[MAX_NAME_LENGTH];
+    char nickname[MAX_NICKNAME_LENGTH];
     bool canDM;
     bool TrainingWheelsProtocol_Active;
 } Player;
@@ -159,10 +158,10 @@ typedef struct  __attribute__((__packed__))
 typedef struct character_s{
     KeyIdentifier key;
     char name[MAX_NAME_LENGTH];
-    //char nicknames[MAX_NICKNAME_LENGTH];
+    char nickname[MAX_NICKNAME_LENGTH];
     short MaxHP;
     short HP;
-    //uint8 level;
+    short XP10;
 } PC;
 
 /*     - Connections Tracking and Naming -

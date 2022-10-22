@@ -58,9 +58,8 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
 }
 
 //Send data to the specified MAC address with a macAndData_s struct pointer
-esp_err_t dndv_sendMAD(macAndData_s* mad){
-    esp_err_t err = dndv_send(mad->mac,(void*)(mad->data),mad->dataLen);
-
+esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
+    esp_err_t err = dndv_send(mad->mac,(void*)(mad->data),size);
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Send error (%d)", err);
         return ESP_FAIL;
@@ -71,7 +70,7 @@ esp_err_t dndv_sendMAD(macAndData_s* mad){
 
 /*  Send out any data posted to the event loop to the included MAC address if applicable
     This requires formatting to be done before sending, so it's recommended to use other methods
-            TODO: STANDARDIZE with macAndData_s, then use this always?
+            TODO?: STANDARDIZE with macAndData_s, then use this always?
      */
 void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
@@ -89,7 +88,7 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
             dndv_send(broadcast_mac,(char*)event_data);
             break;  */
         case EVENT_SEND:
-            dndv_sendMAD(((macAndData_s*) event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
+            dndv_sendMAD(((macAndData_s*) event_data), sizeof(event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
             break;
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
@@ -148,15 +147,14 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     uint8_t id = data[1];     //TODO: strip the first two bytes from the data
     if (base == OUTGOING_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
         ESP_LOGE(TAG, "OUTGOING_BASE will cause an infinite loop!\nAvoid sending Outgoing Base if you want your data to arrive correctly\n");
-        return;
+        return;     //TODO: Validate this data on receive. That way, no one can pretend to be sending from a different device
     }
 
     short fullDataLen = sizeof(macAndData_s)+len;    //The length of the mac and data struct
-    macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen + the data length
+    macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen
     //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
     memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
-    fullData->dataLen = len;
     memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
     esp_event_post_to(dndv_event_h, base, id, (void*)fullData,fullDataLen,0);
     free(fullData); //This frees the malloc'd memory
