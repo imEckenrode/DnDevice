@@ -32,5 +32,5 @@ int main(){
     printf("\n%d, %d\n", sizeof(*better), sizeof(*og));
     puts(og->and);
     printf("\n");
-    puts(better->and);      //is this correct? or am i bypassing a pointer
+    puts(better->and);
 }
