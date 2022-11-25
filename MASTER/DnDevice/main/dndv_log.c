@@ -3,7 +3,7 @@
 #define LogTAG "DLog"
 static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     //ESP_LOGV("LOG","Data Received!");
-    //struct IDs* data_rcv = (struct IDs*) event_data;
+    //struct EVENT* data_rcv = (struct EVENT*) event_data;
     //printf("\nBase Name: %s",Num2EventBase(data_rcv->event.BASE));
     //printf("\nBase:%d\nID:%d\n",data_rcv->event.BASE,data_rcv->event.ID);
     if(localDevice.displayLogs){   //Only printLogs if the setting is enabled

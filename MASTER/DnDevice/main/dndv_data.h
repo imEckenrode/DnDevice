@@ -31,20 +31,33 @@ Initialize the non-volatile storage library to persist data
     Required for: ESP-NOW   */
 void nvs_init(void);
 
-/*     -- Lowest Level Data Types --      */
-
-//  THIS IS AN ARRAY DATA TYPE! MacAddr is defined to make any MAC address assignments more readable
-#define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
-typedef unsigned char macAddr[MAC_ADDR_SIZE];
-
-// identifier (for players and PCs) - a unique number, used to key in
-typedef short KeyIdentifier;    //Can change this implementation as needed
 
 
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
-#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
+
 #define MAX_NICKNAME_LENGTH 8
+#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
+#define MAX_FULLNAME_LENGTH 96
+#define MAX_MSG_LENGTH 192
+
+#define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
+/*     -- LOWEST LEVEL DATA TYPES --      */
+
+// Key(Identifier) (for players and PCs) - a unique number, used to key in and track each character
+typedef short Key;    //Can change this implementation as needed
+
+
+//  - ARRAY DATA TYPES -
+typedef uint8_t DynData[]; //Dynamic Data type, must be last in the struct and must allocate room for it. \\TODO: Implement this in place of all the other uint8_t datas
+
+//MacAddr is defined to make any MAC address assignments more readable
+typedef unsigned char macAddr[MAC_ADDR_SIZE];
+
+typedef char nick[MAX_NICKNAME_LENGTH];
+typedef char name[MAX_NAME_LENGTH];
+typedef char fullname[MAX_FULLNAME_LENGTH];
+typedef char msg[MAX_MSG_LENGTH];
 
 
 //For the raw data to send, use uint8_t* 
@@ -66,13 +79,10 @@ bool printMAC(macAddr MAC);
 
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"
-*//*
-struct __attribute__((__packed__)) raw_data{
-    uint8_t data[];         //This "flexible array member" means dynamic allocation will be neccesary
-};  */
+
 
 /*  ID as Data (no other data = no Malloc required) - Data Structure */
-struct __attribute__((__packed__)) IDs{
+struct __attribute__((__packed__)) EVENT{
     uint8_t BASE;
     uint8_t ID;
 };
@@ -85,7 +95,7 @@ typedef struct __attribute__((__packed__)) idsPlusData{
 
 // Data with indexed IDs under event.base and event.ID (the standard data struct)
 typedef struct __attribute__((__packed__)) idsPlusData{
-    struct IDs event;
+    struct EVENT event;
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } d_ids_s;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
@@ -99,7 +109,7 @@ typedef struct __attribute__((__packed__)) macPlusData{
 //(Unused)  MAC address and data with access to the IDs (make sure to send IDs and data)
 typedef struct __attribute__((__packed__)) macPlusIdData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
-    struct IDs ids;
+    struct EVENT ids;
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
@@ -108,9 +118,6 @@ typedef struct __attribute__((__packed__)) macPlusIdData{
 /*     -- GENERIC ID STRUCTURES --
     These structures are used by multiple data types
 */
-typedef char name[MAX_NAME_LENGTH];
-typedef char nick[MAX_NICKNAME_LENGTH];
-typedef char* dynamicName;
 
 
 //Data Separated by the \0 string end
@@ -120,14 +127,14 @@ typedef struct __attribute__((__packed__)){
 
 //The structure for providing the ID of a character
 typedef struct __attribute__((__packed__)){
-    KeyIdentifier key;
+    Key key;
     nick nick;
 } pcNick;
 
 
 
 typedef struct __attribute__((__packed__)){
-    KeyIdentifier key;
+    Key key;
     name p_name;   //P is Person/Player (AKA the IRL name)
     name c_name;   //C is Campaign or Character Name, depending on if DM or PC
 } ContactInfo;
@@ -137,7 +144,7 @@ typedef struct __attribute__((__packed__)){
     Used by EVENT_DM_ACTIVATE, EVENT_DM_INFO,
 */
 struct __attribute__((__packed__)) dm_info_s {
-        struct IDs event;               //The base and ID struct
+        struct EVENT event;               //The base and ID struct
         ContactInfo info;
     };
 
@@ -147,7 +154,7 @@ struct __attribute__((__packed__)) dm_info_s {
 /* The player [and DM] struct (save data into a file)  */
 typedef struct  __attribute__((__packed__))
 {
-    KeyIdentifier key;
+    Key key;
     char name[MAX_NAME_LENGTH];
     char nickname[MAX_NICKNAME_LENGTH];
     bool canDM;
@@ -156,7 +163,7 @@ typedef struct  __attribute__((__packed__))
 
 /* The character struct (save data into a file) */ 
 typedef struct character_s{
-    KeyIdentifier key;
+    Key key;
     char name[MAX_NAME_LENGTH];
     char nickname[MAX_NICKNAME_LENGTH];
     short MaxHP;
@@ -200,7 +207,7 @@ void eventLoop_init(void);
 
 
 
-/*                  -- BASES AND IDS --
+/*                  -- EVENT: BASES AND IDS --
     Here is the system for all the ID's used within the DnDevice.
 
     For sync IDs, the data contains the event to be received, not to send. 
@@ -243,7 +250,7 @@ enum base_numbers{                       //TODO: stop using this. Fast, but have
     };
 
     struct __attribute__((__packed__)) stuff_goes_here_s {         //Finally, the actual format of the data gets its own struct for easy access (_s for struct)
-        struct IDs event;     //The base and ID struct
+        struct EVENT event;     //The base and ID struct
         uint8 the_data[248];    //
     };
 */
@@ -302,19 +309,19 @@ enum SYNC_B_ID{
     //EVENT_DM_INFO uses dm_info_s
 
 struct __attribute__((__packed__)) keydata_req_s{
-    KeyIdentifier key;
+    Key key;
 };
 //KeyData returns player info if the key is for a player, and it returns 
 
 
 struct __attribute__((__packed__)) keydata_rcv_s{
-    KeyIdentifier key;
+    Key key;
     Player playerInfo;
     pcNick pcList[];         //And return a list of all the possible characters
 };
 
 struct __attribute__((__packed__)) pcdata_rcv_s{
-    KeyIdentifier key;
+    Key key;
     PC pcInfo;
 };
 

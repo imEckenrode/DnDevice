@@ -31,7 +31,7 @@ ContactInfo getMyContactInfo(){
     return myInfo;
 }
 
-bool updateMyKey(KeyIdentifier newKey){current.info.key = newKey; return true;}
+bool updateMyKey(Key newKey){current.info.key = newKey; return true;}
 
 Player getMyPlayer(){
     return currentPlayer;

@@ -101,9 +101,9 @@ void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void*
 esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    struct IDs dat;
+    struct EVENT dat;
     dat.BASE = N_SYNC_BASE;                     //Set the correct base and ID for easy unpacking
-    dat.ID = EVENT_AWAKE_BROADCAST_RCV;
+    dat.ID = EVENT_AWAKE_BROADCAST_RCV;             //TODO: Formalize this into the streamlined IDs system
 
     esp_err_t err = dndv_send(broadcast_mac,(void*)&dat,sizeof(dat));
 
@@ -120,7 +120,7 @@ esp_err_t dndv_send_onAwake(void){
 void dndv_send_ping(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    struct IDs dat;     //If there's no actual data being passed, no need to malloc anything (specific to this function)
+    struct EVENT dat;     //If there's no actual data being passed, no need to malloc anything (specific to this function)
     dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
     dat.ID = EVENT_PING;                    //ID number 3 as of writing this...
 
@@ -178,7 +178,7 @@ esp_err_t DM_DM_Data(macAddr da){
     struct dm_info_s to_send = {
         .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
         .info =  getMyContactInfo()}; //current.info};
-    esp_err_t err = dndv_send(da,&to_send,sizeof(to_send));        //Create a struct to send both DM name and campaign name alongside the IDs
+    esp_err_t err = dndv_send(da,&to_send,sizeof(to_send));        //Send the struct with both DM name and campaign name alongside the IDs
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
         return ESP_FAIL;
