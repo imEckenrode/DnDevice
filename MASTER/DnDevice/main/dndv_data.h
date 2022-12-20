@@ -50,6 +50,7 @@ typedef short Key;    //Can change this implementation as needed
 
 //  - ARRAY DATA TYPES -
 typedef uint8_t DynData[]; //Dynamic Data type, must be last in the struct and must allocate room for it. \\TODO: Implement this in place of all the other uint8_t datas
+//may need typedef uint8_t* data_p; for raw data...
 
 //MacAddr is defined to make any MAC address assignments more readable
 typedef unsigned char macAddr[MAC_ADDR_SIZE];
@@ -59,9 +60,6 @@ typedef char name[MAX_NAME_LENGTH];
 typedef char fullname[MAX_FULLNAME_LENGTH];
 typedef char msg[MAX_MSG_LENGTH];
 
-
-//For the raw data to send, use uint8_t* 
-//typedef uint8_t* data_p;
 
 /*   Device-level data is managed in dndv_internals   */
 
@@ -80,7 +78,7 @@ bool printMAC(macAddr MAC);
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"
 
-
+*/
 /*  ID as Data (no other data = no Malloc required) - Data Structure */
 struct __attribute__((__packed__)) EVENT{
     uint8_t BASE;
@@ -88,16 +86,16 @@ struct __attribute__((__packed__)) EVENT{
 };
 
 /*
-typedef struct __attribute__((__packed__)) idsPlusData{
+typedef struct __attribute__((__packed__)) eventPlusData{
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
 } d_pure;   */      //Cannot have only a blank member
 
 
 // Data with indexed IDs under event.base and event.ID (the standard data struct)
-typedef struct __attribute__((__packed__)) idsPlusData{
+typedef struct __attribute__((__packed__)) eventPlusData{           //todo: use...?
     struct EVENT event;
     uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
-} d_ids_s;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
+} d_event_s;           //When you allocate space for this, you want to allocate the size of the struct plus the amount of space you want for the array
 
 
  //fullData: MAC address and data (send the stuff under data)
@@ -109,7 +107,7 @@ typedef struct __attribute__((__packed__)) macPlusData{
 //(Unused)  MAC address and data with access to the IDs (make sure to send IDs and data)
 typedef struct __attribute__((__packed__)) macPlusIdData{
     macAddr mac;                //The MAC address of the recipient or sender, this is never passed through 
-    struct EVENT ids;
+    struct EVENT event;
     uint8_t data[];                 //This "flexible array member" means dynamic allocation will be neccesary
 } macIData;           //When you allocate space for this, allocate the size of the MAC plus the amount of space you want for the array
 
@@ -143,7 +141,7 @@ typedef struct __attribute__((__packed__)){
 /*Data broadcasted when the DM is set up, or messaged directly when requested by a player
     Used by EVENT_DM_ACTIVATE, EVENT_DM_INFO,
 */
-struct __attribute__((__packed__)) dm_info_s {
+struct __attribute__((__packed__)) dm_info_s {                                                                   //TODO: Move this under an event. No need for this here.
         struct EVENT event;               //The base and ID struct
         ContactInfo info;
     };
