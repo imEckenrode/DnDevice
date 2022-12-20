@@ -212,34 +212,43 @@ bool addPotentialDM(macAndData_s* mad){
 bool selectDM(){return false;}
 
 /*  When any sync data is passed, act on it.
-        Different actions for DM vs. non-DM     */
+        This is for the player    */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
-    if(current.isDM){
-        printf("I'm DM, there is syncing!\n");
-        switch(id){ //If DM and you receive stuff, call functions here
-            case EVENT_AWAKE_BROADCAST_RCV:
-                ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
-                bool newlyAdded = addIfNewPeer(da->mac);
-                if(!newlyAdded){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
-                DM_DM_Data(da->mac);
-                break;
-            default:
-                printf("Heard some syncs, but not for the DM.\n");
-        }
-
-    //If not a DM, run the player logic    
-    }else{
-        switch(id){ //If not DM and you receive stuff, call functions here
-            case EVENT_DM_INFO:
-                addPotentialDM(da);
-                break;
-            default:
-                printf("Heard some syncs, but I'm not a DM.\n");
-        }
+    switch(id){ //If not DM and you receive stuff, call functions here
+        case EVENT_DM_INFO:
+            addPotentialDM(da);
+            break;
+        default:
+            printf("Someone's syncing out there\n");
     }
 }
 
+void dm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    macAndData_s* da = (macAndData_s*) event_data;
+    printf("Heard Syncing...\n");
+    switch(id){ //If DM and you receive stuff, call functions here
+        case EVENT_AWAKE_BROADCAST_RCV:
+            ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
+            bool newlyAdded = addIfNewPeer(da->mac);
+            if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending anyway.\n");}
+            DM_DM_Data(da->mac);
+            break;
+        default:
+            printf("Someone's syncing out there\n");
+    }
+
+
+//Update the event handler if the device is/isn't a DM
+void update_comms_sync_mode(bool isDM){
+    if(isDM){
+        esp_event_handler_instance_register_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, dm_sync_rcv, NULL,NULL);
+        esp_event_handler_instance_unregister_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
+    }else{
+        esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
+        esp_event_handler_instance_unregister_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, dm_sync_rcv, NULL,NULL);
+    }
+}
 
 
 /*      --- Finally, Communication Initialization ---       */
