@@ -19,13 +19,11 @@ void eventLoop_init(void){
         .task_stack_size = 4096,      //Up the stack size if this keeps running out of memory, but it should be fine
         .task_core_id = tskNO_AFFINITY
     };
-
     esp_event_loop_create(&loop_args, &dndv_event_h);
 }
 
 
 /* _- Auxillary Functions -_
-
     Nice assistant functions    */
 
 bool printMAC(macAddr MAC){
@@ -35,17 +33,18 @@ bool printMAC(macAddr MAC){
 
 
 
+/*    --- Event Loop Internal Code ---      */
 
 
 /* -EVENT LOOP BASE DEFINITIONS-
-Because C doesn't like defining a global variable every time .h is included, so it must be defined here
+    C doesn't like defining a global variable every time .h is included, so it must be defined in here
 */
     ESP_EVENT_DEFINE_BASE(MISC_BASE);
     ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
-    ESP_EVENT_DEFINE_BASE(SYNC_BASE);
     ESP_EVENT_DEFINE_BASE(OUTGOING_BASE);
+    ESP_EVENT_DEFINE_BASE(SYNC_BASE);
 
-    ESP_EVENT_DEFINE_BASE(DM_RCV_BASE); //Positioned last because DM exclusive
+    ESP_EVENT_DEFINE_BASE(DM_SYNC_BASE);
     ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
 
 /*  To convert back and forth between the number to send and the local base definition...
@@ -54,10 +53,10 @@ Because C doesn't like defining a global variable every time .h is included, so 
 static esp_event_base_t* EventBases[] = {
     &MISC_BASE,
     &DEVICE_BASE,
-    &SYNC_BASE,
     &OUTGOING_BASE,
+    &SYNC_BASE,
     
-    &DM_RCV_BASE,
+    &DM_SYNC_BASE,
     &DM_DEVICE_BASE
 };//Make sure the N_ enum in dndv_data.h matches above!     (base_numbers)
 

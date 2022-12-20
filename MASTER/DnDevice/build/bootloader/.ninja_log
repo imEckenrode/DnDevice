@@ -250,3 +250,10 @@
 10	105	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	fa0ed17f3bebb99c
 9	96	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	fa0ed17f3bebb99c
 7	95	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	fa0ed17f3bebb99c
+11	885	6932425262283225	esp-idf/soc/CMakeFiles/__idf_soc.dir/lldesc.c.obj	9c25c850a9f32add
+17	906	6932425262512989	esp-idf/log/CMakeFiles/__idf_log.dir/log.c.obj	9acaf509ded53d2
+906	1498	6932425268147195	esp-idf/log/liblog.a	46f7c03421e2a8d
+1498	2418	6932425277097999	esp-idf/soc/libsoc.a	9b0c30cadaf76ce9
+2419	3138	6932425284865076	bootloader.elf	88666af09fb0afc6
+3138	3348	6932425287059049	.bin_timestamp	cedb2ecf1fdd7eaf
+3349	3437	0	esp-idf/esptool_py/CMakeFiles/bootloader_check_size	fa0ed17f3bebb99c

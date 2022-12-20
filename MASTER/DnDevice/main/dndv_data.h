@@ -36,11 +36,6 @@ void nvs_init(void);
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
 
-#define MAX_NICKNAME_LENGTH 8
-#define MAX_NAME_LENGTH 32  //Cound split this into Player/Person and PC/Campaign names
-#define MAX_FULLNAME_LENGTH 96
-#define MAX_MSG_LENGTH 192
-
 #define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
 /*     -- LOWEST LEVEL DATA TYPES --      */
 
@@ -55,10 +50,10 @@ typedef uint8_t DynData[]; //Dynamic Data type, must be last in the struct and m
 //MacAddr is defined to make any MAC address assignments more readable
 typedef unsigned char macAddr[MAC_ADDR_SIZE];
 
-typedef char nick[MAX_NICKNAME_LENGTH];
-typedef char name[MAX_NAME_LENGTH];
-typedef char fullname[MAX_FULLNAME_LENGTH];
-typedef char msg[MAX_MSG_LENGTH];
+typedef char NickName[8];
+typedef char StandardName[24];
+typedef char FullName[96];
+typedef char Msg[192];
 
 
 /*   Device-level data is managed in dndv_internals   */
@@ -123,47 +118,31 @@ typedef struct __attribute__((__packed__)){
     char* dynamicNameData;
 } DynamicNameList;
 
-//The structure for providing the ID of a character
-typedef struct __attribute__((__packed__)){
-    Key key;
-    nick nick;
-} pcNick;
-
 
 
 typedef struct __attribute__((__packed__)){
     Key key;
-    name p_name;   //P is Person/Player (AKA the IRL name)
-    name c_name;   //C is Campaign or Character Name, depending on if DM or PC
+    StandardName p_name;   //P is Person/Player (AKA the IRL name)
+    StandardName c_name;   //C is Campaign or Character Name, depending on if DM or PC
 } ContactInfo;
-
-
-/*Data broadcasted when the DM is set up, or messaged directly when requested by a player
-    Used by EVENT_DM_ACTIVATE, EVENT_DM_INFO,
-*/
-struct __attribute__((__packed__)) dm_info_s {                                                                   //TODO: Move this under an event. No need for this here.
-        struct EVENT event;               //The base and ID struct
-        ContactInfo info;
-    };
 
 
 /*     -- Device Level Data Types --      */
 
 /* The player [and DM] struct (save data into a file)  */
-typedef struct  __attribute__((__packed__))
-{
+typedef struct  __attribute__((__packed__)){
     Key key;
-    char name[MAX_NAME_LENGTH];
-    char nickname[MAX_NICKNAME_LENGTH];
+    NickName nickname;
+    StandardName name;
     bool canDM;
     bool TrainingWheelsProtocol_Active;
 } Player;
 
 /* The character struct (save data into a file) */ 
-typedef struct character_s{
+typedef struct __attribute__((__packed__)) character_s{
     Key key;
-    char name[MAX_NAME_LENGTH];
-    char nickname[MAX_NICKNAME_LENGTH];
+    NickName nickname;
+    StandardName name;
     short MaxHP;
     short HP;
     short XP10;
@@ -180,7 +159,6 @@ struct Contact{
     macAddr MAC;
     ContactInfo info;
 };
-
 
 
 
@@ -212,7 +190,7 @@ void eventLoop_init(void);
     (e.g. a character update sending from a DM to a character would be EVENT_CHAR_UPDATE_RCV instead of EVENT_CHAR_UPDATE_REQuest)      (/TODO: Add to Readme)
 
                      # FOR DEVELOPERS #
-    Try not to collide names, even between events, seeing as they are only enumerators
+    Try not to collide names, even between events, seeing as each ID is only described as a number in an enumerator
 
     In the dndv_comms system, one byte is for bases, one byte is for IDs
     Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
@@ -229,8 +207,8 @@ esp_event_base_t Num2EventBase(uint8_t num);
 enum base_numbers{                       //TODO: stop using this. Fast, but have to maintain separately
     N_MISC_BASE,
     N_DEVICE_BASE,
+    N_OUTGOING_BASE, 
     N_SYNC_BASE,            //For syncing data between DMs and Players
-    N_OUTGOING_BASE,         
     N_DM_RCV_BASE,
     N_DMDEVICE_BASE,            //DEVICE BASE, but for DMs
 }; //Use N_ your base to get the number automatically.
@@ -265,8 +243,12 @@ enum MISC_B_ID{
 };
 
 
+
+
 /* --  DEVICE_BASE: For global changes to the state of the local device (that may require further messages) --
         Used primarily for editing dndv_internals and changing device state
+
+    These functions will then call the appropriate 
 
     As a DM, these events will be handled differently if at all;
     See DM_DEVICE_BASE for DM-specific functions.
@@ -281,53 +263,16 @@ enum DEVICE_B_ID{
 
     EVENT_ENTER_WORLD       //If the DM has started the adventure, this loads the dashboard screen and removes any old initialization data
 };
-
 //EVENT_KEVIN_LEVIN
 
-
-
-/* --  SYNC_BASE: For syncing data DMs and Player devices  --
-        Used primarily by dndv_comms
-    Contains all data for syncing. Players should stop listening to these events once in.
-        */
-ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-enum SYNC_B_ID{
-    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
-
-    EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
-                                //Either the player list and character list  or  character data was requested   */
-    EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
-    EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
-    EVENT_KEYANDPC_RCV,     //The Key and Character Data, for 
-
-    EVENT_START_ADVENTURE    //When the DM says Start, allow the players to start
-};
-
-    //EVENT_DM_INFO uses dm_info_s
-
-struct __attribute__((__packed__)) keydata_req_s{
-    Key key;
-};
-//KeyData returns player info if the key is for a player, and it returns 
-
-
-struct __attribute__((__packed__)) keydata_rcv_s{
-    Key key;
-    Player playerInfo;
-    pcNick pcList[];         //And return a list of all the possible characters
-};
-
-struct __attribute__((__packed__)) pcdata_rcv_s{
-    Key key;
-    PC pcInfo;
-};
 
 
 
 /* --  OUTGOING_BASE  --
     This is a special base only for sending ESP-NOW-ready data.
   Typically only used from dndv_internals, where dndv_comms is out of scope.
+
+  USE OTHER FUNCTIONS IF POSSIBLE //TODO
 */
 ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
 enum OUTGOING_B_ID{
@@ -338,24 +283,90 @@ enum OUTGOING_B_ID{
 
 
 
-
-/*  == And finally, DM Stuff ==
-  --  DM_RCV_BASE: For all events targeted to the DM from other devices  --
-    These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)
-        TODO: See if this is the best way
+/*      __  Sync Bases   __        
+    For talking at startup between players and DM
 */
-ESP_EVENT_DECLARE_BASE(DM_RCV_BASE);
+
+/* --  SYNC_BASE: For syncing data DMs and Player devices  --
+        Used primarily by dndv_comms
+    Contains all data for syncing. Players should stop listening to these events once in.
+        */
+ESP_EVENT_DECLARE_BASE(SYNC_BASE);
+enum SYNC_B_ID{
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
+    EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+                                //Either the player list and character list  or  character data was requested   */
+    EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
+    EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
+    EVENT_KEYANDPC_RCV,     //The Key and Character Data, for 
+
+    EVENT_START_ADVENTURE    //When the DM says Start, allow the players to start
+};
+    
+/* Data broadcasted when the DM is set up, or messaged directly when requested by a player */
+struct __attribute__((__packed__)) dm_info_s {
+        struct EVENT event;               //The base and ID struct
+        ContactInfo info;
+};
+
+
+struct __attribute__((__packed__)) keydata_rcv_s{
+    Key key;
+    Player playerInfo;
+    bool nickNamesRcv;  //This is True if there are more than 8 characters to send
+    bool longNamesRcv;  //This is True if there are only 1 or 2 characters to send and you prefer to use the long names
+    union pcList
+    {
+        //For more than 8 characters
+        struct __attribute__((__packed__)) {  //10 Bytes Each
+            Key key;
+            NickName name;
+        } nickList[21];        //Currently 21 since Key+Player < 40
+
+        //For between 2 and 8 characters
+        struct __attribute__((__packed__)) {
+            Key key;
+            StandardName name;
+        } pcList[8];           //Currently 8 since Key+Player < 40
+
+        //For only 1 or 2 characters, can send the full names if desired
+        struct __attribute__((__packed__)) {
+            Key key;
+            NickName nick;
+        } pcList[2];           //2 long names = 192
+    };
+};
+
+
+struct __attribute__((__packed__)) pcdata_rcv_s{
+    Key key;
+    PC pcInfo;
+};
+
+
+/* --  DM_SYNC_BASE: For all events targeted to the DM from other devices  --
+    These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)*/
+ESP_EVENT_DECLARE_BASE(DM_SYNC_BASE);
 enum DM_RCV_B_ID{
-    EVENT_SYNC_REQUEST,         //When a player device asks for the DM info
+    EVENT_SYNC_REQ,         //When a player device asks for the DM info
+    EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
+    EVENT_PC_REQ,       //Return the date for the requested player character
+
     //EVENT_PC_JOINED,            //A PC has joined the adventure!
     //EVENT_PC_READY
 };
 
+//KeyData returns player info if the key is for a player       //TODO: Return NPC data as well
+struct __attribute__((__packed__)) keydata_req_s{
+    Key key;
+};
 
 
-/*      --  DM_DEVICE_BASE  --
-For all DM-related local events. Only accessible to a DM.
-*/
+
+
+/*  ==  The Final DM Base  ==
+      --  DM_DEVICE_BASE  --
+ For all DM-related local events. Only accessible to a DM.*/
 ESP_EVENT_DECLARE_BASE(DM_DEVICE_BASE);
 enum DM_DEVICE_B_ID{
     //EVENT_DM_KEYIN,         //A DM keyin is handled in DEVICE_BASE, since the DM is not yet a DM

@@ -8,8 +8,11 @@
 macAddr broadcast_mac = BROADCAST_MAC;
 
 
-/*     -- Sending Functions --     */
+/*     --- Sending Functions ---     */
 
+/*  -- Auxilary Sending Functions --  */
+
+// - Sending Callback to verify the data sent (automatically returns true for a broadcast) -
 void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
   if (mac_addr == NULL) {
       ESP_LOGE(TAG, "Send cb arg error");
@@ -25,14 +28,14 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
   //xEventGroupSetBits(s_evt_group, BIT(status));
 }
 
+
 /*  Calls ESP-NOW's add_peer function if the MAC address is not currently a peer.
         "Peer" = Can be sent to by ESP-NOW
-
-    IMPORTANT: Returns True if the peer already exists                */
+    IMPORTANT: Returns False if the peer already exists                */
 bool addIfNewPeer(macAddr mac){
     bool peerExists = esp_now_is_peer_exist(mac);
     if(peerExists){
-        return true;
+        return false;
     }
     //Now, since the peer doesn't exist, add it
 
@@ -43,8 +46,11 @@ bool addIfNewPeer(macAddr mac){
     };
     memcpy(info.peer_addr,mac,MAC_ADDR_SIZE);
     esp_now_add_peer(&info);
-    return false;
+    return true;
 }
+
+
+/*  -- Primary Sending Functions --  */
 
 //Send data to the specified MAC address
 esp_err_t dndv_send(macAddr mac, void* data, size_t size){
@@ -67,11 +73,10 @@ esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
     return ESP_OK;
 }
 
-
 /*  Send out any data posted to the event loop to the included MAC address if applicable
     This requires formatting to be done before sending, so it's recommended to use other methods
-            TODO?: STANDARDIZE with macAndData_s, then use this always?
-     */
+            //TODO?: Standardize This
+*/
 void send_from_event(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_SEND_BROADCAST:
@@ -146,7 +151,7 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     esp_event_base_t base = Num2EventBase(data[0]);
     uint8_t id = data[1];     //TODO: strip the first two bytes from the data
     if (base == OUTGOING_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
-        ESP_LOGE(TAG, "OUTGOING_BASE will cause an infinite loop!\nAvoid sending Outgoing Base if you want your data to arrive correctly\n");
+        ESP_LOGE(TAG, "OUTGOING_BASE is not a sendable base...\nTerminating this call to Outgoing Base\n");
         return;     //TODO: Validate this data on receive. That way, no one can pretend to be sending from a different device
     }
 
@@ -154,24 +159,22 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen
     //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
-    memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data just in case that is wanted
+    memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data (so no device ever needs to send its MAC inside the data)
     memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
     esp_event_post_to(dndv_event_h, base, id, (void*)fullData,fullDataLen,0);
-    free(fullData); //This frees the malloc'd memory
-  //Data is automatically managed by the event loop, so a pointer to the data is safe
+      //Data is automatically managed by the event loop, so a pointer to the data is safe
+    free(fullData); //This frees the local malloc
 }
 
 
 
 
-/*    -- Sync DM and Player --
+/*    --- Sync DM and Player ---
     For syncing at startup
-
-    Under SYNC_BASE 
-*/
+    Under SYNC_BASE and DM_SYNC_BASE */
 
 
-/*  -DM Sync Actions (in order)- */
+/*  -- DM Sync Actions (in order) -- */
 
 //Direct Message the Dungeon Master Data to the desired MAC
 esp_err_t DM_DM_Data(macAddr da){
@@ -217,8 +220,8 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
         switch(id){ //If DM and you receive stuff, call functions here
             case EVENT_AWAKE_BROADCAST_RCV:
                 ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
-                bool addedBefore = addIfNewPeer(da->mac);
-                if(addedBefore){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
+                bool newlyAdded = addIfNewPeer(da->mac);
+                if(!newlyAdded){ESP_LOGI(TAG, "I already sent to this device today, did he go offline? Continuing.");}
                 DM_DM_Data(da->mac);
                 break;
             default:
@@ -236,6 +239,11 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
         }
     }
 }
+
+
+
+/*      --- Finally, Communication Initialization ---       */
+
 
 void comms_init(void){
   const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
