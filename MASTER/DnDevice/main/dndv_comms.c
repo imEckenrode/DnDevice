@@ -194,7 +194,7 @@ bool addConfirmedPC(){return false;}
 
 bool addPotentialDM(macAndData_s* mad){
 
-    struct dm_info_s* data = (mad->data);
+    struct dm_info_s* data = (struct dm_info_s*(mad->data));
     ContactInfo* info = &(data->info);
     printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);          //TODO: Testing TESTINGs
     printMAC(mad->mac);
