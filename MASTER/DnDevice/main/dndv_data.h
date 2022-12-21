@@ -51,10 +51,9 @@ typedef uint8_t DynData[]; //Dynamic Data type, must be last in the struct and m
 typedef unsigned char macAddr[MAC_ADDR_SIZE];
 
 typedef char NickName[8];
-typedef char StandardName[24];
+typedef char Name[24];
 typedef char FullName[96];
 typedef char Msg[192];
-
 
 /*   Device-level data is managed in dndv_internals   */
 
@@ -122,8 +121,8 @@ typedef struct __attribute__((__packed__)){
 
 typedef struct __attribute__((__packed__)){
     Key key;
-    StandardName p_name;   //P is Person/Player (AKA the IRL name)
-    StandardName c_name;   //C is Campaign or Character Name, depending on if DM or PC
+    Name p_name;   //P is Person/Player (AKA the IRL name)
+    Name c_name;   //C is Campaign or Character Name, depending on if DM or PC
 } ContactInfo;
 
 
@@ -133,7 +132,7 @@ typedef struct __attribute__((__packed__)){
 typedef struct  __attribute__((__packed__)){
     Key key;
     NickName nickname;
-    StandardName name;
+    Name name;
     bool canDM;
     bool TrainingWheelsProtocol_Active;
 } Player;
@@ -142,7 +141,7 @@ typedef struct  __attribute__((__packed__)){
 typedef struct __attribute__((__packed__)) character_s{
     Key key;
     NickName nickname;
-    StandardName name;
+    Name name;
     short MaxHP;
     short HP;
     short XP10;
@@ -315,8 +314,7 @@ struct __attribute__((__packed__)) keydata_rcv_s{
     Player playerInfo;
     bool nickNamesRcv;  //This is True if there are more than 8 characters to send
     bool longNamesRcv;  //This is True if there are only 1 or 2 characters to send and you prefer to use the long names
-    union pcList
-    {
+    union{
         //For more than 8 characters
         struct __attribute__((__packed__)) {  //10 Bytes Each
             Key key;
@@ -326,15 +324,15 @@ struct __attribute__((__packed__)) keydata_rcv_s{
         //For between 2 and 8 characters
         struct __attribute__((__packed__)) {
             Key key;
-            StandardName name;
-        } pcList[8];           //Currently 8 since Key+Player < 40
+            Name name;
+        } nameList[8];           //Currently 8 since Key+Player < 40
 
         //For only 1 or 2 characters, can send the full names if desired
         struct __attribute__((__packed__)) {
             Key key;
-            NickName nick;
-        } pcList[2];           //2 long names = 192
-    };
+            FullName nick;
+        } fullnameList[2];           //2 long names = 192
+    } pcList;
 };
 
 

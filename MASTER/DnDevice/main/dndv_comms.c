@@ -197,7 +197,7 @@ bool addConfirmedPC(){return false;}
 
 bool addPotentialDM(macAndData_s* mad){
 
-    struct dm_info_s* data = (struct dm_info_s*(mad->data));
+    struct dm_info_s* data = (struct dm_info_s*)(mad->data);
     ContactInfo* info = &(data->info);
     printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);          //TODO: Testing TESTINGs
     printMAC(mad->mac);
@@ -237,16 +237,16 @@ void dm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
         default:
             printf("Someone's syncing out there\n");
     }
-
+}
 
 //Update the event handler if the device is/isn't a DM
 void update_comms_sync_mode(bool isDM){
     if(isDM){
         esp_event_handler_instance_register_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, dm_sync_rcv, NULL,NULL);
-        esp_event_handler_instance_unregister_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
+        esp_event_handler_instance_unregister_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }else{
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
-        esp_event_handler_instance_unregister_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, dm_sync_rcv, NULL,NULL);
+        esp_event_handler_instance_unregister_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }
 }
 

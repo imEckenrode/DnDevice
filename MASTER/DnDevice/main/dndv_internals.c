@@ -138,9 +138,9 @@ void DM_Activate(void){
 //And finally, tests
 
 void testPCInit(void){
-    Player examplePlayer = {1,"Bob Billy Joe","Bob",false,false};
+    Player examplePlayer = {1,"Bob","Bob Billy Joe",false,false};
     currentPlayer=examplePlayer;
-    PC examplePC = {1,"PowerWizard","Wizzo",5,3,16};
+    PC examplePC = {1,"Wizz","PowerWizard",5,3,16};
     currentPC=examplePC;
 
     current.isDM = false;
