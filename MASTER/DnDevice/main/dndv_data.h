@@ -32,7 +32,6 @@ Initialize the non-volatile storage library to persist data
 void nvs_init(void);
 
 
-
 /*         -- GLOBAL DEFINITIONS --          */
 #define MAX_PLAYER_COUNT 16
 
@@ -195,25 +194,6 @@ void eventLoop_init(void);
     Although the Event Loop Library allows for up to 2^32 IDs, only the first 256 per base are allowed to be sent over our ESP-NOW implementation
     If you have an enumerator below that has more than 256 elements, please refactor by introducing a new base.
 */
-
-/* BASE CONVERSION
-    ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
-//To convert from the ELL Base to our custom numbers
-uint8_t EventBase2Num(esp_event_base_t base);
-//To convert back to the ELL Base from our custom numbers
-esp_event_base_t Num2EventBase(uint8_t num);
-
-enum base_numbers{                       //TODO: stop using this. Fast, but have to maintain separately
-    N_MISC_BASE,
-    N_DEVICE_BASE,
-    N_OUTGOING_BASE, 
-    N_SYNC_BASE,            //For syncing data between DMs and Players
-    N_DM_RCV_BASE,
-    N_DMDEVICE_BASE,            //DEVICE BASE, but for DMs
-}; //Use N_ your base to get the number automatically.
-      //Make sure this matches EventBases in dndv_data.c
-//TODO: move this near the base struct, store numbers in a struct in that array, then somehow make it visible
-
 
 /*             =-- Bases and ID Declaration --=
         Comment out anything that is currently unused

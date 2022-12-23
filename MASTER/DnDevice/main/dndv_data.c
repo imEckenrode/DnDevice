@@ -32,12 +32,12 @@ bool printMAC(macAddr MAC){
 }
 
 
-
 /*    --- Event Loop Internal Code ---      */
 
-
 /* -EVENT LOOP BASE DEFINITIONS-
-    C doesn't like defining a global variable every time .h is included, so it must be defined in here
+    C doesn't like defining a global variable every time .h is included, so it must be defined in the .c file
+
+    This is not a comprehensive list, since this can be defined anywhere
 */
     ESP_EVENT_DEFINE_BASE(MISC_BASE);
     ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
@@ -46,40 +46,3 @@ bool printMAC(macAddr MAC){
 
     ESP_EVENT_DEFINE_BASE(DM_SYNC_BASE);
     ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
-
-/*  To convert back and forth between the number to send and the local base definition...
-        Uses the addresses of the variables, as the names are not required (and are not defined yet)
-*/
-static esp_event_base_t* EventBases[] = {
-    &MISC_BASE,
-    &DEVICE_BASE,
-    &OUTGOING_BASE,
-    &SYNC_BASE,
-    
-    &DM_SYNC_BASE,
-    &DM_DEVICE_BASE
-};//Make sure the N_ enum in dndv_data.h matches above!     (base_numbers)
-
-//Use this function if you don't have the base hard coded. 
-//For hard coded values, simply use N_(name_of_base_here)
-uint8_t EventBase2Num(esp_event_base_t base){
-    uint8_t size = sizeof(EventBases)/sizeof(esp_event_base_t*);
-    for(int i=0; i<size; i++){
-        if(*(EventBases[i])==base){         //!(strcmp(*(EventBases[i]),base))){  //If the event base matches the passed in base      //TODO: Check if comparing pointers is enough
-            return i;
-        }
-    }
-    printf("Could not locate the specified Event Base.....\n");
-    //ESP_LOGE("eventBaseError","Could not locate the specified Event Base.");    //Check above to make sure it exists there
-    return 255; //(same as returning -1 for an unsigned integer)
-}
-
-//Convert the number to the event base. See above.
-esp_event_base_t Num2EventBase(uint8_t num){
-    if(num<(sizeof(EventBases)/sizeof(EventBases[0]))){
-        return *(EventBases[num]);  //Return the value pointed at because EventBases is filled with pointers to the data
-    }
-    ESP_LOGE("Num2EventBase","Event base out of range");
-    return MISC_BASE;
-    //printf("Retrieved %s\n",*(EventBases[num]));
-}
