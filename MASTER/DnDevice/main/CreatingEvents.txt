@@ -1,0 +1,11 @@
+CREATING EVENTS:
+
+To create an event to use with the Event Loop Library, use the standard ESP32 method of defining events.
+
+    ESP_EVENT_DECLARE_BASE(BASENAME_BASE);      (in .h file)
+    ESP_EVENT_DEFINE_BASE(BASENAME_BASE);    (in .c file)
+
+IN ADDITION, any base using dndv_comms requires a second step to properly utilize ESP-NOW's limited size:
+To save space, each base must have a unique number key between 0-255. 
+These numbers are assigned through the init.c function DNDV_EBD_DEFINE(and the event bases go here in a comma separated list), with the order corresponding to the ID number
+

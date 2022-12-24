@@ -7,8 +7,105 @@
 
 macAddr broadcast_mac = BROADCAST_MAC;
 
+/*  --- BASE DEFINITIONS --- */
+ESP_EVENT_DEFINE_BASE(SYNC_BASE);
+ESP_EVENT_DEFINE_BASE(DM_SYNC_BASE);
+
+
+/* --  SYNC_BASE: For syncing data DMs and Player devices  --
+        Used primarily by dndv_comms
+    Contains all data for syncing. Players should stop listening to these events once in.
+        */
+enum SYNC_B_ID{
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
+    EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+
+    EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
+    EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
+    EVENT_KEYANDPC_RCV,     //The Key and Character Data
+};
+    
+/* Data broadcasted when the DM is set up, or messaged directly when requested by a player */
+struct __attribute__((__packed__)) dm_info_s {
+        struct EVENT event;               //The base and ID struct
+        ContactInfo info;
+};
+
+
+//               !--  Event Base Lookup --!
+
+//With only a few bases possible, a for loop is sufficient
+Num EventBase2Num(esp_event_base_t* baseAddress){
+    for(Num i = 0; i < EVENT_BASE_ARRAY_SIZE; i++){
+        if(baseAddress == EVENT_BASE_ARRAY[i]){
+            return i;
+        }
+    }
+    //TODO handle this 255 return and remove this error throw
+    abort();
+    return -1;
+}
+
+esp_event_base_t Num2EventBase(Num num){
+    return *EVENT_BASE_ARRAY[num];
+}
+
+
+
+
+struct __attribute__((__packed__)) keydata_rcv_s{
+    Key key;
+    Player playerInfo;
+    bool nickNamesRcv;  //This is True if there are more than 8 characters to send
+    bool longNamesRcv;  //This is True if there are only 1 or 2 characters to send and you prefer to use the long names
+    union{
+        //For more than 8 characters
+        struct __attribute__((__packed__)) {  //10 Bytes Each
+            Key key;
+            NickName name;
+        } nickList[21];        //Currently 21 since Key+Player < 40
+
+        //For between 2 and 8 characters
+        struct __attribute__((__packed__)) {
+            Key key;
+            Name name;
+        } nameList[8];           //Currently 8 since Key+Player < 40
+
+        //For only 1 or 2 characters, can send the full names if desired
+        struct __attribute__((__packed__)) {
+            Key key;
+            FullName nick;
+        } fullnameList[2];           //2 long names = 192
+    } pcList;
+};
+
+
+struct __attribute__((__packed__)) pcdata_rcv_s{
+    Key key;
+    PC pcInfo;
+};
+
+
+/* --  DM_SYNC_BASE: For all events targeted to the DM from other devices  --
+    These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)*/
+enum DM_RCV_B_ID{
+    EVENT_SYNC_REQ,         //When a player device asks for the DM info
+    EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
+    EVENT_PC_REQ,       //Return the date for the requested player character
+
+    //EVENT_PC_JOINED,            //A PC has joined the adventure!
+    //EVENT_PC_READY
+};
+
+//KeyData returns player info if the key is for a player       //TODO: Return NPC data as well
+struct __attribute__((__packed__)) keydata_req_s{
+    Key key;
+};
+
+
 
 /*     --- Sending Functions ---     */
+
 
 /*  -- Auxilary Sending Functions --  */
 
@@ -120,6 +217,7 @@ esp_err_t dndv_send_onAwake(void){
     //Could wait for callback here to call more times
 }
 
+
 //dndv_send_ping
 //A test broadcast to test sending and receiving
 void dndv_send_ping(void){
@@ -133,8 +231,6 @@ void dndv_send_ping(void){
     //esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
     //Could wait for callback here to call more times
 }
-
-
 
 
 

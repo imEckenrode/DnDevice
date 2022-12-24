@@ -37,12 +37,11 @@ bool printMAC(macAddr MAC){
 /* -EVENT LOOP BASE DEFINITIONS-
     C doesn't like defining a global variable every time .h is included, so it must be defined in the .c file
 
-    This is not a comprehensive list, since this can be defined anywhere
+    This is not a comprehensive list, since events can be defined anywhere.
+    For example, see dndv_comms.h for the syncing events.
 */
-    ESP_EVENT_DEFINE_BASE(MISC_BASE);
+    ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
     ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
     ESP_EVENT_DEFINE_BASE(OUTGOING_BASE);
-    ESP_EVENT_DEFINE_BASE(SYNC_BASE);
+    ESP_EVENT_DEFINE_BASE(MISC_BASE);
 
-    ESP_EVENT_DEFINE_BASE(DM_SYNC_BASE);
-    ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
