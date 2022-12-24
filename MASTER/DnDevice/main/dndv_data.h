@@ -197,7 +197,7 @@ void eventLoop_init(void);
 */
 
 //This will eventually be removed and is only here to support legacy code (in dndv_internals)
-//This only works because these are defined first in init.c
+//This only works because these are defined first in init.c     //TODO:: REMOVE THIS
 enum READABLE_BASE_NUMS{
     N_SYNC_BASE,
     N_DM_SYNC_BASE,
@@ -254,17 +254,19 @@ enum DEVICE_B_ID{
 
 
 
-/* --  OUTGOING_BASE  --
-    This is a special base only for sending ESP-NOW-ready data.
+/* --  COMMS_BASE  --
+    This is a special base for sending ESP-NOW-ready data and other commands to dndv_comms
   Typically only used from dndv_internals, where dndv_comms is out of scope.
-
-  USE OTHER FUNCTIONS IF POSSIBLE //TODO
 */
-ESP_EVENT_DECLARE_BASE(OUTGOING_BASE);
-enum OUTGOING_B_ID{
+ESP_EVENT_DECLARE_BASE(COMMS_BASE);
+//Only use EVENT_SEND... for ESPNOW-ready data
+enum COMMS_B_ID{
     EVENT_SEND,
     EVENT_SEND_BROADCAST,
     //EVENT_SEND_TO_ALL_CONTACTS    //For Players to send to all DMs, or a DM to send to all Players
+
+    EVENT_BROADCAST_NEW_DEVICE,
+    EVENT_BROADCAST_NEW_DM
 };
 
 

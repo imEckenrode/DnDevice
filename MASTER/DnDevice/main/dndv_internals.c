@@ -16,7 +16,7 @@ void globals_init(){
 
 // Broadcast data by sending to the event loop
 static bool comms_broadcastData(void* event_data, size_t event_data_size){
-    esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, event_data, event_data_size, 0); 
+    esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, event_data, event_data_size, 0); 
     return true;
 }
 
@@ -94,17 +94,18 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 //The handler for any DM exclusive data (DM_DEVICE_BASE)
 void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        /*                      TODO: Send an event out to dndv_comms and execute the following code there
         case EVENT_DM_ACTIVATE:
-            ; 
+            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_DM_ACTIVATE, NULL, 0, 0);
+            break;
+            /*;
             struct dm_info_s to_send = {
                 .event = {N_SYNC_BASE,EVENT_DM_INFO},
                 .info =  getMyContactInfo()}; //current.info};
 
             comms_broadcastData((void*)&to_send, sizeof(to_send));
-                    //esp_event_post_to(dndv_event_h, OUTGOING_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
+                    //esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
             printf("Sent, right?\n%s\n",to_send.info.c_name);
-            break;
+
             */
         default:
             ESP_LOGE("DM Internal", "Did not recognize the internal event.");

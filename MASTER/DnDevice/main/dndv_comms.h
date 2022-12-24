@@ -53,7 +53,7 @@ DNDV_EBA_DECLARE(); //see init.c for the definition
 /* BASE CONVERSION
     ESP-NOW defines bases as a character array. These methods convert back and forth to our custom numbering */
 //To convert from the ELL Base to our dndv_comms one-byte number
-Num EventBase2Num(esp_event_base_t *baseAddress);
+Num EventBaseP2Num(esp_event_base_t *baseAddress);
 //To convert back to the ELL Base from our dndv_comms one-byte number
 esp_event_base_t Num2EventBase(Num num);
 

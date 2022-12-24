@@ -11,7 +11,7 @@ static void rcvToLog(void* handler_arg, esp_event_base_t base, int32_t id, void*
 
         if(base == (esp_event_base_t) ""){ 
             ESP_LOGV(LogTAG, "Unidentified Base");
-        }else if(base == OUTGOING_BASE){ //May need to make OUTGOING_BASE a string literal by enclosing with ""
+        }else if(base == COMMS_BASE){ //May need to make COMMS_BASE a string literal by enclosing with ""
             ESP_LOGV(LogTAG, "Readying the Data to Send (Outgoing)");
         }else{
             printf("___Received___\nBase: %s\n ID: %d\n",base, id);  //If there's nothing custom for the event, do the default behavior

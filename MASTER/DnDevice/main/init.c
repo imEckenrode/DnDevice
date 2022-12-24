@@ -43,7 +43,7 @@ void startup(void){
 }
 
 void eba_test(void){
-    printf("%d",EventBase2Num(&DM_SYNC_BASE));
+    printf("%d",EventBaseP2Num(&DM_SYNC_BASE));
     printf("%s",Num2EventBase((Num) 1));
 }
 
