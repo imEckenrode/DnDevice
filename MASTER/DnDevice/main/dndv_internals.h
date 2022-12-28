@@ -6,6 +6,7 @@
 #include "esp_event.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include "hash_map.h"
 
 #include "dndv_data.h"
 
@@ -18,21 +19,11 @@
     Just import "dndv_internals.h"
 
     This will allow the usage of the globally-scoped variables anywhere that includes "dndv_internals.h"
-
-order:      (global variables on top, then)
-    Title
-    Struct
-    Comment about what the function will do
-    Function
 */
 
 
-
-
-
-/*   - Device States -   
+/*   - Device States -                                          (TO IMPLEMENT LATER)
 All possible states the device can be in, from wakeup to active battle
-*/
 typedef enum {
     WAKEUP_S,    //On awake, initialize 
     LOGIN_S,        //Key is in, currently logging in
@@ -42,34 +33,37 @@ typedef enum {
     ADVENTURE_S,        //In the adventure, but not currently battling
     BATTLE_S,           //Currently battling
 } deviceStates;
+*/
 
+/* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings
+struct __attribute__((__packed__)) cd_settings{                 (TO IMPLEMENT LATER)
+    bool displayLogs;               
+};
+ */
 
-/*  PER USER: Structure for keeping track of the device's user data   */
+/*  CURRENT DEVICE: Structure for keeping track of the device's user data   */
 struct current_device_s {
-    bool isDM;          //Is the current device a DM?
-    deviceStates state;     //The state the device is in (See "Device States" above)
+    //deviceStates state;     //The state the device is in (See "Device States" above)
+    //struct cd_settings settings;
     ContactInfo info;       //The current device's info                             //TODO: If you need a few more bytes, remove this and format the rest to reference currentPlayer
-    struct Contact devices[MAX_PLAYER_COUNT];
+    hash_map_t devices;
+    //struct Contact devices[MAX_PLAYER_COUNT];
+    bool isDM;          //Is the current device a DM?
 };
 
-/* PER DEVICE: Structure for keeping track of local settings */
-struct __attribute__((__packed__)) l_Device{
-    bool displayLogs;
-};
 
 /*              -- GLOBAL VARIABLES --               */
-PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global
-Player currentPlayer;       //The currently selected player
 struct current_device_s current;      //The current user, global to the DnDevice  //IMPORTANT
 
-struct l_Device localDevice;    //Settings for the local device
 
-//TODO: have a pointer to a DM list that holds a dummy value until DM is initialized?
+PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global     [Initialize LATER]
+Player currentPlayer;       //The currently selected player
+
 
 /*          ---- Visible Function Declarations ----          */ 
 
-/*Initialize the global variables correctly
-    (Set isDM to False)
+/*   Initialize all the global variables correctly
+            (Set isDM to False, allocate the hashmap, etc)
 */
 void globals_init(void);
 

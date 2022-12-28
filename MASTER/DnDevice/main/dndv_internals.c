@@ -6,8 +6,8 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 void globals_init(){
     current.isDM = false;
     localDevice.displayLogs = false;   //Change this to set if dndv_log logs
-    //current.player = &currentPlayer;       //TODO: Pass all through current instead of three variables
-    //current.character = &currentPC;
+    current.info = {"",""}
+    //current.devices = 
 
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
@@ -53,11 +53,20 @@ void updateMyPCName(char* name){            //TODO: Update this to P name and C 
 
 
 
+/*          --- Runtime Data System ---
+        This is the system that tracks all players/NPCs
+
+        TODO: Expand this
+*/
+
+
+
 /*          --- Data Retrieval System ---
         Here is the system for retrieving character data. 
 
         TODO: Move this to the SD card while still having this option
 */
+
 
 
 

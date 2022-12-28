@@ -57,7 +57,9 @@
 			"numeric": "c",
 			"iostream": "c",
 			"system_error": "c",
-			"typeinfo": "c"
+			"typeinfo": "c",
+			"hash_map.h": "c",
+			"dndv_internals.h": "c"
 		}
 	}
 }
