@@ -32,10 +32,10 @@ esp_event_base_t Num2EventBase(Num num){
 
 /*          --  SYNC_BASE: For syncing data DMs and Player devices  --
         Used primarily by dndv_comms
-    Contains all data for syncing. Players should stop listening to these events once in.
+    Contains all data for syncing. Players should stop listening to these events once in the campaign
         */
 enum SYNC_B_ID{
-    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active DMs can send directly to this new device   (probably do not need here)
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active DMs can send directly to this new device   (TODO: make sure it's safe, then remove it from here)
     EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
 
     EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
@@ -126,6 +126,8 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
 
 /*  Calls ESP-NOW's add_peer function if the MAC address is not currently a peer.
         "Peer" = Can be sent to by ESP-NOW
+    This is independent of the ContactAddressBook since we can send to devices that aren't in the contact book (i.e. they just woke up and aren't aiming to connect yet)
+    
     IMPORTANT: Returns False if the peer already exists                */
 bool addIfNewPeer(macAddr mac){
     bool peerExists = esp_now_is_peer_exist(mac);
@@ -192,13 +194,13 @@ void dndv_send_ping(void){
   In any other file, use esp_event_handle_register_with to receive the data
 */
 
-//When data is received, find the base and ID, then post the data to the event loop
+//When data is received, find the base and ID, then post the data to the event loop                                 *
 //Note: this is run in the WiFi task, so this will take precedence over other tasks
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     esp_event_base_t base = Num2EventBase(data[0]);
     uint8_t id = data[1];     //TODO: strip the first two bytes from the data
     if (base == COMMS_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
-        ESP_LOGE(TAG, "COMMS_BASE is not a sendable base...\nTerminating this call to Outgoing Base\n");
+        ESP_LOGE(TAG, "COMMS_BASE is not a sendable base, ended\n");
         return;     //TODO: Validate this data on receive. That way, no one can pretend to be sending from a different device
     }
 
@@ -228,9 +230,10 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 /*  -- Automatic PC Sync Actions (in order) --  */
 
 bool addPotentialDM(macAndData_s* mad){
+
     struct dm_info_s* data = (struct dm_info_s*)(mad->data);
     ContactInfo* info = &(data->info);
-//createContact...just gonna redo this
+
 
     printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);
     return false;

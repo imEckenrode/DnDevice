@@ -59,26 +59,81 @@ short sizeOfContactBook(){
     return (current.contacts->maxContacts)*sizeof(ContactAddress);
 }
 
+/*
 bool contactExistWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
         if (strcmp(mac, current.contacts->contact[i]->MAC) == 0){
             return true;            //No reason this shouldn't work according to testing in c
         }
     }
-    return false;
+    return false;}*/
+
+//-1 is returned if non-existent
+short indexOfContactWithMAC(macAddr mac){
+    for(short i=0;i < current.contacts->maxContacts;i++){
+        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){
+            return i;            //No reason this shouldn't work according to testing in c
+        }
+    }
+    return -1;
 }
-//short indexOfContact
+
+//Hidden method only used in dndv_internals to reduce redundant searching and easily assign values to the contacts book
+bool updateContactAtIndex(ContactAddress cAddr, short index){
+    current.contacts->contact[index] = cAddr;
+    return true;
+}
+
+//Find the first spot without a MAC address and fill it in.
+bool createContact(ContactAddress cAddr){
+    short index = indexOfContactWithMAC("");
+        if(index == -1){
+            printf("NO ROOM FOR %d: %s.",cAddr.info.key, cAddr.info.p_name);
+            return false;                               //TODO: Allocate if no more room!
+        }
+        return updateContactAtIndex(cAddr, index);
+}
+
+ContactAddress readContact(macAddr mac){
+    return current.contacts->contact[indexOfContactWithMAC(mac)];
+}
 
 
+bool createOrUpdateContact(ContactAddress cAddr){
+    short index = indexOfContactWithMAC(cAddr.MAC);
+    if(index == -1){
+        return createContact(cAddr);
+    }
+    return updateContactAtIndex(cAddr, index);
+}
 
-bool createContact(ContactAddress cAddr);
-ContactAddress readContact(macAddr mac);
-bool createOrUpdateContact(ContactAddress cAddr);
-bool updateContact(ContactAddress cAddr);
-bool deleteContact(macAddr mac);
+bool updateContact(ContactAddress cAddr){
+    return updateContactAtIndex(cAddr, indexOfContactWithMAC(cAddr.MAC));
+}
 
-bool createContactUnsafe(ContactAddress cAddr);      //This does not check for duplicate MACs
-ContactAddress readContactByKey(Key key);
+ContactAddress emptyContactAddress(){
+    ContactAddress empty = {"",{0,"",""}};
+    return empty;
+}
+
+bool deleteContact(macAddr mac){
+    short index = indexOfContactWithMAC(mac);
+    if(index == -1){
+        return false;
+    }
+    updateContactAtIndex(emptyContactAddress(), index);
+    return true;
+}
+
+
+ContactAddress readContactByKey(Key key){
+    for(short i=0;i < current.contacts->maxContacts;i++){
+        if (key == current.contacts->contact[i].info.key){
+            return current.contacts->contact[i];
+        }
+    }
+    return emptyContactAddress();
+}
 
 
 

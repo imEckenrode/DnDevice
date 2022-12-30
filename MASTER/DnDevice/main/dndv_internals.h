@@ -75,8 +75,9 @@ ContactInfo getMyContactInfo();
 CRUD functions primarily use the MAC address, since the MAC should be unique per entry*/
 short sizeOfContactBook();
 
-bool contactExistWithMAC(macAddr mac);
-//short indexOfContact
+//bool contactExistWithMAC(macAddr mac);
+//returns -1 on non-existent
+short indexOfContactWithMAC(macAddr mac);
 
 bool createContact(ContactAddress cAddr);
 ContactAddress readContact(macAddr mac);
@@ -84,7 +85,6 @@ bool createOrUpdateContact(ContactAddress cAddr);
 bool updateContact(ContactAddress cAddr);
 bool deleteContact(macAddr mac);
 
-bool createContactUnsafe(ContactAddress cAddr);      //This does not check for duplicate MACs
 ContactAddress readContactByKey(Key key);
 
 
