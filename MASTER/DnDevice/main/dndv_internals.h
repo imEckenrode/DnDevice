@@ -6,7 +6,6 @@
 #include "esp_event.h"
 #include "esp_err.h"
 #include "esp_log.h"
-#include "hash_map.h"
 
 #include "dndv_data.h"
 
@@ -35,20 +34,20 @@ typedef enum {
 } deviceStates;
 */
 
-/* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings
-struct __attribute__((__packed__)) cd_settings{                 (TO IMPLEMENT LATER)
+/* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings 
+struct __attribute__((__packed__)) cd_settings{                 //(TO IMPLEMENT LATER)
     bool displayLogs;               
 };
- */
+*/
 
 /*  CURRENT DEVICE: Structure for keeping track of the device's user data   */
-struct current_device_s {
+struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
     //struct cd_settings settings;
     ContactInfo info;       //The current device's info                             //TODO: If you need a few more bytes, remove this and format the rest to reference currentPlayer
-    hash_map_t devices;
-    //struct Contact devices[MAX_PLAYER_COUNT];
+    struct ContactAddressBook *contacts;
     bool isDM;          //Is the current device a DM?
+    //struct cd_settings settings;
 };
 
 
@@ -69,9 +68,24 @@ void globals_init(void);
 
 /*     --- CRUD Functions ---     */
 
-//Get the key, p_name, and c_name
+//Get the key, p_name, and c_name of the local device
 ContactInfo getMyContactInfo();
 
+/*  -- Contact Data System --
+CRUD functions primarily use the MAC address, since the MAC should be unique per entry*/
+short sizeOfContactBook();
+
+bool contactExistWithMAC(macAddr mac);
+//short indexOfContact
+
+bool createContact(ContactAddress cAddr);
+ContactAddress readContact(macAddr mac);
+bool createOrUpdateContact(ContactAddress cAddr);
+bool updateContact(ContactAddress cAddr);
+bool deleteContact(macAddr mac);
+
+bool createContactUnsafe(ContactAddress cAddr);      //This does not check for duplicate MACs
+ContactAddress readContactByKey(Key key);
 
 
 

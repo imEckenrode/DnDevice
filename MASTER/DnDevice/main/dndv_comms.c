@@ -230,6 +230,8 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 bool addPotentialDM(macAndData_s* mad){
     struct dm_info_s* data = (struct dm_info_s*)(mad->data);
     ContactInfo* info = &(data->info);
+//createContact...just gonna redo this
+
     printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);
     return false;
 } 
@@ -326,7 +328,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
               ESP_LOGE(TAG, "Send error (%d)", err);
               return;
           }
-          ESP_LOGV(TAG, "Sending success, data away.");
+          ESP_LOGV(TAG, "Success, data away");
           return;
             /*dndv_send(broadcast_mac,(char*)event_data);
             break;  */
@@ -336,7 +338,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
         
         case EVENT_BROADCAST_NEW_DM:
             update_comms_sync_mode(true);
-
+            
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
     }

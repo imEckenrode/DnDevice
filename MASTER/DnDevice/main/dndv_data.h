@@ -33,7 +33,7 @@ void nvs_init(void);
 
 
 /*         -- GLOBAL DEFINITIONS --          */
-#define MAX_PLAYER_COUNT 16
+#define INITIAL_MAX_PLAYER_COUNT 16     //The DnDevice allocates room for this many players' contact info (MAC, key, names, etc)
 
 #define MAC_ADDR_SIZE 6     //uints and chars are 1 byte each, so the size should always be 6*1
 /*     -- LOWEST LEVEL DATA TYPES --      */
@@ -121,13 +121,6 @@ typedef struct __attribute__((__packed__)){
 
 
 
-typedef struct __attribute__((__packed__)){
-    Key key;
-    Name p_name;   //P is Person/Player (AKA the IRL name)
-    Name c_name;   //C is Campaign or Character Name, depending on if DM or PC
-} ContactInfo;
-
-
 /*     -- Device Level Data Types --      */
 
 /* The player [and DM] struct (save data into a file)  */
@@ -153,15 +146,22 @@ typedef struct __attribute__((__packed__)) character_s{
     For DMs, this is the list of players
     For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
 */
+typedef struct __attribute__((__packed__)){
+    Key key;
+    Name p_name;   //P is Person/Player (AKA the IRL name)
+    Name c_name;   //C is Campaign or Character Name, depending on if DM or PC
+} ContactInfo;
 
-//*** contactInfo stores the ID, the player name, and the character name
 
-struct Contact{
+typedef struct __attribute__((__packed__)) {
     macAddr MAC;
     ContactInfo info;
+} ContactAddress;
+
+struct __attribute__((__packed__)) ContactAddressBook{
+    short maxContacts;           //Assigned at allocation time to track remaining space
+    ContactAddress contact[];
 };
-
-
 
 /* ______  --- EVENT LOOP ---  ______
     This is the handle that alerts all code when something is updated.

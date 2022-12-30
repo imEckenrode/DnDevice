@@ -5,9 +5,10 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 //Initialize all global variables to the correct values
 void globals_init(){
     current.isDM = false;
-    localDevice.displayLogs = false;   //Change this to set if dndv_log logs
-    current.info = {"",""}
-    //current.devices = 
+    //current.info = {"",""}      //TODO: Set name as MAC (through esp_read_mac()?)
+                                   //TODO: Free this when the device joins the campaign
+    current.contacts = (struct ContactAddressBook*) malloc(INITIAL_MAX_PLAYER_COUNT*sizeof(ContactAddress) + 2);    //Add 2 for the short at the start of contactAddress
+    current.contacts->maxContacts=INITIAL_MAX_PLAYER_COUNT;
 
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
@@ -50,6 +51,34 @@ void updateMyPCName(char* name){            //TODO: Update this to P name and C 
     strcpy(currentPC.name, name); 
     strcpy(current.info.c_name, name);
 }
+
+
+/*  -- Contact Data System --    */
+
+short sizeOfContactBook(){
+    return (current.contacts->maxContacts)*sizeof(ContactAddress);
+}
+
+bool contactExistWithMAC(macAddr mac){
+    for(short i=0;i < current.contacts->maxContacts;i++){
+        if (strcmp(mac, current.contacts->contact[i]->MAC) == 0){
+            return true;            //No reason this shouldn't work according to testing in c
+        }
+    }
+    return false;
+}
+//short indexOfContact
+
+
+
+bool createContact(ContactAddress cAddr);
+ContactAddress readContact(macAddr mac);
+bool createOrUpdateContact(ContactAddress cAddr);
+bool updateContact(ContactAddress cAddr);
+bool deleteContact(macAddr mac);
+
+bool createContactUnsafe(ContactAddress cAddr);      //This does not check for duplicate MACs
+ContactAddress readContactByKey(Key key);
 
 
 
