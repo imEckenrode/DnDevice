@@ -32,25 +32,16 @@ ContactInfo getMyContactInfo(){
     return myInfo;
 }
 
+bool updateMyContactInfo(ContactInfo info){current.info = info; return true;}
+
+Key getMyKey(){return current.info.key;}
+Player getMyPlayer(){return current.my->Player;}
+PC getMyPC(){return current.my->PC;}
+
 bool updateMyKey(Key newKey){current.info.key = newKey; return true;}
+bool updateMyPlayer(Player player){current.my->Player = player; strcpy(current.info.p_name,player.name); ; return true;}   //Change implementation as needed/updated
+bool updateMyPC(PC pc){current.my->PC = pc; strcpy(current.my->PC.name, pc.name); return true;}                       //This gives a single area to do so
 
-Player getMyPlayer(){
-    return currentPlayer;
-}
-
-PC getMyPC(){
-    return currentPC;
-}
-
-void updateMyPlayerName(char* name){    
-    strcpy(currentPlayer.name, name);
-    strcpy(current.info.p_name,name);
-}
-
-void updateMyPCName(char* name){            //TODO: Update this to P name and C name
-    strcpy(currentPC.name, name); 
-    strcpy(current.info.c_name, name);
-}
 
 
 /*  -- Contact Data System --    */
@@ -59,14 +50,14 @@ short sizeOfContactBook(){
     return (current.contacts->maxContacts)*sizeof(ContactAddress);
 }
 
-/*
+
 bool contactExistWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
-        if (strcmp(mac, current.contacts->contact[i]->MAC) == 0){
+        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){
             return true;            //No reason this shouldn't work according to testing in c
         }
     }
-    return false;}*/
+    return false;}
 
 //-1 is returned if non-existent
 short indexOfContactWithMAC(macAddr mac){
@@ -125,7 +116,6 @@ bool deleteContact(macAddr mac){
     return true;
 }
 
-
 ContactAddress readContactByKey(Key key){
     for(short i=0;i < current.contacts->maxContacts;i++){
         if (key == current.contacts->contact[i].info.key){
@@ -146,8 +136,7 @@ ContactAddress readContactByKey(Key key){
 
 
 /*          --- Data Retrieval System ---
-        Here is the system for retrieving character data. 
-
+        Here is the system for retrieving character data    (This is for the DMs)
         TODO: Move this to the SD card while still having this option
 */
 
@@ -211,8 +200,8 @@ void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 
 
 //  Initialize all the DM functions, handles, and variables.
-//      currentPlayer = DM Name
-//      currentPC = Campaign Name Stuff (TODO: Find uses for HP numbers or remove this functionality)
+//      p_name = DM Name
+//      c_name = Campaign Name
 void DM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
@@ -235,13 +224,11 @@ void DM_Activate(void){
 
 void testPCInit(void){
     Player examplePlayer = {1,"Bob","Bob Billy Joe",false,false};
-    currentPlayer=examplePlayer;
+    updateMyPlayer(examplePlayer);
     PC examplePC = {1,"Wizz","PowerWizard",5,3,16};
-    currentPC=examplePC;
+    updateMyPC(examplePC);
 
     current.isDM = false;
-    strcpy(current.info.p_name,currentPlayer.name);
-    strcpy(current.info.c_name,currentPC.name);
     printf("Test Player Initialized\n");
 }
 

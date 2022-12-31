@@ -1,6 +1,7 @@
 # Code Layout
 
 (For some reason, it is requiring me to add everything to the CMakeList...may try resetting that)
+C11 is used
 
 ## dndv_data
 

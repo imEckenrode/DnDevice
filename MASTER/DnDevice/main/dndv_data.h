@@ -142,6 +142,11 @@ typedef struct __attribute__((__packed__)) character_s{
     short XP10;
 } PC;
 
+struct __attribute__((__packed__)) PnC_s{
+    Player Player;
+    PC PC;
+};
+
 /*     - Connections Tracking and Naming -
     For DMs, this is the list of players
     For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected

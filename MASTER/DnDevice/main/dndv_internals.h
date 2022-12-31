@@ -45,7 +45,10 @@ struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
     //struct cd_settings settings;
     ContactInfo info;       //The current device's info                             //TODO: If you need a few more bytes, remove this and format the rest to reference currentPlayer
-    struct ContactAddressBook *contacts;
+    union {
+        struct ContactAddressBook *contacts;
+        struct PnC_s *my; //would
+    };                                                  //Anonymous Union works in C11
     bool isDM;          //Is the current device a DM?
     //struct cd_settings settings;
 };
@@ -53,10 +56,6 @@ struct __attribute__((__packed__)) current_device_s {
 
 /*              -- GLOBAL VARIABLES --               */
 struct current_device_s current;      //The current user, global to the DnDevice  //IMPORTANT
-
-
-PC currentPC;        //The currently selected player character          //TODO: Move PC and Player away from being a global     [Initialize LATER]
-Player currentPlayer;       //The currently selected player
 
 
 /*          ---- Visible Function Declarations ----          */ 
@@ -68,6 +67,20 @@ void globals_init(void);
 
 /*     --- CRUD Functions ---     */
 
+
+ContactInfo getMyContactInfo();
+bool updateMyContactInfo(ContactInfo info);
+
+/*  -- Player Updating And Retrieving --  */
+Key getMyKey();
+Player getMyPlayer();
+PC getMyPC();
+
+bool updateMyKey(Key newKey);
+bool updateMyPlayer(Player player);
+bool updateMyPC(PC pc);
+
+
 //Get the key, p_name, and c_name of the local device
 ContactInfo getMyContactInfo();
 
@@ -75,10 +88,9 @@ ContactInfo getMyContactInfo();
 CRUD functions primarily use the MAC address, since the MAC should be unique per entry*/
 short sizeOfContactBook();
 
-//bool contactExistWithMAC(macAddr mac);
+bool contactExistWithMAC(macAddr mac);
 //returns -1 on non-existent
 short indexOfContactWithMAC(macAddr mac);
-
 bool createContact(ContactAddress cAddr);
 ContactAddress readContact(macAddr mac);
 bool createOrUpdateContact(ContactAddress cAddr);
@@ -86,6 +98,12 @@ bool updateContact(ContactAddress cAddr);
 bool deleteContact(macAddr mac);
 
 ContactAddress readContactByKey(Key key);
+
+
+/*  - Updating Local Player Data -*/
+bool updateCurrentKey(Key key);
+bool updateCurrentPlayer(Player player);
+bool updateCurrentPC(PC character);
 
 
 

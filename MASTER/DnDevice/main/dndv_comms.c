@@ -44,11 +44,7 @@ enum SYNC_B_ID{
 };  
     
 /* Data broadcasted when the DM is set up, or messaged directly when requested by a player */
-struct __attribute__((__packed__)) dm_info_s {
-        struct EVENT event;               //The base and ID struct
-        ContactInfo info;
-};
-
+//see ContactAddress
 
 struct __attribute__((__packed__)) keydata_rcv_s{
     Key key;
@@ -221,22 +217,17 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
             /*    --- Sync Player and DM ---
                 For syncing at startup
-            Under SYNC_BASE and DM_SYNC_BASE respectively as listed above */
-
+            Under SYNC_BASE and DM_SYNC_BASE respectively as listed above */    //TODO: Maybe move those bases down here with the other sync actions
 // First, any manual functions (should be exposed in dndv_comms.h)
 
 
 
 /*  -- Automatic PC Sync Actions (in order) --  */
 
-bool addPotentialDM(macAndData_s* mad){
-
-    struct dm_info_s* data = (struct dm_info_s*)(mad->data);
-    ContactInfo* info = &(data->info);
-
-
-    printf("New DM info received:\nName: %s\nCampaign: %s\nMAC: ",info->p_name,info->c_name);
-    return false;
+bool addPotentialDM(ContactAddress* mad){
+    createOrUpdateContact(*mad);
+    printf("New DM: %s, %s",*mad->info.p_name,*mad->info.c_name);
+    return true;
 } 
 
 
@@ -249,9 +240,14 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
         case EVENT_DM_INFO:
             addPotentialDM(da);
             break;
-        case EVENT_KEYDATA_RCV:
+        case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
+            
+            //current.info.key = 
+            //current.info.p_name = 
             break;
         case EVENT_PCDATA_RCV:
+            //current.info.c_name =
+            
             break;
 
         case EVENT_AWAKE_BROADCAST_RCV:
@@ -263,9 +259,12 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 
 
+
+
 /*              -- DM Sync Actions --           */
 
 //Direct Message the Dungeon Master Data to the desired MAC
+/*Redo
 esp_err_t DM_DM_Data(macAddr da){
     struct dm_info_s to_send = {
         .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
@@ -276,7 +275,7 @@ esp_err_t DM_DM_Data(macAddr da){
         return ESP_FAIL;
     } 
     return ESP_OK;
-}
+} This*/
 
 bool addConfirmedPC(){return false;}
 
@@ -295,14 +294,22 @@ void dm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending anyway.\n");}
             DM_DM_Data(da->mac);
             break;
-        case EVENT_SYNC_REQ:         //When a player device asks for the DM info
+        case EVENT_SYNC_REQ:         //When a player selects the DM's campaign, let the DM know so the player isn't left behind.        Not implemented yet (nor needed, likely)
+            if(contactExistWithMAC(da->mac)){
+                ContactAddress ca = {da->mac, {0,da->mac,""}};
+                createContact(ca);
+            }else{print("%d rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
+            //retrieveAndSendKey(da);      //Cast into correct type (and TODO actually define the thing)
+            //createOrUpdateContact();
             break;
         case EVENT_PC_REQ:
+            //retrieveAndSendPC(da);
+            //createOrUpdateContact();
             break;
         default:
-            printf("Someone's syncing out there\n");
+            printf("Sync not known\n");
     }
 }
 
