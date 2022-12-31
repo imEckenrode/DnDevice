@@ -59,7 +59,10 @@
 			"system_error": "c",
 			"typeinfo": "c",
 			"hash_map.h": "c",
-			"dndv_internals.h": "c"
+			"dndv_internals.h": "c",
+			"bitset": "c",
+			"initializer_list": "c",
+			"utility": "c"
 		}
 	}
 }

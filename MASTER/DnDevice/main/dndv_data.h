@@ -125,7 +125,6 @@ typedef struct __attribute__((__packed__)){
 
 /* The player [and DM] struct (save data into a file)  */
 typedef struct  __attribute__((__packed__)){
-    Key key;
     NickName nickname;
     Name name;
     bool canDM;
@@ -134,15 +133,14 @@ typedef struct  __attribute__((__packed__)){
 
 /* The character struct (save data into a file) */ 
 typedef struct __attribute__((__packed__)) character_s{
-    Key key;
     NickName nickname;
-    Name name;
-    short MaxHP;
+    Name name; 
     short HP;
     short XP10;
+    sNum AC;
 } PC;
 
-struct __attribute__((__packed__)) PnC_s{
+struct __attribute__((__packed__)) PnC_s{           //TODO Use this as the info instead of the DM way    -> Add: Key key;
     Player Player;
     PC PC;
 };
@@ -157,7 +155,6 @@ typedef struct __attribute__((__packed__)){
     Name c_name;   //C is Campaign or Character Name, depending on if DM or PC
 } ContactInfo;
 
-
 typedef struct __attribute__((__packed__)) {
     macAddr MAC;
     ContactInfo info;
@@ -166,6 +163,21 @@ typedef struct __attribute__((__packed__)) {
 struct __attribute__((__packed__)) ContactAddressBook{
     short maxContacts;           //Assigned at allocation time to track remaining space
     ContactAddress contact[];
+};
+
+
+//For the DM, this is local names and MAC is used for six bytes of other information
+//For the player, this is the DMDevice info, including the MAC
+    //TODO: add campaignKey info in here if that becomes a thing
+struct  __attribute__((__packed__)) dmInfo{
+    Name dmName;
+    Name campaignName;          //Update this to longName if space
+    union{
+        macAddr MAC;
+        struct{ //Up to 6 bytes of info can go in here
+            Num playerCount;
+        };
+    };
 };
 
 /* ______  --- EVENT LOOP ---  ______
@@ -268,7 +280,7 @@ ESP_EVENT_DECLARE_BASE(COMMS_BASE);
 enum COMMS_B_ID{
     EVENT_SEND,
     EVENT_SEND_BROADCAST,
-    //EVENT_SEND_TO_ALL_CONTACTS    //For Players to send to all DMs, or a DM to send to all Players
+    EVENT_SEND_TO_ALL_CONTACTS,    //For Players to send to all DMs, or a DM to send to all Players
 
     EVENT_BROADCAST_NEW_DEVICE,
     EVENT_BROADCAST_NEW_DM

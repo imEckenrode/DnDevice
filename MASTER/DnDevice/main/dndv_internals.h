@@ -43,8 +43,8 @@ struct __attribute__((__packed__)) cd_settings{                 //(TO IMPLEMENT 
 /*  CURRENT DEVICE: Structure for keeping track of the device's user data   */
 struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
-    //struct cd_settings settings;
-    ContactInfo info;       //The current device's info                             //TODO: If you need a few more bytes, remove this and format the rest to reference currentPlayer
+    Key myKey;
+    struct dmInfo dmInfo;
     union {
         struct ContactAddressBook *contacts;
         struct PnC_s *my; //would
@@ -54,9 +54,10 @@ struct __attribute__((__packed__)) current_device_s {
 };
 
 
+
+
 /*              -- GLOBAL VARIABLES --               */
 struct current_device_s current;      //The current user, global to the DnDevice  //IMPORTANT
-
 
 /*          ---- Visible Function Declarations ----          */ 
 
@@ -65,8 +66,14 @@ struct current_device_s current;      //The current user, global to the DnDevice
 */
 void globals_init(void);
 
-/*     --- CRUD Functions ---     */
+/*               --- CRUD Functions ---                 */
+//Check if the current device is a DM
+bool isDM();
+bool isPlayer();
+//Turn DM Status on or off (should be triggered through an event)
+bool updateDMStatus(bool isDM);
 
+//For the DM_MAC, see DM_MAC in dndv_comms
 
 ContactInfo getMyContactInfo();
 bool updateMyContactInfo(ContactInfo info);
@@ -79,7 +86,6 @@ PC getMyPC();
 bool updateMyKey(Key newKey);
 bool updateMyPlayer(Player player);
 bool updateMyPC(PC pc);
-
 
 //Get the key, p_name, and c_name of the local device
 ContactInfo getMyContactInfo();

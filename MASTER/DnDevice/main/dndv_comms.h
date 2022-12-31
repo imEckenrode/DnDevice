@@ -7,6 +7,10 @@
 #include "esp_wifi.h"
 #include "esp_log.h"
 #include "esp_err.h"
+
+//Can use this in place of any calls for the DM MAC
+#define DM_MAC current.dmInfo.MAC
+
 /*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
   SENDING
@@ -76,16 +80,23 @@ void comms_init(void);
 /*     - Sending Functions -     */
 
 
-// Send the data!
-esp_err_t dndv_send(macAddr mac, void* data, size_t size);
+// Send the data, events included!
+esp_err_t dndv_send_raw(macAddr mac, void* data, size_t size);
+
+// Send the data! This is the preferred method
+esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size);
+
+//This calls dndv_send with 0 for data and size
+esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum);
 
 
-//  When a device wakes up, broadcast as such
-esp_err_t dndv_send_onAwake(void);
 
 //  For testing, broadcast a ping
 void dndv_send_ping(void);
 
+
+//  When a device wakes up, broadcast as such
+esp_err_t dndv_send_onAwake(void);
 
 /*    -- ESP-NOW Sending Functions --     */
 
@@ -99,7 +110,7 @@ void dndv_send_ping(void);
       status is 0 if the target device receives the data successfully
       status is 1 on an error
     
-    ESP-NOW resends multiple times by default to maximize successful sends, but a callback TODO needs implemented
+    ESP-NOW resends multiple times by default to maximize successful sends, but a callback TODO should be implemented
      */
 void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 

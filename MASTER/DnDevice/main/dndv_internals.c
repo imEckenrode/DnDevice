@@ -27,21 +27,46 @@ static bool comms_broadcastData(void* event_data, size_t event_data_size){
 
 /*     --- CRUD Functions ---     */
 
-ContactInfo getMyContactInfo(){
-    ContactInfo myInfo = current.info;
-    return myInfo;
+bool isDM(){
+    return current.isDM;
 }
 
-bool updateMyContactInfo(ContactInfo info){current.info = info; return true;}
+bool isPlayer(){
+    return !isDM();
+}
 
-Key getMyKey(){return current.info.key;}
+bool updateDMStatus(bool isDM){
+    current.isDM = isDM;
+    return true;
+}
+
+/*macAddr getDmMAC() {if(isDM()){printf("NO DM MAC FOR YOU!");return NULL;} return current.dmInfo.MAC;}*/
+
+Key getMyKey(){return current.myKey;}
 Player getMyPlayer(){return current.my->Player;}
 PC getMyPC(){return current.my->PC;}
 
-bool updateMyKey(Key newKey){current.info.key = newKey; return true;}
-bool updateMyPlayer(Player player){current.my->Player = player; strcpy(current.info.p_name,player.name); ; return true;}   //Change implementation as needed/updated
+bool updateMyKey(Key newKey){current.myKey = newKey; return true;}
+bool updateMyPlayer(Player player){current.my->Player = player; return true;}   //Change implementation as needed/updated
 bool updateMyPC(PC pc){current.my->PC = pc; strcpy(current.my->PC.name, pc.name); return true;}                       //This gives a single area to do so
 
+bool updateMyName(Name newName){strcpy(( (isDM()) ? current.dmInfo.dmName : current.my->Player.name),newName);   return true;}
+bool updateMyCName(Name newName){strcpy(( (isDM()) ? current.dmInfo.campaignName : current.my->PC.name), newName); return true;}   //This does not allow for longNames, so if that is desired, check current string allocation sizes first or risk a data overflow
+
+ContactInfo getMyContactInfo(){
+    if(isDM()){
+        ContactInfo myInfo = {current.myKey, current.dmInfo.dmName, current.dmInfo.campaignName};
+        return myInfo;
+    }
+    ContactInfo myInfo = {current.myKey, current.my->Player.name, current.my->PC.name};
+    return myInfo;
+}
+
+bool updateMyContactInfo(ContactInfo info){
+    updateMyKey(info.key);
+    updateMyName(info.p_name);
+    updateMyCName(info.c_name);
+}
 
 
 /*  -- Contact Data System --    */
@@ -223,18 +248,19 @@ void DM_Activate(void){
 //And finally, tests
 
 void testPCInit(void){
-    Player examplePlayer = {1,"Bob","Bob Billy Joe",false,false};
+    current.isDM = false;
+    updateMyKey(1);
+    Player examplePlayer = {"Bob","Bob Billy Joe",false,false};
     updateMyPlayer(examplePlayer);
-    PC examplePC = {1,"Wizz","PowerWizard",5,3,16};
+    PC examplePC = {"Wizz","PowerWizard",3,16,13};
     updateMyPC(examplePC);
 
-    current.isDM = false;
     printf("Test Player Initialized\n");
 }
 
 void testDMInit(void){
     current.isDM = true;      //TODO: Could have a semaphore something or other on the global level
-    current.info.key = 0;
+    updateMyKey(1);
     updateMyPlayerName("MeDM");
     updateMyPCName("AwesomeTitleHere");
 

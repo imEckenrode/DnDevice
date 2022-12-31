@@ -145,8 +145,8 @@ bool addIfNewPeer(macAddr mac){
 
 /*  -- Primary Sending Functions --  */
 
-//Send data to the specified MAC address
-esp_err_t dndv_send(macAddr mac, void* data, size_t size){
+//Send data to the specified MAC address with event data already included
+esp_err_t dndv_send_raw(macAddr mac, void* data, size_t size){
     esp_err_t err = esp_now_send(mac,(void*)data,size);
 
     if(err != ESP_OK){
@@ -156,9 +156,24 @@ esp_err_t dndv_send(macAddr mac, void* data, size_t size){
     return ESP_OK;
 }
 
-//Send data to the specified MAC address with a macAndData_s struct pointer
+esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size){
+    size_t newSize = size+2;
+    uint8_t* allData = malloc(newSize);  //This could be a void pointer
+    allData[0] = eventBaseNum;
+    allData[1] = eventIdNum;
+    memcpy(allData+2,data,size);
+    esp_err_t result = dndv_send_raw(mac,allData,newSize);
+    free(allData);
+    return result;
+}
+
+esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum){
+    return dndv_send(mac, eventBaseNum, eventIdNum, 0, 0);
+}
+
+//Send data to the specified MAC address with a macAndData_s struct pointer (this is a raw way to send)
 esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
-    esp_err_t err = dndv_send(mad->mac,(void*)(mad->data),size);
+    esp_err_t err = dndv_send_raw(mad->mac,(void*)(mad->data),size);
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Send error (%d)", err);
         return ESP_FAIL;
@@ -172,14 +187,11 @@ esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
 void dndv_send_ping(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
 
-    struct EVENT dat;     //If there's no actual data being passed, no need to malloc anything (specific to this function)
-    dat.BASE = N_MISC_BASE;                     //Set the correct base and ID for easy unpacking
-    dat.ID = EVENT_PING;                    //ID number 3 as of writing this...
-
-    dndv_send(broadcast_mac,&dat,sizeof(dat));
+    dndv_send_blank(broadcast_mac,N_MISC_BASE,EVENT_PING);
     //esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));
     //Could wait for callback here to call more times
 }
+
 
 
 
@@ -264,18 +276,15 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 /*              -- DM Sync Actions --           */
 
 //Direct Message the Dungeon Master Data to the desired MAC
-/*Redo
 esp_err_t DM_DM_Data(macAddr da){
-    struct dm_info_s to_send = {
-        .event = {N_SYNC_BASE,EVENT_DM_INFO}, 
-        .info =  getMyContactInfo()}; //current.info};
-    esp_err_t err = dndv_send(da,&to_send,sizeof(to_send));        //Send the struct with both DM name and campaign name alongside the IDs
+    ContactInfo myInfo = getMyContactInfo();    //could take directly from current.Key and go a few more steps (since dmInfo is right there), but we'll be safe
+    esp_err_t err = dndv_send(da,N_SYNC_BASE,EVENT_DM_INFO,&myInfo,sizeof(ContactInfo));
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
         return ESP_FAIL;
     } 
     return ESP_OK;
-} This*/
+}
 
 bool addConfirmedPC(){return false;}
 
@@ -340,15 +349,16 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
           }
           ESP_LOGV(TAG, "Success, data away");
           return;
-            /*dndv_send(broadcast_mac,(char*)event_data);
+            /*dndv_send_raw(broadcast_mac,(char*)event_data);
             break;  */
         case EVENT_SEND:
-            dndv_sendMAD(((macAndData_s*) event_data), sizeof(event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
+            dndv_sendMAD((macAndData_s*) event_data, sizeof(event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
             break;
-        
+        case EVENT_SEND_TO_ALL_CONTACTS:
+            dndv_send_raw (NULL, event_data, sizeof(event_data)); //NULL MAC sends to all peers
+            break;
         case EVENT_BROADCAST_NEW_DM:
             update_comms_sync_mode(true);
-            
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
     }
@@ -359,19 +369,9 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
 //This function should be run when the device wakes up to broadcast its prescence to any DM devices
 esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
+    return dndv_send_blank(broadcast_mac,N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
 
-    struct EVENT dat;
-    dat.BASE = N_SYNC_BASE;                     //Set the correct base and ID for easy unpacking
-    dat.ID = EVENT_AWAKE_BROADCAST_RCV;             //TODO: Formalize this into the streamlined IDs system
-
-    esp_err_t err = dndv_send(broadcast_mac,(void*)&dat,sizeof(dat));
-
-    if(err != ESP_OK){
-        ESP_LOGE(TAG, "Send error (%d)", err);
-        return ESP_FAIL; 
-    }
-    return ESP_OK;
-    //Could wait for callback here to call more times
+    //Could wait for callback here to call more times instead of returning immediately
 }
 
 
