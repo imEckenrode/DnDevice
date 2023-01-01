@@ -15,7 +15,7 @@
 
 
 DNDV_EBA_DEFINE(&SYNC_BASE,
-                &DM_SYNC_BASE,
+                &GM_SYNC_BASE,
                 &MISC_BASE
                 );
 
@@ -37,13 +37,13 @@ void initAll(void){
 //  For everything before the user's first input
 void startup(void){
     initAll();              //Initialize all required libraries
-    dndv_send_onAwake();    //Send out the "Awake" packet for active DMs to sync
+    dndv_send_onAwake();    //Send out the "Awake" packet for active GMs to sync
     
-    //testDMInit(); 
+    //testGMInit(); 
 }
 
 void eba_test(void){
-    printf("%d",EventBaseP2Num(&DM_SYNC_BASE));
+    printf("%d",EventBaseP2Num(&GM_SYNC_BASE));
     printf("%s",Num2EventBase((Num) 1));
 }
 

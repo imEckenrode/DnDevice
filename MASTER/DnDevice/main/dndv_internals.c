@@ -4,7 +4,7 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 
 //Initialize all global variables to the correct values
 void globals_init(){
-    current.isDM = false;
+    current.isGM = false;
     //current.info = {"",""}      //TODO: Set name as MAC (through esp_read_mac()?)
                                    //TODO: Free this when the device joins the campaign
     current.contacts = (struct ContactAddressBook*) malloc(INITIAL_MAX_PLAYER_COUNT*sizeof(ContactAddress) + 2);    //Add 2 for the short at the start of contactAddress
@@ -27,20 +27,20 @@ static bool comms_broadcastData(void* event_data, size_t event_data_size){
 
 /*     --- CRUD Functions ---     */
 
-bool isDM(){
-    return current.isDM;
+bool isGM(){
+    return current.isGM;
 }
 
 bool isPlayer(){
-    return !isDM();
+    return !isGM();
 }
 
-bool updateDMStatus(bool isDM){
-    current.isDM = isDM;
+bool updateGMStatus(bool isGM){
+    current.isGM = isGM;
     return true;
 }
 
-/*macAddr getDmMAC() {if(isDM()){printf("NO DM MAC FOR YOU!");return NULL;} return current.dmInfo.MAC;}*/
+/*macAddr getGmMAC() {if(isGM()){printf("NO GM MAC FOR YOU!");return NULL;} return current.gmInfo.MAC;}*/
 
 Key getMyKey(){return current.myKey;}
 Player getMyPlayer(){return current.my->Player;}
@@ -50,12 +50,12 @@ bool updateMyKey(Key newKey){current.myKey = newKey; return true;}
 bool updateMyPlayer(Player player){current.my->Player = player; return true;}   //Change implementation as needed/updated
 bool updateMyPC(PC pc){current.my->PC = pc; strcpy(current.my->PC.name, pc.name); return true;}                       //This gives a single area to do so
 
-bool updateMyName(Name newName){strcpy(( (isDM()) ? current.dmInfo.dmName : current.my->Player.name),newName);   return true;}
-bool updateMyCName(Name newName){strcpy(( (isDM()) ? current.dmInfo.campaignName : current.my->PC.name), newName); return true;}   //This does not allow for longNames, so if that is desired, check current string allocation sizes first or risk a data overflow
+bool updateMyName(Name newName){strcpy(( (isGM()) ? current.gmInfo.gmName : current.my->Player.name),newName);   return true;}
+bool updateMyCName(Name newName){strcpy(( (isGM()) ? current.gmInfo.campaignName : current.my->PC.name), newName); return true;}   //This does not allow for longNames, so if that is desired, check current string allocation sizes first or risk a data overflow
 
 ContactInfo getMyContactInfo(){
-    if(isDM()){
-        ContactInfo myInfo = {current.myKey, current.dmInfo.dmName, current.dmInfo.campaignName};
+    if(isGM()){
+        ContactInfo myInfo = {current.myKey, current.gmInfo.gmName, current.gmInfo.campaignName};
         return myInfo;
     }
     ContactInfo myInfo = {current.myKey, current.my->Player.name, current.my->PC.name};
@@ -161,7 +161,7 @@ ContactAddress readContactByKey(Key key){
 
 
 /*          --- Data Retrieval System ---
-        Here is the system for retrieving character data    (This is for the DMs)
+        Here is the system for retrieving character data    (This is for the GMs)
         TODO: Move this to the SD card while still having this option
 */
 
@@ -177,8 +177,8 @@ This function receives all DEVICE_BASEd events and processes them accordingly, p
 */
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        case EVENT_DM_KEYIN:
-            testDMInit();       //Temporary (TODO)
+        case EVENT_GM_KEYIN:
+            testGMInit();       //Temporary (TODO)
             break;
 
         case EVENT_CAMPAIGN_SELECT:
@@ -190,23 +190,23 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 }
 
 
-/*      - DM EXCLUSIVE FUNCTIONS -
-    Here are the functions exclusive to the DM.
+/*      - GM EXCLUSIVE FUNCTIONS -
+    Here are the functions exclusive to the GM.
 
-    To keep this exclusivity, DM_Activate activates the handle for DM only events
+    To keep this exclusivity, GM_Activate activates the handle for GM only events
 */
 
 
 
-//The handler for any DM exclusive data (DM_DEVICE_BASE)
-void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+//The handler for any GM exclusive data (GM_DEVICE_BASE)
+void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        case EVENT_DM_ACTIVATE:
-            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_DM_ACTIVATE, NULL, 0, 0);
+        case EVENT_GM_ACTIVATE:
+            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);
             break;
             /*;
-            struct dm_info_s to_send = {
-                .event = {N_SYNC_BASE,EVENT_DM_INFO},
+            struct gm_info_s to_send = {
+                .event = {N_SYNC_BASE,EVENT_GM_INFO},
                 .info =  getMyContactInfo()}; //current.info};
 
             comms_broadcastData((void*)&to_send, sizeof(to_send));
@@ -215,7 +215,7 @@ void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 
             */
         default:
-            ESP_LOGE("DM Internal", "Did not recognize the internal event.");
+            ESP_LOGE("GM Internal", "Did not recognize the internal event.");
     }
 }
 
@@ -224,22 +224,22 @@ void DM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 /* --------TODO: Below this point should be refactored above. This should no longer be needed soon. */
 
 
-//  Initialize all the DM functions, handles, and variables.
-//      p_name = DM Name
+//  Initialize all the GM functions, handles, and variables.
+//      p_name = GM Name
 //      c_name = Campaign Name
-void DM_Activate(void){
+void GM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
-    esp_event_handler_instance_register_with(dndv_event_h, DM_DEVICE_BASE, ESP_EVENT_ANY_ID, DM_rcv, NULL,NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
     //esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv);      
-                //TODO: UNREGISTERING this means that you cannot deactivate DM mode without a reset (which is fine)
-                    //(If this is entirely separate from the DM_rcv, the unregister comment can work)
+                //TODO: UNREGISTERING this means that you cannot deactivate GM mode without a reset (which is fine)
+                    //(If this is entirely separate from the GM_rcv, the unregister comment can work)
             //Syncing is done by dndv_comms
     //Player List
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
 
-    esp_event_post_to(dndv_event_h, DM_DEVICE_BASE, EVENT_DM_ACTIVATE, NULL, 0, 0);
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);
      //No need to divide size of a uint8 array, because sizeof(uint8) = 1
 }
 
@@ -248,7 +248,7 @@ void DM_Activate(void){
 //And finally, tests
 
 void testPCInit(void){
-    current.isDM = false;
+    current.isGM = false;
     updateMyKey(1);
     Player examplePlayer = {"Bob","Bob Billy Joe",false,false};
     updateMyPlayer(examplePlayer);
@@ -258,12 +258,12 @@ void testPCInit(void){
     printf("Test Player Initialized\n");
 }
 
-void testDMInit(void){
-    current.isDM = true;      //TODO: Could have a semaphore something or other on the global level
+void testGMInit(void){
+    current.isGM = true;      //TODO: Could have a semaphore something or other on the global level
     updateMyKey(1);
-    updateMyPlayerName("MeDM");
+    updateMyPlayerName("MeGM");
     updateMyPCName("AwesomeTitleHere");
 
-    DM_Activate();
-    printf("DM Mode Activated (Test DM Initialized)\n");
+    GM_Activate();
+    printf("GM Mode Activated (Test GM Initialized)\n");
 }

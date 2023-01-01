@@ -2,14 +2,14 @@
 
 #include "dndv_comms.h"
 
-#define TAG "DnDevice"  //TODO: This should be dynamic and label the PC or DM Name
+#define TAG "DnDevice"  //TODO: This should be dynamic and label the PC or GM Name
 #define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
 
 macAddr broadcast_mac = BROADCAST_MAC;
 
 /*  --- BASE DEFINITIONS --- */
 ESP_EVENT_DEFINE_BASE(SYNC_BASE);
-ESP_EVENT_DEFINE_BASE(DM_SYNC_BASE);
+ESP_EVENT_DEFINE_BASE(GM_SYNC_BASE);
 
 
 //               !--  Event Base Lookup --!
@@ -30,20 +30,20 @@ esp_event_base_t Num2EventBase(Num num){
     return *EVENT_BASE_ARRAY[num];
 }
 
-/*          --  SYNC_BASE: For syncing data DMs and Player devices  --
+/*          --  SYNC_BASE: For syncing data GMs and Player devices  --
         Used primarily by dndv_comms
     Contains all data for syncing. Players should stop listening to these events once in the campaign
         */
 enum SYNC_B_ID{
-    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active DMs can send directly to this new device   (TODO: make sure it's safe, then remove it from here)
-    EVENT_DM_INFO,          //[Uses dm_info_s]. Broadcasted when a device becomes a DM. Transmits the DM name and campaign name
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active GMs can send directly to this new device   (TODO: make sure it's safe, then remove it from here)
+    EVENT_GM_INFO,          //[Uses gm_info_s]. Broadcasted when a device becomes a GM. Transmits the GM name and campaign name
 
     EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
     EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
     EVENT_KEYANDPC_RCV,     //The Key and Character Data
 };  
     
-/* Data broadcasted when the DM is set up, or messaged directly when requested by a player */
+/* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
 //see ContactAddress
 
 struct __attribute__((__packed__)) keydata_rcv_s{
@@ -79,11 +79,11 @@ struct __attribute__((__packed__)) pcdata_rcv_s{
 };
 
 
-/*          --  DM_SYNC_BASE: For all events targeted to the DM from other devices  --
-    These are DM exclusive actions that should only heard by DM_ACTIVATE (and whatever logs want it)*/
-enum DM_RCV_B_ID{
-    EVENT_AWAKE_BROADCAST_DM_RCV,      //Broadcasted on awake, so active DMs can send directly to this new device
-    EVENT_SYNC_REQ,         //When a player device asks for the DM info
+/*          --  GM_SYNC_BASE: For all events targeted to the GM from other devices  --
+    These are GM exclusive actions that should only heard by GM_ACTIVATE (and whatever logs want it)*/
+enum GM_RCV_B_ID{
+    EVENT_AWAKE_BROADCAST_GM_RCV,      //Broadcasted on awake, so active GMs can send directly to this new device
+    EVENT_SYNC_REQ,         //When a player device asks for the GM info
     EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
     EVENT_PC_REQ,       //Return the date for the requested player character
 
@@ -227,30 +227,30 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
 
 
 
-            /*    --- Sync Player and DM ---
+            /*    --- Sync Player and GM ---
                 For syncing at startup
-            Under SYNC_BASE and DM_SYNC_BASE respectively as listed above */    //TODO: Maybe move those bases down here with the other sync actions
+            Under SYNC_BASE and GM_SYNC_BASE respectively as listed above */    //TODO: Maybe move those bases down here with the other sync actions
 // First, any manual functions (should be exposed in dndv_comms.h)
 
 
 
 /*  -- Automatic PC Sync Actions (in order) --  */
 
-bool addPotentialDM(ContactAddress* mad){
+bool addPotentialGM(ContactAddress* mad){
     createOrUpdateContact(*mad);
-    printf("New DM: %s, %s",*mad->info.p_name,*mad->info.c_name);
+    printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
     return true;
 } 
 
 
-bool selectDM(){return false;}
+bool selectGM(){return false;}
 
 /*  Finally, the event receiver to answer the requests (that the player receives) */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
-    switch(id){ //If not DM and you receive stuff, call functions here
-        case EVENT_DM_INFO:
-            addPotentialDM(da);
+    switch(id){ //If not GM and you receive stuff, call functions here
+        case EVENT_GM_INFO:
+            addPotentialGM(da);
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
             
@@ -273,12 +273,12 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 
 
-/*              -- DM Sync Actions --           */
+/*              -- GM Sync Actions --           */
 
-//Direct Message the Dungeon Master Data to the desired MAC
-esp_err_t DM_DM_Data(macAddr da){
-    ContactInfo myInfo = getMyContactInfo();    //could take directly from current.Key and go a few more steps (since dmInfo is right there), but we'll be safe
-    esp_err_t err = dndv_send(da,N_SYNC_BASE,EVENT_DM_INFO,&myInfo,sizeof(ContactInfo));
+//Direct Message the Game Master Data to the desired MAC
+esp_err_t GM_DM_Data(macAddr da){
+    ContactInfo myInfo = getMyContactInfo();    //could take directly from current.Key and go a few more steps (since gmInfo is right there), but we'll be safe
+    esp_err_t err = dndv_send(da,N_SYNC_BASE,EVENT_GM_INFO,&myInfo,sizeof(ContactInfo));
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
         return ESP_FAIL;
@@ -289,21 +289,21 @@ esp_err_t DM_DM_Data(macAddr da){
 bool addConfirmedPC(){return false;}
 
 
-/*      - Automatic DM Sync Actions (in order)  - */
+/*      - Automatic GM Sync Actions (in order)  - */
 
 
 
-void dm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
     printf("Heard Syncing...\n");
-    switch(id){ //If DM and you receive stuff, call functions here
+    switch(id){ //If GM and you receive stuff, call functions here
         case EVENT_AWAKE_BROADCAST_RCV:
             ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
             bool newlyAdded = addIfNewPeer(da->mac);
             if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending anyway.\n");}
-            DM_DM_Data(da->mac);
+            GM_DM_Data(da->mac);
             break;
-        case EVENT_SYNC_REQ:         //When a player selects the DM's campaign, let the DM know so the player isn't left behind.        Not implemented yet (nor needed, likely)
+        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind.        Not implemented yet (nor needed, likely)
             if(contactExistWithMAC(da->mac)){
                 ContactAddress ca = {da->mac, {0,da->mac,""}};
                 createContact(ca);
@@ -322,14 +322,14 @@ void dm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
     }
 }
 
-//Update the event handler if the device is/isn't a DM
-void update_comms_sync_mode(bool isDM){
-    if(isDM){
-        esp_event_handler_instance_register_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, dm_sync_rcv, NULL,NULL);
+//Update the event handler if the device is/isn't a GM
+void update_comms_sync_mode(bool isGM){
+    if(isGM){
+        esp_event_handler_instance_register_with(dndv_event_h, GM_SYNC_BASE, ESP_EVENT_ANY_ID, gm_sync_rcv, NULL,NULL);
         esp_event_handler_instance_unregister_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }else{
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
-        esp_event_handler_instance_unregister_with(dndv_event_h, DM_SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
+        esp_event_handler_instance_unregister_with(dndv_event_h, GM_SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }
 }
 
@@ -357,7 +357,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
         case EVENT_SEND_TO_ALL_CONTACTS:
             dndv_send_raw (NULL, event_data, sizeof(event_data)); //NULL MAC sends to all peers
             break;
-        case EVENT_BROADCAST_NEW_DM:
+        case EVENT_BROADCAST_NEW_GM:
             update_comms_sync_mode(true);
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
@@ -366,7 +366,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
 
 
 
-//This function should be run when the device wakes up to broadcast its prescence to any DM devices
+//This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
     return dndv_send_blank(broadcast_mac,N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);

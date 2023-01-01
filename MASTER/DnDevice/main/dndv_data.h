@@ -123,11 +123,11 @@ typedef struct __attribute__((__packed__)){
 
 /*     -- Device Level Data Types --      */
 
-/* The player [and DM] struct (save data into a file)  */
+/* The player [and GM] struct (save data into a file)  */
 typedef struct  __attribute__((__packed__)){
     NickName nickname;
     Name name;
-    bool canDM;
+    bool canGM;
     bool TrainingWheelsProtocol_Active;
 } Player;
 
@@ -140,19 +140,19 @@ typedef struct __attribute__((__packed__)) character_s{
     sNum AC;
 } PC;
 
-struct __attribute__((__packed__)) PnC_s{           //TODO Use this as the info instead of the DM way    -> Add: Key key;
+struct __attribute__((__packed__)) PnC_s{           //TODO Use this as the info instead of the GM way    -> Add: Key key;
     Player Player;
     PC PC;
 };
 
 /*     - Connections Tracking and Naming -
-    For DMs, this is the list of players
-    For players, this is the list of possible DMs and the campaign names  //, and TODO should stop persisting after a DM is selected
+    For GMs, this is the list of players
+    For players, this is the list of possible GMs and the campaign names  //, and TODO should stop persisting after a GM is selected
 */
 typedef struct __attribute__((__packed__)){
     Key key;
     Name p_name;   //P is Person/Player (AKA the IRL name)
-    Name c_name;   //C is Campaign or Character Name, depending on if DM or PC
+    Name c_name;   //C is Campaign or Character Name, depending on if GM or PC
 } ContactInfo;
 
 typedef struct __attribute__((__packed__)) {
@@ -166,11 +166,11 @@ struct __attribute__((__packed__)) ContactAddressBook{
 };
 
 
-//For the DM, this is local names and MAC is used for six bytes of other information
-//For the player, this is the DMDevice info, including the MAC
+//For the GM, this is local names and MAC is used for six bytes of other information
+//For the player, this is the GMDevice info, including the MAC
     //TODO: add campaignKey info in here if that becomes a thing
-struct  __attribute__((__packed__)) dmInfo{
-    Name dmName;
+struct  __attribute__((__packed__)) gmInfo{
+    Name gmName;
     Name campaignName;          //Update this to longName if space
     union{
         macAddr MAC;
@@ -203,7 +203,7 @@ void eventLoop_init(void);
     Here is the system for all the ID's used within the DnDevice.
 
     For sync IDs (see dndv_comms), the data contains the event to be received, not to send. 
-    (e.g. a character update sending from a DM to a character would be EVENT_CHAR_UPDATE_RCV instead of EVENT_CHAR_UPDATE_REQuest)      (/TODO: Add to Readme)
+    (e.g. a character update sending from a GM to a character would be EVENT_CHAR_UPDATE_RCV instead of EVENT_CHAR_UPDATE_REQuest)      (/TODO: Add to Reagme)
 
                      # FOR DEVELOPERS #
     Try not to collide names, even between events, seeing as each ID is only described as a number in an enumerator
@@ -217,7 +217,7 @@ void eventLoop_init(void);
 //This only works because these are defined first in init.c     //TODO:: REMOVE THIS
 enum READABLE_BASE_NUMS{
     N_SYNC_BASE,
-    N_DM_SYNC_BASE,
+    N_GM_SYNC_BASE,
     N_MISC_BASE
 };
 
@@ -236,15 +236,15 @@ enum READABLE_BASE_NUMS{
     };
 */
 
-/*      --  DM_DEVICE_BASE  --
- For all DM-related local events. Only accessible to a DM.
+/*      --  GM_DEVICE_BASE  --
+ For all GM-related local events. Only accessible to a GM.
  (See DEVICE_BASE for a similar idea)*/
-ESP_EVENT_DECLARE_BASE(DM_DEVICE_BASE);
-enum DM_DEVICE_B_ID{
-    //EVENT_DM_KEYIN,         //A DM keyin is handled in DEVICE_BASE, since the DM is not yet a DM
-    //EVENT_DM_NAME_CAMPAIGN
+ESP_EVENT_DECLARE_BASE(GM_DEVICE_BASE);
+enum GM_DEVICE_B_ID{
+    //EVENT_GM_KEYIN,         //A GM keyin is handled in DEVICE_BASE, since the GM is not yet a GM
+    //EVENT_GM_NAME_CAMPAIGN
 
-    EVENT_DM_ACTIVATE,       //[Uses no data]    When the DM is fully activated, broadcast out all the data (under EVENT_DM_INFO)
+    EVENT_GM_ACTIVATE,       //[Uses no data]    When the GM is fully activated, broadcast out all the data (under EVENT_GM_INFO)
     EVENT_START_CAMPAIGN,
 };
 
@@ -255,16 +255,16 @@ For global changes to the state of the local device (that may require further me
 
     These functions will then call the appropriate 
 
-    As a DM, these events will be handled differently if at all;
-    See DM_DEVICE_BASE for DM-specific functions.
+    As a GM, these events will be handled differently if at all;
+    See GM_DEVICE_BASE for GM-specific functions.
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 enum DEVICE_B_ID{
-    EVENT_DM_KEYIN,     //Transfer control to DM_DEVICE_BASE if a DM keys in successfully (had DM permissions)
-    EVENT_CAMPAIGN_SELECT,        //When a player selects a campaign from a broadcasting DM
+    EVENT_GM_KEYIN,     //Transfer control to GM_DEVICE_BASE if a GM keys in successfully (had GM permissions)
+    EVENT_CAMPAIGN_SELECT,        //When a player selects a campaign from a broadcasting GM
     EVENT_PLAYER_KEYIN,    //When a player is selected through a keyin (TODO: will need to get sync data about character)
     EVENT_PC_CHOSEN,        //When the user selects his/her character
-    EVENT_ENTER_WORLD       //If the DM has started the adventure, this loads the dashboard screen and removes any old initialization data
+    EVENT_ENTER_WORLD       //If the GM has started the adventure, this loads the dashboard screen and removes any old initialization data
 };
 //EVENT_KEVIN_LEVIN
 
@@ -280,16 +280,16 @@ ESP_EVENT_DECLARE_BASE(COMMS_BASE);
 enum COMMS_B_ID{
     EVENT_SEND,
     EVENT_SEND_BROADCAST,
-    EVENT_SEND_TO_ALL_CONTACTS,    //For Players to send to all DMs, or a DM to send to all Players
+    EVENT_SEND_TO_ALL_CONTACTS,    //For Players to send to all GMs, or a GM to send to all Players
 
     EVENT_BROADCAST_NEW_DEVICE,
-    EVENT_BROADCAST_NEW_DM
+    EVENT_BROADCAST_NEW_GM
 };
 
 
 /* --  MISC_BASE: For any data received that doesn't have a specific place (yet) -- */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
-//extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in DM version?
+//extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in GM version?
 enum MISC_B_ID{ 
     //EVENT_SYS,
     EVENT_TEST,

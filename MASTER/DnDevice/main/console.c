@@ -28,16 +28,16 @@ esp_err_t ping_r(void){
 
 /*  Temporary testing commands  */
 
-//Activate the test DM account
-static int testDM_cmd(int argc, char **argv){
-    testDMInit();
+//Activate the test GM account
+static int testGM_cmd(int argc, char **argv){
+    testGMInit();
     return 0;
 }
-esp_err_t testDM_r(void){
+esp_err_t testGM_r(void){
     esp_console_cmd_t command = {
-        .command = "keyin-DM",
-        .help = "Activate a test DM account",
-        .func = &testDM_cmd
+        .command = "keyin-GM",
+        .help = "Activate a test GM account",
+        .func = &testGM_cmd
     };
     return esp_console_cmd_register(&command);
 }
@@ -104,7 +104,7 @@ esp_err_t logsOff_r(void){
 /*  Register all the console commands   */
 void register_commands(){
     ping_r();
-    testDM_r();
+    testGM_r();
     testPC_r();
     tellMeYourNameAgain_r();
 

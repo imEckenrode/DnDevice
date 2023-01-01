@@ -8,8 +8,8 @@
 #include "esp_log.h"
 #include "esp_err.h"
 
-//Can use this in place of any calls for the DM MAC
-#define DM_MAC current.dmInfo.MAC
+//Can use this in place of any calls for the GM MAC
+#define GM_MAC current.gmInfo.MAC
 
 /*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
@@ -39,7 +39,7 @@
 
   More code inside the file, since syncing bases are only needed for dndv_comms */
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-ESP_EVENT_DECLARE_BASE(DM_SYNC_BASE);
+ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
 
 
 // - Event Base Array Creation and Definition -

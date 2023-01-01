@@ -26,7 +26,7 @@ All possible states the device can be in, from wakeup to active battle
 typedef enum {
     WAKEUP_S,    //On awake, initialize 
     LOGIN_S,        //Key is in, currently logging in
-    AWAIT_START_S,      //Character is selected, awaiting DM.
+    AWAIT_START_S,      //Character is selected, awaiting GM.
     RECOVERY_S,         //This device can go into recovery mode if messaged with current data from another device upon wakeup
 
     ADVENTURE_S,        //In the adventure, but not currently battling
@@ -44,12 +44,12 @@ struct __attribute__((__packed__)) cd_settings{                 //(TO IMPLEMENT 
 struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
     Key myKey;
-    struct dmInfo dmInfo;
+    struct gmInfo gmInfo;
     union {
         struct ContactAddressBook *contacts;
         struct PnC_s *my; //would
     };                                                  //Anonymous Union works in C11
-    bool isDM;          //Is the current device a DM?
+    bool isGM;          //Is the current device a GM?
     //struct cd_settings settings;
 };
 
@@ -62,18 +62,18 @@ struct current_device_s current;      //The current user, global to the DnDevice
 /*          ---- Visible Function Declarations ----          */ 
 
 /*   Initialize all the global variables correctly
-            (Set isDM to False, allocate the hashmap, etc)
+            (Set isGM to False, allocate the hashmap, etc)
 */
 void globals_init(void);
 
 /*               --- CRUD Functions ---                 */
-//Check if the current device is a DM
-bool isDM();
+//Check if the current device is a GM
+bool isGM();
 bool isPlayer();
-//Turn DM Status on or off (should be triggered through an event)
-bool updateDMStatus(bool isDM);
+//Turn GM Status on or off (should be triggered through an event)
+bool updateGMStatus(bool isGM);
 
-//For the DM_MAC, see DM_MAC in dndv_comms
+//For the GM_MAC, see GM_MAC in dndv_comms
 
 ContactInfo getMyContactInfo();
 bool updateMyContactInfo(ContactInfo info);
@@ -113,12 +113,12 @@ bool updateCurrentPC(PC character);
 
 
 
-/*  If the user just became a DM, start linking all */
-void DM_start(void);
+/*  If the user just became a GM, start linking all */
+void GM_start(void);
 
 // And finally, tests:      
     //(TODO: pull player from storage instead of initializing)      //TODO: MOVE TO dnd.c?
 void testPCInit(void);  //Initialize a test character into the currentPC 
-void testDMInit(void);  //set DM boolean to true (Does not currently clear the currentPlayer)
+void testGMInit(void);  //set GM boolean to true (Does not currently clear the currentPlayer)
 
 #endif

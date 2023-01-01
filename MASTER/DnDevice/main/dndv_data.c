@@ -40,7 +40,7 @@ bool printMAC(macAddr MAC){
     This is not a comprehensive list, since events can be defined anywhere.
     For example, see dndv_comms.h for the syncing events.
 */
-    ESP_EVENT_DEFINE_BASE(DM_DEVICE_BASE);
+    ESP_EVENT_DEFINE_BASE(GM_DEVICE_BASE);
     ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
     ESP_EVENT_DEFINE_BASE(COMMS_BASE);
     ESP_EVENT_DEFINE_BASE(MISC_BASE);
