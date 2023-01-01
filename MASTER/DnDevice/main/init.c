@@ -4,6 +4,7 @@
 #include "console.h"
 #include "dndv_comms.h"
 #include "dndv_log.h"
+#include "dndv_sync.h"
 /*
     init.c
     
@@ -30,6 +31,8 @@ void initAll(void){
 
     comms_init();       //Initialize the ESP-NOW Communications implementation
     log_init();         //Initialize the logs
+
+    sync_init();
     //Initialize the Screen
     console_init();     //Initialize the Console to send commands from a PC
 }

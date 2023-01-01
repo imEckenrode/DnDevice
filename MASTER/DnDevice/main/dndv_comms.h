@@ -37,9 +37,7 @@
   As described by dndv_data, the sync events are here in dndv_comms.
   For all communication events in any file, see CreatingEvents.txt for compatibility with the dndv Events
 
-  More code inside the file, since syncing bases are only needed for dndv_comms */
-ESP_EVENT_DECLARE_BASE(SYNC_BASE);
-ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
+  For example, see dndv_sync */
 
 
 // - Event Base Array Creation and Definition -
@@ -49,7 +47,6 @@ ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
 //Define the Event Base Array (done in init.c)
 //Add all the Event Bases to be used with dndv_comms here
 #define DNDV_EBA_DEFINE(...)esp_event_base_t* EVENT_BASE_ARRAY[] = {__VA_ARGS__}; Num EVENT_BASE_ARRAY_SIZE = sizeof(EVENT_BASE_ARRAY)/sizeof(esp_event_base_t*)
-
 
 DNDV_EBA_DECLARE(); //see init.c for the definition
 
