@@ -4,11 +4,10 @@
 
 /*          --  SYNC_BASE: For syncing data and Player devices  --
     See GM_SYNC_BASE for the GM side
-*/
 
         Used primarily by dndv_comms
     Contains all data for syncing. Players should stop listening to these events once in the campaign
-        */
+*/
 enum SYNC_B_ID{
     EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active GMs can send directly to this new device   (TODO: make sure it's safe, then remove it from here)
     EVENT_GM_INFO,          //[Uses gm_info_s]. Broadcasted when a device becomes a GM. Transmits the GM name and campaign name
@@ -16,7 +15,7 @@ enum SYNC_B_ID{
     EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
     EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
     EVENT_KEYANDPC_RCV,     //The Key and Character Data
-};  
+};
     
 /* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
 //see ContactAddress

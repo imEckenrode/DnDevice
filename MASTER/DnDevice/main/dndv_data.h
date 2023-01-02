@@ -140,6 +140,7 @@ typedef struct __attribute__((__packed__)) character_s{
     sNum AC;
 } PC;
 
+
 struct __attribute__((__packed__)) PnC_s{           //TODO Use this as the info instead of the GM way    -> Add: Key key;
     Player Player;
     PC PC;

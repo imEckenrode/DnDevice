@@ -1,7 +1,7 @@
 #include "dndv_data.h"
 
-void nvs_init(void){
-    esp_err_t ret = nvs_flash_init();   //Initialize the nvs, and use "ret"urn to clear out if more space is needed
+void nvs_init(void){        //TODO: Needed for WiFi (I believe) and the DB
+    esp_err_t ret = nvs_flash_init();   //Initialize the nvs, and use the return to clear out if more space is needed
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {
         ESP_ERROR_CHECK( nvs_flash_erase() );
         ret = nvs_flash_init();
