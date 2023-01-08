@@ -1,6 +1,7 @@
 //#pragma once
 #ifndef DNDV_DATA_H    //Cannot start with an E or an underscore, so may rename to H_...
 #define DNDV_DATA_H
+
 #include <stdbool.h>
 #include <string.h> //for base comparison
 #include "esp_event.h"
@@ -72,9 +73,8 @@ bool printMAC(macAddr MAC);
 /*  ---  Sending Structures and Functions ---
 
     These are the generic sending structures
-    See the sending structures per ID under "Bases and IDs"
+    See the sending structures per ID under "Bases and IDs"      */
 
-*/
 /*  ID as Data (no other data = no Malloc required) - Data Structure */
 struct __attribute__((__packed__)) EVENT{
     uint8_t BASE;

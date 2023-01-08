@@ -9,17 +9,8 @@
 //      This could be programatically expanded to four bytes if someone has over 31 characters for some reason (or have them make a new Player)
 
 //The database has two namespaces:
-char* playerHandle = "People";      //Keys to People and List Of Character Names/IDs
-char* pcsHandle = "PCs";            //Keys to Character Data, based off the Player (bitshifted by 6) and Character IDs
-
-
-void db_write_player();
-
-void db_write_pc();
-
-void db_read_player();
-
-void db_read_pc();
+char* playerSpace = "People";      //Keys to People and List Of Character Names/IDs
+char* pcSpace = "PCs";            //Keys to Character Data, based off the Player (bitshifted by 6) and Character IDs
 
 
 //Requires NVS to be initialized first, then this sets up a test database
@@ -27,11 +18,11 @@ void db_test_initialize(void){
     //nvs_flash_erase();
     //nvs_flash_erase_partition();
 
-    nvs_flash_init_partition(playersHandle);
-    nvs_flash_init_partition(pcsHandle);
+    //nvs_flash_init_partition(playersHandle);  //Still gonna use default NVS partition; there's namespaces within.
+    //nvs_flash_init_partition(pcsHandle);
 
     nvs_handle_t handle;
-    ESP_ERROR_CHECK(nvs_open_from_partition(playersHandle, NVS_READWRITE, &handle) != ESP_OK);
+    ESP_ERROR_CHECK(nvs_open(playerSpace, NVS_READWRITE, &handle) != ESP_OK);
 
     size_t size = 6;
     char* value = malloc(size);
@@ -40,9 +31,47 @@ void db_test_initialize(void){
     }
     return value;
 
-    nvs_set_*
+    //nvs_set_*;
     nvs_commit(handle); //To commit all pending chanes
 
-    nvs_close_from_p(handle);
+    nvs_close(handle);
 
+}
+
+/*esp_err_t dndv_db_write(Key key, char* data, char* dataSpace){
+    nvs_handle_t handle;
+    nvs_open(dataSpace, NVS_READWRITE, &handle);
+    nvs_set_blob(handle, key, data, sizeof(Player));
+    nvs_close(handle);
+}*/
+
+//Make a struct: PlayerFile (and PCFile)
+esp_err_t db_write_player(Key key, Player player){      //Keys are ASCII strings, technically
+    nvs_handle_t handle;
+    nvs_open(playerSpace, NVS_READWRITE, &handle);
+    nvs_set_blob(handle, key, player, sizeof(Player));
+    nvs_close(handle);
+}
+
+esp_err_t db_write_pc(Key key, PC pc){
+    nvs_handle_t handle;
+    nvs_open(pcSpace, NVS_READWRITE, &handle);
+    nvs_set_blob(handle, key, pc, sizeof(PC));
+    nvs_close(handle);
+}
+
+Player db_read_player(Key key){
+    nvs_handle_t handle;
+    nvs_open(playerSpace, NVS_READONLY, &handle);
+    Player value = nvs_get_blob(handle, key, value, sizeof(Player));
+    nvs_close();
+    return value;
+}
+
+PC db_read_pc(Key key){
+    nvs_handle_t handle;
+    nvs_open(playerSpace, NVS_READONLY &handle);
+    Player value = nvs_get_blob(handle, key, value, sizeof(PC));
+    nvs_close();
+    return value;
 }
