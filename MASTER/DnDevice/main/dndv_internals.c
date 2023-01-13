@@ -53,19 +53,26 @@ bool updateMyPC(PC* pc){current.my->PC = *pc; strcpy(current.my->PC.name, pc->na
 bool updateMyName(Name newName){strcpy(( (isGM()) ? current.gmInfo.gmName : current.my->Player.name),newName);   return true;}
 bool updateMyCName(Name newName){strcpy(( (isGM()) ? current.gmInfo.campaignName : current.my->PC.name), newName); return true;}   //This does not allow for longNames, so if that is desired, check current string allocation sizes first or risk a data overflow
 
+//Here's a helper to create a new ContactInfo
+ContactInfo joinContactInfoTogether(Key key, Name p_name, Name c_name){
+    ContactInfo toReturn;
+    toReturn.key = key;
+    strcpy(toReturn.p_name, p_name);
+    strcpy(toReturn.c_name, c_name);
+    return toReturn;
+}
 ContactInfo getMyContactInfo(){
     if(isGM()){
-        ContactInfo myInfo = {current.myKey, current.gmInfo.gmName, current.gmInfo.campaignName};
-        return myInfo;
+        return joinContactInfoTogether(current.myKey, current.gmInfo.gmName, current.gmInfo.campaignName);
     }
-    ContactInfo myInfo = {current.myKey, current.my->Player.name, current.my->PC.name};
-    return myInfo;
+    return joinContactInfoTogether(current.myKey, current.my->Player.name, current.my->PC.name);
 }
 
 bool updateMyContactInfo(ContactInfo info){
     updateMyKey(info.key);
     updateMyName(info.p_name);
     updateMyCName(info.c_name);
+    return true;
 }
 
 
@@ -78,7 +85,7 @@ short sizeOfContactBook(){
 
 bool contactExistWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
-        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){
+        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){    //TODO: This gives a "differs in signedness" error, can I just change macAddr to signed?
             return true;            //No reason this shouldn't work according to testing in c
         }
     }
@@ -261,8 +268,8 @@ void testPCInit(void){
 void testGMInit(void){
     current.isGM = true;      //TODO: Could have a semaphore something or other on the global level
     updateMyKey(1);
-    updateMyPlayerName("MeGM");
-    updateMyPCName("AwesomeTitleHere");
+    updateMyName("MeGM");
+    updateMyCName("AwesomeTitleHere");
 
     GM_Activate();
     printf("GM Mode Activated (Test GM Initialized)\n");

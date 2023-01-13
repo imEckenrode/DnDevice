@@ -283,8 +283,7 @@ enum COMMS_B_ID{
     EVENT_SEND_BROADCAST,
     EVENT_SEND_TO_ALL_CONTACTS,    //For Players to send to all GMs, or a GM to send to all Players
 
-    EVENT_BROADCAST_NEW_DEVICE,
-    EVENT_BROADCAST_NEW_GM
+    EVENT_BROADCAST_NEW_DEVICE
 };
 
 

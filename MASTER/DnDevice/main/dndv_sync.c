@@ -180,7 +180,7 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
     }
 }
 
-//Update the event handler if the device is/isn't a GM
+//Update the event handler if the device is/isn't a GM:         TODO, DO THIS
 void update_comms_sync_mode(bool isGM){
     if(isGM){
         esp_event_handler_instance_register_with(dndv_event_h, GM_SYNC_BASE, ESP_EVENT_ANY_ID, gm_sync_rcv, NULL,NULL);

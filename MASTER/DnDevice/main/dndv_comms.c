@@ -181,8 +181,6 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
         case EVENT_SEND_TO_ALL_CONTACTS:
             dndv_send_raw (NULL, event_data, sizeof(event_data)); //NULL MAC sends to all peers
             break;
-        case EVENT_BROADCAST_NEW_GM:
-            update_comms_sync_mode(true);
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
     }
