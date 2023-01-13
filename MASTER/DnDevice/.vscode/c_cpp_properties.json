@@ -13,10 +13,10 @@
                 "UNICODE",
                 "_UNICODE"
             ],
-            "compilerPath": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/Tools/MSVC/14.32.31326/bin/Hostx64/x64/cl.exe",
+            "compilerPath": "D:/ime/Programs/MinGW/bin/gcc.exe",
             "cStandard": "c17",
             "cppStandard": "c++17",
-            "intelliSenseMode": "windows-msvc-x64",
+            "intelliSenseMode": "linux-gcc-x64",
             "compileCommands": "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/compile_commands.json"
         }
     ],
