@@ -1,6 +1,4 @@
 #pragma once
-#include "dndv_data.h"
-#include "dndv_internals.h"
 
 /*     -  -  -     The Database      -  -  -      
     This is where the permanent files are managed/held.

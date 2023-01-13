@@ -1,8 +1,7 @@
 //#pragma once
-
 #include "dndv_comms.h"
 
-#define TAG "DnDevice"  //TODO: This should be dynamic and label the PC or GM Name
+#define TAG "Comms"  //TODO: This should be dynamic and label the PC or GM Name
 #define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
 
 macAddr broadcast_mac = BROADCAST_MAC;
@@ -89,6 +88,8 @@ esp_err_t dndv_send_raw(macAddr mac, void* data, size_t size){
     return ESP_OK;
 }
 
+//Send data to the specified mac with the specified EVENT and corresponding data
+//size is the size of the data alone
 esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size){
     size_t newSize = size+2;
     uint8_t* allData = malloc(newSize);  //This could be a void pointer

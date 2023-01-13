@@ -1,6 +1,10 @@
 #include "dndv_sync.h"
+#include "dndv_data.h"
+#include "dndv_internals.h"
 #include "esp_log.h"
 #include "esp_err.h"
+
+#define TAG "Sync"  //TODO: This should be dynamic and label the PC or GM Name
 
 /*          --  SYNC_BASE: For syncing data and Player devices  --
     See GM_SYNC_BASE for the GM side
@@ -14,7 +18,7 @@ enum SYNC_B_ID{
 
     EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
     EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
-    EVENT_KEYANDPC_RCV,     //The Key and Character Data
+    EVENT_KEYANDPC_RCV     //The Key and Character Data
 };
     
 /* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
@@ -77,13 +81,10 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             addPotentialGM(da);
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
-            
-            //current.info.key = 
-            //current.info.p_name = 
+            updateMyPlayer((Player*) da->data);
             break;
         case EVENT_PCDATA_RCV:
-            //current.info.c_name =
-            
+            updateMyPC((PC*) da->data);  
             break;
 
         case EVENT_AWAKE_BROADCAST_RCV:
@@ -92,6 +93,9 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             printf("Someone's syncing out there\n");
     }
 }
+
+
+
 
 
 /*              =- GM Sync Actions -=           */
@@ -103,7 +107,7 @@ enum GM_RCV_B_ID{
     EVENT_AWAKE_BROADCAST_GM_RCV,      //Broadcasted on awake, so active GMs can send directly to this new device
     EVENT_SYNC_REQ,         //When a player device asks for the GM info
     EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
-    EVENT_PC_REQ,       //Return the date for the requested player character
+    EVENT_PC_REQ       //Return the date for the requested player character
 
     //EVENT_PC_JOINED,            //A PC has joined the adventure!
     //EVENT_PC_READY
@@ -132,6 +136,19 @@ bool addConfirmedPC(){return false;}
 /*      - Automatic GM Sync Actions (in order)  - */
 
 
+Player retrieveAndSendKey(macAndData_s da){
+    Player retrieved = db_read_player((Key) da.data);
+    dndv_send(da.mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
+    return true;
+}
+
+PC retrieveAndSendPC(macAndData_s da){
+    PC retrieved = db_read_pc((Key) da.data);
+    dndv_send(da.mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
+    return true;
+}
+
+
 
 void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
@@ -140,22 +157,23 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
         case EVENT_AWAKE_BROADCAST_RCV:
             ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
             bool newlyAdded = addIfNewPeer(da->mac);
-            if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending anyway.\n");}
+            if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending.\n");}
             GM_DM_Data(da->mac);
             break;
-        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind.        Not implemented yet (nor needed, likely)
+        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind?        Not implemented yet (nor needed, likely)
             if(contactExistWithMAC(da->mac)){
                 ContactAddress ca = {da->mac, {0,da->mac,""}};
                 createContact(ca);
             }else{print("%d rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
-            //retrieveAndSendKey(da);      //Cast into correct type (and TODO actually define the thing)
-            //createOrUpdateContact();
+            Player selected = retrieveAndSendKey(*da);      //Cast into correct type (and TODO actually define the thing)
+            ContactAddress
+            createOrUpdateContact();
             break;
         case EVENT_PC_REQ:
-            //retrieveAndSendPC(da);
-            //createOrUpdateContact();
+            retrieveAndSendPC(da);
+            createOrUpdateContact();
             break;
         default:
             printf("Sync not known\n");
