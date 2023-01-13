@@ -251,9 +251,9 @@ void testPCInit(void){
     current.isGM = false;
     updateMyKey(1);
     Player examplePlayer = {"Bob","Bob Billy Joe",false,false};
-    updateMyPlayer(examplePlayer);
+    updateMyPlayer(&examplePlayer);
     PC examplePC = {"Wizz","PowerWizard",3,16,13};
-    updateMyPC(examplePC);
+    updateMyPC(&examplePC);
 
     printf("Test Player Initialized\n");
 }

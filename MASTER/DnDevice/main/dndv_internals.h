@@ -106,7 +106,7 @@ bool deleteContact(macAddr mac);
 ContactAddress readContactByKey(Key key);
 
 
-/*  - Updating Local Player Data -*/
+/*  - Updating Local Player Data -          TODO: This is most likely overwritten by above, so delete this */
 bool updateCurrentKey(Key key);
 bool updateCurrentPlayer(Player player);
 bool updateCurrentPC(PC character);
