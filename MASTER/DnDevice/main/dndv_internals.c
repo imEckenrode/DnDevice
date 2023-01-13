@@ -1,5 +1,10 @@
 #include "dndv_internals.h"
 
+
+#define EMPTY_MAC {0x0,0x0,0x0,0x0,0x0,0x0}
+macAddr empty_mac = EMPTY_MAC;
+
+
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data);
 
 //Initialize all global variables to the correct values
@@ -85,7 +90,7 @@ short sizeOfContactBook(){
 
 bool contactExistWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
-        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){    //TODO: This gives a "differs in signedness" error, can I just change macAddr to signed?
+        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){    //TODO: This gives a "differs in signedness" error, can I just change macAddr to signed? It's binary data tho
             return true;            //No reason this shouldn't work according to testing in c
         }
     }
@@ -107,9 +112,10 @@ bool updateContactAtIndex(ContactAddress cAddr, short index){
     return true;
 }
 
+
 //Find the first spot without a MAC address and fill it in.
 bool createContact(ContactAddress cAddr){
-    short index = indexOfContactWithMAC("");
+    short index = indexOfContactWithMAC(empty_mac);          //TODO: Intialize the entire thing to 0s first for this to work
         if(index == -1){
             printf("NO ROOM FOR %d: %s.",cAddr.info.key, cAddr.info.p_name);
             return false;                               //TODO: Allocate if no more room!

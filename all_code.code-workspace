@@ -62,7 +62,8 @@
 			"dndv_internals.h": "c",
 			"bitset": "c",
 			"initializer_list": "c",
-			"utility": "c"
+			"utility": "c",
+			"dndv_sync.h": "c"
 		}
 	}
 }
