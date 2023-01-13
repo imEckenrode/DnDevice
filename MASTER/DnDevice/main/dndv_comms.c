@@ -2,9 +2,6 @@
 #include "dndv_comms.h"
 
 #define TAG "Comms"  //TODO: This should be dynamic and label the PC or GM Name
-#define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
-
-macAddr broadcast_mac = BROADCAST_MAC;
 
 /*  --- BASE DEFINITIONS --- */
 ESP_EVENT_DEFINE_BASE(SYNC_BASE);

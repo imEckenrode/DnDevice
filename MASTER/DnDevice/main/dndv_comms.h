@@ -11,6 +11,9 @@
 //Can use this in place of any calls for the GM MAC
 #define GM_MAC current.gmInfo.MAC
 
+#define BROADCAST_MAC {0xFF,0xFF,0xFF,0xFF,0xFF,0xFF}
+macAddr broadcast_mac = BROADCAST_MAC;
+
 /*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
   SENDING

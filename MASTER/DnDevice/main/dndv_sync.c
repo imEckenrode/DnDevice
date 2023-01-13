@@ -136,16 +136,16 @@ bool addConfirmedPC(){return false;}
 /*      - Automatic GM Sync Actions (in order)  - */
 
 
-Player retrieveAndSendKey(macAndData_s da){
-    Player retrieved = db_read_player((Key) da.data);
-    dndv_send(da.mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
-    return true;
+Player retrieveAndSendKey(macAndData_s* da){
+    Player retrieved = db_read_player((Key) da->data);
+    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
+    return retrieved;
 }
 
-PC retrieveAndSendPC(macAndData_s da){
-    PC retrieved = db_read_pc((Key) da.data);
-    dndv_send(da.mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
-    return true;
+PC retrieveAndSendPC(macAndData_s* da){
+    PC retrieved = db_read_pc((Key) da->data);
+    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
+    return retrieved;
 }
 
 
@@ -167,13 +167,13 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             }else{print("%d rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
-            Player selected = retrieveAndSendKey(*da);      //Cast into correct type (and TODO actually define the thing)
-            ContactAddress
-            createOrUpdateContact();
+            Player selected = retrieveAndSendKey(da);
+            //ContactAddress 
+            //createOrUpdateContact();
             break;
         case EVENT_PC_REQ:
             retrieveAndSendPC(da);
-            createOrUpdateContact();
+            //createOrUpdateContact();
             break;
         default:
             printf("Sync not known\n");
@@ -194,7 +194,7 @@ void update_comms_sync_mode(bool isGM){
 //This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
     //const uint8_t broadcast_mac[] = BROADCAST_MAC;
-    return dndv_send_blank(broadcast_mac,N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
+    return dndv_send_blank(broadcast_mac, N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
 
     //Could wait for callback here to call more times instead of returning immediately
 }
