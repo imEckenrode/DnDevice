@@ -34,11 +34,11 @@ typedef enum {
 } deviceStates;
 */
 
-/* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings 
-struct __attribute__((__packed__)) cd_settings{                 //(TO IMPLEMENT LATER)
-    bool displayLogs;               
+/* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings  */
+struct __attribute__((__packed__)) cd_settings{
+    bool displayLogs;
 };
-*/
+
 
 /*  CURRENT DEVICE: Structure for keeping track of the device's user data   */
 struct __attribute__((__packed__)) current_device_s {
@@ -50,7 +50,7 @@ struct __attribute__((__packed__)) current_device_s {
         struct PnC_s *my; //would
     };                                                  //Anonymous Union works in C11
     bool isGM;          //Is the current device a GM?
-    //struct cd_settings settings;
+    struct cd_settings settings;
 };
 
 

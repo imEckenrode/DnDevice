@@ -57,7 +57,7 @@ esp_err_t testPC_r(void){
 }
 
 static int tellMeYourNameAgain_cmd(int argc, char **argv){
-    printf("Active Player: %s\nActive PC: %s\n",currentPlayer.name,currentPC.name); //Gonna update this now
+    printf("Active Player: %s\nActive PC: %s\n", current.my->Player.name, current.my->PC.name);
     //Alternatively, current.player->name,current.character->name
     return 0;
 }
@@ -73,7 +73,7 @@ esp_err_t tellMeYourNameAgain_r(void){
 
 //Now for enabling and disabling logs
 static int logsOn_cmd(int argc, char **argv){
-    localDevice.displayLogs = true;
+    current.settings.displayLogs = true;
     printf("Logs Enabled\n");
     return 0;
 }
@@ -87,7 +87,7 @@ esp_err_t logsOn_r(void){
 }
 
 static int logsOff_cmd(int argc, char **argv){
-    localDevice.displayLogs = false;
+    current.settings.displayLogs = false;
     printf("Logs Disabled\n");
     return 0;
 }
