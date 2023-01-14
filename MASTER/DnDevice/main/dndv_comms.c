@@ -3,6 +3,7 @@
 
 #define TAG "Comms"  //TODO: This should be dynamic and label the PC or GM Name
 
+macAddr broadcast_mac = BROADCAST_MAC;
 //               !--  Event Base Lookup --!
 
 //With only a few bases possible, a for loop is sufficient

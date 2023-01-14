@@ -221,7 +221,7 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
                 strcpy(ca.info.c_name, "C");
                 
                 createContact(ca);
-            }else{printf("%d rejoined", da->mac);}
+            }else{printf("%s rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
             retrieveAndSendKey_test(da);          // Player selected = 
