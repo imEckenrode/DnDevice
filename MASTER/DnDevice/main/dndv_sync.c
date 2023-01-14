@@ -24,8 +24,8 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
 } 
 
 void requestPlayer1_test(){
-    struct keydata_req_s keyData = {1};
-    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_KEYDATA_REQ, &keyData, sizeof(struct keydata_req_s));
+    Key key = 1;
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_KEYDATA_REQ, &key, sizeof(Key));
 }
 
 void requestPC1_test(){
