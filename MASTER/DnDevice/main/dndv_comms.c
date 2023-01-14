@@ -3,11 +3,6 @@
 
 #define TAG "Comms"  //TODO: This should be dynamic and label the PC or GM Name
 
-/*  --- BASE DEFINITIONS --- */
-ESP_EVENT_DEFINE_BASE(SYNC_BASE);
-ESP_EVENT_DEFINE_BASE(GM_SYNC_BASE);
-
-
 //               !--  Event Base Lookup --!
 
 //With only a few bases possible, a for loop is sufficient

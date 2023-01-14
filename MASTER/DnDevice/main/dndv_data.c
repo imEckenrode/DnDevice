@@ -26,6 +26,11 @@ void eventLoop_init(void){
 /* _- Auxillary Functions -_
     Nice assistant functions    */
 
+//Memcopy commands for Mac Addresses
+void *maccpy(void *dest, const void * src){
+    return memcpy(dest,src,MAC_ADDR_SIZE);
+}
+
 bool printMAC(macAddr MAC){
     printf("%x:%x:%x:%x:%x:%x", MAC[0],MAC[1],MAC[2],MAC[3],MAC[4],MAC[5]);
     return true;

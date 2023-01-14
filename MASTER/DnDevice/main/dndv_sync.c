@@ -3,8 +3,14 @@
 #include "dndv_internals.h"
 #include "esp_log.h"
 #include "esp_err.h"
+#include "dndv_comms.h"
 
 #define TAG "Sync"  //TODO: This should be dynamic and label the PC or GM Name
+
+/*  --- BASE DEFINITIONS --- */
+ESP_EVENT_DEFINE_BASE(SYNC_BASE);
+ESP_EVENT_DEFINE_BASE(GM_SYNC_BASE);
+
 
 /* SYNC TEST FUNCTIONS:
 
@@ -17,7 +23,7 @@
 bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method across
     //current.gmInfo.gmName = "Test";
     //current.gmInfo.campaignName = "AwesomeName";
-    memcpy(current.gmInfo.MAC, mad->MAC, MAC_ADDR_SIZE);
+    maccpy(current.gmInfo.MAC, mad->MAC);
     //current.gmInfo.MAC = *mad.MAC;
     //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
     return true;
@@ -25,25 +31,25 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
 
 void requestPlayer1_test(){
     Key key = 1;
-    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_KEYDATA_REQ, &key, sizeof(Key));
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), 2, &key, sizeof(Key));
 }
 
 void requestPC1_test(){
     short selection = 1;
-    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_PC_REQ, &selection, sizeof(short));
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), 3, &selection, sizeof(short));
 }
 
 //and on the DM side
 
 Player retrieveAndSendKey_test(macAndData_s* da){
     Player retrieved = {"B","Bill",false,false};  //Legal because nickname and name are predefined sizes
-    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), 2, &retrieved, sizeof(Player));
     return retrieved;
 }
 
 PC retrieveAndSendPC_test(macAndData_s* da){
     PC retrieved = {"J","Full Name",75,158,16};
-    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), 3, &retrieved, sizeof(PC));
     return retrieved;
 }
 
@@ -63,7 +69,7 @@ enum SYNC_B_ID{
     EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
     EVENT_KEYANDPC_RCV     //The Key and Character Data
 };
-    
+
 /* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
 //see ContactAddress
 
@@ -109,7 +115,7 @@ struct __attribute__((__packed__)) pcdata_rcv_s{
 
 bool addPotentialGM(ContactAddress* mad){
     createOrUpdateContact(*mad);
-    printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
+    printf("New GM: %s, %s",mad->info.p_name,mad->info.c_name);
     return true;
 } 
 
@@ -121,8 +127,8 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
     macAndData_s* da = (macAndData_s*) event_data;
     switch(id){ //If not GM and you receive stuff, call functions here
         case EVENT_GM_INFO:
-            addPotentialGM(da);
-            addAsDM_test(da);
+            addPotentialGM((ContactAddress*) da);
+            addAsDM_test((ContactAddress*) da);
             requestPlayer1_test();
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
@@ -183,14 +189,14 @@ bool addConfirmedPC(){return false;}
 
 
 Player retrieveAndSendKey(macAndData_s* da){
-    Player retrieved = db_read_player((Key) da->data);
-    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
+    Player retrieved = db_read_player((Key) (da->data));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
     return retrieved;
 }
 
 PC retrieveAndSendPC(macAndData_s* da){
     PC retrieved = db_read_pc((Key) da->data);
-    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
     return retrieved;
 }
 
@@ -208,7 +214,9 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             break;
         case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind?        Not implemented yet (nor needed, likely)
             if(contactExistWithMAC(da->mac)){
-                ContactAddress ca = {da->mac, {0,da->mac,""}};
+                ContactAddress ca;
+                maccpy(ca.MAC, da->mac);
+                ca.info = {0,da->mac,""};
                 createContact(ca);
             }else{print("%d rejoined", da->mac);}
             break;

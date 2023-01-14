@@ -36,7 +36,7 @@ typedef enum {
 
 /* CURRENT DEVICE SETTINGS: Structure for keeping track of local settings  */
 struct __attribute__((__packed__)) cd_settings{
-    bool displayLogs;
+    bool displayLogs;               
 };
 
 
@@ -73,7 +73,7 @@ bool isPlayer();
 //Turn GM Status on or off (should be triggered through an event)
 bool updateGMStatus(bool isGM);
 
-//For the GM_MAC, see GM_MAC in dndv_comms
+//For the GM_MAC, see GM_MAC in dndv_comms (TODO?)
 
 ContactInfo getMyContactInfo();
 bool updateMyContactInfo(ContactInfo info);
