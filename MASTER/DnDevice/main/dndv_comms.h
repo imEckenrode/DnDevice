@@ -65,6 +65,7 @@ esp_event_base_t Num2EventBase(Num num);
 /*  -- Initialize ESP-NOW communications -- */
 void comms_init(void);
 
+bool addIfNewPeer(macAddr mac);
 
 /*     - Data Structures -    TODO: Update this
     Define whatever set you want for your data to send, then cast it back to that on data receive based on the ID
@@ -75,7 +76,6 @@ void comms_init(void);
     It is recommended to use __attribute__((__packed__)) to send as much data as possible, as this guarantees that no padding bytes are added.
       This is also REQUIRED to maintain alignment if a communication structure is used in multiple places.
 */
-
 
 /*     - Sending Functions -     */
 

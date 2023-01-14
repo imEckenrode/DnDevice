@@ -1,5 +1,6 @@
 #include "dndv_db.h"
 #include "nvs_flash.h"
+#include "dndv_internals.h"
 
 //  IDs: 1xxxxxxxxxxxxxxx, where each x is a bit
 //   Ten digits for a person (actual key), then the last 5 bytes are for the player's character

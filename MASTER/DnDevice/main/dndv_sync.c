@@ -189,13 +189,13 @@ bool addConfirmedPC(){return false;}
 
 
 Player retrieveAndSendKey(macAndData_s* da){
-    Player retrieved = db_read_player((Key) (da->data));
+    Player retrieved = db_read_player((Key) *(da->data));
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
     return retrieved;
 }
 
 PC retrieveAndSendPC(macAndData_s* da){
-    PC retrieved = db_read_pc((Key) da->data);
+    PC retrieved = db_read_pc((Key) *(da->data));
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
     return retrieved;
 }
@@ -216,9 +216,12 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             if(contactExistWithMAC(da->mac)){
                 ContactAddress ca;
                 maccpy(ca.MAC, da->mac);
-                ca.info = {0,da->mac,""};
+                ca.info.key = 0;
+                strcpy(ca.info.p_name, "D");
+                strcpy(ca.info.c_name, "C");
+                
                 createContact(ca);
-            }else{print("%d rejoined", da->mac);}
+            }else{printf("%d rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
             retrieveAndSendKey_test(da);          // Player selected = 

@@ -61,7 +61,7 @@ bool addIfNewPeer(macAddr mac){
         .ifidx = ESP_IF_WIFI_AP,
         .encrypt = false,
     };
-    memcpy(info.peer_addr,mac,MAC_ADDR_SIZE);
+    maccpy(info.peer_addr,mac);
     esp_now_add_peer(&info);
     return true;
 }
@@ -142,7 +142,7 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen
     //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
-    memcpy(fullData->mac,mac_addr,MAC_ADDR_SIZE);   //Append the MAC address to the data (so no device ever needs to send its MAC inside the data)
+    maccpy(fullData->mac,mac_addr);   //Append the MAC address to the data (so no device ever needs to send its MAC inside the data)
     memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
     esp_event_post_to(dndv_event_h, base, id, (void*)fullData,fullDataLen,0);
       //Data is automatically managed by the event loop, so a pointer to the data is safe
