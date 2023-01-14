@@ -45,16 +45,9 @@ void startup(void){
     //testGMInit(); 
 }
 
-void eba_test(void){
-    printf("%d",EventBaseP2Num(&GM_SYNC_BASE));
-    printf("%s",Num2EventBase((Num) 1));
-}
-
 
 /*  And finally, the main entry point of the application  */
 void app_main(void)
 {
     startup();  //Execute all the required functions that the device doesn't automatically
-
-    eba_test();
 }

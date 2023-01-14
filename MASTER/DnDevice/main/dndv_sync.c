@@ -6,6 +6,49 @@
 
 #define TAG "Sync"  //TODO: This should be dynamic and label the PC or GM Name
 
+/* SYNC TEST FUNCTIONS:
+
+    Currently, the tests are run automatically when a DM activates.
+    When a DM is detected, the player asks that DM
+*/
+
+//          TODO: define a method for getting the DM MAC
+
+bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method across
+    //current.gmInfo.gmName = "Test";
+    //current.gmInfo.campaignName = "AwesomeName";
+    memcpy(current.gmInfo.MAC, mad->MAC, 6);
+    //current.gmInfo.MAC = *mad.MAC;
+    //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
+    return true;
+} 
+
+void requestPlayer1_test(){
+    struct keydata_req_s keyData = {1};
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_KEYDATA_REQ, &keyData, sizeof(struct keydata_req_s));
+}
+
+void requestPC1_test(){
+    short selection = 1;
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(GM_SYNC_BASE), EVENT_PC_REQ, &selection, sizeof(short));
+}
+
+//and on the DM side
+
+Player retrieveAndSendKey_test(macAndData_s* da){
+    Player retrieved = {"B","Bill",false,false};  //Legal because nickname and name are predefined sizes
+    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
+    return retrieved;
+}
+
+PC retrieveAndSendPC_test(macAndData_s* da){
+    PC retrieved = {"J","Full Name",75,158,16};
+    dndv_send(da->mac, EventBaseP2Num(SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
+    return retrieved;
+}
+
+//  END OF SYNC TEST FUNCTIONS
+
 /*          --  SYNC_BASE: For syncing data and Player devices  --
     See GM_SYNC_BASE for the GM side
 
@@ -79,9 +122,12 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
     switch(id){ //If not GM and you receive stuff, call functions here
         case EVENT_GM_INFO:
             addPotentialGM(da);
+            addAsDM_test(da);
+            requestPlayer1_test();
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
             updateMyPlayer((Player*) da->data);
+            requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
             updateMyPC((PC*) da->data);  
@@ -167,12 +213,12 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             }else{print("%d rejoined", da->mac);}
             break;
         case EVENT_KEYDATA_REQ:
-            Player selected = retrieveAndSendKey(da);
+            retrieveAndSendKey_test(da);          // Player selected = 
             //ContactAddress 
-            //createOrUpdateContact();
+            //createOrUpdateContact();      //TODO: Either update as retrieved or update when the adventure starts
             break;
         case EVENT_PC_REQ:
-            retrieveAndSendPC(da);
+            retrieveAndSendPC_test(da);
             //createOrUpdateContact();
             break;
         default:
