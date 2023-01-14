@@ -95,9 +95,6 @@ esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum);
 void dndv_send_ping(void);
 
 
-//  When a device wakes up, broadcast as such
-esp_err_t dndv_send_onAwake(void);
-
 /*    -- ESP-NOW Sending Functions --     */
 
 /* Callback to when ESP-NOW sends successfully

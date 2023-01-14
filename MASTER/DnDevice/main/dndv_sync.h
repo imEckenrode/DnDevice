@@ -22,4 +22,7 @@
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
 
-void sync_init(void);
+//  When a device wakes up, broadcast as such
+esp_err_t dndv_send_onAwake(void);
+
+void sync_init();
