@@ -51,7 +51,7 @@ typedef uint8_t DynData[]; //Dynamic Data type, must be last in the struct and m
 //may need typedef uint8_t* data_p; for raw data...
 
 //MacAddr is defined to make any MAC address assignments more readable
-typedef unsigned char macAddr[MAC_ADDR_SIZE];
+typedef uint8_t macAddr[MAC_ADDR_SIZE];
 
 typedef char NickName[8];
 typedef char Name[24];

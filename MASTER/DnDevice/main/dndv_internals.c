@@ -90,7 +90,7 @@ short sizeOfContactBook(){
 
 bool contactExistWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
-        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){    //TODO: This gives a "differs in signedness" error, can I just change macAddr to signed? It's binary data tho
+        if (memcmp(mac, current.contacts->contact[i].MAC, MAC_ADDR_SIZE) == 0){
             return true;            //No reason this shouldn't work according to testing in c
         }
     }
@@ -99,7 +99,7 @@ bool contactExistWithMAC(macAddr mac){
 //-1 is returned if non-existent
 short indexOfContactWithMAC(macAddr mac){
     for(short i=0;i < current.contacts->maxContacts;i++){
-        if (strcmp(mac, current.contacts->contact[i].MAC) == 0){
+        if (memcmp(mac, current.contacts->contact[i].MAC, MAC_ADDR_SIZE) == 0){
             return i;            //No reason this shouldn't work according to testing in c
         }
     }

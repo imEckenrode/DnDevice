@@ -17,7 +17,7 @@
 bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method across
     //current.gmInfo.gmName = "Test";
     //current.gmInfo.campaignName = "AwesomeName";
-    memcpy(current.gmInfo.MAC, mad->MAC, 6);
+    memcpy(current.gmInfo.MAC, mad->MAC, MAC_ADDR_SIZE);
     //current.gmInfo.MAC = *mad.MAC;
     //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
     return true;
