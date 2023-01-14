@@ -34,7 +34,8 @@ void initAll(void){
 
     sync_init();
     //Initialize the Screen
-    console_init();     //Initialize the Console to send commands from a PC
+    //console_init();     //Initialize the Console to send commands from a PC   
+            //TODO: TEMPORARILY REMOVED FOR TESTING, ADD BACK IN AND ADD "console.c" TO CMAKELIST.txt
 }
 
 //  For everything before the user's first input
