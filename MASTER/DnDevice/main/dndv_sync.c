@@ -250,7 +250,7 @@ void update_comms_sync_mode(bool isGM){
 
 //This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
-    //const uint8_t broadcast_mac[] = BROADCAST_MAC;
+    const uint8_t broadcast_mac[] = BROADCAST_MAC;
     return dndv_send_blank(broadcast_mac, N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
 
     //Could wait for callback here to call more times instead of returning immediately
