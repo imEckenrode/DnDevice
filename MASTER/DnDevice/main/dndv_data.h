@@ -246,7 +246,7 @@ enum READABLE_BASE_NUMS{
 ESP_EVENT_DECLARE_BASE(GM_DEVICE_BASE);
 enum GM_DEVICE_B_ID{
     //EVENT_GM_KEYIN,         //A GM keyin is handled in DEVICE_BASE, since the GM is not yet a GM
-    //EVENT_GM_NAME_CAMPAIGN
+    //EVENT_GM_NAME_CAMPAIGN    //Could use these to update local stuff, or just use local functions then send out updates
 
     EVENT_GM_ACTIVATE,       //[Uses no data]    When the GM is fully activated, broadcast out all the data (under EVENT_GM_INFO)
     EVENT_START_CAMPAIGN,
@@ -264,7 +264,7 @@ For global changes to the state of the local device (that may require further me
         */
 ESP_EVENT_DECLARE_BASE(DEVICE_BASE);
 enum DEVICE_B_ID{
-    EVENT_GM_KEYIN,     //Transfer control to GM_DEVICE_BASE if a GM keys in successfully (had GM permissions)
+    EVENT_GM_KEYIN,     //Transfer control to GM_DEVICE_BASE if a GM keys in successfully (had GM permissions)  //TODO: Is this used? - just run GM_Activate
     EVENT_CAMPAIGN_SELECT,        //When a player selects a campaign from a broadcasting GM
     EVENT_PLAYER_KEYIN,    //When a player is selected through a keyin (TODO: will need to get sync data about character)
     EVENT_PC_CHOSEN,        //When the user selects his/her character

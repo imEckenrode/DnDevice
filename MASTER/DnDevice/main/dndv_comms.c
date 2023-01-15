@@ -112,7 +112,7 @@ esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
 //dndv_send_ping
 //A test broadcast to test sending and receiving
 void dndv_send_ping(void){
-    //const uint8_t broadcast_mac[] = BROADCAST_MAC;
+    //const uint8_t broadcast_mac[] = BROADCAST_MAC;keyin
 
     dndv_send_blank(broadcast_mac,N_MISC_BASE,EVENT_PING);
     //esp_now_send(broadcast_mac,(uint8_t*)&dat,sizeof(dat));

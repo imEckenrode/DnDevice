@@ -215,7 +215,8 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_GM_ACTIVATE:
-            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);
+            //Do I update the GM Info here???
+            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, &current.gmInfo, 0, 0);
             break;
             /*;
             struct gm_info_s to_send = {
@@ -252,7 +253,7 @@ void GM_Activate(void){
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
 
-    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);     //Post to the newly-GM device and handle there
      //No need to divide size of a uint8 array, because sizeof(uint8) = 1
 }
 

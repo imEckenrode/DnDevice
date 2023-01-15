@@ -42,6 +42,7 @@ void requestPC1_test(){
 //and on the DM side
 
 Player retrieveAndSendKey_test(macAndData_s* da){
+    addIfNewPeer(da->mac);
     Player retrieved = {"B","Bill",false,false};  //Legal because nickname and name are predefined sizes
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), 2, &retrieved, sizeof(Player));
     return retrieved;
@@ -136,7 +137,8 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
-            updateMyPC((PC*) da->data);  
+            updateMyPC((PC*) da->data);
+            printf("Got the data!!!");
             break;
 
         case EVENT_AWAKE_BROADCAST_RCV:
@@ -212,7 +214,7 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
             if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending.\n");}
             GM_DM_Data(da->mac);
             break;
-        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind?        Not implemented yet (nor needed, likely)
+        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind? Not implemented yet (nor needed, likely)
             if(contactExistWithMAC(da->mac)){
                 ContactAddress ca;
                 maccpy(ca.MAC, da->mac);
