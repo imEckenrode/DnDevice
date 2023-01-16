@@ -32,7 +32,7 @@ esp_err_t ping_r(void){
 //Activate the test GM account
 static int testGM_cmd(int argc, char **argv){
     testGMInit();
-    dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,current.gmInfo);
+    dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&current.gmInfo,sizeof(struct gmInfo));
     return 0;
 }
 esp_err_t testGM_r(void){

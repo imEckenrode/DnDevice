@@ -63,7 +63,8 @@
 			"bitset": "c",
 			"initializer_list": "c",
 			"utility": "c",
-			"dndv_sync.h": "c"
+			"dndv_sync.h": "c",
+			"esp_wifi.h": "c"
 		}
 	}
 }

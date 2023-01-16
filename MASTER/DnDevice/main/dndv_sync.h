@@ -22,6 +22,78 @@
 ESP_EVENT_DECLARE_BASE(SYNC_BASE);
 ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
 
+/*          --  SYNC_BASE: For syncing data and Player devices  --
+    See GM_SYNC_BASE for the GM side
+
+        Used primarily by dndv_comms
+    Contains all data for syncing. Players should stop listening to these events once in the campaign
+*/
+
+enum SYNC_B_ID{
+    EVENT_AWAKE_BROADCAST_RCV,      //Broadcasted on awake, mostly so active GMs can send directly to this new device   (TODO: make sure it's safe, then remove it from here)
+    EVENT_GM_INFO,          //[Uses gm_info_s]. Broadcasted when a device becomes a GM. Transmits the GM name and campaign name
+
+    EVENT_KEYDATA_RCV,       //The Key Data         requested through the key was received
+    EVENT_PCDATA_RCV,        //The Character Data   requested through the key was received
+    EVENT_KEYANDPC_RCV     //The Key and Character Data
+};
+
+/* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
+//see ContactAddress
+
+struct __attribute__((__packed__)) keydata_rcv_s{
+    Key key;
+    Player playerInfo;
+    bool nickNamesRcv;  //This is True if there are more than 8 characters to send
+    bool longNamesRcv;  //This is True if there are only 1 or 2 characters to send and you prefer to use the long names
+    union{
+        //For more than 8 characters
+        struct __attribute__((__packed__)) {  //10 Bytes Each
+            Key key;
+            NickName name;
+        } nickList[21];        //Currently 21 since Key+Player < 40
+
+        //For between 2 and 8 characters
+        struct __attribute__((__packed__)) {
+            Key key;
+            Name name;
+        } nameList[8];           //Currently 8 since Key+Player < 40
+
+        //For only 1 or 2 characters, can send the full names if desired
+        struct __attribute__((__packed__)) {
+            Key key;
+            FullName nick;
+        } fullnameList[2];           //2 long names = 192
+    } pcList;
+};
+
+
+struct __attribute__((__packed__)) pcdata_rcv_s{
+    Key key;
+    PC pcInfo;
+};
+
+
+
+/*          --  GM_SYNC_BASE: For all events targeted to the GM from other devices  --
+    These are GM exclusive actions that should only heard by GM_ACTIVATE (and whatever logs want it)*/
+enum GM_RCV_B_ID{
+    EVENT_AWAKE_BROADCAST_GM_RCV,      //Broadcasted on awake, so active GMs can send directly to this new device
+    EVENT_SYNC_REQ,         //When a player device asks for the GM info
+    EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
+    EVENT_PC_REQ       //Return the date for the requested player character
+
+    //EVENT_PC_JOINED,            //A PC has joined the adventure!
+    //EVENT_PC_READY
+};
+
+//KeyData returns player info if the key is for a player       //TODO: Return NPC data as well
+struct __attribute__((__packed__)) keydata_req_s{
+    Key key;
+};
+
+
+
 //  When a device wakes up, broadcast as such
 esp_err_t dndv_send_onAwake(void);
 

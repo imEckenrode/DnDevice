@@ -88,6 +88,8 @@ esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, s
 //This calls dndv_send with 0 for data and size
 esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum);
 
+//This uses the broadcast_mac to send the data
+esp_err_t dndv_send_broadcast(Num eventBaseNum, Num eventIdNum, void* data, size_t size);
 
 
 //  For testing, broadcast a ping

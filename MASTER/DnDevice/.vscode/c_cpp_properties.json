@@ -6,7 +6,8 @@
                 "${workspaceFolder}/**",
                 "C:/Users/iepc/Espressif/**",
                 "C:/Users/iepc/Espressif/releases/esp-idf-v4.4.1/components/bt/common/osi/include/osi",
-                "C:/Users/iepc/Espressif/releases/esp-idf-v4.4.1/components/bt/common/osi/include/osi"
+                "C:/Users/iepc/Espressif/releases/esp-idf-v4.4.1/components/bt/common/osi/include/osi",
+                "C:/Users/iepc/Espressif/releases/esp-idf-v4.4.1/components/linux/include"
             ],
             "defines": [
                 "_DEBUG",
