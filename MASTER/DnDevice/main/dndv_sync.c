@@ -26,6 +26,8 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
     maccpy(current.gmInfo.MAC, mad->MAC);
     //current.gmInfo.MAC = *mad.MAC;
     //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
+
+    addIfNewPeer(mad->MAC);
     return true;
 } 
 
@@ -133,14 +135,13 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             requestPlayer1_test();
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
-            updateMyPlayer((Player*) da->data);
+            updateMyPlayer(*(Player*) da->data);    //Cast to Player pointer, then dereference. Creates a copy on the stack.
             requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
-            updateMyPC((PC*) da->data);
+            updateMyPC(*(PC*) da->data);
             printf("Got the data!!!");
             break;
-
         case EVENT_AWAKE_BROADCAST_RCV:
             break;
         default:

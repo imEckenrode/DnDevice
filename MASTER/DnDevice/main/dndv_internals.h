@@ -84,8 +84,8 @@ Player getMyPlayer();
 PC getMyPC();
 
 bool updateMyKey(Key newKey);
-bool updateMyPlayer(Player* player);
-bool updateMyPC(PC* pc);
+bool updateMyPlayer(Player player);
+bool updateMyPC(PC pc);
 
 //Get the key, p_name, and c_name of the local device
 ContactInfo getMyContactInfo();

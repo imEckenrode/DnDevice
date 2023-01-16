@@ -52,8 +52,8 @@ Player getMyPlayer(){return current.my->Player;}
 PC getMyPC(){return current.my->PC;}
 
 bool updateMyKey(Key newKey){current.myKey = newKey; return true;}
-bool updateMyPlayer(Player* player){current.my->Player = *player; return true;}   //Change implementation as needed/updated
-bool updateMyPC(PC* pc){current.my->PC = *pc; strcpy(current.my->PC.name, pc->name); return true;}                       //This gives a single area to do so
+bool updateMyPlayer(Player player){current.my->Player = player; return true;}   //Change implementation as needed/updated
+bool updateMyPC(PC pc){current.my->PC = pc; strcpy(current.my->PC.name, pc.name); return true;}                       //This gives a single area to do so
 
 bool updateMyName(Name newName){strcpy(( (isGM()) ? current.gmInfo.gmName : current.my->Player.name),newName);   return true;}
 bool updateMyCName(Name newName){strcpy(( (isGM()) ? current.gmInfo.campaignName : current.my->PC.name), newName); return true;}   //This does not allow for longNames, so if that is desired, check current string allocation sizes first or risk a data overflow
@@ -265,9 +265,9 @@ void testPCInit(void){
     current.isGM = false;
     updateMyKey(1);
     Player examplePlayer = {"Bob","Bob Billy Joe",false,false};
-    updateMyPlayer(&examplePlayer);
+    updateMyPlayer(examplePlayer);
     PC examplePC = {"Wizz","PowerWizard",3,16,13};
-    updateMyPC(&examplePC);
+    updateMyPC(examplePC);
 
     printf("Test Player Initialized\n");
 }
