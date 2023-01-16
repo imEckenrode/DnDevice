@@ -60,7 +60,7 @@ esp_err_t testPC_r(void){
     return esp_console_cmd_register(&command);
 }
 
-static int tellMeYourNameAgain_cmd(int argc, char **argv){
+static int tellMeYourNameAgain_cmd(int argc, char **argv){  //TODO: Update to work with GM
     printf("Active Player: %s\nActive PC: %s\n", current.my->Player.name, current.my->PC.name);
     //Alternatively, current.player->name,current.character->name
     return 0;
