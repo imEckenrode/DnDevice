@@ -32,6 +32,7 @@ esp_err_t ping_r(void){
 //Activate the test GM account
 static int testGM_cmd(int argc, char **argv){
     testGMInit();
+    update_comms_sync_mode(true);
     dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&current.gmInfo,sizeof(struct gmInfo));
     return 0;
 }
@@ -47,6 +48,7 @@ esp_err_t testGM_r(void){
 //Activate the test Player account
 static int testPC_cmd(int argc, char **argv){
     testPCInit();
+    update_comms_sync_mode(false);          //TODO: Build this into the activate function. LISTEN FOR IT WITH DNDV_SYNC.
     return 0;
 }
 esp_err_t testPC_r(void){
