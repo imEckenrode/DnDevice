@@ -215,8 +215,8 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
         case EVENT_GM_ACTIVATE:
-            //Do I update the GM Info here???
-            esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, &current.gmInfo, 0, 0);
+            //TODO: Move GM update stuff here.  Currently this is not working, since I also need to add event data at least
+            //esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, (void*) &current.gmInfo, 0, 0);
             break;
             /*;
             struct gm_info_s to_send = {
@@ -245,10 +245,10 @@ void GM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
     esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
-    //esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv);      
-                //TODO: UNREGISTERING this means that you cannot deactivate GM mode without a reset (which is fine)
+    //esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv);   
+        //TODO: UNREGISTERING this means that you cannot deactivate GM mode without a reset (which is fine)
                     //(If this is entirely separate from the GM_rcv, the unregister comment can work)
-            //Syncing is done by dndv_comms
+            //Syncing is done by dndv_sync
     //Player List
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
@@ -260,6 +260,11 @@ void GM_Activate(void){
 
 
 //And finally, tests
+
+void GM_Activate_test(void){
+    esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
+    //Trying to send right from console for easier error testing.
+}
 
 void testPCInit(void){
     current.isGM = false;
@@ -273,11 +278,11 @@ void testPCInit(void){
 }
 
 void testGMInit(void){
-    current.isGM = true;      //TODO: Could have a semaphore something or other on the global level
+    current.isGM = true;      //Could turn into a semaphore
     updateMyKey(1);
     updateMyName("MeGM");
     updateMyCName("AwesomeTitleHere");
 
-    GM_Activate();
+    GM_Activate_test();
     printf("GM Mode Activated (Test GM Initialized)\n");
 }

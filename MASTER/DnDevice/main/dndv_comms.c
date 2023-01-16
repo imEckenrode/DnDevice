@@ -98,6 +98,10 @@ esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum){
     return dndv_send(mac, eventBaseNum, eventIdNum, 0, 0);
 }
 
+esp_err_t dndv_send_broadcast(Num eventBaseNum, Num eventIdNum, void* data, size_t size){
+    return dndv_send(broadcast_mac, eventBaseNum, eventIdNum, data, size);
+}
+
 //Send data to the specified MAC address with a macAndData_s struct pointer (this is a raw way to send)
 esp_err_t dndv_sendMAD(macAndData_s* mad, size_t size){
     esp_err_t err = dndv_send_raw(mad->mac,(void*)(mad->data),size);
@@ -161,7 +165,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
     switch(id){
         case EVENT_SEND_BROADCAST:
           ESP_LOGV(TAG, "Sending broadcast");
-          esp_err_t err = esp_now_send(broadcast_mac,event_data,sizeof(*event_data));
+          esp_err_t err = dndv_send_raw(broadcast_mac, event_data, sizeof(*event_data));    //Updated this from an esp call
 
           if(err != ESP_OK){
               ESP_LOGE(TAG, "Send error (%d)", err);

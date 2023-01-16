@@ -4,6 +4,7 @@
 //#include "esp_err.h"
 #include "dndv_comms.h"
 #include "dndv_internals.h"
+#include "dndv_sync.h"
 
 #define PROMPT_STR "\nDnDevice Console"
 
@@ -31,6 +32,7 @@ esp_err_t ping_r(void){
 //Activate the test GM account
 static int testGM_cmd(int argc, char **argv){
     testGMInit();
+    dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,current.gmInfo);
     return 0;
 }
 esp_err_t testGM_r(void){
