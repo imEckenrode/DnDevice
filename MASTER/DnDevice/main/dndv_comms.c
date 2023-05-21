@@ -36,9 +36,9 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
   }
 
   if(status==0){
-    ESP_LOGI(TAG, "Successfully sent data.");
+    ESP_LOGI(TAG, "Data Sent");
   }else{
-    ESP_LOGE(TAG, "Failed to send data.");
+    ESP_LOGE(TAG, "Send Fail");
   }
   printf("Send Status: %d (0 is Success)\n",status);
   //xEventGroupSetBits(s_evt_group, BIT(status));
