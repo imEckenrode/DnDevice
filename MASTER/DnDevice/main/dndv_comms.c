@@ -189,7 +189,7 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
 
 /*      --- Finally, Communication Initialization ---       */
 void comms_init(void){
-  const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    const wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
 
     ESP_ERROR_CHECK( esp_netif_init());
 

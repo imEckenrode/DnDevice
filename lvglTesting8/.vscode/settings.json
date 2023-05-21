@@ -1,8 +1,0 @@
-{
-    "files.associations": {
-        "lvgl.h": "c",
-        "ui.h": "c",
-        "lvgl_helpers.h": "c",
-        "stdio.h": "c"
-    }
-}

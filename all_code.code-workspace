@@ -2,21 +2,6 @@
 	"folders": [
 		{
 			"path": "MASTER\\DnDevice"
-		},
-		{
-			"path": "consoleTestEnv"
-		},
-		{
-			"path": "cScratchPaper"
-		},
-		{
-			"path": ".\\testone"
-		},
-		{
-			"path": "commsTesting"
-		},
-		{
-			"path": "lvglTesting8"
 		}
 	],
 	"settings": {
