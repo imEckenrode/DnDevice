@@ -51,9 +51,11 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status){
     IMPORTANT: Returns False if the peer already exists                */
 bool addIfNewPeer(macAddr mac){
     bool peerExists = esp_now_is_peer_exist(mac);
+
     if(peerExists){
         return false;
     }
+
     //Now, since the peer doesn't exist, add it
 
     const esp_now_peer_info_t info = {

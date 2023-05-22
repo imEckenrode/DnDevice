@@ -33,12 +33,12 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
 
 void requestPlayer1_test(){
     Key key = 1;
-    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), 2, &key, sizeof(Key));
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), EVENT_KEYDATA_REQ, &key, sizeof(Key));
 }
 
 void requestPC1_test(){
     short selection = 1;
-    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), 3, &selection, sizeof(short));
+    dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), EVENT_PC_REQ, &selection, sizeof(short));
 }
 
 //and on the GM side
@@ -146,11 +146,13 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
 
         case EVENT_KEYDATA_REQ:
             //Remove "_test" for the actual function
+            printf("SHOULD SEE 1");
             retrieveAndSendKey_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
 
         case EVENT_PC_REQ:
+            printf("SHOULD SEE 2");
             //Remove "_test" for the actual function
             retrieveAndSendPC_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
@@ -163,6 +165,7 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
 
             //Just like for the player side, we can do the following cast
             createContact(*(ContactAddress*) da);
+            break;
         
         default:
             printf("Sync not known\n");
