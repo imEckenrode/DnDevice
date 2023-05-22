@@ -146,13 +146,13 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
 
         case EVENT_KEYDATA_REQ:
             //Remove "_test" for the actual function
-            printf("SHOULD SEE 1");
+            printf("KEYDATA REQUESTED");
             retrieveAndSendKey_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
 
         case EVENT_PC_REQ:
-            printf("SHOULD SEE 2");
+            printf("PC DATA REQUESTED");
             //Remove "_test" for the actual function
             retrieveAndSendPC_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
@@ -186,7 +186,7 @@ void update_comms_sync_mode(bool isGM){
 //This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
     const uint8_t broadcast_mac[] = BROADCAST_MAC;
-    return dndv_send_blank(broadcast_mac, N_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
+    return dndv_send_blank(broadcast_mac, N_GM_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
 
     //Could wait for callback here to call more times instead of returning immediately
 }
