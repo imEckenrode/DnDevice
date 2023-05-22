@@ -46,13 +46,13 @@ void requestPC1_test(){
 Player retrieveAndSendKey_test(macAndData_s* da){
     addIfNewPeer(da->mac);
     Player retrieved = {"B","Bill",false,false};  //Legal because nickname and name are predefined sizes
-    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), 2, &retrieved, sizeof(Player));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
     return retrieved;
 }
 
 PC retrieveAndSendPC_test(macAndData_s* da){
     PC retrieved = {"J","Full Name",75,158,16};
-    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), 3, &retrieved, sizeof(PC));
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_PCDATA_RCV, &retrieved, sizeof(PC));
     return retrieved;
 }
 
@@ -80,6 +80,7 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             requestPlayer1_test();  //TODO: Remove this and add it to the GUI
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes?
+            printf(((Player*) da->data)->name);     //FOR TESTING
             updateMyPlayer(*(Player*) da->data);    //Cast to Player pointer, then dereference. Creates a copy on the stack.
             requestPC1_test();
             break;
@@ -147,7 +148,8 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
         case EVENT_KEYDATA_REQ:
             //Remove "_test" for the actual function
             printf("KEYDATA REQUESTED");
-            retrieveAndSendKey_test(da);
+            Player p = retrieveAndSendKey_test(da);
+            printf(p.name); //FOR TESTING
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
 

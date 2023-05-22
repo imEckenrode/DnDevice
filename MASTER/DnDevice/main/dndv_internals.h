@@ -44,10 +44,12 @@ struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
     Key myKey;
     struct gmInfo gmInfo;
-    union {
-        struct ContactAddressBook *contacts;
-        struct PnC_s *my; //would
-    };                                                  //Anonymous Union works in C11
+    struct ContactAddressBook *contacts;
+    union {  //Anonymous Union works in C11
+        struct PnC_s *my;
+        void* badguydatahereTODO;
+    };
+
     bool isGM;          //Is the current device a GM?
     struct cd_settings settings;
 };

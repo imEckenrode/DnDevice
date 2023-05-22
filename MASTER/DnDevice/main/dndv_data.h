@@ -134,15 +134,15 @@ typedef struct __attribute__((__packed__)) character_s{
 } PC;
 
 
-struct __attribute__((__packed__)) PnC_s{           //TODO Use this as the info instead of the GM way    -> Add: Key key;
+struct __attribute__((__packed__)) PnC_s{   //TODO Use this as the info instead of the GM way    -> Add: Key key;
     Player Player;
     PC PC;
 };
 
 /*     - Connections Tracking and Naming -
     For GMs, this is the list of players
-    For players, this is the list of possible GMs and the campaign names  //, and TODO should stop persisting after a GM is selected
-*/
+    For players, this is the list of possible GMs and the campaign names //, and TODO should stop persisting after a GM is selected */
+    
 typedef struct __attribute__((__packed__)){
     Key key;
     Name p_name;   //P is Person/Player (AKA the IRL name)
