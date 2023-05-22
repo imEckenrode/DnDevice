@@ -96,6 +96,7 @@ bool contactExistWithMAC(macAddr mac);
 short indexOfContactWithMAC(macAddr mac);
 bool createContact(ContactAddress cAddr);
 ContactAddress readContact(macAddr mac);
+
 bool createOrUpdateContact(ContactAddress cAddr);
 bool updateContact(ContactAddress cAddr);
 bool deleteContact(macAddr mac);

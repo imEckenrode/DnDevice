@@ -41,7 +41,7 @@ void requestPC1_test(){
     dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), 3, &selection, sizeof(short));
 }
 
-//and on the DM side
+//and on the GM side
 
 Player retrieveAndSendKey_test(macAndData_s* da){
     addIfNewPeer(da->mac);
@@ -64,32 +64,28 @@ PC retrieveAndSendPC_test(macAndData_s* da){
 
 
 /*  -- Automatic PC Sync Actions (in order) --  */
-
 bool addPotentialGM(ContactAddress* mad){
     createOrUpdateContact(*mad);
     printf("New GM: %s, %s",mad->info.p_name,mad->info.c_name);
     return true;
 } 
 
-
-bool selectGM(){return false;}
-
 /*  Finally, the event receiver to answer the requests (that the player receives) */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
-    switch(id){ //If not GM and you receive stuff, call functions here
+    switch(id){
         case EVENT_GM_INFO:
             addPotentialGM((ContactAddress*) da);
             addAsDM_test((ContactAddress*) da);
-            requestPlayer1_test();
+            requestPlayer1_test();  //TODO: Remove this and add it to the GUI
             break;
-        case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes
+        case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes?
             updateMyPlayer(*(Player*) da->data);    //Cast to Player pointer, then dereference. Creates a copy on the stack.
             requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
             updateMyPC(*(PC*) da->data);
-            printf("Got the data!!!");
+            printf("Got the data!");
             break;
         case EVENT_AWAKE_BROADCAST_RCV:
             break;
@@ -97,8 +93,6 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
             printf("Someone's syncing out there\n");
     }
 }
-
-
 
 
 
@@ -123,12 +117,14 @@ bool addConfirmedPC(){return false;}
 
 Player retrieveAndSendKey(macAndData_s* da){
     Player retrieved = db_read_player((Key) *(da->data));
+        //TODO: SEND IF RETRIEVED CORRECTLY, OTHERWISE (TODO) RETURN SOMETHING ELSE
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
     return retrieved;
 }
 
 PC retrieveAndSendPC(macAndData_s* da){
     PC retrieved = db_read_pc((Key) *(da->data));
+        //TODO: SEND IF RETRIEVED CORRECTLY, OTHERWISE (TODO) RETURN SOMETHING ELSE
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
     return retrieved;
 }
@@ -138,33 +134,36 @@ PC retrieveAndSendPC(macAndData_s* da){
 void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     macAndData_s* da = (macAndData_s*) event_data;
     printf("Heard Syncing...\n");
-    switch(id){ //If GM and you receive stuff, call functions here
+    switch(id){
         case EVENT_AWAKE_BROADCAST_RCV:
             ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
             bool newlyAdded = addIfNewPeer(da->mac);
-            if(!newlyAdded){ESP_LOGI(TAG, "I already know this device. Sending.\n");}
+            if(!newlyAdded){ESP_LOGI(TAG, "I know this device, replying.\n");}
             GM_DM_Data(da->mac);
             break;
-        case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind? Not implemented yet (nor needed, likely)
-            if(contactExistWithMAC(da->mac)){
-                ContactAddress ca;
-                maccpy(ca.MAC, da->mac);
-                ca.info.key = 0;
-                strcpy(ca.info.p_name, "D");
-                strcpy(ca.info.c_name, "C");
-                
-                createContact(ca);
-            }else{printf("%s rejoined", da->mac);}
-            break;
+
+        //case EVENT_SYNC_REQ:         //When a player selects the GM's campaign, let the GM know so the player isn't left behind? Not implemented yet (nor needed, likely)
+
         case EVENT_KEYDATA_REQ:
-            retrieveAndSendKey_test(da);          // Player selected = 
-            //ContactAddress 
-            //createOrUpdateContact();      //TODO: Either update as retrieved or update when the adventure starts
+            //Remove "_test" for the actual function
+            retrieveAndSendKey_test(da);
+            //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
+
         case EVENT_PC_REQ:
+            //Remove "_test" for the actual function
             retrieveAndSendPC_test(da);
-            //createOrUpdateContact();
+            //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
+
+        case EVENT_PC_JOINED:
+            //TODO: I doubt this works, so test
+            //ContactAddress ca = {da->mac, da->data};
+            //createContact(ca);
+
+            //Just like for the player side, we can do the following cast
+            createContact(*(ContactAddress*) da);
+        
         default:
             printf("Sync not known\n");
     }

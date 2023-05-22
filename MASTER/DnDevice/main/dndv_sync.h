@@ -62,11 +62,11 @@ struct __attribute__((__packed__)) pcdata_rcv_s{
     These are GM exclusive actions that should only heard by GM_ACTIVATE (and whatever logs want it)*/
 enum GM_RCV_B_ID{
     EVENT_AWAKE_BROADCAST_GM_RCV,      //Broadcasted on awake, so active GMs can send directly to this new device
-    EVENT_SYNC_REQ,         //When a player device asks for the GM info
+    //EVENT_SYNC_REQ,         //When a player device asks for the GM info
     EVENT_KEYDATA_REQ,      //Return the data requested for a specified key.
-    EVENT_PC_REQ       //Return the date for the requested player character
+    EVENT_PC_REQ,       //Return the date for the requested player character
 
-    //EVENT_PC_JOINED,            //A PC has joined the adventure!
+    EVENT_PC_JOINED            //A PC has joined the adventure!
     //EVENT_PC_READY
 };
 
