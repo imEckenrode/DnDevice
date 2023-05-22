@@ -65,16 +65,13 @@ typedef char Msg[192];
 
 
 /* _- Auxillary Functions -_
-
     Nice assistant functions    */
 
 //Pretty prints the MAC address
 bool printMAC(macAddr MAC);
 
 
-
 /*  ---  Sending Structures and Functions ---
-
     These are the generic sending structures
     See the sending structures per ID under "Bases and IDs"      */
 
@@ -83,12 +80,6 @@ struct __attribute__((__packed__)) EVENT{
     uint8_t BASE;
     uint8_t ID;
 };
-
-/*
-typedef struct __attribute__((__packed__)) eventPlusData{
-    uint8_t data[];   //This "flexible array member" means dynamic allocation will be neccesary
-} d_pure;   */      //Cannot have only a blank member
-
 
 // Data with indexed IDs under event.base and event.ID (the standard data struct)
 typedef struct __attribute__((__packed__)) eventPlusData{           //todo: use...?
@@ -115,7 +106,6 @@ typedef struct __attribute__((__packed__)) macPlusIdData{
 /*     -- GENERIC ID STRUCTURES --
     These structures are used by multiple data types
 */
-
 
 //Data Separated by the \0 string end
 typedef struct __attribute__((__packed__)){
@@ -273,8 +263,6 @@ enum DEVICE_B_ID{
 //EVENT_KEVIN_LEVIN
 
 
-
-
 /* --  COMMS_BASE  --
     This is a special base for sending ESP-NOW-ready data and other commands to dndv_comms
   Typically only used from dndv_internals, where dndv_comms is out of scope.
@@ -300,7 +288,5 @@ enum MISC_B_ID{
     EVENT_LOG,
     EVENT_PING                //TODO: Maybe add a timestamp for actual ping timing capabilities
 };
-
-
 
 #endif

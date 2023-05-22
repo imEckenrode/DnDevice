@@ -36,7 +36,6 @@ bool printMAC(macAddr MAC){
     return true;
 }
 
-
 /*    --- Event Loop Internal Code ---      */
 
 /* -EVENT LOOP BASE DEFINITIONS-
@@ -49,4 +48,3 @@ bool printMAC(macAddr MAC){
     ESP_EVENT_DEFINE_BASE(DEVICE_BASE);
     ESP_EVENT_DEFINE_BASE(COMMS_BASE);
     ESP_EVENT_DEFINE_BASE(MISC_BASE);
-

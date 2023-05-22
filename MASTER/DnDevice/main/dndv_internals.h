@@ -39,7 +39,6 @@ struct __attribute__((__packed__)) cd_settings{
     bool displayLogs;               
 };
 
-
 /*  CURRENT DEVICE: Structure for keeping track of the device's user data   */
 struct __attribute__((__packed__)) current_device_s {
     //deviceStates state;     //The state the device is in (See "Device States" above)
@@ -55,15 +54,13 @@ struct __attribute__((__packed__)) current_device_s {
 
 
 
-
 /*              -- GLOBAL VARIABLES --               */
 struct current_device_s current;      //The current user, global to the DnDevice  //IMPORTANT
 
 /*          ---- Visible Function Declarations ----          */ 
 
 /*   Initialize all the global variables correctly
-            (Set isGM to False, allocate the hashmap, etc)
-*/
+            (Set isGM to False, allocate the hashmap, etc)*/
 void globals_init(void);
 
 /*               --- CRUD Functions ---                 */

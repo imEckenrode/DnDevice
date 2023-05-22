@@ -25,7 +25,6 @@ esp_event_base_t Num2EventBase(Num num){
 
 /*                          --- Sending Functions ---                                 */
 
-
 /*  -- Auxilary Sending Functions --  */
 
 // - Sending Callback to verify the data sent (automatically returns true for a broadcast) -
@@ -125,8 +124,6 @@ void dndv_send_ping(void){
 
 
 
-
-
 /*      -- Receiving Function --     
 
     When any ESP-NOW data is received, post it to the event loop (dndv_event_h, in dndv_data)
@@ -153,9 +150,6 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
       //Data is automatically managed by the event loop, so a pointer to the data is safe
     free(fullData); //This frees the local malloc
 }
-
-
-
 
 
 

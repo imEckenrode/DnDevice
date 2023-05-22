@@ -14,7 +14,7 @@
     Any event bases should be added below to DNDV_EBA_DEFINE to add them to the Event Base Array
 */
 
-
+//Define all dndv_comms bases
 DNDV_EBA_DEFINE(&SYNC_BASE,
                 &GM_SYNC_BASE,
                 &MISC_BASE
@@ -26,14 +26,14 @@ DNDV_EBA_DEFINE(&SYNC_BASE,
 void initAll(void){
     nvs_init();         //Initialize the inside file system
     eventLoop_init();   //Initialize the event loop library
-    //Initialize the SD card stuff (when needed)
+        //Initialize the SD card stuff (when needed)
     globals_init();   //Initialize the global variables to the correct values, etc.
 
     comms_init();       //Initialize the ESP-NOW Communications implementation
     log_init();         //Initialize the logs
 
     sync_init();
-    //Initialize the Screen
+        //Initialize the Screen
     console_init();     //Initialize the Console to send commands from a PC   
 }
 

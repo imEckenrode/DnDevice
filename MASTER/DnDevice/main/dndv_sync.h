@@ -44,27 +44,10 @@ enum SYNC_B_ID{
 struct __attribute__((__packed__)) keydata_rcv_s{
     Key key;
     Player playerInfo;
-    bool nickNamesRcv;  //This is True if there are more than 8 characters to send
-    bool longNamesRcv;  //This is True if there are only 1 or 2 characters to send and you prefer to use the long names
-    union{
-        //For more than 8 characters
-        struct __attribute__((__packed__)) {  //10 Bytes Each
-            Key key;
-            NickName name;
-        } nickList[21];        //Currently 21 since Key+Player < 40
-
-        //For between 2 and 8 characters
-        struct __attribute__((__packed__)) {
-            Key key;
-            Name name;
-        } nameList[8];           //Currently 8 since Key+Player < 40
-
-        //For only 1 or 2 characters, can send the full names if desired
-        struct __attribute__((__packed__)) {
-            Key key;
-            FullName nick;
-        } fullnameList[2];           //2 long names = 192
-    } pcList;
+    struct __attribute__((__packed__)) pcList{
+        Key key;
+        Name name;
+    } pcList[8];           //Currently 8 since Key+Player < 40
 };
 
 

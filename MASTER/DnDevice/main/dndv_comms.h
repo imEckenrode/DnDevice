@@ -16,15 +16,11 @@
 /*    All communcation (over ESP-NOW) can be found in here, dndv_comms
 
   SENDING
-
     Call dndv_send() to send the data to the specified player (decoded into the proper MAC address)
 
   RECEIVING
-
     To receive data, register to the event loop by calling esp_event_handler_register_with() in your desired file.
-    
     Then use the structures in this file to decipher the type of data received based on the first byte received
-  
 
  The same format remains:
     Title
@@ -47,7 +43,7 @@
 #define DNDV_EBA_DECLARE() extern esp_event_base_t* EVENT_BASE_ARRAY[]; extern Num EVENT_BASE_ARRAY_SIZE //The second semicolon is added by the instance(see below)    
 
 //Define the Event Base Array (done in init.c)
-//Add all the Event Bases to be used with dndv_comms here
+//Add all the comms Event Bases here
 #define DNDV_EBA_DEFINE(...)esp_event_base_t* EVENT_BASE_ARRAY[] = {__VA_ARGS__}; Num EVENT_BASE_ARRAY_SIZE = sizeof(EVENT_BASE_ARRAY)/sizeof(esp_event_base_t*)
 
 DNDV_EBA_DECLARE(); //see init.c for the definition
@@ -78,18 +74,17 @@ bool addIfNewPeer(macAddr mac);
 
 /*     - Sending Functions -     */
 
+// Send the data! This is the preferred method
+esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size);
+
+//This uses the broadcast_mac to send the data
+esp_err_t dndv_send_broadcast(Num eventBaseNum, Num eventIdNum, void* data, size_t size);
 
 // Send the data, events included!
 esp_err_t dndv_send_raw(macAddr mac, void* data, size_t size);
 
-// Send the data! This is the preferred method
-esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size);
-
 //This calls dndv_send with 0 for data and size
 esp_err_t dndv_send_blank(macAddr mac, Num eventBaseNum, Num eventIdNum);
-
-//This uses the broadcast_mac to send the data
-esp_err_t dndv_send_broadcast(Num eventBaseNum, Num eventIdNum, void* data, size_t size);
 
 
 //  For testing, broadcast a ping
@@ -114,16 +109,12 @@ void sent_cb(const uint8_t *mac_addr, esp_now_send_status_t status);
 
 
 
-
 /*     - Receiving Functions -    */
 
 /*  Callback to receiving ESP-NOW data
     Simply pushes received data to the dndv_event_h loop  */
 void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len);
 //Note: rcv, not recv
-
-
-
 
 
 //#endif
