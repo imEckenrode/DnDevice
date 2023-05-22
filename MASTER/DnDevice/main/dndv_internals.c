@@ -15,6 +15,10 @@ void globals_init(){
     current.contacts = (struct ContactAddressBook*) malloc(INITIAL_MAX_PLAYER_COUNT*sizeof(ContactAddress) + 2);    //Add 2 for the short at the start of contactAddress
     current.contacts->maxContacts=INITIAL_MAX_PLAYER_COUNT;
 
+    for(short i = 0; i<INITIAL_MAX_PLAYER_COUNT; i++){
+        maccpy(current.contacts->contact->MAC, empty_mac);
+    }
+
     esp_event_handler_instance_register_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv, NULL,NULL);
 }
 
@@ -115,7 +119,7 @@ bool updateContactAtIndex(ContactAddress cAddr, short index){
 
 //Find the first spot without a MAC address and fill it in.
 bool createContact(ContactAddress cAddr){
-    short index = indexOfContactWithMAC(empty_mac);          //TODO: Intialize the entire thing to 0s first for this to work
+    short index = indexOfContactWithMAC(empty_mac);
         if(index == -1){
             printf("NO ROOM FOR %d: %s.",cAddr.info.key, cAddr.info.p_name);
             return false;                               //TODO: Allocate if no more room!
@@ -123,10 +127,10 @@ bool createContact(ContactAddress cAddr){
         return updateContactAtIndex(cAddr, index);
 }
 
+//TODO: create a safer read (may be included elsewhere)
 ContactAddress readContact(macAddr mac){
     return current.contacts->contact[indexOfContactWithMAC(mac)];
 }
-
 
 bool createOrUpdateContact(ContactAddress cAddr){
     short index = indexOfContactWithMAC(cAddr.MAC);
@@ -142,6 +146,7 @@ bool updateContact(ContactAddress cAddr){
 
 ContactAddress emptyContactAddress(){
     ContactAddress empty = {"",{0,"",""}};
+    maccpy(empty.MAC, empty_mac);   //TODO: see if this line is required
     return empty;
 }
 
@@ -160,6 +165,7 @@ ContactAddress readContactByKey(Key key){
             return current.contacts->contact[i];
         }
     }
+    printf("Did not find contact by key");
     return emptyContactAddress();
 }
 
