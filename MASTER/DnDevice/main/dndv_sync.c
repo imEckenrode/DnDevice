@@ -24,6 +24,9 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
     //current.gmInfo.gmName = "Test";
     //current.gmInfo.campaignName = "AwesomeName";
     maccpy(current.gmInfo.MAC, mad->MAC);
+    strcpy(current.gmInfo.gmName,mad->info.p_name );
+    strcpy(current.gmInfo.campaignName,mad->info.c_name );
+
     //current.gmInfo.MAC = *mad.MAC;
     //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
 
@@ -72,19 +75,25 @@ bool addPotentialGM(ContactAddress* mad){
 
 /*  Finally, the event receiver to answer the requests (that the player receives) */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    printf("%d",sizeof(*event_data)); //TEST
     macAndData_s* da = (macAndData_s*) event_data;
     switch(id){
         case EVENT_GM_INFO:
             addPotentialGM((ContactAddress*) da);
             addAsDM_test((ContactAddress*) da);
+
+            vTaskDelay(1000 / portTICK_RATE_MS);
             requestPlayer1_test();  //TODO: Remove this and add it to the GUI
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes?
-            printf(((Player*) da->data)->name);     //FOR TESTING
+            printf("Player: %s",((Player*) (da->data))->name);     //FOR TESTING
             updateMyPlayer(*(Player*) da->data);    //Cast to Player pointer, then dereference. Creates a copy on the stack.
+            
+            vTaskDelay(250 / portTICK_RATE_MS);
             requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
+            printf("PC: %s", (char*) da->data);     //FOR TESTING
             updateMyPC(*(PC*) da->data);
             printf("Got the data!");
             break;
@@ -147,14 +156,11 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
 
         case EVENT_KEYDATA_REQ:
             //Remove "_test" for the actual function
-            printf("KEYDATA REQUESTED");
-            Player p = retrieveAndSendKey_test(da);
-            printf(p.name); //FOR TESTING
+            retrieveAndSendKey_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!
             break;
 
         case EVENT_PC_REQ:
-            printf("PC DATA REQUESTED");
             //Remove "_test" for the actual function
             retrieveAndSendPC_test(da);
             //TODO: Check to see if this device is already in the list. If so, delete that old copy!

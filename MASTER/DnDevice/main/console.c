@@ -60,9 +60,9 @@ esp_err_t testPC_r(void){
     return esp_console_cmd_register(&command);
 }
 
-static int tellMeYourNameAgain_cmd(int argc, char **argv){  //TODO: Update to work with GM
-    printf("Active Player: %s\nActive PC: %s\n", current.my->Player.name, current.my->PC.name);
-    //Alternatively, current.player->name,current.character->name
+static int tellMeYourNameAgain_cmd(int argc, char **argv){
+    ContactInfo me = getMyContactInfo();
+    printf("p: %s\nc: %s\n", me.p_name, me.c_name);
     return 0;
 }
 esp_err_t tellMeYourNameAgain_r(void){
@@ -70,6 +70,23 @@ esp_err_t tellMeYourNameAgain_r(void){
         .command = "nameis",
         .help = "Print the active player and character name",
         .func = &tellMeYourNameAgain_cmd
+    };
+    return esp_console_cmd_register(&command);
+}
+
+static int whosYourGM_cmd(int argc, char **argv){
+    if(isGM()){
+        printf("I am the GM now");
+        return 0;
+    }
+    printf("p: %s\nc: %s\n", current.gmInfo.gmName,current.gmInfo.campaignName);
+    return 0;
+}
+esp_err_t whosYourGM_r(void){
+    esp_console_cmd_t command = {
+        .command = "gmis",
+        .help = "Print the active GM and campaign name",
+        .func = &whosYourGM_cmd
     };
     return esp_console_cmd_register(&command);
 }
@@ -111,7 +128,8 @@ void register_commands(){
     testGM_r();
     testPC_r();
     tellMeYourNameAgain_r();
-
+    whosYourGM_r();
+    
     logsOn_r();
     logsOff_r();
     //Could also check for errors here if desired
