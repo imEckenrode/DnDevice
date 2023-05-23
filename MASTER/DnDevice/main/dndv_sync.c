@@ -75,7 +75,6 @@ bool addPotentialGM(ContactAddress* mad){
 
 /*  Finally, the event receiver to answer the requests (that the player receives) */
 void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
-    printf("%d",sizeof(*event_data)); //TEST
     macAndData_s* da = (macAndData_s*) event_data;
     switch(id){
         case EVENT_GM_INFO:

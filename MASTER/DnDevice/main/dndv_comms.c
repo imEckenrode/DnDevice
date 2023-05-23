@@ -141,13 +141,18 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
         ESP_LOGE(TAG, "COMMS_BASE is not a sendable base, ended\n");
         return;     //TODO: Validate this data on receive. That way, no one can pretend to be sending from a different device
     }
+    
+    if(len<3){  //If this is blank, just post the MAC address
+        esp_event_post_to(dndv_event_h, base, id, (void*)mac_addr, sizeof(macAddr),0);
+        return;
+    }
 
-    short fullDataLen = sizeof(macAndData_s)+len;    //The length of the mac and data struct
+    short fullDataLen = sizeof(macAndData_s)+len-2;    //The length of the mac plus the data (could use macAndData_s)
     macAndData_s* fullData = malloc(fullDataLen);             //The macAndData_s struct will have the length of a Mac + dataLen
     //TODO: Throw an error if malloc fails here!                    //Could also malloc with len+sizeof(fullData)
 
     maccpy(fullData->mac,mac_addr);   //Append the MAC address to the data (so no device ever needs to send its MAC inside the data)
-    memcpy(fullData->data,data,len);                             //Alternatively, just assign to the pointer fullData+MAC_ADDR_SIZE+sizeof(uint8_t)
+    memcpy(fullData->data,(data+2),len-2);   //This is safe since we checked length earlier
     esp_event_post_to(dndv_event_h, base, id, (void*)fullData,fullDataLen,0);
       //Data is automatically managed by the event loop, so a pointer to the data is safe
     free(fullData); //This frees the local malloc
@@ -172,10 +177,10 @@ void comms_local_event(void* handler_arg, esp_event_base_t base, int32_t id, voi
             /*dndv_send_raw(broadcast_mac,(char*)event_data);
             break;  */
         case EVENT_SEND:
-            dndv_sendMAD((macAndData_s*) event_data, sizeof(event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
+            dndv_sendMAD((macAndData_s*) event_data, sizeof(*event_data));   //Do I need to copy the data instead of using the data from the event loop? TODO
             break;
         case EVENT_SEND_TO_ALL_CONTACTS:
-            dndv_send_raw (NULL, event_data, sizeof(event_data)); //NULL MAC sends to all peers
+            dndv_send_raw (NULL, event_data, sizeof(*event_data)); //NULL MAC sends to all peers
             break;
         default:
             ESP_LOGE(TAG, "Received bad send event ID, discarding\n");
