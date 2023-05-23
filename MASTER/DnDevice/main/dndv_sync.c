@@ -123,19 +123,30 @@ bool addConfirmedPC(){return false;}
 
 /*      - Automatic GM Sync Actions (in order)  - */
 
-
+//TODO: TEST
 Player retrieveAndSendKey(macAndData_s* da){
-    Player retrieved = db_read_player((Key) *(da->data));
+    Key key = (Key) *(da->data);
+    PlayerFile retrieved = db_read_player(key);
         //TODO: SEND IF RETRIEVED CORRECTLY, OTHERWISE (TODO) RETURN SOMETHING ELSE
-    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(Player));
-    return retrieved;
+    struct keydata_rcv_s data = {key, retrieved};
+    short size = sizeof(&data);
+    if(size<=248){    //-2 for event bases
+        dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &data, size);
+    }else{
+        //chop off from retrieved.pcList[8]; and send separately TODO
+        dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &data, 250);
+    }
+
+    return retrieved.playerInfo;
 }
 
 PC retrieveAndSendPC(macAndData_s* da){
-    PC retrieved = db_read_pc((Key) *(da->data));
+    Key key = (Key) *(da->data);
+    PCFile retrieved = db_read_pc(key);
         //TODO: SEND IF RETRIEVED CORRECTLY, OTHERWISE (TODO) RETURN SOMETHING ELSE
-    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &retrieved, sizeof(PC));
-    return retrieved;
+    struct pcdata_rcv_s data = {key, retrieved};
+    dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &data, sizeof(data));
+    return retrieved.pc;
 }
 
 

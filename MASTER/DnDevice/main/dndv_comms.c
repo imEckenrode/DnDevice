@@ -86,6 +86,10 @@ esp_err_t dndv_send_raw(macAddr mac, void* data, size_t size){
 //size is the size of the data alone
 esp_err_t dndv_send(macAddr mac, Num eventBaseNum, Num eventIdNum, void* data, size_t size){
     size_t newSize = size+2;
+    if(size>248){
+        ESP_LOGI(TAG, "Message Size Cut to 250");
+        newSize = 250;
+    }
     uint8_t* allData = malloc(newSize);  //This could be a void pointer
     allData[0] = eventBaseNum;
     allData[1] = eventIdNum;

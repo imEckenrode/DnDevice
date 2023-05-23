@@ -11,7 +11,7 @@
     
     Upon wakeup, broadcast so GMs can send you the data
     Upon becoming a GM, let everyone know so they can join your game
-    Players asking for player/PC data
+    Players asking for player/PC data from their GM
     
     And finally, starting the game is contained in here.
 
@@ -25,7 +25,6 @@ ESP_EVENT_DECLARE_BASE(GM_SYNC_BASE);
 /*          --  SYNC_BASE: For syncing data and Player devices  --
     See GM_SYNC_BASE for the GM side
 
-        Used primarily by dndv_comms
     Contains all data for syncing. Players should stop listening to these events once in the campaign
 */
 
@@ -41,19 +40,23 @@ enum SYNC_B_ID{
 /* Data broadcasted when the GM is set up, or messaged directly when requested by a player */
 //see ContactAddress
 
+
+//TODO: These structs need to be accessible at the internals level...
 struct __attribute__((__packed__)) keydata_rcv_s{
     Key key;
-    Player playerInfo;
-    struct __attribute__((__packed__)) pcList{
-        Key key;
-        Name name;
-    } pcList[8];           //Currently 8 since Key+Player < 40
+    PlayerFile playerFile;
+};
+
+//If the player file has more than 8 PC names, we need to send separate messages
+struct __attribute__((__packed__)) keydata_rcv_names_s{
+    Key key;
+    struct pcDesc pcList[];
 };
 
 
 struct __attribute__((__packed__)) pcdata_rcv_s{
     Key key;
-    PC pcInfo;
+    PCFile pcInfo;
 };
 
 

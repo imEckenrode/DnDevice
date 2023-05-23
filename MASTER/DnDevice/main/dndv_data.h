@@ -277,7 +277,6 @@ enum COMMS_B_ID{
     EVENT_BROADCAST_NEW_DEVICE
 };
 
-
 /* --  MISC_BASE: For any data received that doesn't have a specific place (yet) -- */
 ESP_EVENT_DECLARE_BASE(MISC_BASE);  //Defined in the c file
 //extern esp_event_base_t MISC_BASE = "MISC_BASE";    //TODO: Make more like this, plus add in GM version?

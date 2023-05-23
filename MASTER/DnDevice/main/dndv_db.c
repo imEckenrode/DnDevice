@@ -1,6 +1,4 @@
 #include "dndv_db.h"
-#include "nvs_flash.h"
-#include "dndv_internals.h"
 
 //  IDs: 1xxxxxxxxxxxxxxx, where each x is a bit
 //   Ten digits for a person (actual key), then the last 5 bytes are for the player's character
@@ -33,7 +31,7 @@ void db_test_initialize(void){
     return value;
 
     //nvs_set_*;
-    nvs_commit(handle); //To commit all pending chanes
+    nvs_commit(handle); //To commit all pending changes
 
     nvs_close(handle);
 
@@ -47,34 +45,34 @@ void db_test_initialize(void){
 }*/
 
 //Make a struct: PlayerFile (and PCFile)
-esp_err_t db_write_player(Key key, Player player){      //Keys are ASCII strings, technically
+esp_err_t db_write_player(Key key, PlayerFile player){      //Keys are ASCII strings, technically
     nvs_handle_t handle;
     nvs_open(playerSpace, NVS_READWRITE, &handle);
     nvs_set_blob(handle, key, &player, sizeof(Player));
     nvs_close(handle);
 }
 
-esp_err_t db_write_pc(Key key, PC pc){
+esp_err_t db_write_pc(Key key, PCFile pc){
     nvs_handle_t handle;
     nvs_open(pcSpace, NVS_READWRITE, &handle);
     nvs_set_blob(handle, key, &pc, sizeof(PC));
     nvs_close(handle);
 }
 
-Player db_read_player(Key key){
+PlayerFile db_read_player(Key key){
     nvs_handle_t handle;
     nvs_open(playerSpace, NVS_READONLY, &handle);
-    Player* value;
-    esp_err_t err = nvs_get_blob(handle, key, value, sizeof(Player));
+    PlayerFile* value;
+    esp_err_t err = nvs_get_blob(handle, key, value, sizeof(PlayerFile));
     nvs_close(handle);
     return *value;
 }
 
-PC db_read_pc(Key key){
+PCFile db_read_pc(Key key){
     nvs_handle_t handle;
     nvs_open(playerSpace, NVS_READONLY, &handle);
-    PC* value;
-    esp_err_t err = nvs_get_blob(handle, key, value, sizeof(PC));
+    PCFile* value;
+    esp_err_t err = nvs_get_blob(handle, key, value, sizeof(PCFile));
     nvs_close(handle);
     return *value;
 }

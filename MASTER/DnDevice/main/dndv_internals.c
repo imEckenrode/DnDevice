@@ -178,21 +178,8 @@ ContactAddress readContactByKey(Key key){
 /*          --- Runtime Data System ---
         This is the system that tracks all players/NPCs
 
-        TODO: Expand this
+        TODO: Expand this (may be a separate file)
 */
-
-
-
-/*          --- Data Retrieval System ---
-        Here is the system for retrieving character data    (This is for the GMs)
-        TODO: Move this to the SD card while still having this option
-*/
-
-
-
-
-
-
 
 
 /*  --- HOME OF DEVICE_BASE HANDLING :

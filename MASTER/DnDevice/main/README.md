@@ -9,9 +9,15 @@ This is the lowest level of code on the dependency tree; everything can import t
 This is where the Dndv_ID system is defined, built off the ESP-IDF Event Loop Library
 All the event loop library code and structures are here, but globals and internals are handled by dndv_internals
 
+## dndv_db
+
+This is the non-volatile storage for player and PC storage. This uses primitive dndv_data types and implemnts the file storage structs.
+
+Currently, the code in dndv_db.c determines whether we use SD card or NVS access.
+
 ## dndv_internals
 
-This is the second-lowest level of code on the dependency tree; this only imports dndv_dat and nearly everything imports this.
+This is the third-lowest level of code on the dependency tree; this only imports dndv_data and db and nearly everything imports this.
 
 All the global variables and player data structures are here, including player data and data access.
 
