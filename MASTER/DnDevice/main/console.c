@@ -34,7 +34,8 @@ static int testGM_cmd(int argc, char **argv){
     testGMInit();
 
                 update_comms_sync_mode(true);
-            dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&current.gmInfo,sizeof(struct gmInfo));
+                ContactInfo me = getMyContactInfo();
+            dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&me,sizeof(ContactInfo));
     return 0;
 }
 esp_err_t testGM_r(void){

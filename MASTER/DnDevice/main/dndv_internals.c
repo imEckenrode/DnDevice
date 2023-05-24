@@ -46,19 +46,6 @@ bool isPlayer(){
     return !isGM();
 }
 
-bool updateGMStatus(bool isGM){
-    current.isGM = isGM;
-
-    if(isGM){
-        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
-    }
-    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &isGM, sizeof(bool), 0);     //Post to the newly-GM device and handle there
-    if(!isGM){
-        esp_event_handler_instance_unregister_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, NULL);
-    }
-
-}
-
 /*macAddr getGmMAC() {if(isGM()){printf("NO GM MAC FOR YOU!");return NULL;} return current.gmInfo.MAC;}*/
 
 Key getMyKey(){return current.myKey;}
@@ -233,34 +220,22 @@ void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
 
 
 
-/* --------TODO: Below this point should be refactored above. This should no longer be needed soon. */
+bool updateGMStatus(bool isGM){
+    current.isGM = isGM;
 
-
-//  Initialize all the GM functions, handles, and variables.
-//      p_name = GM Name
-//      c_name = Campaign Name
-void GM_Activate(void){
-    //int size = 22;
-    //arr to_send = {22, malloc()
-    esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
+    if(isGM){
+        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
+    }
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &isGM, sizeof(bool), 0);     //Post to the newly-GM device and handle there
+    if(!isGM){
+        esp_event_handler_instance_unregister_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, NULL);
+    }
     
-            //Syncing is done by dndv_sync
-    //Player List
-    //PlayerToMAC List
-    //NPC List  (Same layout as players, plus attack bonus?)
-
-    bool b = true;
-    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &b, sizeof(bool), 0);     //Post to the newly-GM device and handle there
-     //No need to divide size of a uint8 array, because sizeof(uint8) = 1
-}
-
-void GM_Deactivate(void){
-    bool b = false;
-    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &b, sizeof(bool), 0);
-    esp_event_handler_instance_unregister_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, NULL);
+    return true;
 }
 
 
+/* --------TODO: Below this point should be refactored above. This should no longer be needed soon. */
 
 //And finally, tests
 

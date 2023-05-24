@@ -109,7 +109,7 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 //Direct Message the Game Master Data to the desired MAC
 esp_err_t GM_DM_Data(macAddr da){
-    struct gmInfo myInfo = getMyGMInfo();    //could take directly from current.Key and go a few more steps (since gmInfo is right there), but we'll be safe
+    ContactInfo myInfo = getMyContactInfo();
     esp_err_t err = dndv_send(da,N_SYNC_BASE,EVENT_GM_INFO,&myInfo,sizeof(ContactInfo));
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
