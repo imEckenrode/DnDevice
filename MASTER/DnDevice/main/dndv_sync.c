@@ -201,6 +201,10 @@ void update_comms_sync_mode(bool isGM){
     }
 }
 
+void update_comms_through_ell(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+        update_comms_sync_mode(*(bool*) event_data);
+}
+
 //This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
     const uint8_t broadcast_mac[] = BROADCAST_MAC;
@@ -211,4 +215,5 @@ esp_err_t dndv_send_onAwake(void){
 
 void sync_init(void){
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
+        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, sync_rcv, NULL,NULL);
 }

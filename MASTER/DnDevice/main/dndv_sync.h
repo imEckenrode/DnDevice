@@ -83,7 +83,6 @@ struct __attribute__((__packed__)) keydata_req_s{
 //  When a device wakes up, broadcast as such
 esp_err_t dndv_send_onAwake(void);
 
-//TODO: do this automatically
 void update_comms_sync_mode(bool isGM);
 
 void sync_init();

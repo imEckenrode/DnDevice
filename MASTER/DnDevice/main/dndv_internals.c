@@ -187,10 +187,6 @@ This function receives all DEVICE_BASEd events and processes them accordingly, p
 */
 void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        case EVENT_GM_KEYIN:
-            testGMInit();       //Temporary (TODO)
-            break;
-
         case EVENT_CAMPAIGN_SELECT:
             break;
         default:
@@ -211,7 +207,7 @@ void device_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* even
 //The handler for any GM exclusive data (GM_DEVICE_BASE)
 void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
     switch(id){
-        case EVENT_GM_ACTIVATE:
+        case EVENT_GM_ACTIVATE_BOOL:
             //TODO: Move GM update stuff here.  Currently this is not working, since I also need to add event data at least
             //esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, (void*) &current.gmInfo, 0, 0);
             break;
@@ -242,26 +238,26 @@ void GM_Activate(void){
     //int size = 22;
     //arr to_send = {22, malloc()
     esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
-    //esp_event_handler_instance_unregister_with(dndv_event_h, DEVICE_BASE, ESP_EVENT_ANY_ID, device_rcv);   
-        //TODO: UNREGISTERING this means that you cannot deactivate GM mode without a reset (which is fine)
-                    //(If this is entirely separate from the GM_rcv, the unregister comment can work)
+    
             //Syncing is done by dndv_sync
     //Player List
     //PlayerToMAC List
     //NPC List  (Same layout as players, plus attack bonus?)
 
-    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE, NULL, 0, 0);     //Post to the newly-GM device and handle there
+    bool b = true;
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &b, sizeof(bool), 0);     //Post to the newly-GM device and handle there
      //No need to divide size of a uint8 array, because sizeof(uint8) = 1
+}
+
+void GM_Deactivate(void){
+    bool b = false;
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &b, sizeof(bool), 0);
+    esp_event_handler_instance_unregister_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, NULL);
 }
 
 
 
 //And finally, tests
-
-void GM_Activate_test(void){
-    esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
-    //Trying to send right from console for easier error testing.
-}
 
 void testPCInit(void){
     current.isGM = false;
@@ -280,6 +276,6 @@ void testGMInit(void){
     updateMyName("MeGM");
     updateMyCName("AwesomeTitleHere");
 
-    GM_Activate_test();
+    GM_Activate();
     printf("GM Mode Activated (Test GM Initialized)\n");
 }
