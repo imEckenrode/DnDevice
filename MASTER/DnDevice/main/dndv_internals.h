@@ -73,8 +73,9 @@ bool isPlayer();
 //Turn GM Status on or off (should be triggered through an event)
 bool updateGMStatus(bool isGM);
 
-//For the GM_MAC, see GM_MAC in dndv_comms (TODO?)
+//For the GM_MAC, see GM_MAC in dndv_comms (TODO? - No clue)
 
+//Get the key, p_name, and c_name of the local device
 ContactInfo getMyContactInfo();
 bool updateMyContactInfo(ContactInfo info);
 
@@ -86,9 +87,6 @@ PC getMyPC();
 bool updateMyKey(Key newKey);
 bool updateMyPlayer(Player player);
 bool updateMyPC(PC pc);
-
-//Get the key, p_name, and c_name of the local device
-ContactInfo getMyContactInfo();
 
 /*  -- Contact Data System --
 CRUD functions primarily use the MAC address, since the MAC should be unique per entry*/

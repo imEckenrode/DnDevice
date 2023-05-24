@@ -24,8 +24,8 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
     //current.gmInfo.gmName = "Test";
     //current.gmInfo.campaignName = "AwesomeName";
     maccpy(current.gmInfo.MAC, mad->MAC);
-    strcpy(current.gmInfo.gmName,mad->info.p_name );
-    strcpy(current.gmInfo.campaignName,mad->info.c_name );
+    strcpy(current.gmInfo.gmName,mad->info.p_name);
+    strcpy(current.gmInfo.campaignName,mad->info.c_name);
 
     //current.gmInfo.MAC = *mad.MAC;
     //printf("New GM: %s, %s",*mad->info.p_name,*mad->info.c_name);
@@ -109,7 +109,7 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 //Direct Message the Game Master Data to the desired MAC
 esp_err_t GM_DM_Data(macAddr da){
-    ContactInfo myInfo = getMyContactInfo();    //could take directly from current.Key and go a few more steps (since gmInfo is right there), but we'll be safe
+    struct gmInfo myInfo = getMyGMInfo();    //could take directly from current.Key and go a few more steps (since gmInfo is right there), but we'll be safe
     esp_err_t err = dndv_send(da,N_SYNC_BASE,EVENT_GM_INFO,&myInfo,sizeof(ContactInfo));
     if(err != ESP_OK){
         ESP_LOGE(TAG, "Could not send data to the new device.");
@@ -155,7 +155,7 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
     macAndData_s* da = (macAndData_s*) event_data;
     printf("Heard Syncing...\n");
     switch(id){
-        case EVENT_AWAKE_BROADCAST_RCV:
+        case EVENT_AWAKE_BROADCAST_GM_RCV:
             ;   //This is required because C doesn't allow for a symbol like "bool" right after the case statement
             bool newlyAdded = addIfNewPeer(da->mac);
             if(!newlyAdded){ESP_LOGI(TAG, "I know this device, replying.\n");}
@@ -190,12 +190,14 @@ void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* eve
     }
 }
 
-//Update the event handler if the device is/isn't a GM:         TODO, DO THIS
+//Update the event handler if the device is/isn't a GM:
 void update_comms_sync_mode(bool isGM){
     if(isGM){
+        printf("GM Sync Mode"); //TODO: Remore tests
         esp_event_handler_instance_register_with(dndv_event_h, GM_SYNC_BASE, ESP_EVENT_ANY_ID, gm_sync_rcv, NULL,NULL);
         esp_event_handler_instance_unregister_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }else{
+        printf("Player Sync Mode");
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
         esp_event_handler_instance_unregister_with(dndv_event_h, GM_SYNC_BASE, ESP_EVENT_ANY_ID, NULL);
     }
@@ -208,7 +210,7 @@ void update_comms_through_ell(void* handler_arg, esp_event_base_t base, int32_t 
 //This function should be run when the device wakes up to broadcast its prescence to any GM devices
 esp_err_t dndv_send_onAwake(void){
     const uint8_t broadcast_mac[] = BROADCAST_MAC;
-    return dndv_send_blank(broadcast_mac, N_GM_SYNC_BASE, EVENT_AWAKE_BROADCAST_RCV);
+    return dndv_send_blank(broadcast_mac, N_GM_SYNC_BASE, EVENT_AWAKE_BROADCAST_GM_RCV);
 
     //Could wait for callback here to call more times instead of returning immediately
 }

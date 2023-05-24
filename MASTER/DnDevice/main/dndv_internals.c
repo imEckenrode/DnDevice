@@ -48,7 +48,15 @@ bool isPlayer(){
 
 bool updateGMStatus(bool isGM){
     current.isGM = isGM;
-    return true;
+
+    if(isGM){
+        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, GM_rcv, NULL,NULL);
+    }
+    esp_event_post_to(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, &isGM, sizeof(bool), 0);     //Post to the newly-GM device and handle there
+    if(!isGM){
+        esp_event_handler_instance_unregister_with(dndv_event_h, GM_DEVICE_BASE, ESP_EVENT_ANY_ID, NULL);
+    }
+
 }
 
 /*macAddr getGmMAC() {if(isGM()){printf("NO GM MAC FOR YOU!");return NULL;} return current.gmInfo.MAC;}*/
@@ -212,9 +220,6 @@ void GM_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_da
             //esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, (void*) &current.gmInfo, 0, 0);
             break;
             /*;
-            struct gm_info_s to_send = {
-                .event = {N_SYNC_BASE,EVENT_GM_INFO},
-                .info =  getMyContactInfo()}; //current.info};
 
             comms_broadcastData((void*)&to_send, sizeof(to_send));
                     //esp_event_post_to(dndv_event_h, COMMS_BASE, EVENT_SEND_BROADCAST, (void*)&to_send, sizeof(to_send), 0); 
@@ -267,6 +272,7 @@ void testPCInit(void){
     PC examplePC = {"Wizz","PowerWizard",3,16,13};
     updateMyPC(examplePC);
 
+    updateGMStatus(false);
     printf("Test Player Initialized\n");
 }
 
@@ -276,6 +282,6 @@ void testGMInit(void){
     updateMyName("MeGM");
     updateMyCName("AwesomeTitleHere");
 
-    GM_Activate();
+    updateGMStatus(true);
     printf("GM Mode Activated (Test GM Initialized)\n");
 }
