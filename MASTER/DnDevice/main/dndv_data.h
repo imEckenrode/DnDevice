@@ -208,7 +208,7 @@ void eventLoop_init(void);
 */
 
 //This will eventually be removed and is only here to support legacy code (in dndv_internals)
-//This only works because these are defined first in init.c     //TODO:: REMOVE THIS
+//This only works because these are defined first in init.c     //TODO:: REMOVE THIS (by now it's expected behavior tho...)
 enum READABLE_BASE_NUMS{
     N_SYNC_BASE,
     N_GM_SYNC_BASE,

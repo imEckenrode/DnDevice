@@ -13,6 +13,7 @@ Num EventBaseP2Num(esp_event_base_t* baseAddress){
             return i;
         }
     }
+    ESP_LOGE(TAG, "Base made no sense");
     //TODO handle this 255 return and remove this error throw
     abort();
     return -1;
@@ -20,7 +21,7 @@ Num EventBaseP2Num(esp_event_base_t* baseAddress){
 
 esp_event_base_t Num2EventBase(Num num){
     return *EVENT_BASE_ARRAY[num];
-}
+}   //TODO: Pass back a BAD_BASE if this is out of bounds
 
 
 /*                          --- Sending Functions ---                                 */
@@ -143,7 +144,7 @@ void rcv_cb(const uint8_t *mac_addr, const uint8_t *data, int len){
     uint8_t id = data[1];     //TODO: strip the first two bytes from the data
     if (base == COMMS_BASE){     //This would automatically send the data, potentially causing an infinite loop. Do not send this base, or it will be caught in error here
         ESP_LOGE(TAG, "COMMS_BASE is not a sendable base, ended\n");
-        return;     //TODO: Validate this data on receive. That way, no one can pretend to be sending from a different device
+        return;
     }
     
     if(len<3){  //If this is blank, just post the MAC address
