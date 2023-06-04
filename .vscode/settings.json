@@ -1,7 +1,0 @@
-{
-    "C_Cpp.default.compilerPath": "c:\\Espressif\\tools\\xtensa-esp32-elf\\esp-2021r2-patch3-8.4.0\\xtensa-esp32-elf\\bin\\xtensa-esp32-elf-gcc.exe",
-    "files.associations": {
-        "dndv_internals.h": "c",
-        "dndv_db.h": "c"
-    }
-}
