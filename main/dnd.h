@@ -16,3 +16,6 @@
 */
 
 //Should initiative be a linked list of players?
+
+//Need 2 things: a table of keys to active fighters, and
+//               a list of keys in initiative order
