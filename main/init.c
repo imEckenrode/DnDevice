@@ -5,6 +5,7 @@
 #include "dndv_comms.h"
 #include "dndv_log.h"
 #include "dndv_sync.h"
+#include "dndv_ui.h"
 /*
     init.c
     
@@ -24,6 +25,8 @@ DNDV_EBA_DEFINE(&SYNC_BASE,
 
 //  For all initialization of libraries:
 void initAll(void){
+    ui_stuff_init();
+
     nvs_init();         //Initialize the inside file system
     eventLoop_init();   //Initialize the event loop library
         //Initialize the SD card stuff (when needed)
