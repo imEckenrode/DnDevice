@@ -121,7 +121,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/tinyusb/cmake_install.cmake")
   include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/ulp/cmake_install.cmake")
   include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/wifi_provisioning/cmake_install.cmake")
-  include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl/cmake_install.cmake")
+  include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl__lvgl/cmake_install.cmake")
   include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl_esp32_drivers/cmake_install.cmake")
   include("D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/cmake_install.cmake")
 
