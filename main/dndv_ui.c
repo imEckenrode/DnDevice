@@ -52,8 +52,8 @@ static void guiTask(void *pvParameter) {
     lvgl_driver_init();
 
 
-    lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
-    assert(buf1 != NULL);
+    //lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    //assert(buf1 != NULL);
 
 /*          //TODO: Come back and do this
         // Use double buffered when not working with monochrome displays 
@@ -79,9 +79,14 @@ static void guiTask(void *pvParameter) {
     lv_disp_drv_register(&disp_drv);
 */
 
+//TODO: Figure out where these are actually defined
+//This is done for buf1, but should not be needed otherwise?
+#define LV_HOR_RES LV_HOR_RES_MAX
+#define LV_VER_RES LV_VER_RES_MAX
+
     static lv_disp_draw_buf_t draw_buf;
-    //static lv_color_t buf1[LV_HOR_RES * 113];
-    lv_disp_draw_buf_init(&draw_buf, buf1, NULL, LV_HOR_RES * 113);
+    static lv_color_t buf1[LV_HOR_RES * 40];        //This is 40 in correspondence with the ili driver
+    lv_disp_draw_buf_init(&draw_buf, buf1, NULL, LV_HOR_RES * 40);
 
     /*Initialize the display*/
     static lv_disp_drv_t disp_drv;
@@ -117,7 +122,7 @@ static void guiTask(void *pvParameter) {
     while (1) {
         /* Delay 1 tick (assumes FreeRTOS tick is 10ms */
         //vTaskDelay(pdMS_TO_TICKS(10));
-        vTaskDelay(100);    //TODO: CHANGE THIS TO THE CORRECT DELAY
+        vTaskDelay(10);    //TODO: CHANGE THIS TO THE CORRECT DELAY
 
         /* Try to take the semaphore, call lvgl related function on success */
         if (pdTRUE == xSemaphoreTake(xGuiSemaphore, portMAX_DELAY)) {
