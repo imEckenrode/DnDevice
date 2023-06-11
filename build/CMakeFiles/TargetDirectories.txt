@@ -684,7 +684,6 @@ D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl_esp32_drivers
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl_esp32_drivers/CMakeFiles/install/local.dir
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/lvgl_esp32_drivers/CMakeFiles/install/strip.dir
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/CMakeFiles/__idf_main.dir
-D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/CMakeFiles/ui.dir
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/CMakeFiles/edit_cache.dir
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/CMakeFiles/rebuild_cache.dir
 D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/build/esp-idf/main/CMakeFiles/list_install_components.dir

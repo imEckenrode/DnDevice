@@ -10,7 +10,8 @@
 extern "C" {
 #endif
 
-#include "lvgl/lvgl.h"
+//#include "lvgl/lvgl.h"
+#include "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/components/lvgl/lvgl.h"
 
 #include "ui_helpers.h"
 #include "ui_events.h"

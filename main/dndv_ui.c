@@ -1,4 +1,5 @@
-#include "lvgl.h"
+//#include "lvgl.h"
+#include "lvgl/lvgl.h"
 #include "lvgl_helpers.h"
 
 #include <stdbool.h>
@@ -15,6 +16,7 @@
 #include "esp_timer.h"
 
 #include "ui/ui.h"
+//#include "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/main/ui/ui.h"
 
 #define TAG "ui"
 #define LV_TICK_PERIOD_MS 1
@@ -41,11 +43,58 @@ static void guiTask(void *pvParameter) {
     xGuiSemaphore = xSemaphoreCreateMutex();
 
     lv_init();
-
     lvgl_driver_init();
 
-    //lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
-    //assert(buf1 != NULL);
+
+    lv_color_t* buf1 = heap_caps_malloc(DISP_BUFF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    assert(buf1 != NULL);
+
+/*          //TODO: Come back and do this
+        // Use double buffered when not working with monochrome displays 
+#ifndef CONFIG_LV_TFT_DISPLAY_MONOCHROME
+    lv_color_t* buf2 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    assert(buf2 != NULL);
+#else
+    static lv_color_t *buf2 = NULL;
+#endif
+
+    static lv_disp_buf_t disp_buf;
+    uint32_t size_in_px = DISP_BUF_SIZE;
+    lv_disp_buf_init(&disp_buf, buf1, buf2, size_in_px);
+    lv_disp_drv_t disp_drv;
+    lv_disp_drv_init(&disp_drv);
+    disp_drv.flush_cb = disp_driver_flush;
+
+#if defined CONFIG_DISPLAY_ORIENTATION_PORTRAIT || defined CONFIG_DISPLAY_ORIENTATION_PORTRAIT_INVERTED
+    disp_drv.rotated = 1;
+#endif
+    //Monochrome needs more callbacks, but we don't
+    disp_drv.buffer = &disp_buf;
+    lv_disp_drv_register(&disp_drv);
+*/
+
+    static lv_disp_draw_buf_t draw_buf;
+    //static lv_color_t buf1[LV_HOR_RES * 113];
+    lv_disp_draw_buf_init(&draw_buf, buf1, NULL, LV_HOR_RES * 113);
+
+    /*Initialize the display*/
+    static lv_disp_drv_t disp_drv;
+    lv_disp_drv_init(&disp_drv);
+    disp_drv.hor_res = LV_HOR_RES;
+    disp_drv.ver_res = LV_VER_RES;
+    disp_drv.flush_cb = disp_driver_flush;
+    disp_drv.draw_buf = &draw_buf;
+    lv_disp_drv_register(&disp_drv);
+
+
+    /* Register an input device when enabled on the menuconfig */
+#if CONFIG_LV_TOUCH_CONTROLLER != TOUCH_CONTROLLER_NONE
+    lv_indev_drv_t indev_drv;
+    lv_indev_drv_init(&indev_drv);
+    indev_drv.read_cb = touch_driver_read;
+    indev_drv.type = LV_INDEV_TYPE_POINTER;
+    lv_indev_drv_register(&indev_drv);
+#endif
 
     /* Create and start a periodic timer interrupt to call lv_tick_inc */
     const esp_timer_create_args_t periodic_timer_args = {
@@ -57,13 +106,12 @@ static void guiTask(void *pvParameter) {
     ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, LV_TICK_PERIOD_MS * 1000));
 
     /* Create the application */
-
     ui_init();
 
     while (1) {
         /* Delay 1 tick (assumes FreeRTOS tick is 10ms */
         //vTaskDelay(pdMS_TO_TICKS(10));
-        vTaskDelay(100);
+        vTaskDelay(100);    //TODO: CHANGE THIS TO THE CORRECT DELAY
 
         /* Try to take the semaphore, call lvgl related function on success */
         if (pdTRUE == xSemaphoreTake(xGuiSemaphore, portMAX_DELAY)) {
