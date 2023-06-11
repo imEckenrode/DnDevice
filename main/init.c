@@ -5,6 +5,7 @@
 #include "dndv_comms.h"
 #include "dndv_log.h"
 #include "dndv_sync.h"
+#include "dndv_ui.h"
 /*
     init.c
     
@@ -29,12 +30,14 @@ void initAll(void){
         //Initialize the SD card stuff (when needed)
     globals_init();   //Initialize the global variables to the correct values, etc.
 
+    ui_stuff_init();    //Initialize the UI (Could fake a loading screen for a few seconds)
+
     comms_init();       //Initialize the ESP-NOW Communications implementation
     log_init();         //Initialize the logs
 
     sync_init();
         //Initialize the Screen
-    console_init();     //Initialize the Console to send commands from a PC   
+    console_init();     //Initialize the Console to send commands from a PC
 }
 
 //  For everything before the user's first input
