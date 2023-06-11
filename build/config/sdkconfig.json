@@ -664,6 +664,7 @@
     "LV_USE_GPU_ARM2D": false,
     "LV_USE_GPU_NXP_PXP": false,
     "LV_USE_GPU_NXP_VG_LITE": false,
+    "LV_USE_GPU_RA6M3_G2D": false,
     "LV_USE_GPU_SDL": false,
     "LV_USE_GPU_STM32_DMA2D": false,
     "LV_USE_GPU_SWM341_DMA2D": false,
