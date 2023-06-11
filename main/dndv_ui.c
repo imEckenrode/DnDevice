@@ -1,8 +1,6 @@
 #include "lvgl.h"
 #include "lvgl_helpers.h"
-#include "lv.conf.h"
-
-#include "ui/ui.h"
+#include "lv_conf.h"
 
 #define TAG "demo"
 #define LV_TICK_PERIOD_MS 1
