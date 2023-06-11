@@ -31,6 +31,7 @@ static void guiTask(void *pvParameter);
 //# define LV_HOR_RES_MAX 320
 //# define LV_VER_RES_MAX 240
 //# define SPI_HOST_MAX 3
+//#define DISP_BUF_SIZE (320 * 40)
 
 void  ui_stuff_init() {
 
@@ -51,7 +52,7 @@ static void guiTask(void *pvParameter) {
     lvgl_driver_init();
 
 
-    lv_color_t* buf1 = heap_caps_malloc(DISP_BUFF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
+    lv_color_t* buf1 = heap_caps_malloc(DISP_BUF_SIZE * sizeof(lv_color_t), MALLOC_CAP_DMA);
     assert(buf1 != NULL);
 
 /*          //TODO: Come back and do this
