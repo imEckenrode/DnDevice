@@ -6,6 +6,8 @@
 #include "ui.h"
 #include "ui_helpers.h"
 
+#include "dndv_sync.h"
+
 ///////////////////// VARIABLES ////////////////////
 
 // SCREEN: ui_Select_GM_Screen
@@ -60,6 +62,7 @@ void ui_event_Input_Key_Keyboard(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_READY) { //This triggers when keyboard enter is pressed
+        requestPlayer(1);
         _ui_screen_change(ui_Choose_PC_Screen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0);
     }
 }
@@ -68,6 +71,7 @@ void ui_event_Choose_PC_Button(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
+        requestPC(1);
         //TODO: Can I pause here while getting the data? Nah, refresh once the data is received
         _ui_screen_change(ui_Ready_To_Start_Screen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
     }

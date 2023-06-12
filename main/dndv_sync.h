@@ -86,3 +86,9 @@ esp_err_t dndv_send_onAwake(void);
 void update_comms_sync_mode(bool isGM);
 
 void sync_init();
+
+
+//Now, the GUI needs some functions to use
+
+void requestPlayer(Key key);
+void requestPC(short selection);
