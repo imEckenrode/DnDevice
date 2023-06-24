@@ -25,10 +25,12 @@ void db_test_initialize(void){
 
     size_t size = 6;
     char* value = malloc(size);
-    if(nvs_get_string(handle, 0, value, &size) != ESP_OK){
-        return NULL; //Failed to load key
+    if(nvs_get_str(handle, 0, value, &size) != ESP_OK){
+        return; //return NULL; //Failed to load key
     }
-    return value;
+
+    printf("%s",value);
+    //return value;
 
     //nvs_set_*;
     nvs_commit(handle); //To commit all pending changes

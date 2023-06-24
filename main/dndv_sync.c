@@ -100,6 +100,8 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 /*              =- GM Sync Actions -=           */
 
+
+
 //Direct Message the Game Master Data to the desired MAC
 esp_err_t GM_DM_Data(macAddr da){
     ContactInfo myInfo = getMyContactInfo();
@@ -210,5 +212,5 @@ esp_err_t dndv_send_onAwake(void){
 
 void sync_init(void){
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
-        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, sync_rcv, NULL,NULL);
+        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, update_comms_through_ell, NULL,NULL);
 }

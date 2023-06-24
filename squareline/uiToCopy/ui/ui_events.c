@@ -4,22 +4,15 @@
 // Project name: DnDeviceSync
 
 #include "ui.h"
-#include "dndv_internals.h"
-#include "dndv_comms.h"
-#include "dndv_sync.h"
-
-#include "ui_pc_sync/ui.h"
 
 void BeginPlayerSelectScreens(lv_event_t * e)
 {
-     _ui_screen_change(ui_Input_Key_Screen, LV_SCR_LOAD_ANIM_OVER_BOTTOM, 500, 0);
+	// Your code here
 }
 
 void GmInfoBroadcastCall(lv_event_t * e)
 {
-	testGMInit();
-     ContactInfo me = getMyContactInfo();
-     dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&me,sizeof(ContactInfo));
+	// Your code here
 }
 
 void KickPlayerBeforeStart(lv_event_t * e)

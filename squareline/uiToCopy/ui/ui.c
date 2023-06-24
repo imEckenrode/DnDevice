@@ -6,8 +6,6 @@
 #include "ui.h"
 #include "ui_helpers.h"
 
-#include "ui_pc_sync/ui.h"
-
 ///////////////////// VARIABLES ////////////////////
 
 // SCREEN: ui_SelectGMScreen
@@ -78,9 +76,6 @@ void ui_init(void)
     ui_SelectGMScreen_screen_init();
     ui_InputGMDetailsDemoScreen_screen_init();
     ui_GmAwaitPlayersScreen_screen_init();
-
-    ui_pc_sync_init();
-
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_SelectGMScreen);
 }

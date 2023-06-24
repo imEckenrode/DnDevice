@@ -32,10 +32,9 @@ esp_err_t ping_r(void){
 //Activate the test GM account
 static int testGM_cmd(int argc, char **argv){
     testGMInit();
-
-                update_comms_sync_mode(true);
-                ContactInfo me = getMyContactInfo();
-            dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&me,sizeof(ContactInfo));
+    update_comms_sync_mode(true);
+    ContactInfo me = getMyContactInfo();
+    dndv_send_broadcast(N_SYNC_BASE,EVENT_GM_INFO,&me,sizeof(ContactInfo));
     return 0;
 }
 esp_err_t testGM_r(void){

@@ -16,7 +16,6 @@ extern "C" {
 #include "components/ui_comp.h"
 #include "components/ui_comp_hook.h"
 #include "ui_events.h"
-
 // SCREEN: ui_SelectGMScreen
 void ui_SelectGMScreen_screen_init(void);
 extern lv_obj_t * ui_SelectGMScreen;
