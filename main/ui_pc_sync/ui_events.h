@@ -10,7 +10,7 @@
 extern "C" {
 #endif
 
-void ReadyToPlay(lv_event_t * e);
+
 
 #ifdef __cplusplus
 } /*extern "C"*/

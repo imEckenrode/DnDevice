@@ -14,6 +14,8 @@ void BeginPlayerSelectScreens(lv_event_t * e);
 void GmInfoBroadcastCall(lv_event_t * e);
 void KickPlayerBeforeStart(lv_event_t * e);
 
+void ReadyToPlay(lv_event_t * e);
+
 #ifdef __cplusplus
 } /*extern "C"*/
 #endif

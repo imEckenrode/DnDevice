@@ -4,9 +4,3 @@
 // Project name: dndv_select
 
 #include "ui.h"
-#include <stdio.h>
-
-void ReadyToPlay(lv_event_t * e)
-{
-	printf("LET'S DO THIS!");
-}

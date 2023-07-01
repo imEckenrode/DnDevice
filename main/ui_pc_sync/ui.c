@@ -10,32 +10,7 @@
 
 ///////////////////// VARIABLES ////////////////////
 
-// SCREEN: ui_Select_GM_Screen
-void ui_Select_GM_Screen_screen_init(void);
-lv_obj_t * ui_Select_GM_Screen;
-void ui_event_Select_GM_Button(lv_event_t * e);
-lv_obj_t * ui_Select_GM_Button;
 
-// SCREEN: ui_Input_Key_Screen
-void ui_Input_Key_Screen_screen_init(void);
-lv_obj_t * ui_Input_Key_Screen;
-void ui_event_Input_Key_Keyboard(lv_event_t * e);
-lv_obj_t * ui_Input_Key_Keyboard;
-lv_obj_t * ui_Input_Key_Text_Area;
-
-// SCREEN: ui_Choose_PC_Screen
-void ui_Choose_PC_Screen_screen_init(void);
-lv_obj_t * ui_Choose_PC_Screen;
-void ui_event_Choose_PC_Button(lv_event_t * e);
-lv_obj_t * ui_Choose_PC_Button;
-
-// SCREEN: ui_Ready_To_Start_Screen
-void ui_Ready_To_Start_Screen_screen_init(void);
-lv_obj_t * ui_Ready_To_Start_Screen;
-lv_obj_t * ui_Name_Label;
-lv_obj_t * ui_PC_Label;
-void ui_event_Begin_Game_Button(lv_event_t * e);
-lv_obj_t * ui_Begin_Game_Button;
 //lv_obj_t * ui____initial_actions0;
 
 ///////////////////// TEST LVGL SETTINGS ////////////////////
@@ -49,42 +24,7 @@ lv_obj_t * ui_Begin_Game_Button;
 ///////////////////// ANIMATIONS ////////////////////
 
 ///////////////////// FUNCTIONS ////////////////////
-void ui_event_Select_GM_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(ui_Input_Key_Screen, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0);
-    }
-}
-void ui_event_Input_Key_Keyboard(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_READY) { //This triggers when keyboard enter is pressed
-        requestPlayer(1);
-        _ui_screen_change(ui_Choose_PC_Screen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0);
-    }
-}
-void ui_event_Choose_PC_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        requestPC(1);
-        //TODO: Can I pause here while getting the data? Nah, refresh once the data is received
-        _ui_screen_change(ui_Ready_To_Start_Screen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
-    }
-}
-void ui_event_Begin_Game_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        //ReadyToPlay(e);       //TODO: This doesn't work
-        printf("Let's do this thing");
-    }
-}
+
 
 ///////////////////// SCREENS ////////////////////
 
@@ -94,10 +34,7 @@ void ui_pc_sync_init(void)
     //lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
                                                //true, LV_FONT_DEFAULT);
    // lv_disp_set_theme(dispp, theme);
-    ui_Select_GM_Screen_screen_init();
-    ui_Input_Key_Screen_screen_init();
-    ui_Choose_PC_Screen_screen_init();
-    ui_Ready_To_Start_Screen_screen_init();
+
     //ui____initial_actions0 = lv_obj_create(NULL);
     //ALSO Comment out ui____initial_actions0 in ui.h
     //lv_disp_load_scr(ui_Select_GM_Screen);

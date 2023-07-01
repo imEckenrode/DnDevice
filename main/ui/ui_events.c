@@ -10,6 +10,8 @@
 
 #include "ui_pc_sync/ui.h"
 
+#include <stdio.h>
+
 void BeginPlayerSelectScreens(lv_event_t * e)
 {
      _ui_screen_change(ui_Input_Key_Screen, LV_SCR_LOAD_ANIM_OVER_BOTTOM, 500, 0);
@@ -25,4 +27,10 @@ void GmInfoBroadcastCall(lv_event_t * e)
 void KickPlayerBeforeStart(lv_event_t * e)
 {
 	// Your code here
+}
+
+
+void ReadyToPlay(lv_event_t * e)
+{
+	printf("LET'S DO THIS!");
 }
