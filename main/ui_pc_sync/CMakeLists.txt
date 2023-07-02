@@ -1,0 +1,8 @@
+SET(SOURCES screens/ui_Select_GM_Screen.c
+    screens/ui_Input_Key_Screen.c
+    screens/ui_Choose_PC_Screen.c
+    screens/ui_Ready_To_Start_Screen.c
+    ui.c
+    ui_helpers.c)
+
+add_library(ui ${SOURCES})

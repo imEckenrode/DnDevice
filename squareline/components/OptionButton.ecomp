@@ -1,0 +1,6594 @@
+{
+  "guid": "GUID89055041-269510S9692168",
+  "deepid": 74831354,
+  "children": [
+    {
+      "guid": "GUID94506789-269920S5872168",
+      "deepid": -234389259,
+      "locked": false,
+      "properties": [
+        {
+          "nid": -154458835,
+          "strtype": "OBJECT/Name",
+          "strval": "OptionLabel",
+          "InheritedType": 10
+        },
+        {
+          "nid": -9206745,
+          "strtype": "OBJECT/Layout",
+          "InheritedType": 1
+        },
+        {
+          "Flow": 0,
+          "Wrap": false,
+          "Reversed": false,
+          "MainAlignment": 0,
+          "CrossAlignment": 0,
+          "TrackAlignment": 0,
+          "LayoutType": 0,
+          "nid": 1143914117,
+          "strtype": "OBJECT/Layout_type",
+          "strval": "No_layout",
+          "InheritedType": 13
+        },
+        {
+          "nid": -2014862112,
+          "strtype": "OBJECT/Transform",
+          "InheritedType": 1
+        },
+        {
+          "nid": 317015273,
+          "flags": 17,
+          "strtype": "OBJECT/Position",
+          "intarray": [
+            0,
+            0
+          ],
+          "InheritedType": 7
+        },
+        {
+          "nid": 752369600,
+          "flags": 51,
+          "strtype": "OBJECT/Size",
+          "intarray": [
+            1,
+            1
+          ],
+          "InheritedType": 7
+        },
+        {
+          "nid": -585588682,
+          "strtype": "OBJECT/Align",
+          "strval": "CENTER",
+          "InheritedType": 3
+        },
+        {
+          "nid": 1140408131,
+          "flags": 1048576,
+          "strtype": "OBJECT/Flags",
+          "InheritedType": 1
+        },
+        {
+          "nid": 996150325,
+          "strtype": "OBJECT/Hidden",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -588688272,
+          "strtype": "OBJECT/Clickable",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -990034327,
+          "strtype": "OBJECT/Checkable",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": 1276882823,
+          "strtype": "OBJECT/Press_lock",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": -399505279,
+          "strtype": "OBJECT/Click_focusable",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": 334122572,
+          "strtype": "OBJECT/Adv_hittest",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1411619334,
+          "strtype": "OBJECT/Ignore_layout",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1856266110,
+          "strtype": "OBJECT/Floating",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -904687624,
+          "strtype": "OBJECT/Flex_in_new_track",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -808511245,
+          "strtype": "OBJECT/Event_bubble",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1969025153,
+          "strtype": "OBJECT/Gesture_bubble",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1333287036,
+          "strtype": "OBJECT/Snappable",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1405681686,
+          "strtype": "OBJECT/Scrollable",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": -2003518682,
+          "strtype": "OBJECT/Scroll_elastic",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": 157932765,
+          "strtype": "OBJECT/Scroll_momentum",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": 372150972,
+          "strtype": "OBJECT/Scroll_on_focus",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": 201465071,
+          "strtype": "OBJECT/Scroll_chain",
+          "strval": "True",
+          "InheritedType": 2
+        },
+        {
+          "nid": 104903347,
+          "strtype": "OBJECT/Scroll_one",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -2068155202,
+          "strtype": "OBJECT/Scrollbar_mode",
+          "strval": "AUTO",
+          "InheritedType": 3
+        },
+        {
+          "nid": 669523052,
+          "strtype": "OBJECT/Scroll_direction",
+          "strval": "ALL",
+          "InheritedType": 3
+        },
+        {
+          "nid": -1068579724,
+          "flags": 1048576,
+          "strtype": "OBJECT/States",
+          "InheritedType": 1
+        },
+        {
+          "nid": 2043034228,
+          "strtype": "OBJECT/Checked",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1446323895,
+          "strtype": "OBJECT/Disabled",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1269130637,
+          "strtype": "OBJECT/Focused",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -781428159,
+          "strtype": "OBJECT/Pressed",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -1525669820,
+          "strtype": "OBJECT/User_1",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": 1564478010,
+          "strtype": "OBJECT/User_2",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -2144540696,
+          "strtype": "OBJECT/User_3",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": 764324991,
+          "strtype": "OBJECT/User_4",
+          "strval": "False",
+          "InheritedType": 2
+        },
+        {
+          "nid": -951946557,
+          "strtype": "LABEL/Label",
+          "InheritedType": 1
+        },
+        {
+          "nid": 948189552,
+          "strtype": "LABEL/Long_mode",
+          "strval": "WRAP",
+          "InheritedType": 3
+        },
+        {
+          "nid": -1441637269,
+          "strtype": "LABEL/Text",
+          "strval": "Default Text",
+          "InheritedType": 10
+        },
+        {
+          "part": "lv.PART.MAIN",
+          "childs": [
+            {
+              "nid": 1329485847,
+              "strtype": "_style/StyleState",
+              "strval": "DEFAULT",
+              "childs": [
+                {
+                  "nid": -1768278978,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1138021575,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -928786048,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 763243329,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -658298939,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1763925861,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 607569132,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 748741438,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1895458737,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1518733245,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1173766235,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 153719143,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 44293159,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 1645283871,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -396281058,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": -1684711694,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 431366920,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 426850656,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1164500986,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 942982706,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 474288803,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1322099467,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 2075659372,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2056346011,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 758903322,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1427338492,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1851392116,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1259076471,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1763398873,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1457358122,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1177186573,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1141404746,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 630682904,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1874918736,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1165194671,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": 810826060,
+              "strtype": "_style/StyleState",
+              "strval": "CHECKED",
+              "childs": [
+                {
+                  "nid": 349767980,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1696569013,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1619627619,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1147875560,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1365470371,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1772726445,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1916757983,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 362517709,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1558240855,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1687582368,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 943195692,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -216529906,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -33645550,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 1898925809,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1537012634,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": 405375144,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -363521498,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1646988366,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1348643836,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 455495466,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -2139923655,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1754836184,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1102425553,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -204913837,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1299221508,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 417216939,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1110593363,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 102852726,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1427673752,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 10885121,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1482428670,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1113200683,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 2103239823,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -534101382,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1808572367,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": -1012396251,
+              "strtype": "_style/StyleState",
+              "strval": "PRESSED",
+              "childs": [
+                {
+                  "nid": 36729363,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 226519830,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -555540792,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1750958182,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 245747059,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1549988154,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1005663090,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -621473127,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 16591472,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -790803793,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1191979474,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -613432355,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 792129847,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1688642097,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -227253936,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": 2091234050,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1064340345,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 212631529,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 1159195323,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 718720102,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -63371707,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 639637875,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1836859098,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2017494972,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1580242638,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 649782741,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1459475488,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1157926500,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1453940425,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 903085940,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2003033421,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1314158465,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 569257393,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 137273994,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -762942607,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": -1119394495,
+              "strtype": "_style/StyleState",
+              "strval": "CHECKED|PRESSED",
+              "childs": [
+                {
+                  "nid": -1108154269,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1716663019,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2110819644,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -2052551326,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1555202938,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1545377042,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1183394330,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 518664345,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 296050081,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2017707237,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -96095258,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1505121518,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -779750753,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 1545085297,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 445992529,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": -1973828904,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1609748352,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1366140302,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 312810511,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1859731675,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1740080567,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -478503393,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -291374078,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1850748742,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 24185107,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1164660251,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1501158535,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1759783575,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1356871458,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1567052451,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1410180334,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1621296593,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1479799598,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1300021638,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -73377208,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": 1592460023,
+              "strtype": "_style/StyleState",
+              "strval": "DISABLED",
+              "childs": [
+                {
+                  "nid": 1294217025,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -514199398,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -902095935,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1910268361,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1830700009,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 335410621,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -53931676,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1338677054,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1981992248,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1462492089,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -122314345,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1786885386,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1333848829,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1740244530,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1185882999,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": -1629413149,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1963805907,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1319916981,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -273742434,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1581230481,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 457614819,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1970320368,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -853780639,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 898063907,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 983987708,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -222917781,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1968093900,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 770316718,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 6072306,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1699732170,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -875546068,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1075687378,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1995858113,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1695819220,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 174513174,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": 1511614232,
+              "strtype": "_style/StyleState",
+              "strval": "FOCUSED",
+              "childs": [
+                {
+                  "nid": 589714228,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1593241569,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -716093703,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1022117414,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1075753805,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1824174368,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -704937129,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1349666923,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -546696417,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 149587699,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1509553420,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 74300143,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 234830719,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1284151262,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 682537699,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": 2068377771,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 245717173,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1185074626,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -287619443,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -327197143,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1328602332,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1977908608,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1149655475,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 120195741,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1946614767,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 19844485,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 53708071,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 899628077,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1155918899,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1127672516,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2105216798,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 612864285,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -200220729,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2039192708,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 892419982,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": 1590559922,
+              "strtype": "_style/StyleState",
+              "strval": "USER_1",
+              "childs": [
+                {
+                  "nid": -1347990990,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -949504724,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -386054938,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 43590450,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 987169965,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1826158366,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -639131740,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 577673828,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1164838776,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1034341365,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 832523187,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1007652834,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -444154115,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -230660873,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 460670269,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": -1232798195,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -493984418,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1873192778,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1671964404,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1488017537,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1677845122,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 774480409,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 167510977,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 793831240,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1365081762,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1534502122,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1440677085,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -500143663,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2078703971,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -450366481,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 568884063,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1489709497,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 183092605,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 765334319,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1380759730,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": -1531061374,
+              "strtype": "_style/StyleState",
+              "strval": "USER_2",
+              "childs": [
+                {
+                  "nid": 1648783808,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -3499566,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1208865158,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1015840745,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1939833742,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1529970254,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1457314268,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1882724470,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 2137939214,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 753325395,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1022081579,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -744374205,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1756189488,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1012414348,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -800655229,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": 699342312,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1664992489,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -397128684,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 364043117,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -485164033,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 224258305,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -269065137,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1561606565,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1629767720,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1232439433,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 322847492,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -244202071,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2064434791,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2109914304,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1131308390,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 299898262,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -729559118,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1618145897,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1981560203,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1489010366,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": -1156265543,
+              "strtype": "_style/StyleState",
+              "strval": "USER_3",
+              "childs": [
+                {
+                  "nid": -797634394,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1019048759,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1295251928,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1617123245,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1506431363,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1529698925,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 414047385,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -849451968,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 161177801,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -376302645,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1839982214,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -522346737,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -999785178,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1186362178,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1736149380,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": 232807726,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1511232002,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1206269765,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 96536628,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1791449291,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1393185401,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": -1974410744,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -283016088,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 2123499384,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1173519511,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -950203738,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -22084719,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1742258283,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1011549498,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -705109361,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 50920565,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -248275185,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1482844112,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -519430555,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 689143358,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            },
+            {
+              "nid": 502513498,
+              "strtype": "_style/StyleState",
+              "strval": "USER_4",
+              "childs": [
+                {
+                  "nid": 428809231,
+                  "flags": 3145728,
+                  "strtype": "_style/Text",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1915408444,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Color",
+                  "intarray": [
+                    128,
+                    128,
+                    128,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1209956109,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Spacing",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 1457751381,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Align",
+                  "strval": "AUTO",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -1029176667,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Decor",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1212922785,
+                  "flags": 2097152,
+                  "strtype": "_style/Text_Font",
+                  "strval": "montserrat_16",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -2037549754,
+                  "flags": 3145728,
+                  "strtype": "_style/Background",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1770489431,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Radius",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1790715302,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -56444767,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradiens_Color",
+                  "intarray": [
+                    255,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1229947679,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_gradient_params",
+                  "intarray": [
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1684177054,
+                  "flags": 2097152,
+                  "strtype": "_style/Gradient direction",
+                  "strval": "NONE",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -797930656,
+                  "flags": 2097152,
+                  "strtype": "_style/Clip_corner",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": -1337791090,
+                  "flags": 3145728,
+                  "strtype": "_style/Background_image",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1582837359,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image",
+                  "strval": "noimage",
+                  "InheritedType": 5
+                },
+                {
+                  "nid": -1497552542,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_opa",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1160170045,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Recolor",
+                  "intarray": [
+                    64,
+                    64,
+                    255,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -146300486,
+                  "flags": 2097152,
+                  "strtype": "_style/Bg_Image_Tiled",
+                  "strval": "False",
+                  "InheritedType": 2
+                },
+                {
+                  "nid": 35305229,
+                  "flags": 3145728,
+                  "strtype": "_style/Border",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1642704679,
+                  "flags": 2097152,
+                  "strtype": "_style/Border_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -383613328,
+                  "flags": 2097152,
+                  "strtype": "_style/Border width",
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 1918510065,
+                  "flags": 2097152,
+                  "strtype": "_style/Border side",
+                  "strval": "FULL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": 1333769756,
+                  "flags": 3145728,
+                  "strtype": "_style/Outline",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": 1804298159,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 2001694528,
+                  "flags": 2097152,
+                  "strtype": "_style/Outline_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -2147243043,
+                  "flags": 3145728,
+                  "strtype": "_style/Shadow",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1305298167,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_Color",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    255
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -397206244,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_params",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": 475178832,
+                  "flags": 2097152,
+                  "strtype": "_style/Shadow_offset",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -1991290631,
+                  "flags": 3145728,
+                  "strtype": "_style/Blend",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -380869655,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend mode",
+                  "strval": "NORMAL",
+                  "InheritedType": 3
+                },
+                {
+                  "nid": -952476254,
+                  "flags": 2097152,
+                  "strtype": "_style/Blend_opacity",
+                  "integer": 255,
+                  "InheritedType": 6
+                },
+                {
+                  "nid": 56921057,
+                  "flags": 3145728,
+                  "strtype": "_style/Paddings",
+                  "InheritedType": 1
+                },
+                {
+                  "nid": -1314937037,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding",
+                  "intarray": [
+                    0,
+                    0,
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                },
+                {
+                  "nid": -655190881,
+                  "flags": 2097152,
+                  "strtype": "_style/Padding_RowCol",
+                  "intarray": [
+                    0,
+                    0
+                  ],
+                  "InheritedType": 7
+                }
+              ],
+              "InheritedType": 1
+            }
+          ],
+          "nid": -231152130,
+          "strtype": "LABEL/Style_main",
+          "strval": "lv.PART.MAIN, Text, Rectangle, Pad",
+          "InheritedType": 11
+        },
+        {
+          "nid": 1042508949,
+          "strtype": "LABEL/Recolor",
+          "strval": "False",
+          "InheritedType": 2
+        }
+      ],
+      "saved_objtypeKey": "LABEL"
+    }
+  ],
+  "locked": false,
+  "properties": [
+    {
+      "nid": -1359899600,
+      "strtype": "OBJECT/Name",
+      "strval": "OptionButton",
+      "InheritedType": 10
+    },
+    {
+      "nid": -1052000932,
+      "strtype": "OBJECT/Layout",
+      "InheritedType": 1
+    },
+    {
+      "Flow": 0,
+      "Wrap": false,
+      "Reversed": false,
+      "MainAlignment": 0,
+      "CrossAlignment": 0,
+      "TrackAlignment": 0,
+      "LayoutType": 0,
+      "nid": 1618329117,
+      "strtype": "OBJECT/Layout_type",
+      "strval": "No_layout",
+      "InheritedType": 13
+    },
+    {
+      "nid": 285160839,
+      "strtype": "OBJECT/Transform",
+      "InheritedType": 1
+    },
+    {
+      "nid": -1312538959,
+      "flags": 17,
+      "strtype": "OBJECT/Position",
+      "intarray": [
+        0,
+        0
+      ],
+      "InheritedType": 7
+    },
+    {
+      "nid": 1556470659,
+      "flags": 50,
+      "strtype": "OBJECT/Size",
+      "intarray": [
+        100,
+        50
+      ],
+      "InheritedType": 7
+    },
+    {
+      "nid": -350534590,
+      "strtype": "OBJECT/Align",
+      "strval": "CENTER",
+      "InheritedType": 3
+    },
+    {
+      "nid": 1397806652,
+      "flags": 1048576,
+      "strtype": "OBJECT/Flags",
+      "InheritedType": 1
+    },
+    {
+      "nid": 2013115192,
+      "strtype": "OBJECT/Hidden",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -179332903,
+      "strtype": "OBJECT/Clickable",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1514193270,
+      "strtype": "OBJECT/Checkable",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1351798475,
+      "strtype": "OBJECT/Press_lock",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1390203903,
+      "strtype": "OBJECT/Click_focusable",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 1979623865,
+      "strtype": "OBJECT/Adv_hittest",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -188349211,
+      "strtype": "OBJECT/Ignore_layout",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": 41864782,
+      "strtype": "OBJECT/Floating",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -328088943,
+      "strtype": "OBJECT/Flex_in_new_track",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": 186393990,
+      "strtype": "OBJECT/Event_bubble",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1136253198,
+      "strtype": "OBJECT/Gesture_bubble",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 2028029233,
+      "strtype": "OBJECT/Snappable",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 1794669899,
+      "strtype": "OBJECT/Scrollable",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -973919497,
+      "strtype": "OBJECT/Scroll_elastic",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 325893981,
+      "strtype": "OBJECT/Scroll_momentum",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1900926785,
+      "strtype": "OBJECT/Scroll_on_focus",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": 668152022,
+      "strtype": "OBJECT/Scroll_chain",
+      "strval": "True",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1326178744,
+      "strtype": "OBJECT/Scroll_one",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": 1488979211,
+      "strtype": "OBJECT/Scrollbar_mode",
+      "strval": "AUTO",
+      "InheritedType": 3
+    },
+    {
+      "nid": 2030884781,
+      "strtype": "OBJECT/Scroll_direction",
+      "strval": "ALL",
+      "InheritedType": 3
+    },
+    {
+      "nid": -714519821,
+      "flags": 1048576,
+      "strtype": "OBJECT/States",
+      "InheritedType": 1
+    },
+    {
+      "nid": -1928677555,
+      "strtype": "OBJECT/Checked",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": 293960494,
+      "strtype": "OBJECT/Disabled",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1344468073,
+      "strtype": "OBJECT/Focused",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -985539256,
+      "strtype": "OBJECT/Pressed",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -229716938,
+      "strtype": "OBJECT/User_1",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1125496513,
+      "strtype": "OBJECT/User_2",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -1709550486,
+      "strtype": "OBJECT/User_3",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "nid": -698777855,
+      "strtype": "OBJECT/User_4",
+      "strval": "False",
+      "InheritedType": 2
+    },
+    {
+      "part": "lv.PART.MAIN",
+      "childs": [
+        {
+          "nid": -831787291,
+          "strtype": "_style/StyleState",
+          "strval": "DEFAULT",
+          "childs": [
+            {
+              "nid": 941816884,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": 276696240,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 1041309994,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2143438994,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -740690714,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1497082049,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1413559572,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 832497665,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1044344222,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "",
+              "InheritedType": 5
+            },
+            {
+              "nid": -2105318347,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 84825666,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2046941102,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -479873650,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": 787971465,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -542730567,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 2073869164,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": -454165106,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": -917168830,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 168619151,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 398424205,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1715414770,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 858589832,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 61018896,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1806335784,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": 495753612,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1878911261,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -2146906922,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": -2067843540,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1677392483,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 2083423100,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -2090110335,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 280528362,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -186184957,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": 173444266,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 2094382175,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 2117505095,
+          "strtype": "_style/StyleState",
+          "strval": "CHECKED",
+          "childs": [
+            {
+              "nid": 1071396664,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": -504744829,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": -649599368,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -433875160,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 949735114,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -573176845,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1608008828,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -1102455150,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 107755977,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": 2047489510,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -1268226601,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1646494732,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -951351195,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1516313576,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 437094955,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": -1570249037,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 679473290,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1804102104,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 659447850,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1799848645,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": -2094015695,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1051800844,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1680735534,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -208969852,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": 840272173,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1550083256,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1524205948,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1971423875,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 255505138,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1103437891,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1208957135,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2032922281,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 68901677,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": 965289385,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 79367903,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 85985761,
+          "strtype": "_style/StyleState",
+          "strval": "PRESSED",
+          "childs": [
+            {
+              "nid": -1523054303,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1499289323,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": -656532665,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -790093524,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1285853424,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1021070302,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 821580175,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1477215908,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1119520981,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -1386543929,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1316956868,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 963564025,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 803595017,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": -2143404775,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -768568620,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 991787407,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 2143076832,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": 839554757,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 721387548,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1063692622,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1912688911,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2015876927,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -342195812,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 49749012,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1542497611,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": -81603481,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -1677789433,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1787568561,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1965007644,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -596129041,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -484500783,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -614738273,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1875770213,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": -581741100,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -96515144,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 256641608,
+          "strtype": "_style/StyleState",
+          "strval": "CHECKED|PRESSED",
+          "childs": [
+            {
+              "nid": -1072241710,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": -451004183,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 299159430,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 372628202,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 560725060,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1144051352,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1451745736,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -571657218,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": -911882808,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -1211090886,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1101123097,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1976449248,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 549540954,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1000094300,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1224208982,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": -797259214,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": -880737643,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1542571308,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -511863714,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -723836441,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1503209876,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -680414373,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 805016803,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1422444400,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -734077638,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 353213025,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 782043749,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1638815026,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1573643064,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 414101366,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -371992490,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 936728917,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -126171380,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": 488748871,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 875862771,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": -315853400,
+          "strtype": "_style/StyleState",
+          "strval": "DISABLED",
+          "childs": [
+            {
+              "nid": 225547264,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": 2047387903,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 767710249,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 823306485,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 437909888,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1398069167,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 238151621,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1383121091,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": -172213577,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -1146558433,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -587380243,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1416870426,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -1717147731,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1943160816,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -276285301,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": -1646146658,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1495861205,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": -415954181,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1911209283,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2089585905,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 619560450,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 882632184,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1280703724,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2135511674,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1822149682,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1564061446,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -741739239,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 361616533,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -544050311,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 149046146,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -883508135,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -850053030,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1921456086,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1313903089,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 16053880,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 1597864735,
+          "strtype": "_style/StyleState",
+          "strval": "FOCUSED",
+          "childs": [
+            {
+              "nid": 542354862,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": -649206353,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": -215154148,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1840866994,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 277407488,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1484561141,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1444367052,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 703467863,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1015841344,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": 315452218,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -1746463031,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 193859331,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1368218995,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1880664774,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1750802295,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 627146540,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 345071358,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1173038509,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1841994215,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1962277855,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 915533412,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1277299836,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -908123745,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 9520148,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1306939914,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1130773037,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -1645910620,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1486213754,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -74285419,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 492661027,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -293932024,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1203208557,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -928652797,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1166412618,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1483026511,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": -495306860,
+          "strtype": "_style/StyleState",
+          "strval": "USER_1",
+          "childs": [
+            {
+              "nid": 214607714,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1440688625,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 183340111,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -947379052,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1071555401,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1173623627,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1762488407,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 285221703,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 723361913,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -1084037839,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 737869451,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -734462807,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 920161690,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": -725158688,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1071322932,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 588902691,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 785820120,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": 285398378,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1147107983,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 158287429,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1015932276,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1778585954,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1981126398,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1552894838,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -2109327011,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 406713950,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1495624598,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 121673007,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -978987900,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -363621169,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1211579430,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -79077328,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -397852262,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1976928852,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -2080513658,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 1941368782,
+          "strtype": "_style/StyleState",
+          "strval": "USER_2",
+          "childs": [
+            {
+              "nid": 738893390,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1792175849,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 1462280567,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 493662653,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 795620445,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -677616961,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1258966572,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -36163061,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": -410415113,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": 2147366701,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 715207331,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 74551333,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1844570344,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": -574615792,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1358119177,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 1501574582,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 703376091,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": 652443249,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 943146234,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1582877794,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 107249112,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 2097819944,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -186883731,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1312830100,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1223307938,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 2065168073,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -838864211,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 500478685,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1967354720,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 768398512,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": 580528281,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 2023221188,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -93297709,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": 681513781,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1958859127,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": 378782039,
+          "strtype": "_style/StyleState",
+          "strval": "USER_3",
+          "childs": [
+            {
+              "nid": -333156004,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": 293959902,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": -1464261123,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -93968061,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1621829676,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 621851776,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1609840972,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -758367089,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1172051522,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -1950168602,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 1856511076,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -64615726,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": 1089296790,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": -144886697,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -506782233,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": 2052211552,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1456219865,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": 224447101,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -866222926,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1617479934,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": 845838723,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1051514717,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2093468810,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 56665343,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": 2012622413,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1428830846,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -2109406366,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1598120705,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -384891449,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1632072918,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1987191553,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 41757448,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1346536088,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1950483062,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -2003647144,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        },
+        {
+          "nid": -1625574418,
+          "strtype": "_style/StyleState",
+          "strval": "USER_4",
+          "childs": [
+            {
+              "nid": -68324712,
+              "flags": 3145728,
+              "strtype": "_style/Background",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1276691540,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Radius",
+              "InheritedType": 6
+            },
+            {
+              "nid": 44559944,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Color",
+              "intarray": [
+                255,
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -717683568,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradiens_Color",
+              "intarray": [
+                255,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -2110371420,
+              "flags": 2097152,
+              "strtype": "_style/Bg_gradient_params",
+              "intarray": [
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1335179306,
+              "flags": 2097152,
+              "strtype": "_style/Gradient direction",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": -1133711734,
+              "flags": 2097152,
+              "strtype": "_style/Clip_corner",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -1924222840,
+              "flags": 3145728,
+              "strtype": "_style/Background_image",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1101142427,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image",
+              "strval": "noimage",
+              "InheritedType": 5
+            },
+            {
+              "nid": -165934939,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_opa",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": -1697858388,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Recolor",
+              "intarray": [
+                64,
+                64,
+                255,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1616580004,
+              "flags": 2097152,
+              "strtype": "_style/Bg_Image_Tiled",
+              "strval": "False",
+              "InheritedType": 2
+            },
+            {
+              "nid": -1368529199,
+              "flags": 3145728,
+              "strtype": "_style/Border",
+              "InheritedType": 1
+            },
+            {
+              "nid": 963069373,
+              "flags": 2097152,
+              "strtype": "_style/Border_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1364930187,
+              "flags": 2097152,
+              "strtype": "_style/Border width",
+              "InheritedType": 6
+            },
+            {
+              "nid": -206799552,
+              "flags": 2097152,
+              "strtype": "_style/Border side",
+              "strval": "FULL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 1765555644,
+              "flags": 3145728,
+              "strtype": "_style/Outline",
+              "InheritedType": 1
+            },
+            {
+              "nid": -664251372,
+              "flags": 2097152,
+              "strtype": "_style/Outline_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 693047752,
+              "flags": 2097152,
+              "strtype": "_style/Outline_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 1255767219,
+              "flags": 3145728,
+              "strtype": "_style/Shadow",
+              "InheritedType": 1
+            },
+            {
+              "nid": -1164985099,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_Color",
+              "intarray": [
+                0,
+                0,
+                0,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -617509691,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_params",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 442844532,
+              "flags": 2097152,
+              "strtype": "_style/Shadow_offset",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 889811884,
+              "flags": 3145728,
+              "strtype": "_style/Blend",
+              "InheritedType": 1
+            },
+            {
+              "nid": -715662148,
+              "flags": 2097152,
+              "strtype": "_style/Blend mode",
+              "strval": "NORMAL",
+              "InheritedType": 3
+            },
+            {
+              "nid": 4747146,
+              "flags": 2097152,
+              "strtype": "_style/Blend_opacity",
+              "integer": 255,
+              "InheritedType": 6
+            },
+            {
+              "nid": 523988257,
+              "flags": 3145728,
+              "strtype": "_style/Paddings",
+              "InheritedType": 1
+            },
+            {
+              "nid": 1223523859,
+              "flags": 2097152,
+              "strtype": "_style/Padding",
+              "intarray": [
+                0,
+                0,
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 35495465,
+              "flags": 2097152,
+              "strtype": "_style/Padding_RowCol",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": 86428028,
+              "flags": 3145728,
+              "strtype": "_style/Text",
+              "InheritedType": 1
+            },
+            {
+              "nid": -87335143,
+              "flags": 2097152,
+              "strtype": "_style/Text_Color",
+              "intarray": [
+                128,
+                128,
+                128,
+                255
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -1173290358,
+              "flags": 2097152,
+              "strtype": "_style/Text_Spacing",
+              "intarray": [
+                0,
+                0
+              ],
+              "InheritedType": 7
+            },
+            {
+              "nid": -724132133,
+              "flags": 2097152,
+              "strtype": "_style/Text_Align",
+              "strval": "AUTO",
+              "InheritedType": 3
+            },
+            {
+              "nid": -2012066701,
+              "flags": 2097152,
+              "strtype": "_style/Text_Decor",
+              "strval": "NONE",
+              "InheritedType": 3
+            },
+            {
+              "nid": 2021651555,
+              "flags": 2097152,
+              "strtype": "_style/Text_Font",
+              "strval": "montserrat_16",
+              "InheritedType": 3
+            }
+          ],
+          "InheritedType": 1
+        }
+      ],
+      "nid": 586031018,
+      "strtype": "BUTTON/Style_main",
+      "strval": "lv.PART.MAIN, Rectangle, Pad, Text ",
+      "InheritedType": 11
+    },
+    {
+      "disabled": false,
+      "nid": 1867147591,
+      "strtype": "BUTTON/EventHandler",
+      "strval": "CLICKED",
+      "childs": [
+        {
+          "nid": 1193446724,
+          "strtype": "_custom/name",
+          "strval": "BeginPlayerSelectStuff",
+          "InheritedType": 10
+        },
+        {
+          "nid": 164582008,
+          "strtype": "_custom/condition_C",
+          "strval": "",
+          "InheritedType": 10
+        },
+        {
+          "nid": 269550748,
+          "strtype": "_custom/condition_P",
+          "strval": "",
+          "InheritedType": 10
+        },
+        {
+          "nid": 327764178,
+          "strtype": "_custom/action",
+          "strval": "CALL FUNCTION",
+          "childs": [
+            {
+              "nid": 1944271346,
+              "strtype": "CALL FUNCTION/Name",
+              "strval": "CALL FUNCTION",
+              "InheritedType": 10
+            },
+            {
+              "nid": 1508943327,
+              "strtype": "CALL FUNCTION/Call",
+              "strval": "<{Function_name}>( event_struct )",
+              "InheritedType": 10
+            },
+            {
+              "nid": -1802888964,
+              "strtype": "CALL FUNCTION/CallC",
+              "strval": "<{Function_name}>( e );",
+              "InheritedType": 10
+            },
+            {
+              "nid": -794017058,
+              "strtype": "CALL FUNCTION/Function_name",
+              "strval": "BeginPlayerSelectScreens",
+              "InheritedType": 10
+            },
+            {
+              "nid": 188940887,
+              "strtype": "CALL FUNCTION/Dont_export_function",
+              "strval": "False",
+              "InheritedType": 2
+            }
+          ],
+          "InheritedType": 10
+        }
+      ],
+      "InheritedType": 4
+    }
+  ],
+  "saved_objtypeKey": "BUTTON"
+}

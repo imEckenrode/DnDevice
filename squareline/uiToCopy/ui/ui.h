@@ -16,7 +16,6 @@ extern "C" {
 #include "components/ui_comp.h"
 #include "components/ui_comp_hook.h"
 #include "ui_events.h"
-
 // SCREEN: ui_SelectGMScreen
 void ui_SelectGMScreen_screen_init(void);
 extern lv_obj_t * ui_SelectGMScreen;
@@ -40,33 +39,6 @@ extern lv_obj_t * ui_GmAwaitPlayersList;
 extern lv_obj_t * ui_PlayerKickFirstPanel;
 extern lv_obj_t * ui_GmAwaitPlayersStartButton;
 extern lv_obj_t * ui____initial_actions0;
-
-// SCREEN: ui_Select_GM_Screen
-void ui_Select_GM_Screen_screen_init(void);
-extern lv_obj_t * ui_Select_GM_Screen;
-void ui_event_Select_GM_Button(lv_event_t * e);
-extern lv_obj_t * ui_Select_GM_Button;
-// SCREEN: ui_Input_Key_Screen
-void ui_Input_Key_Screen_screen_init(void);
-extern lv_obj_t * ui_Input_Key_Screen;
-void ui_event_Input_Key_Keyboard(lv_event_t * e);
-extern lv_obj_t * ui_Input_Key_Keyboard;
-extern lv_obj_t * ui_Input_Key_Text_Area;
-// SCREEN: ui_Choose_PC_Screen
-void ui_Choose_PC_Screen_screen_init(void);
-extern lv_obj_t * ui_Choose_PC_Screen;
-void ui_event_Choose_PC_Button(lv_event_t * e);
-extern lv_obj_t * ui_Choose_PC_Button;
-// SCREEN: ui_Ready_To_Start_Screen
-void ui_Ready_To_Start_Screen_screen_init(void);
-extern lv_obj_t * ui_Ready_To_Start_Screen;
-extern lv_obj_t * ui_Name_Label;
-extern lv_obj_t * ui_PC_Label;
-void ui_event_Begin_Game_Button(lv_event_t * e);
-extern lv_obj_t * ui_Begin_Game_Button;
-//extern lv_obj_t * ui____initial_actions0;
-
-void ui_pc_sync_init(void);
 
 void ui_init(void);
 

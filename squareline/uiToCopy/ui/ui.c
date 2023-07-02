@@ -6,8 +6,6 @@
 #include "ui.h"
 #include "ui_helpers.h"
 
-#include "ui_pc_sync/ui.h"
-
 ///////////////////// VARIABLES ////////////////////
 
 // SCREEN: ui_SelectGMScreen
@@ -65,42 +63,6 @@ void ui_event_InputGMDetailsKeyboard(lv_event_t * e)
     }
 }
 
-void ui_event_Select_GM_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(ui_Input_Key_Screen, LV_SCR_LOAD_ANIM_MOVE_RIGHT, 500, 0);
-    }
-}
-void ui_event_Input_Key_Keyboard(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_READY) { //This triggers when keyboard enter is pressed
-        requestPlayer(1);
-        _ui_screen_change(ui_Choose_PC_Screen, LV_SCR_LOAD_ANIM_MOVE_BOTTOM, 500, 0);
-    }
-}
-void ui_event_Choose_PC_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        requestPC(1);
-        //TODO: Can I pause here while getting the data? Nah, refresh once the data is received
-        _ui_screen_change(ui_Ready_To_Start_Screen, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0);
-    }
-}
-void ui_event_Begin_Game_Button(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        //ReadyToPlay(e);       //TODO: This doesn't work
-        printf("Let's do this thing");
-    }
-}
 ///////////////////// SCREENS ////////////////////
 
 void ui_init(void)
@@ -114,12 +76,6 @@ void ui_init(void)
     ui_SelectGMScreen_screen_init();
     ui_InputGMDetailsDemoScreen_screen_init();
     ui_GmAwaitPlayersScreen_screen_init();
-
-    ui_Select_GM_Screen_screen_init();
-    ui_Input_Key_Screen_screen_init();
-    ui_Choose_PC_Screen_screen_init();
-    ui_Ready_To_Start_Screen_screen_init();
-
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_SelectGMScreen);
 }

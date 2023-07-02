@@ -34,13 +34,12 @@ bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method 
     return true;
 } 
 
-void requestPlayer1_test(){
-    Key key = 1;
+void requestPlayer(Key key){
     dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), EVENT_KEYDATA_REQ, &key, sizeof(Key));
 }
 
-void requestPC1_test(){
-    short selection = 1;
+//NOTE: Remember, this starts at 1 since the player is 0...so the GM is 0
+void requestPC(short selection){
     dndv_send(current.gmInfo.MAC, EventBaseP2Num(&GM_SYNC_BASE), EVENT_PC_REQ, &selection, sizeof(short));
 }
 
@@ -80,16 +79,10 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
         case EVENT_GM_INFO:
             addPotentialGM((ContactAddress*) da);
             addAsDM_test((ContactAddress*) da);
-
-            vTaskDelay(1000 / portTICK_RATE_MS);
-            requestPlayer1_test();  //TODO: Remove this and add it to the GUI
             break;
         case EVENT_KEYDATA_RCV:     //TODO: Add a device event KEYDATA_UPDATE for when the updating here finishes?
             printf("Player: %s",((Player*) (da->data))->name);     //FOR TESTING
             updateMyPlayer(*(Player*) da->data);    //Cast to Player pointer, then dereference. Creates a copy on the stack.
-            
-            vTaskDelay(250 / portTICK_RATE_MS);
-            requestPC1_test();
             break;
         case EVENT_PCDATA_RCV:
             printf("PC: %s", (char*) da->data);     //FOR TESTING
@@ -106,6 +99,8 @@ void sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_
 
 
 /*              =- GM Sync Actions -=           */
+
+
 
 //Direct Message the Game Master Data to the desired MAC
 esp_err_t GM_DM_Data(macAddr da){
@@ -217,5 +212,5 @@ esp_err_t dndv_send_onAwake(void){
 
 void sync_init(void){
         esp_event_handler_instance_register_with(dndv_event_h, SYNC_BASE, ESP_EVENT_ANY_ID, sync_rcv, NULL,NULL);
-        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, sync_rcv, NULL,NULL);
+        esp_event_handler_instance_register_with(dndv_event_h, GM_DEVICE_BASE, EVENT_GM_ACTIVATE_BOOL, update_comms_through_ell, NULL,NULL);
 }
