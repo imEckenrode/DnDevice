@@ -19,7 +19,7 @@ Fighter;
 
 //NOTE: I had to run "Select IntelliSense Configuration..." and select gcc.exe, so may need to change back
 
-//This is my new stuff that I will use as I rewrite this program
+/*This is my new stuff that I will use as I rewrite this program
 
 struct __attribute__((__packed__)) combatant{
     short key; //Also used to look up player or enemy in the final product
@@ -27,6 +27,8 @@ struct __attribute__((__packed__)) combatant{
     short halfHealth; //boolean
     short active;           //Does this combatant show up at all
     short obfuscated;       //Display the name of the combatant?
+
+    short hasLegendaryActions;
     char nick[16];  //Could make dynamic struct for dynamic name lengths
 
     struct combatant* next;
@@ -39,7 +41,7 @@ struct __attribute__((__packed__)) combatantData{
     int hp;
     char name[16];  //Could make dynamic struct
 };
-
+*/
 
 short const fMAX_SIZE = 10;
 Fighter fList[10];
