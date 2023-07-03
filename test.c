@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 
 char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
@@ -7,45 +8,53 @@ const short TURN_OPTIONS_COUNT = 4;
 char TURN_OPTIONS[4][30]={"End Turn","End Combat","Attack","AoE"};  //Hold Turn, Heal
                     typedef enum turnStatus{endTurn,endCombat,ERROR,passTurn=4} turnStatus;
 
-typedef struct{
-    char name[30];
+typedef struct fighter{
+    short key;
+    char name[16];
     short HP;
-    short Initiative;
-    //struct Fighter *nextFighter;
+    int Initiative;
+    //short mac;
 }
 Fighter;
 
-
-
 //NOTE: I had to run "Select IntelliSense Configuration..." and select gcc.exe, so may need to change back
 
-/*This is my new stuff that I will use as I rewrite this program
+struct __attribute__((__packed__)) gm_combatant_data{
+    short HP;
+    bool hasLegendaryActions;
+};
 
-struct __attribute__((__packed__)) combatant{
+typedef struct __attribute__((__packed__)) combatant{
     short key; //Also used to look up player or enemy in the final product
-    short isPlayer;     //Temporary, for readability (I guess all booleans are)
-    short halfHealth; //boolean
-    short active;           //Does this combatant show up at all
-    short obfuscated;       //Display the name of the combatant?
+    bool isPlayer;     //Temporary, for readability
+    bool halfHealth;           //False if full health, otherwise should not be on the board? Could change to two different booleans
+    bool active;           //Does this combatant show up at all        //Should this combatant exist on the players' side if not active?
+    bool obfuscated;       //Display the name of the combatant?
 
-    short hasLegendaryActions;
-    char nick[16];  //Could make dynamic struct for dynamic name lengths
+    char name[16];  //Could make dynamic struct for dynamic name lengths
 
-    struct combatant* next;
-    struct combatant* child;
-};
+    struct gm_combatant_data gm;        //This should make it easier to pull the gm-specific data in the final product
+    
+} Combatant;
 
-//Data for the GM side only
-struct __attribute__((__packed__)) combatantData{
-    short key; //Also used to look up player or enemy
-    int hp;
-    char name[16];  //Could make dynamic struct
-};
-*/
-
-short const fMAX_SIZE = 10;
-Fighter fList[10];
+//Both sides will have the friendsList (TODO: Rename to pList?)
+#define fMAX_SIZE 10
+Fighter fList[fMAX_SIZE];
 short fSize;
+
+//Only the GM will have the enemyDB
+Fighter eList[fMAX_SIZE];
+short eSize;
+
+#define MAX_COMBATANT_COUNT 24
+Combatant combatants[MAX_COMBATANT_COUNT];
+
+
+Combatant fighter2combatant(Fighter fighter, bool isPlayer, bool active){
+    Combatant newCombatant = {fighter.key, isPlayer, false, active, false, 'x', {fighter.HP, false}};
+    strcpy(newCombatant.name, fighter.name);
+    return newCombatant;
+}
 
 int optionSelect(char options[][30],short count){    //This should give me access -(pointer)- to an array of character arrays (strings)  
     printf("\n");
@@ -60,11 +69,12 @@ int optionSelect(char options[][30],short count){    //This should give me acces
 }
 
 void setup(){
-    char options[2][30]={"New Character","Done Entering Characters"};
+    printf("Party Creation:");
+    char options[3][30]={"New Character","Done Entering Characters","Use Predefined Party"};
     bool next = false;
     fSize = 0;
     while(!next){
-        switch(optionSelect(options,2)){
+        switch(optionSelect(options,3)){
             case 0:
                 if(fSize<fMAX_SIZE){
                     Fighter new; //{"CharName",0,0,NULL};
@@ -87,7 +97,12 @@ void setup(){
                 }
                 break;
             case 1:
-                printf("Now it's time to battle.");
+                printf("Party Created.");
+                next = true;
+                break;
+            case 2:
+                predefined();
+                printf("Predefined Characters Loaded.");
                 next = true;
                 break;
             default:
@@ -96,13 +111,23 @@ void setup(){
 }
 
 void predefined(){
-    Fighter tempBuf = {"Char1",3,7};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    Fighter tempBuf = {1,"Char1",3,7};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
     fList[0]=tempBuf;
-    Fighter tempBuf1 = {"Char2",165,13};
+    Fighter tempBuf1 = {2,"Char2",165,13};
     fList[1]=tempBuf1;
-    Fighter tempBuf2 = {"Char3",1,17};
+    Fighter tempBuf2 = {3,"Char3",1,17};
     fList[2]=tempBuf2;
     fSize=3;
+}
+
+void enemies(){
+    Fighter tempBuf = {64,"Gob1",30,12};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    eList[0]=tempBuf;
+    Fighter tempBuf1 = {65, "Gob2",30,12};      //TODO: duplicate the monster instead of creating a new one
+    eList[1]=tempBuf1;
+    Fighter tempBuf2 = {66, "Boss",200,14};
+    eList[2]=tempBuf2;
+    eSize=3;
 }
 
 void initiative(){
@@ -126,12 +151,25 @@ void orderArray(Fighter list[], short size){
     }
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
+void initializeCombatantArray(Fighter fList[], int fSize, Fighter eList[], int eSize){
+    int fPos = 0;
+    int ePos = 0;
+    int totalSize = fSize + eSize;
+    for(int i = 0; i<totalSize; i++){
+        //Check whether to pick from the enemy list...
+        if(fPos == fSize || fList[fPos].Initiative < eList[ePos].Initiative){ //Players go before enemies if tied
+            combatants[i] = fighter2combatant(eList[ePos++], false, true);
+        }else{      //...or the player list
+            combatants[i] = fighter2combatant(fList[fPos++], true, true);
+        }
+    }
+}
 
 void makeAtk(Fighter attacker){
     printf("This is next.");
 }
 
-short turn(Fighter f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have an Active Fighter (which would be the fighter per device)
+short turn(Fighter f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have a Combatant (the active fighter per device)
     printf("%s, what would you like to do?",f.name);
     while(true){
         switch (optionSelect(TURN_OPTIONS,TURN_OPTIONS_COUNT)){
@@ -151,15 +189,24 @@ short turn(Fighter f){     //Change this to a pointer.      //Instead of passing
     }
 }
 
-void battle(){  //A function that runs the battle simulation until 
+void battle(){  //A function that runs the battle simulation until "end combat"
     initiative();
     short currentTurn = 0;
     int currentRound = 1;
     short result=0;
 
-    orderArray(fList,fSize);          //Eventually only use pointers, but passing everything is fine for demo
-    
-    printf("Top of %d fighters is %s",fSize,fList[0]);
+    orderArray(fList,fSize);
+    orderArray(eList,eSize);
+
+    // Combine the enemies and friends' initiatives now. Feel free to rewrite to sort in same space
+    initializeCombatantArray(fList,fSize, eList,eSize);
+
+    printf("First 3 in Initiative: \n");
+    printf("%s\n",combatants[0].name);
+    printf("%s\n",combatants[1].name);
+    printf("%s\n",combatants[2].name);
+
+    //printf("Top of %d fighters is %s",fSize,fList[0]);
     printf("\n----- Battle Begin! -----");
     while(true){
         for(currentTurn=0;currentTurn<fSize;currentTurn++){
@@ -175,7 +222,7 @@ void battle(){  //A function that runs the battle simulation until
 int main(){
     printf("\n Code Start! \n");
     setup();
-    //predefined();
+    enemies();
 
     battle();
     printf("\n Output Done \n");

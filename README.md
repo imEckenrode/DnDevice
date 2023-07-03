@@ -1,3 +1,11 @@
+## TODO:
+
+Get PvE working (with attacks too...)
+
+Then work on groups
+
+
+
 # What This Is
 This code is a prototype for the DnDevice Battle Flow without any microcontroller requirements
 
