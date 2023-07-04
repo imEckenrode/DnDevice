@@ -4,9 +4,9 @@
 
 
 char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
-const short TURN_OPTIONS_COUNT = 4;
-char TURN_OPTIONS[4][30]={"End Combat","End Turn","Attack Roll","Saving Throw"};  //Hold Turn, Heal
-                    typedef enum turnStatus{endCombat, endTurn, attackRoll, savingThrow,passTurn=4} turnStatus;
+#define TURN_OPTIONS_COUNT 5
+char TURN_OPTIONS[TURN_OPTIONS_COUNT][30]={"End Combat","End Turn","Attack Roll","Saving Throw","Print Initiative List"};  //Hold Turn, Heal
+                    typedef enum turnStatus{endCombat, endTurn, attackRoll, savingThrow,seeInitiativeList,passTurn=5} turnStatus;
 
 typedef struct fighter{
     short key;
@@ -36,10 +36,9 @@ typedef struct __attribute__((__packed__)) combatant{
     bool active;           //Does this combatant show up at all        //Should this combatant exist on the players' side if not active?
     bool obfuscated;       //Display the name of the combatant?
 
+    struct gm_combatant_data gm;        //This should make it easier to pull the gm-specific data in the final product
     char name[16];  //Could make dynamic struct for dynamic name lengths
 
-    struct gm_combatant_data gm;        //This should make it easier to pull the gm-specific data in the final product
-    
 } Combatant;
 
 //Both sides will have the friendsList (TODO: Rename to pList?)
@@ -79,7 +78,8 @@ void setActivePos(short activPos){
 }
 
 Combatant fighter2combatant(Fighter fighter, bool isPlayer, bool active){
-    Combatant newCombatant = {fighter.key, fighter.initiative, isPlayer, false, active, false, 'x', {fighter.HP, fighter.AC, fighter.atkMod, false}};
+    struct gm_combatant_data new = {fighter.HP, fighter.AC, fighter.atkMod, false};
+    Combatant newCombatant = {fighter.key, fighter.initiative, isPlayer, false, active, false, new};
     strcpy(newCombatant.name, fighter.name);
     return newCombatant;
 }
@@ -106,6 +106,22 @@ int numberPrompt(char text[]){
     printf("\n");
         getchar();
     return selection;
+}
+
+Combatant chooseTarget(){
+    printf("Choose target:\n");
+    for (int i=0;i<combatantCount;i++){
+        printf("%d) %s\n",i,combatants[i].name);
+    }
+    printf("> ");
+    int selection;
+    scanf("%d",&selection);
+    printf("\n");
+    getchar();
+    Combatant chosen = combatants[selection];
+
+    printf("DEBUG: Targeting %s. AC: %d, Atk: %d\n", chosen.name, chosen.gm.AC, chosen.gm.atkMod);
+    return chosen;
 }
 
 #include <stdlib.h>
@@ -259,15 +275,12 @@ void addToCombatantArray(Combatant a){
 
 
 
-
-
+//-------------------------------------------------------------------------ERROR: (TODO) Need to pass in pointer to target and not a copy (or return the combatant)
 void adjustHP(Combatant target, int hp){
-    target.gm.HP += hp;
+    target.gm.HP += hp;             
+    //TODO: add "drop to 0" logic
 }
 
-Combatant chooseTarget(){
-    return combatants[0]; //Should not be too hard to return multiple combatants
-}
 
 void makeAtk(Combatant attacker){
     Combatant target = chooseTarget();
@@ -283,11 +296,12 @@ void makeAtk(Combatant attacker){
             return;
         }
     }
-    int dmg = numberPrompt("Enter Damage: ");
+    int dmg = numberPrompt("Hit! Enter Damage: ");
     adjustHP(target, -dmg);
 }
 
 void makeSaveAtk(Combatant attacker, bool halfOnSave){ //, bool dex){
+    printf("DEBUG: Need to beat a %d. \n",attacker.gm.atkMod+8);
     Combatant target = chooseTarget();
     int dmg = numberPrompt("Enter Damage: ");
 
@@ -299,6 +313,8 @@ void makeSaveAtk(Combatant attacker, bool halfOnSave){ //, bool dex){
                 dmg /= 2;
             }
             return;
+        }else{
+            printf("%s Failed\n", target.name);
         }
     }else{
         if(rollD20() > (attacker.gm.atkMod + 8)){    //TODO: apply saving throw modifier
@@ -307,10 +323,20 @@ void makeSaveAtk(Combatant attacker, bool halfOnSave){ //, bool dex){
                 dmg /= 2;
             }
             return;
+        }else{
+            printf("%s Failed\n", target.name);
         }
     }
     adjustHP(target, -dmg);
     printf("%s took %d damage!\n",target.name, dmg);
+}
+
+void printCombatantList(){
+    printf("\n------Combatant List------\n");
+    for (int i=0;i<combatantCount;i++){
+        printf("%s:\t\tHP: %d\tInitiative:%d\n",combatants[i].name,combatants[i].gm.HP,combatants[i].initiative);
+    }
+    printf("\n");
 }
 
 short turn(Combatant f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have a Combatant (the active fighter per device)
@@ -327,6 +353,8 @@ short turn(Combatant f){     //Change this to a pointer.      //Instead of passi
             case savingThrow:
                 makeSaveAtk(f, true);
                 break;
+            case seeInitiativeList:
+                printCombatantList();
             default:
                 printf("Invalid option/not implemented yet.\n");
         }
