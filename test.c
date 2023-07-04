@@ -14,7 +14,7 @@ typedef struct fighter{
     short HP;
     short AC;
     short atkMod;
-    int Initiative;
+    short initiative;
     //short mac;
 }
 Fighter;
@@ -30,6 +30,7 @@ struct __attribute__((__packed__)) gm_combatant_data{
 
 typedef struct __attribute__((__packed__)) combatant{
     short key; //Also used to look up if player or enemy in the final product
+    short initiative;
     bool isPlayer;     //Temporary, for readability
     bool halfHealth;           //False if full health, otherwise should not be on the board? Could change to two different booleans
     bool active;           //Does this combatant show up at all        //Should this combatant exist on the players' side if not active?
@@ -54,9 +55,31 @@ short eSize;
 Combatant combatants[MAX_COMBATANT_COUNT];
 short combatantCount = 0;
 
+//Active initiative position (for the combatants array)
+short activePos = 0;
+short getActivePos(){
+    return activePos;
+}
+
+//This is currently also used for assistant functions, so turn start functions should not be called here
+short incrementActivePos(){
+    if(activePos<combatantCount-1){
+        activePos++;
+    }else{
+        activePos = 0;
+    }
+    printf("%d out of %d,\n",activePos,combatantCount);
+    return activePos;
+}
+
+void setActivePos(short activPos){
+    if(activPos<combatantCount){
+        activePos = activPos;
+    }
+}
 
 Combatant fighter2combatant(Fighter fighter, bool isPlayer, bool active){
-    Combatant newCombatant = {fighter.key, isPlayer, false, active, false, 'x', {fighter.HP, fighter.AC, fighter.atkMod, false}};
+    Combatant newCombatant = {fighter.key, fighter.initiative, isPlayer, false, active, false, 'x', {fighter.HP, fighter.AC, fighter.atkMod, false}};
     strcpy(newCombatant.name, fighter.name);
     return newCombatant;
 }
@@ -76,7 +99,7 @@ int optionSelect(char options[][30],short count){    //This should give me acces
     return selection;
 }
 
-int numberPrompt(char text[30]){
+int numberPrompt(char text[]){
     printf("%s",text);
     int selection;
     scanf("%d",&selection);
@@ -85,9 +108,31 @@ int numberPrompt(char text[30]){
     return selection;
 }
 
+#include <stdlib.h>
 #define RAND_MAX 20
 int rollD20(){
     return rand() + 1;
+}
+
+void predefined(){          
+            //Fighter is:  short key  char name[16]  short HP  short AC  short atkMod  int initiative;
+    Fighter tempBuf = {1,"Char1",3,20,-1,7};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    fList[0]=tempBuf;
+    Fighter tempBuf1 = {2,"Char2",165,13,4,13};
+    fList[1]=tempBuf1;
+    Fighter tempBuf2 = {3,"Char3",1,15,5,21};
+    fList[2]=tempBuf2;
+    fSize=3;
+}
+
+void enemies(){
+    Fighter tempBuf = {64,"Gob1",30,10,2,12};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
+    eList[0]=tempBuf;
+    Fighter tempBuf1 = {65, "Gob2",30,10,2,12};      //TODO: duplicate the monster instead of creating a new one
+    eList[1]=tempBuf1;
+    Fighter tempBuf2 = {66, "Boss",200,14,7,14};
+    eList[2]=tempBuf2;
+    eSize=3;
 }
 
 void setup(){
@@ -117,7 +162,7 @@ void setup(){
                         getchar();
 
                     printf("Initiative Rolled: ");
-                    scanf("%d",&new.Initiative);
+                    scanf("%d",&new.initiative);
                         getchar();
 
                     printf("'%s' is ready to go with %d HP",new.name,new.HP);
@@ -144,27 +189,6 @@ void setup(){
     }}
 }
 
-void predefined(){          
-            //Fighter is:  short key  char name[16]  short HP  short AC  short atkMod  int Initiative;
-    Fighter tempBuf = {1,"Char1",3,20,-1,7};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
-    fList[0]=tempBuf;
-    Fighter tempBuf1 = {2,"Char2",165,13,4,13};
-    fList[1]=tempBuf1;
-    Fighter tempBuf2 = {3,"Char3",1,15,5,21};
-    fList[2]=tempBuf2;
-    fSize=3;
-}
-
-void enemies(){
-    Fighter tempBuf = {64,"Gob1",30,10,2,12};   //Can only initialize struct this way at declaration time, so I just declare new ones and copy the struct
-    eList[0]=tempBuf;
-    Fighter tempBuf1 = {65, "Gob2",30,10,2,12};      //TODO: duplicate the monster instead of creating a new one
-    eList[1]=tempBuf1;
-    Fighter tempBuf2 = {66, "Boss",200,14,7,14};
-    eList[2]=tempBuf2;
-    eSize=3;
-}
-
 void initiative(){
     printf("Will Implement Rerolling Here, Rolled In Character Creation For Now\n");
 }
@@ -177,7 +201,7 @@ void orderArray(Fighter list[], short size){
         Fighter fTopInit = list[i];
         short bigPos = i;
         for(short j=i+1;j<size;j++){
-            if(list[j].Initiative>fTopInit.Initiative){
+            if(list[j].initiative>fTopInit.initiative){
                 fTopInit = list[j];
                 bigPos = j;
         }}
@@ -186,19 +210,56 @@ void orderArray(Fighter list[], short size){
     }
 }   //Could do with Cycle Sort to cut memory writes in half, but it all stays in the same memory, so it'll be fine
 
+
+
 void initializeCombatantArray(Fighter fList[], int fSize, Fighter eList[], int eSize){
     int fPos = 0;
     int ePos = 0;
     combatantCount = fSize + eSize;
     for(int i = 0; i<combatantCount; i++){
         //Check whether to pick from the enemy list...
-        if(fPos == fSize || fList[fPos].Initiative < eList[ePos].Initiative){ //Players go before enemies if tied
+        if(fPos == fSize || fList[fPos].initiative < eList[ePos].initiative){ //Players go before enemies if tied
             combatants[i] = fighter2combatant(eList[ePos++], false, true);
         }else{      //...or the player list
             combatants[i] = fighter2combatant(fList[fPos++], true, true);
         }
     }
 }
+
+void addToCombatantArray(Combatant a){
+    int pos = 0;
+    if(a.isPlayer){     //This case is probably not needed
+        for(int i = 0; i<combatantCount; i++){
+            if(combatants[i].initiative<=a.initiative){
+                pos = i;
+                break;
+            }
+        }
+    }else{      //Place new monsters after the combatants if they match
+        for(int i = 0; i<combatantCount; i++){
+            if(combatants[i].initiative<a.initiative){
+                pos = i;
+                break;
+            }
+        }
+    }
+
+    combatantCount++;
+    //Now shift down all combatants and assign the new one to its position
+    for(int j = combatantCount-1; j>=pos; j--){
+        combatants[j+1] = combatants[j];
+    }
+    combatants[pos] = a;
+
+    //TODO: Finally, if this combatant is added before the active player, be sure to move up the current combatant variable by one
+    if(pos<=getActivePos()){
+        incrementActivePos;
+    }
+}
+
+
+
+
 
 void adjustHP(Combatant target, int hp){
     target.gm.HP += hp;
@@ -232,7 +293,7 @@ void makeSaveAtk(Combatant attacker, bool halfOnSave){ //, bool dex){
 
     if(target.isPlayer){
         int roll = numberPrompt("Enter saving throw roll: "); //TODO: Types of Saving Throws
-        if(roll> (target.gm.atkMod+8)){
+        if(roll> (attacker.gm.atkMod+8)){
             printf("%s Saved\n", target.name);
             if(halfOnSave){                     //TODO: evasion negating all damage
                 dmg /= 2;
@@ -273,10 +334,11 @@ short turn(Combatant f){     //Change this to a pointer.      //Instead of passi
     }
 }
 
+
 void battle(){  //A function that runs the battle simulation until "end combat"
     initiative();
-    short currentTurn = 0;
-    int currentRound = 1;
+    //short currentTurn = 0;
+    //int currentRound = 1;
     short result=0;
 
     orderArray(fList,fSize);
@@ -293,20 +355,25 @@ void battle(){  //A function that runs the battle simulation until "end combat"
     //printf("Top of %d fighters is %s",fSize,fList[0]);
     printf("\n----- Battle Begin! -----\n");
     while(true){
-        for(currentTurn=0;currentTurn<combatantCount;currentTurn++){
-            result=turn(combatants[currentTurn]);         //Simple "turn" function to encapsulate everything
-            if(result=endCombat){
-                return;
-            }
+        //for(currentTurn=0;currentTurn<combatantCount;currentTurn++){
+
+        result=turn(combatants[activePos]);         //Simple "turn" function to encapsulate everything
+        if(result==endCombat){
+            return;
         }
-        currentRound++;
+        incrementActivePos();
+
+        //}
+        //currentRound++;
     }
 };
 
 int main(){
     printf("\n Code Start! \n");
-    setup();
+    //setup();
+    predefined();
     enemies();
+    
 
     battle();
     printf("\n Output Done \n");
