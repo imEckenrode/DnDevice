@@ -108,7 +108,7 @@ int numberPrompt(char text[]){
     return selection;
 }
 
-Combatant chooseTarget(){
+Combatant* chooseTarget(){
     printf("Choose target:\n");
     for (int i=0;i<combatantCount;i++){
         printf("%d) %s\n",i,combatants[i].name);
@@ -118,9 +118,9 @@ Combatant chooseTarget(){
     scanf("%d",&selection);
     printf("\n");
     getchar();
-    Combatant chosen = combatants[selection];
+    Combatant *chosen = &combatants[selection];
 
-    printf("DEBUG: Targeting %s. AC: %d, Atk: %d\n", chosen.name, chosen.gm.AC, chosen.gm.atkMod);
+    printf("DEBUG: Targeting %s. AC: %d, Atk: %d\n", chosen->name, chosen->gm.AC, chosen->gm.atkMod);
     return chosen;
 }
 
@@ -276,22 +276,22 @@ void addToCombatantArray(Combatant a){
 
 
 //-------------------------------------------------------------------------ERROR: (TODO) Need to pass in pointer to target and not a copy (or return the combatant)
-void adjustHP(Combatant target, int hp){
-    target.gm.HP += hp;             
+void adjustHP(Combatant *target, int hp){
+    target->gm.HP += hp;             
     //TODO: add "drop to 0" logic
 }
 
 
 void makeAtk(Combatant attacker){
-    Combatant target = chooseTarget();
+    Combatant *target = chooseTarget();
     if(attacker.isPlayer){
         int roll = numberPrompt("Enter attack roll: ");
-        if(roll<target.gm.AC){
+        if(roll<target->gm.AC){
             printf("Attack Missed\n");
             return;
         }
     }else{
-        if(rollD20()+attacker.gm.atkMod < target.gm.AC){    // Do this on the GM side, of course
+        if(rollD20()+attacker.gm.atkMod < target->gm.AC){    // Do this on the GM side, of course
             printf("Enemy Attack Missed\n");
             return;
         }
@@ -302,33 +302,33 @@ void makeAtk(Combatant attacker){
 
 void makeSaveAtk(Combatant attacker, bool halfOnSave){ //, bool dex){
     printf("DEBUG: Need to beat a %d. \n",attacker.gm.atkMod+8);
-    Combatant target = chooseTarget();
+    Combatant *target = chooseTarget();
     int dmg = numberPrompt("Enter Damage: ");
 
-    if(target.isPlayer){
+    if(target->isPlayer){
         int roll = numberPrompt("Enter saving throw roll: "); //TODO: Types of Saving Throws
         if(roll> (attacker.gm.atkMod+8)){
-            printf("%s Saved\n", target.name);
+            printf("%s Saved\n", target->name);
             if(halfOnSave){                     //TODO: evasion negating all damage
                 dmg /= 2;
             }
             return;
         }else{
-            printf("%s Failed\n", target.name);
+            printf("%s Failed\n", target->name);
         }
     }else{
         if(rollD20() > (attacker.gm.atkMod + 8)){    //TODO: apply saving throw modifier
-            printf("%s Saved\n", target.name);
+            printf("%s Saved\n", target->name);
             if(halfOnSave){                     //TODO: evasion negating all damage
                 dmg /= 2;
             }
             return;
         }else{
-            printf("%s Failed\n", target.name);
+            printf("%s Failed\n", target->name);
         }
     }
     adjustHP(target, -dmg);
-    printf("%s took %d damage!\n",target.name, dmg);
+    printf("%s took %d damage!\n",target->name, dmg);
 }
 
 void printCombatantList(){
@@ -339,8 +339,8 @@ void printCombatantList(){
     printf("\n");
 }
 
-short turn(Combatant f){     //Change this to a pointer.      //Instead of passing a fighter, we'd have a Combatant (the active fighter per device)
-    printf("%s, what would you like to do?",f.name);
+short turn(Combatant* f){     //Change this to a pointer (not really needed tbh).      //Instead of passing a fighter, we'd have a Combatant (the active fighter per device)
+    printf("%s, what would you like to do?",f->name);
     while(true){
         switch (optionSelect(TURN_OPTIONS,TURN_OPTIONS_COUNT)){
             case endTurn:
@@ -348,17 +348,17 @@ short turn(Combatant f){     //Change this to a pointer.      //Instead of passi
             case endCombat:
                 return endCombat;
             case attackRoll:
-                makeAtk(f);
+                makeAtk(*f);
                 break;
             case savingThrow:
-                makeSaveAtk(f, true);
+                makeSaveAtk(*f, true);
                 break;
             case seeInitiativeList:
                 printCombatantList();
             default:
                 printf("Invalid option/not implemented yet.\n");
         }
-        printf("%s, what else would you like to do?",f.name);
+        printf("%s, what else would you like to do?",f->name);
     }
 }
 
@@ -385,7 +385,7 @@ void battle(){  //A function that runs the battle simulation until "end combat"
     while(true){
         //for(currentTurn=0;currentTurn<combatantCount;currentTurn++){
 
-        result=turn(combatants[activePos]);         //Simple "turn" function to encapsulate everything
+        result=turn(&combatants[activePos]);         //Simple "turn" function to encapsulate everything
         if(result==endCombat){
             return;
         }
