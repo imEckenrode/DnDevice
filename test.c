@@ -11,7 +11,7 @@ char TURN_OPTIONS[TURN_OPTIONS_COUNT][30]={"End Combat","End Turn","Attack Roll"
 typedef struct fighter{
     short key;
     char name[16];
-    short HP;
+    short HP;           //Note: this is supposed to be Max HP
     short AC;
     short atkMod;
     short initiative;
@@ -23,21 +23,22 @@ Fighter;
 
 struct __attribute__((__packed__)) gm_combatant_data{
     short HP;
+    short maxHP;
     short AC;
     short atkMod;
-    bool hasLegendaryActions;
+    bool hasLegendaryActions;       //This could be a universal property?
 };
 
 typedef struct __attribute__((__packed__)) combatant{
     short key; //Also used to look up if player or enemy in the final product
-    short initiative;
+    short initiative;       //This will be a "Num"
     bool isPlayer;     //Temporary, for readability
     bool halfHealth;           //False if full health, otherwise should not be on the board? Could change to two different booleans
     bool active;           //Does this combatant show up at all        //Should this combatant exist on the players' side if not active?
     bool obfuscated;       //Display the name of the combatant?
 
     struct gm_combatant_data gm;        //This should make it easier to pull the gm-specific data in the final product
-    char name[16];  //Could make dynamic struct for dynamic name lengths
+    char name[8];  //Could make dynamic struct for dynamic name lengths
 
 } Combatant;
 
@@ -78,7 +79,7 @@ void setActivePos(short activPos){
 }
 
 Combatant fighter2combatant(Fighter fighter, bool isPlayer, bool active){
-    struct gm_combatant_data new = {fighter.HP, fighter.AC, fighter.atkMod, false};
+    struct gm_combatant_data new = {fighter.HP,fighter.HP, fighter.AC, fighter.atkMod, false};
     Combatant newCombatant = {fighter.key, fighter.initiative, isPlayer, false, active, false, new};
     strcpy(newCombatant.name, fighter.name);
     return newCombatant;
@@ -278,7 +279,11 @@ void addToCombatantArray(Combatant a){
 //-------------------------------------------------------------------------ERROR: (TODO) Need to pass in pointer to target and not a copy (or return the combatant)
 void adjustHP(Combatant *target, int hp){
     target->gm.HP += hp;             
-    //TODO: add "drop to 0" logic
+    //TODO: add "drop to 0" logic and half logic
+
+    if(target->gm.HP <= 0){
+        printf("logic");
+    }
 }
 
 
