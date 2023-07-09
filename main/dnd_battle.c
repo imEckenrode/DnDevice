@@ -3,19 +3,29 @@
 
 // Shared Code:
 struct game game;
-Num 
 
 // Player Code:
 
-pc_dnd_init(){
+void pc_dnd_init(){
 
 }
 
+void updateCombatantList(Combatant list[MAX_COMBATANT_COUNT]){
+    memcpy(game.combatantList, list, sizeof(Combatant * MAX_COMBATANT_COUNT));
+}
+
+//TODO: Also check if game.combatantList[newIndex] has the same key as received by this method (as checksum)
+void updateCombatantIndex(Num newIndex){
+    game.combatantIndex = newIndex;
+}
 // GM Code:
 
-gm_dnd_init(){
+void gm_dnd_init(){
     struct game game;
-    game.gmEnemyList = malloc(sizeof(int)*25);
+    game.gmEnemyList = malloc(sizeof(EnemyData)*25);
+    //game.gmPlayerList
+
+    //TODO: pass the list of players when outside battle (probably)
 }  
 
 
