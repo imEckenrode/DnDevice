@@ -48,7 +48,7 @@ struct __attribute__((__packed__)) current_device_s {
     struct ContactAddressBook *contacts;
     union {  //Anonymous Union works in C11
         struct PnC_s *my;
-        void* badguydatahereTODO;
+        void* badGuyDB;
     };
 
     bool isGM;          //Is the current device a GM?

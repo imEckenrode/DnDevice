@@ -14,11 +14,11 @@ ESP_EVENT_DEFINE_BASE(GM_SYNC_BASE);
 
 /* SYNC TEST FUNCTIONS:
 
-    Currently, the tests are run automatically when a DM activates.
-    When a DM is detected, the player asks that DM
+    Currently, the tests are run automatically when a GM activates.
+    When a GM is detected, the player asks that GM
 */
 
-//          TODO: define a method for getting the DM MAC
+//          TODO: define a method for getting the GM MAC
 
 bool addAsDM_test(ContactAddress* mad){ //TODO: Instead I need this as a method across
     //current.gmInfo.gmName = "Test";
