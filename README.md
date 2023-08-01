@@ -3,7 +3,7 @@
 
 NOTE: A manual patch is needed for lvgl_esp32_drivers:
 
-Add the 3 following lines under "DEFINES":
+Add the 3 following lines under "DEFINES" in lvgl_helpers.h:
 
 \# define LV_HOR_RES_MAX 320
 
