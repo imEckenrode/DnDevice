@@ -27,10 +27,11 @@ typedef struct __attribute__((__packed__)){
     PC pc;
 } PCFile;
 
+/*
 esp_err_t db_write_player(Key key, PlayerFile player);
 esp_err_t db_write_pc(Key key, PCFile pc);
 PlayerFile db_read_player(Key key);
 PCFile db_read_pc(Key key);
 
-
+*/
 //TODO: Maybe code in a method for a PC to check locally for data, then/and ask for the DM's data

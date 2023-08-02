@@ -118,6 +118,7 @@ bool addConfirmedPC(){return false;}
 
 /*      - Automatic GM Sync Actions (in order)  - */
 
+/*
 //TODO: TEST
 Player retrieveAndSendKey(macAndData_s* da){
     Key key = (Key) *(da->data);
@@ -143,7 +144,7 @@ PC retrieveAndSendPC(macAndData_s* da){
     dndv_send(da->mac, EventBaseP2Num(&SYNC_BASE), EVENT_KEYDATA_RCV, &data, sizeof(data));
     return retrieved.pc;
 }
-
+*/
 
 
 void gm_sync_rcv(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){

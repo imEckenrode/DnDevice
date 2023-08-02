@@ -46,6 +46,11 @@ void db_test_initialize(void){
     nvs_close(handle);
 }*/
 
+
+
+
+
+/*
 //Make a struct: PlayerFile (and PCFile)
 esp_err_t db_write_player(Key key, PlayerFile player){      //Keys are ASCII strings, technically
     nvs_handle_t handle;
@@ -79,3 +84,4 @@ PCFile db_read_pc(Key key){
     return *value;
 }
 
+*/

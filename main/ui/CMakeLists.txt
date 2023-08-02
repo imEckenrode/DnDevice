@@ -1,11 +1,7 @@
-SET(SOURCES components/ui_comp_optionbutton.c
-    components/ui_comp_playerkickpanel.c
-    components/ui_comp.c
-    screens/ui_SelectGMScreen.c
-    screens/ui_InputGMDetailsDemoScreen.c
-    screens/ui_GmAwaitPlayersScreen.c
+SET(SOURCES screens/ui_Screen1.c
     ui.c
     components/ui_comp_hook.c
-    ui_helpers.c)
+    ui_helpers.c
+    fonts/ui_font_Black_Chancery_50.c)
 
 add_library(ui ${SOURCES})
