@@ -28,3 +28,20 @@ void default_pc_init(){
     //free(PC); if we ever become the DM
 }
 
+void setHP(int a){
+    PC->HP = a;
+}
+
+
+
+void adjustHP(int up){
+    int temp = PC->HP + up;
+    if(temp >= PC->maxHP){
+        setHP(PC->maxHP);
+    }else if(temp <= 0){
+        setHP(0);
+        //Initiate dying protocol
+    }else{
+        setHP(temp);
+    }
+}

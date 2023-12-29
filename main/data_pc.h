@@ -71,3 +71,11 @@ volatile struct __attribute__((__packed__)) {
 } *PC;
 
 void default_pc_init();
+
+
+//Manipulations of the struct, in order:
+
+//Conditions
+
+//HP
+void adjustHP(int up);
