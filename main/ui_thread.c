@@ -17,7 +17,8 @@
 #include "esp_timer.h"
 
 //And I need to include ui.h so we can initialize the uis
-//#include "ui/ui.h"
+#include "ui/ui.h"
+
 //#include "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/main/ui/ui.h"
 
 #define TAG "ui"
@@ -53,20 +54,20 @@ static void guiTask(void *pvParameter) {
     lv_init();
     lvgl_driver_init();
 
-//TODO: Figure out where these are actually defined
+//LV_HOR_RES & VER are defined as a function, so they can't be used for initialization. Added an O
 //This is done for buf1, but should not be needed otherwise?
-#define LV_HOR_RES LV_HOR_RES_MAX
-#define LV_VER_RES LV_VER_RES_MAX
+#define LV_HOR_RESO LV_HOR_RES_MAX
+#define LV_VER_RESO LV_VER_RES_MAX
 
     static lv_disp_draw_buf_t draw_buf;
-    static lv_color_t buf1[LV_HOR_RES * 40];        //This is 40 in correspondence with the ili driver
-    lv_disp_draw_buf_init(&draw_buf, buf1, NULL, LV_HOR_RES * 40);
+    static lv_color_t buf1[LV_HOR_RESO * 40];        //This is 40 in correspondence with the ili driver
+    lv_disp_draw_buf_init(&draw_buf, buf1, NULL, LV_HOR_RESO * 40);
 
     /*Initialize the display*/
     static lv_disp_drv_t disp_drv;
     lv_disp_drv_init(&disp_drv);
-    disp_drv.hor_res = LV_HOR_RES;
-    disp_drv.ver_res = LV_VER_RES;
+    disp_drv.hor_res = LV_HOR_RESO;
+    disp_drv.ver_res = LV_VER_RESO;
     disp_drv.flush_cb = disp_driver_flush;
     disp_drv.draw_buf = &draw_buf;
     lv_disp_drv_register(&disp_drv);

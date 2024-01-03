@@ -1,5 +1,13 @@
 #pragma once
 
+
+#include <stdbool.h>
+#include <string.h> //for base comparison
+#include "esp_event.h"
+#include "nvs_flash.h"
+#include "esp_err.h"
+#include "esp_log.h"
+//We need esp_event out here so we can have the global variable
 /*
 
 This contains all device variables and manipulations of said variables

@@ -1,12 +1,5 @@
 #include "device.h"
 
-#include <stdbool.h>
-#include <string.h> //for base comparison
-#include "esp_event.h"
-#include "nvs_flash.h"
-#include "esp_err.h"
-#include "esp_log.h"
-
 void nvs_init(void){        //Needed for WiFi and the DB
     esp_err_t ret = nvs_flash_init();   //Initialize the nvs, and use the return to clear out if more space is needed
     if (ret == ESP_ERR_NVS_NO_FREE_PAGES || ret == ESP_ERR_NVS_NEW_VERSION_FOUND) {

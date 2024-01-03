@@ -1,8 +1,9 @@
 #include <stdio.h>
 
+#include "device.h"
 #include "data_pc.h"
 #include "sd_card.h"
-
+#include "ui_thread.h"
 /*
     init.c
     
@@ -16,10 +17,12 @@
 
 //  For all initialization of libraries:
 void initAll(void){
-    //nvs_init();         //Initialize the inside file system
-    //eventLoop_init();   //Initialize the event loop library
+    nvs_init();         //Initialize the inside file system
+    eventLoop_init();   //Initialize the event loop library
 
-    sd_card_init();
+    ui_stuff_init();
+
+    //sd_card_init();
 
 }
 
