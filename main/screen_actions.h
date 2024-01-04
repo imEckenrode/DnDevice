@@ -14,4 +14,4 @@ Start with dndv so it is clear in ui.c which functions are custom
 struct fighter dndv_getPC();
 struct fighter dndv_setPC();
 
-int dndv_healPC(char* input); //Adjust HP by this number (negative numbers mean down)
+void dndv_healPC(char* input); //Adjust HP by this number (negative numbers mean down)
