@@ -171,19 +171,9 @@ void ui_event_HP_healConfirmBtn(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-
-        //Get the HP from the text field and set it on the backend
-        int hp = dndv_healPC(lv_textarea_get_text(ui_HP_healTextArea));
-        //Clear the text box
-        lv_textarea_set_text(ui_HP_healTextArea, "");
-
-        // Update the Current HP label
-        lv_label_set_text_fmt(ui_HP_hpCurrent, "%d", hp);
-        //TODO: Add in the animations
-
         _ui_flag_modify(ui_HP_healInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        
-        //lv_label_set_text_fmt(ui_HP_hpTotal, "%d", hp);   //TODO: retrieve TempHP to do full calculation
+        dndv_healPC(lv_textarea_get_text(ui_HP_healTextArea));
+        lv_textarea_set_text(ui_HP_healTextArea, "");       //THIS IS ALSO CUSTOM   
     }
 }
 

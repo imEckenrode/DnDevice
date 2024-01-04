@@ -17,33 +17,14 @@
 
 #include "esp_event.h"
 #include "device.h"
-
+#include "data_pc.h"
 
 //And I need to include ui.h so we can initialize the uis
 #include "ui/ui.h"
 
 //#include "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/main/ui/ui.h"
 
-#define TAG "ui"
-
-/*                      *
- *  REFRESHING THE UI  *
- *                      */
-
-
-void ui_refresh(bool animating){
-    //First we lock the screen
-    xSemaphoreTake(xGuiSemaphore,portMAX_DELAY);
-
-    ESP_LOGI(TAG, "Made it here successfully, so I heard and locked");
-
-    //Finally, we unlock the screen
-    xSemaphoreGive(xGuiSemaphore);
-}
-
-
-
-
+#define TAG "UI"
 
 #define LV_TICK_PERIOD_MS 1
 
@@ -55,18 +36,50 @@ static void guiTask(void *pvParameter);
 //# define SPI_HOST_MAX 3
 //#define DISP_BUF_SIZE (320 * 40)
 
+SemaphoreHandle_t xGuiSemaphore;
+
+/*                      *
+ *  REFRESHING THE UI  *
+ *                      */
+
+
+void ui_refresh(bool animating){
+    //First we lock the screen
+    xSemaphoreTake(xGuiSemaphore, portMAX_DELAY);
+
+    ESP_LOGI(TAG, "Refreshing screen");
+
+    //We retrieve the active screen, then check which it is
+    lv_obj_t *screen = lv_scr_act();
+
+    //TODO: Add this as a switch (Below is one example)
+
+    if(screen == ui_hpInfoScrn){
+        // Update the Current HP label
+        lv_label_set_text_fmt(ui_HP_hpCurrent, "%d", readPC().HP);
+        //TODO: Add in the animations
+        
+        //lv_label_set_text_fmt(ui_HP_hpTotal, "%d", hp);   //TODO: retrieve TempHP to do full calculation
+    }
+    
+    //Finally, we unlock the screen
+    xSemaphoreGive(xGuiSemaphore);
+}
+
+
+static void ui_refresh_on_data_change(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    ui_refresh(true);
+}
+
+
+
 void  ui_stuff_init() {
 
     xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
-    bool temp = true;
-    esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh, &temp, NULL);
+
+    esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
 
 }
-
-/* Creates a semaphore to handle concurrent call to lvgl stuff
- * If you wish to call *any* lvgl function from other threads/tasks
- * you should lock on the very same semaphore! */
-SemaphoreHandle_t xGuiSemaphore;
 
 static void guiTask(void *pvParameter) {
 

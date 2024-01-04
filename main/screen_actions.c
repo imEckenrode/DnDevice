@@ -30,9 +30,7 @@ long int stringToLong(char* input){
     return num;
 }
 
-int dndv_healPC(char* input){
+void dndv_healPC(char* input){
     int heal = (int) stringToLong(input);
     adjustHP(heal);
-
-    return PC->HP;  //REMOVE: This will be factored out
 }

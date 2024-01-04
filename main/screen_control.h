@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+
 /*     -  -  -     The UI      -  -  -      
     This is where the UI is initiated to its own core.
     This is also what refreshes the UI

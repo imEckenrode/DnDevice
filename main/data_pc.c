@@ -1,15 +1,16 @@
 #include "data_pc.h"
 
+#include "device.h"
 #include <string.h>
 #include "esp_log.h"
-
+#include "esp_event.h"
 
 
 //void pc_init(uint8_t* data){}
 
 void default_pc_init(){
     ESP_LOGW("START", "Hello there!");
-    PC = malloc(sizeof(struct fighter));
+    PC = calloc(1,sizeof(struct fighter));
     PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we malloc instead of calloc)
 
     PC->AC = 10;
@@ -30,9 +31,18 @@ struct fighter readPC(){
     return *PC;
 }
 
-/* REMOVE: MOVE ALL BELOW TO ELSEWHERE */
+bool writePC(struct fighter newPC){
+    *PC = newPC;
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+    return true;
+}
+
+
+/* On the backend, we always use Read and Write PC, so everything below is wrapper functions */
 void setHP(int a){
-    PC->HP = a;
+    struct fighter h = readPC();
+    h.HP = a;
+    writePC(h);
 }
 
 void adjustHP(int up){
