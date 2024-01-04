@@ -1,13 +1,12 @@
-//#include "lvgl.h"
+#include "screen_control.h"
+
 #include "lvgl/lvgl.h"
 #include "lvgl_helpers.h"
 
-#include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-//TODO: Not entirely sure how many of these I need...
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_freertos_hooks.h"
@@ -16,20 +15,40 @@
 #include "driver/gpio.h"
 #include "esp_timer.h"
 
+#include "esp_event.h"
+#include "device.h"
+
+
 //And I need to include ui.h so we can initialize the uis
 #include "ui/ui.h"
 
 //#include "D:/ime/GitHub/DnDevice/DnDevice/MASTER/DnDevice/main/ui/ui.h"
 
 #define TAG "ui"
+
+/*                      *
+ *  REFRESHING THE UI  *
+ *                      */
+
+
+void ui_refresh(bool animating){
+    //First we lock the screen
+    xSemaphoreTake(xGuiSemaphore,portMAX_DELAY);
+
+    ESP_LOGI(TAG, "Made it here successfully, so I heard and locked");
+
+    //Finally, we unlock the screen
+    xSemaphoreGive(xGuiSemaphore);
+}
+
+
+
+
+
 #define LV_TICK_PERIOD_MS 1
 
 static void lv_tick_task(void *arg);
 static void guiTask(void *pvParameter);
-
-/**********************
- *   APPLICATION MAIN
- **********************/
 
 //# define LV_HOR_RES_MAX 320
 //# define LV_VER_RES_MAX 240
@@ -39,6 +58,9 @@ static void guiTask(void *pvParameter);
 void  ui_stuff_init() {
 
     xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
+    bool temp = true;
+    esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh, &temp, NULL);
+
 }
 
 /* Creates a semaphore to handle concurrent call to lvgl stuff
@@ -115,3 +137,4 @@ static void lv_tick_task(void *arg) {
     (void) arg;
     lv_tick_inc(LV_TICK_PERIOD_MS);
 }
+

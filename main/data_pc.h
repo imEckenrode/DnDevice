@@ -49,7 +49,7 @@ struct conditions{  //Since these are all the same type, they won't jump another
 
 //THiS is the structure for all PCs and enemies
 //TODO: Lock this behind a mutex
-struct __attribute__((__packed__)) playerCharacter{
+struct __attribute__((packed)) playerCharacter{
     union{  //2 bytes
         struct conditions condition;
         uint16_t allConditions; //This is simply 16 bits to set all conditions to 0
@@ -74,14 +74,13 @@ void default_pc_init();
 
 
 //Universal get
-struct fighter getCopyPC();
+struct fighter readPC();
 
-// This one does not check the data at all
-struct fighter setPC();
+// This updates the PC data to whatever is passed in. Make sure it isn't a bunch of zeros
+struct fighter writePC();
 
-// This is how all methods should set the PC since this checks all differences between the two
-struct fighter updatePC();
 
+/* REMOVE: Below is factored out in the next update: */
 //Manipulations of the struct, in order:
 
 //Conditions

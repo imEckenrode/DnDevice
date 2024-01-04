@@ -3,7 +3,7 @@
 #include "device.h"
 #include "data_pc.h"
 #include "sd_card.h"
-#include "ui_thread.h"
+#include "screen_control.h"
 /*
     init.c
     
@@ -18,7 +18,7 @@
 //  For all initialization of libraries:
 void initAll(void){
     nvs_init();         //Initialize the inside file system
-    eventLoop_init();   //Initialize the event loop library
+    eventLoop_init();   //Initialize the event loop library and our event loops
 
     ui_stuff_init();
 

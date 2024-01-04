@@ -32,3 +32,10 @@ esp_event_loop_handle_t dndv_event_h;
 
 //Initialize the event loop library
 void eventLoop_init(void);
+
+/* Here are the different events possible: */
+
+ESP_EVENT_DECLARE_BASE(DATA_CHANGED_BASE);
+enum DATA_CHANGED_B_ID{
+    PC_DATA_CHANGED
+};

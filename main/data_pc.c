@@ -25,11 +25,12 @@ void default_pc_init(){
     //free(PC); if we ever become the DM
 }
 
-struct fighter getCopyPC(){
+ 
+struct fighter readPC(){
     return *PC;
 }
 
-
+/* REMOVE: MOVE ALL BELOW TO ELSEWHERE */
 void setHP(int a){
     PC->HP = a;
 }

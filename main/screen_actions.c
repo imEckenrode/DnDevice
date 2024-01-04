@@ -1,14 +1,14 @@
 #include "screen_actions.h"
 
 #include "data_pc.h"
-#include "helpers.h"
+#include "helper_functions.h"
 
 #include "esp_log.h"
 //Here's all the externs for all the variables I manipulate
 //Never need to extern functions, but here 
 
 struct fighter dndv_getPC(){
-   return getCopyPC();
+   return readPC();
 }
 
 #include "stdlib.h"
@@ -34,15 +34,5 @@ int dndv_healPC(char* input){
     int heal = (int) stringToLong(input);
     adjustHP(heal);
 
-
-    //TODO: Update the screen on the UI end, not here
-    return PC->HP;
+    return PC->HP;  //REMOVE: This will be factored out
 }
-
-
-/* next we'll make the UpdatePage
-
-void here(){
-    
-lv_disp_get_scr_act();
-}*/

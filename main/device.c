@@ -22,3 +22,7 @@ void eventLoop_init(void){
     esp_event_loop_create(&loop_args, &dndv_event_h);
 }
 
+/*    --- Event Loop Internal Code ---      */
+
+    ESP_EVENT_DEFINE_BASE(DATA_CHANGED_BASE);
+    //ESP_EVENT_DEFINE_BASE(SETTINGS_CHANGED_BASE);
