@@ -16,6 +16,11 @@ This includes key data, player name, settings, etc.
 
 */
 
+struct __attribute__((__packed__)) device {
+    char name[8];
+    char pc_name[20];
+} my;
+
 
 /*      -  NVS  - 
 Initialize the non-volatile storage library to persist data 

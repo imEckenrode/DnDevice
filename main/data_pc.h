@@ -47,8 +47,6 @@ struct conditions{  //Since these are all the same type, they won't jump another
     unsigned dead:1;    //filled space here
 };*/
 
-#define DATA_SIZE_PC 12
-
 //For additions: deathsaves and deathfails can be brought down to 2 each, while AC can be brought down to 6
 
 //TODO: Lock this behind a mutex
@@ -67,11 +65,7 @@ struct __attribute__((__packed__)) playerCharacter{
     uint8_t deathsaves:4;  
     uint8_t deathfails:4;
 
-
-    
-    //Above is exactly 12 bytes (as seen in DATA_SIZE_PC)
-
-    char name[]; //TODO: Name is a device-level attribute, so refactor this out. This also means that PC is fixed size
+    //char name[]; //Name is a device-level attribute. This also means that PC is fixed size
                 //This will be the player and enemy stat tracker, so make it good
 } *PC;
 
