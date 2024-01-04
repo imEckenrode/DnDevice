@@ -12,6 +12,8 @@ This is for the Player device, so it contains HP
 For device-level data, see device_data.
 All Player data is device-level since it does not need shared from this device. The Key is used as an ID, and thus is included here
 
+The 
+
 */
 
 
@@ -32,7 +34,7 @@ struct conditions{  //Since these are all the same type, they won't jump another
     bool n:1;
     bool o:1;
     bool p:1;
-};
+}; //rage, disarmed, that too...but 18 total so it'll be there!
 
 /*struct stats {  //This is not used by this iteration
     unsigned st:5;
@@ -48,7 +50,9 @@ struct conditions{  //Since these are all the same type, they won't jump another
 #define DATA_SIZE_PC 12
 
 //For additions: deathsaves and deathfails can be brought down to 2 each, while AC can be brought down to 6
-volatile struct __attribute__((__packed__)) {
+
+//TODO: Lock this behind a mutex
+struct __attribute__((__packed__)) playerCharacter{
     union{  //2 bytes
         struct conditions condition;
         uint16_t allConditions; //This is simply 16 bits to set all conditions to 0
@@ -67,11 +71,15 @@ volatile struct __attribute__((__packed__)) {
     
     //Above is exactly 12 bytes (as seen in DATA_SIZE_PC)
 
-    char name[];
+    char name[]; //TODO: Name is a device-level attribute, so refactor this out. This also means that PC is fixed size
+                //This will be the player and enemy stat tracker, so make it good
 } *PC;
 
 void default_pc_init();
 
+
+//Universal get
+//struct playerCharacter *getPCPointer();
 
 //Manipulations of the struct, in order:
 
