@@ -47,8 +47,7 @@ struct conditions{  //Since these are all the same type, they won't jump another
     unsigned dead:1;    //filled space here
 };*/
 
-//For additions: deathsaves and deathfails can be brought down to 2 each, while AC can be brought down to 6
-
+//THiS is the structure for all PCs and enemies
 //TODO: Lock this behind a mutex
 struct __attribute__((__packed__)) playerCharacter{
     union{  //2 bytes
@@ -61,19 +60,27 @@ struct __attribute__((__packed__)) playerCharacter{
     short trueMaxHP;    //2 bytes
     short tempHP;       //2 bytes
                     //All below is 2 bytes
-    uint8_t AC;
-    uint8_t deathsaves:4;  
-    uint8_t deathfails:4;
+    uint8_t AC:6;
+    uint8_t itemAC:3;
+    uint8_t statusAC:3; //Cover, shield, etc.
+    uint8_t deathsaves:2;  
+    uint8_t deathfails:2;
 
-    //char name[]; //Name is a device-level attribute. This also means that PC is fixed size
-                //This will be the player and enemy stat tracker, so make it good
+    //char nickname[8]; //Full name is a device-level attribute. This also means that PC is fixed size
 } *PC;
+//TODO: Lock this behind a mutex
 
 void default_pc_init();
 
 
 //Universal get
-//struct playerCharacter *getPCPointer();
+struct fighter getCopyPC();
+
+// This one does not check the data at all
+struct fighter setPC();
+
+// This is how all methods should set the PC since this checks all differences between the two
+struct fighter updatePC();
 
 //Manipulations of the struct, in order:
 

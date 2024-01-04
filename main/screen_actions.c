@@ -7,9 +7,9 @@
 //Here's all the externs for all the variables I manipulate
 //Never need to extern functions, but here 
 
-// struct playerCharacter *dndv_getPCPointer(){
-//     return getPCPointer();
-// }
+struct fighter dndv_getPC(){
+   return getCopyPC();
+}
 
 #include "stdlib.h"
 #include "esp_log.h"

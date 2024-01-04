@@ -9,7 +9,7 @@
 
 void default_pc_init(){
     ESP_LOGW("START", "Hello there!");
-    PC = malloc(sizeof(struct playerCharacter));
+    PC = malloc(sizeof(struct fighter));
     PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we malloc instead of calloc)
 
     PC->AC = 10;
@@ -25,9 +25,9 @@ void default_pc_init(){
     //free(PC); if we ever become the DM
 }
 
-//struct playerCharacter *getPCPointer(){
-//    return PC;
-//}
+struct fighter getCopyPC(){
+    return *PC;
+}
 
 
 void setHP(int a){
