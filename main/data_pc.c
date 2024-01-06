@@ -13,6 +13,7 @@ void default_pc_init(){
     PC = calloc(1,sizeof(struct fighter));
     PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we malloc instead of calloc)
 
+    PC->tempHP = 5;
     PC->AC = 10;
     PC->HP = 20;
     PC->trueMaxHP = 30;

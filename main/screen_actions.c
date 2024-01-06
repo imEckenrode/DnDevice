@@ -34,3 +34,8 @@ void dndv_healPC(char* input){
     int heal = (int) stringToLong(input);
     adjustHP(heal);
 }
+
+void dndv_refresh(){
+    //temporarily, 
+    writePC(readPC());
+}

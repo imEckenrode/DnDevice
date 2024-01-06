@@ -42,7 +42,7 @@ SemaphoreHandle_t xGuiSemaphore;
  *  REFRESHING THE UI  *
  *                      */
 
-
+//Refresh the UI. Set animating to true if data was received, but false if just navigating
 void ui_refresh(bool animating){
     //First we lock the screen
     xSemaphoreTake(xGuiSemaphore, portMAX_DELAY);
@@ -55,11 +55,22 @@ void ui_refresh(bool animating){
     //TODO: Add this as a switch (Below is one example)
 
     if(screen == ui_hpInfoScrn){
-        // Update the Current HP label
-        lv_label_set_text_fmt(ui_HP_hpCurrent, "%d", readPC().HP);
-        //TODO: Add in the animations
+        struct fighter pc = readPC();
+        // Update the side labels
+        lv_label_set_text_fmt(ui_HP_hpCurrent, "%d", pc.HP);
+        lv_label_set_text_fmt(ui_HP_hpTemp, "%d", pc.tempHP);
+        lv_label_set_text_fmt(ui_HP_hpMax, "%d", pc.maxHP);
+
+        //Update the heart
+        lv_bar_set_range(ui_HP_hpFill, 0, pc.trueMaxHP);
+        lv_bar_set_range(ui_HP_hpTempFill, 0, pc.trueMaxHP);
+        lv_bar_set_value(ui_HP_hpFill,pc.HP, LV_ANIM_ON);
+        lv_bar_set_value(ui_HP_hpTempFill, pc.tempHP, LV_ANIM_ON); //TODO turn off anim?
         
-        //lv_label_set_text_fmt(ui_HP_hpTotal, "%d", hp);   //TODO: retrieve TempHP to do full calculation
+        //TODO: Update the reducedMaxHP box
+
+        //If animating, animate. Otherwise, set heart text normally
+        lv_label_set_text_fmt(ui_HP_hpTotal, "%d", pc.HP + pc.tempHP);
     }
     
     //Finally, we unlock the screen
@@ -72,13 +83,14 @@ static void ui_refresh_on_data_change(void* handler_arg, esp_event_base_t base, 
 }
 
 
-
 void  ui_stuff_init() {
 
     xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
 
     esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
 
+    //TODO: Refresh every time the screen changes, which should be possible like this
+    //lv_display_add_event_cb(, ui_refresh, LV_EVENT_CLICKED, NULL);   /*Assign an event callback (NULL is also 0, but TODO refactor)*/
 }
 
 static void guiTask(void *pvParameter) {

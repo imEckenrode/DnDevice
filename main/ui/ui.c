@@ -189,5 +189,5 @@ void ui_init(void)
     ui____initial_actions0 = lv_obj_create(NULL);
     lv_disp_load_scr(ui_hpInfoScrn);
 
-    //TODO: update all values upon entry
+    dndv_refresh();
 }
