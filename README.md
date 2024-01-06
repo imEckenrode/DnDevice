@@ -20,3 +20,8 @@ Add the 3 following lines directly under "DEFINES" in lvgl_helpers.h:
 (get rid of the slashes if copying from markdown text)
 
 May need idf.py menuconfig to set up local project, will look into defaulting through lv_conf.h
+
+
+### For the ui Folder
+
+ui_events.h is copied out and pasted into screen_actions.h. As such, ui.h includes that instead of ui_events.h

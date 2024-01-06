@@ -54,12 +54,12 @@ void ui_refresh(bool animating){
 
     //TODO: Add this as a switch (Below is one example)
 
-    if(screen == ui_hpInfoScrn){
+    if(screen == ui_HealthProfile){
         struct fighter pc = readPC();
         // Update the side labels
-        lv_label_set_text_fmt(ui_HP_hpCurrent, "%d", pc.HP);
-        lv_label_set_text_fmt(ui_HP_hpTemp, "%d", pc.tempHP);
-        lv_label_set_text_fmt(ui_HP_hpMax, "%d", pc.maxHP);
+        lv_label_set_text_fmt(ui_HP_hpMoreCurrent, "%d", pc.HP);
+        lv_label_set_text_fmt(ui_HP_hpMoreTemp, "%d", pc.tempHP);
+        lv_label_set_text_fmt(ui_HP_hpMoreMax, "%d", pc.maxHP);
 
         //Update the heart
         lv_bar_set_range(ui_HP_hpFill, 0, pc.trueMaxHP);

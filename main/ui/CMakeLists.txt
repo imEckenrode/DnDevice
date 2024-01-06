@@ -1,12 +1,37 @@
-SET(SOURCES screens/ui_hpInfoScrn.c
+SET(SOURCES screens/ui_HealthProfile.c
+    screens/ui_PlayerProfile.c
     ui.c
     components/ui_comp_hook.c
     ui_helpers.c
-    images/ui_img_851249624.c
+    ui_events.c
     images/ui_img_552092932.c
-    images/ui_img_smallhomebtn_png.c
-    images/ui_img_playericons_icon_artificer_png.c
     images/ui_img_playericons_icon_warlock_png.c
+    images/ui_img_conditions_new_blinded_png.c
+    images/ui_img_conditions_new_charmed_png.c
+    images/ui_img_conditions_new_deafened_png.c
+    images/ui_img_conditions_new_exhausion_png.c
+    images/ui_img_conditions_new_frightened_png.c
+    images/ui_img_playericons_icon_artificer_png.c
+    images/ui_img_playericons_trainingwheelsprotocol_png.c
+    images/ui_img_conditionextra_cover_half_png.c
+    images/ui_img_conditionextra_cover_threequarter_png.c
+    images/ui_img_conditionextra_cover_total_png.c
+    images/ui_img_1384426308.c
+    images/ui_img_conditionextra_new_disarmed_png.c
+    images/ui_img_conditions_new_grappled_png.c
+    images/ui_img_conditionextra_new_hidden_png.c
+    images/ui_img_conditions_new_incapacitated_png.c
+    images/ui_img_conditions_new_invisible_png.c
+    images/ui_img_conditionextra_new_obscured_png.c
+    images/ui_img_conditions_new_paralyzed_png.c
+    images/ui_img_conditions_new_petrified_png.c
+    images/ui_img_conditions_new_poisoned_png.c
+    images/ui_img_conditions_new_prone_png.c
+    images/ui_img_conditionextra_new_raging_png.c
+    images/ui_img_conditions_new_restrained_png.c
+    images/ui_img_conditionextra_new_surprised_png.c
+    images/ui_img_conditions_new_stunned_png.c
+    images/ui_img_conditions_new_unconcious_png.c
     images/ui_img_539176514.c
     images/ui_img_2136458485.c
     images/ui_img_1631664762.c

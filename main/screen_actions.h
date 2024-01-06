@@ -17,3 +17,6 @@ struct fighter dndv_setPC();
 void dndv_healPC(char* input); //Adjust HP by this number (negative numbers mean down)
 
 void dndv_refresh();
+
+
+// All of the ui_events from ui_events.h are also defined here
