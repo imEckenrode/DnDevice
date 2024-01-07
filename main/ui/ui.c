@@ -322,6 +322,9 @@ void ui_event_HP_healConfirmBtn(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         _ui_flag_modify(ui_HP_healInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+
+        dndv_healPC(lv_textarea_get_text(ui_HP_healTextArea));
+        lv_textarea_set_text(ui_HP_healTextArea, "");       //THIS IS ALSO CUSTOM   
     }
 }
 void ui_event_PP_Bck(lv_event_t * e)

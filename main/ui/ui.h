@@ -13,7 +13,7 @@ extern "C" {
 #include "lvgl/lvgl.h"
 
 #include "ui_helpers.h"
-#include "ui_events.h"
+#include "screen_actions.h"      //This should always be changed
 void DmgMain_Animation(lv_obj_t * TargetObject, int delay);
 void HealMain_Animation(lv_obj_t * TargetObject, int delay);
 // SCREEN: ui_HealthProfile

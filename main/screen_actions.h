@@ -1,5 +1,6 @@
 #pragma once
 
+#include "lvgl/lvgl.h"
 /*
 This maps all display changes to their respective actions.
 
@@ -20,3 +21,13 @@ void dndv_refresh();
 
 
 // All of the ui_events from ui_events.h are also defined here
+void dndv_HP_healXdmg(lv_event_t * e);
+void dndv_HP_modifyHpTemp(lv_event_t * e);
+void dndv_HP_modifyHpCurrent(lv_event_t * e);
+void dndv_HP_modifyHpMax(lv_event_t * e);
+void dndv_PP_refresh(lv_event_t * e);
+void dndv_PP_condRight(lv_event_t * e);
+void dndv_PP_condLeft(lv_event_t * e);
+void dndv_PP_condMore(lv_event_t * e);
+void dndv_PP_InitScreen(lv_event_t * e);
+void dndv_PP_condMoreClose(lv_event_t * e);
