@@ -1,0 +1,104 @@
+//dndv_PP_condLeft
+//---------------------------------------------
+//Shift conditions left one space. 
+//The furthest left (x = -90) will be removed
+//Subtract 35 from other conditions x coordinates
+//Next highest condition is added to x = 50
+//Maybe easier to just change image asset, but exhaustion has the number on it as well.
+
+
+
+//dndv_PP_condRight
+//---------------------------------------------
+//Shift conditions right one space. 
+//The furthest right (x = 50) will be removed
+//Add 35 to other conditions x coordinates
+//Next highest condition is added to x = -90
+//Maybe easier to just change image asset, but exhaustion has the number on it as well.
+
+
+
+//dndv_PP_condMore
+//---------------------------------------------
+//Reorder the popup list of conditions
+//X coords are -120, -80, -40, 0, 40, 80, 120
+//No X = 120, Y = -45 (that is where close button is)
+//Y coords are -45, 0, 45
+//Might want to add a delay to the Modify Flag before this, that unhides the popup
+
+
+
+//dndv_PP_condMoreClose
+//---------------------------------------------
+//Reorder the popup list of conditions
+//X coords are -90, -55, -20, 15, 50
+//Y coords are 0
+//Might want to add a delay to the Modify Flag before this, that unhides the popup
+
+
+
+//dndv_PP_InitScreen
+//---------------------------------------------
+//Not needed in stage 1
+//Change sceen to initiative screen
+
+
+
+
+
+//dndv_STRT_introAnimation
+//---------------------------------------------
+//All the stuff here is "On CLick", but should really be canged to a delay or something. 
+//Since "On Click" will probably be used to transistion to the next screen
+
+
+
+//dndv_HP_healXdmg
+//---------------------------------------------
+//If value goes up, play "HealMain" animation
+//If value goes down, play "DmgMain" animation
+
+
+/*
+Possible Functions (not necessary)
+
+//dndv_HP_modifyHpTemp
+//---------------------------------------------
+//Reuse the hp heal input stuff to change temp hp
+//Will need to change the words in the input box
+
+
+//dndv_HP_modifyHpCurrent
+//---------------------------------------------
+//Reuse the hp heal input stuff to change current hp
+//Will need to change the words in the input box
+
+
+
+//dndv_HP_modifyHpMax
+//---------------------------------------------
+//Reuse the hp heal input stuff to change max hp
+//Will need to change the words in the input box
+
+
+
+//dndv_PP_screenLoading
+//---------------------------------------------
+//Starts when Player Profile starts loading
+//Set the conditions and cover to the state they should be.
+//If they are active set them to the the checked state
+
+
+
+//dndv_HP_screenLoading
+//---------------------------------------------
+//Use to set whatever is needed when this screen in loaded
+
+*/
+
+
+
+
+
+
+
