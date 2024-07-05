@@ -24,6 +24,8 @@ May need idf.py menuconfig to set up local project, will look into defaulting th
 
 ### For the ui Folder
 
-ui_events.h is copied out and pasted into screen_actions.h. As such, ui.h includes that instead of ui_events.h
+ui_events.h is copied out and pasted into screen_actions.h (then update the related screen_actions.c). As such, ui.h includes screen_actions.h instead of ui_events.h. 
+
+Can safely delete ui_events.c because those show all exported functions of which we should have none.
 
 ui.c is modified with custom functions (at least for now), so make sure to comment those with "custom" and pull those over when updating the UI

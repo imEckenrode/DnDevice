@@ -38,10 +38,12 @@ void dndv_refresh(){
 }
 
 
+void dndv_HP_screenLoading(lv_event_t * e){dndv_refresh();};
 void dndv_HP_healXdmg(lv_event_t * e){return;}
 void dndv_HP_modifyHpTemp(lv_event_t * e){return;}
 void dndv_HP_modifyHpCurrent(lv_event_t * e){return;}
 void dndv_HP_modifyHpMax(lv_event_t * e){return;}
+void dndv_PP_screenLoading(lv_event_t * e){dndv_refresh();};
 void dndv_PP_refresh(lv_event_t * e){return;}
 void dndv_PP_condRight(lv_event_t * e){return;}
 void dndv_PP_condLeft(lv_event_t * e){return;}
