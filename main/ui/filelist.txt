@@ -1,6 +1,7 @@
 screens/ui_HealthProfile.c
 screens/ui_PlayerProfile.c
 screens/ui_IntroScreen.c
+screens/ui_PlayerCreation.c
 ui.c
 components/ui_comp_hook.c
 ui_helpers.c
@@ -13,8 +14,6 @@ images/ui_img_conditions_new_charmed_png.c
 images/ui_img_conditions_new_deafened_png.c
 images/ui_img_conditions_new_exhausion_png.c
 images/ui_img_conditions_new_frightened_png.c
-images/ui_img_playericons_icon_artificer_png.c
-images/ui_img_playericons_trainingwheelsprotocol_png.c
 images/ui_img_conditionextra_cover_half_png.c
 images/ui_img_conditionextra_cover_threequarter_png.c
 images/ui_img_conditionextra_cover_total_png.c

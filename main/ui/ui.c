@@ -25,9 +25,12 @@ lv_obj_t * ui_HP_hpHeart;
 void ui_event_HP_hpTotal(lv_event_t * e);
 lv_obj_t * ui_HP_hpTotal;
 lv_obj_t * ui_HP_hpHeartBorder;
-void ui_event_HP_healBtn(lv_event_t * e);
-lv_obj_t * ui_HP_healBtn;
-lv_obj_t * ui_HP_healTxt;
+void ui_event_HP_restLongBtn(lv_event_t * e);
+lv_obj_t * ui_HP_restLongBtn;
+lv_obj_t * ui_HP_restLongTxt;
+void ui_event_HP_restShortBtn(lv_event_t * e);
+lv_obj_t * ui_HP_restShortBtn;
+lv_obj_t * ui_HP_restShortTxt;
 lv_obj_t * ui_HP_title;
 lv_obj_t * ui_HP_titleTxt;
 void ui_event_HP_toScreen_PP(lv_event_t * e);
@@ -47,12 +50,12 @@ void ui_event_HP_hpMoreMax(lv_event_t * e);
 lv_obj_t * ui_HP_hpMoreMax;
 void ui_event_HP_hpMoreMaxTxt(lv_event_t * e);
 lv_obj_t * ui_HP_hpMoreMaxTxt;
-lv_obj_t * ui_HP_healInput;
-lv_obj_t * ui_HP_healKeyboard;
-void ui_event_HP_healConfirmBtn(lv_event_t * e);
-lv_obj_t * ui_HP_healConfirmBtn;
-lv_obj_t * ui_HP_healConfirmTxt;
-lv_obj_t * ui_HP_healTextArea;
+lv_obj_t * ui_HP_numInput;
+lv_obj_t * ui_HP_numKeyboard;
+void ui_event_HP_numConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_HP_numConfirmBtn;
+lv_obj_t * ui_HP_numConfirmTxt;
+lv_obj_t * ui_HP_numTextArea;
 
 
 // SCREEN: ui_PlayerProfile
@@ -70,6 +73,7 @@ void ui_event_PP_condDeafened(lv_event_t * e);
 lv_obj_t * ui_PP_condDeafened;
 void ui_event_PP_condExhaustion(lv_event_t * e);
 lv_obj_t * ui_PP_condExhaustion;
+void ui_event_PP_condExhaustionNumBck(lv_event_t * e);
 lv_obj_t * ui_PP_condExhaustionNumBck;
 lv_obj_t * ui_PP_condExhaustionNum;
 void ui_event_PP_condFrightened(lv_event_t * e);
@@ -77,16 +81,14 @@ lv_obj_t * ui_PP_condFrightened;
 void ui_event_PP_condNextBtn(lv_event_t * e);
 lv_obj_t * ui_PP_condNextBtn;
 lv_obj_t * ui_PP_condNextTxt;
-void ui_event_PP_condLastBtn(lv_event_t * e);
-lv_obj_t * ui_PP_condLastBtn;
-lv_obj_t * ui_PP_condLastTxt;
+void ui_event_PP_condPrevBtn(lv_event_t * e);
+lv_obj_t * ui_PP_condPrevBtn;
+lv_obj_t * ui_PP_condPrevTxt;
 void ui_event_PP_condMoreBtn(lv_event_t * e);
 lv_obj_t * ui_PP_condMoreBtn;
 lv_obj_t * ui_PP_condMoreTxt;
 lv_obj_t * ui_PP_profilePic;
-lv_obj_t * ui_PP_profPicArtificer;
 lv_obj_t * ui_PP_profPicWarlock;
-lv_obj_t * ui_PP_profPicTWP;
 lv_obj_t * ui_PP_hpBck;
 lv_obj_t * ui_PP_hpFill;
 lv_obj_t * ui_PP_hpTempFill;
@@ -100,9 +102,9 @@ lv_obj_t * ui_PP_acCover_half;
 lv_obj_t * ui_PP_acCover_threeQuarter;
 lv_obj_t * ui_PP_acCover_total;
 lv_obj_t * ui_PP_acShield;
-lv_obj_t * ui_PP_acShieldBorder;
 lv_obj_t * ui_PP_acTotal;
 lv_obj_t * ui_PP_acMath;
+lv_obj_t * ui_PP_acShieldBorder;
 lv_obj_t * ui_PP_nameBck;
 lv_obj_t * ui_PP_name;
 void ui_event_PP_toScreen_Prev(lv_event_t * e);
@@ -115,18 +117,10 @@ void ui_event_PP_turnCountBck(lv_event_t * e);
 lv_obj_t * ui_PP_turnCountBck;
 lv_obj_t * ui_PP_turnCountTxt;
 lv_obj_t * ui_PP_turnCountNum;
-lv_obj_t * ui_PP_dmgInput;
-lv_obj_t * ui_PP_dmgKeyboard;
-void ui_event_PP_dmgConfirmBtn(lv_event_t * e);
-lv_obj_t * ui_PP_dmgConfirmBtn;
-lv_obj_t * ui_PP_dmgConfirmTxt;
-lv_obj_t * ui_PP_dmgTextArea;
-lv_obj_t * ui_PP_acInput;
-lv_obj_t * ui_PP_acKeyboard;
-void ui_event_PP_acConfirmBtn(lv_event_t * e);
-lv_obj_t * ui_PP_acConfirmBtn;
-lv_obj_t * ui_PP_acConfirmTxt;
-lv_obj_t * ui_PP_acTextArea;
+lv_obj_t * ui_PP_numInput;
+lv_obj_t * ui_PP_numKeyboard;
+lv_obj_t * ui_PP_numTextArea;
+lv_obj_t * ui_PP_numAcBck;
 lv_obj_t * ui_PP_coverTxt;
 void ui_event_PP_coverBtn_half(lv_event_t * e);
 lv_obj_t * ui_PP_coverBtn_half;
@@ -137,6 +131,11 @@ lv_obj_t * ui_PP_coverTxt_threeQuarters;
 void ui_event_PP_coverBtn_full(lv_event_t * e);
 lv_obj_t * ui_PP_coverBtn_full;
 lv_obj_t * ui_PP_coverTxt_full;
+lv_obj_t * ui_PP_acTextArea;
+lv_obj_t * ui_PP_acKeyboard;
+void ui_event_PP_numConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_PP_numConfirmBtn;
+lv_obj_t * ui_PP_numConfirmTxt;
 lv_obj_t * ui_PPP_condMoreBck;
 void ui_event_PPP_condMoreClose(lv_event_t * e);
 lv_obj_t * ui_PPP_condMoreClose;
@@ -151,6 +150,7 @@ void ui_event_PPP_condDisarmed(lv_event_t * e);
 lv_obj_t * ui_PPP_condDisarmed;
 void ui_event_PPP_condExhaustion(lv_event_t * e);
 lv_obj_t * ui_PPP_condExhaustion;
+void ui_event_PPP_condExhaustionNumBck(lv_event_t * e);
 lv_obj_t * ui_PPP_condExhaustionNumBck;
 lv_obj_t * ui_PPP_condExhaustionNum;
 void ui_event_PPP_condFrightened(lv_event_t * e);
@@ -199,6 +199,45 @@ lv_obj_t * ui_IS_introText_V1;
 lv_obj_t * ui_IS_introText_I1;
 lv_obj_t * ui_IS_introText_C1;
 lv_obj_t * ui_IS_introText_E2;
+
+
+// SCREEN: ui_PlayerCreation
+void ui_PlayerCreation_screen_init(void);
+void ui_event_PlayerCreation(lv_event_t * e);
+lv_obj_t * ui_PlayerCreation;
+lv_obj_t * ui_PC_Bck;
+lv_obj_t * ui_PC_profPic;
+void ui_event_PC_condNextBtn(lv_event_t * e);
+lv_obj_t * ui_PC_condNextBtn;
+lv_obj_t * ui_PC_condNextTxt;
+void ui_event_PC_condLastBtn(lv_event_t * e);
+lv_obj_t * ui_PC_condLastBtn;
+lv_obj_t * ui_PC_condLastTxt;
+void ui_event_PC_confirmBck(lv_event_t * e);
+lv_obj_t * ui_PC_confirmBck;
+lv_obj_t * ui_PC_confirmTxt;
+lv_obj_t * ui_PC_numInput;
+lv_obj_t * ui_PC_numKeyboard;
+void ui_event_PC_numConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_PC_numConfirmBtn;
+lv_obj_t * ui_HP_numConfirmTxt2;
+lv_obj_t * ui_PC_numTextArea;
+lv_obj_t * ui_PC_wordInput;
+void ui_event_PC_wordKeyboard(lv_event_t * e);
+lv_obj_t * ui_PC_wordKeyboard;
+void ui_event_PC_wordConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_PC_wordConfirmBtn;
+lv_obj_t * ui_PC_wordTextArea;
+void ui_event_PC_nameTxt(lv_event_t * e);
+lv_obj_t * ui_PC_nameTxt;
+void ui_event_PC_hpTxt(lv_event_t * e);
+lv_obj_t * ui_PC_hpTxt;
+void ui_event_PC_hpLabel(lv_event_t * e);
+lv_obj_t * ui_PC_hpLabel;
+void ui_event_PC_acTxt(lv_event_t * e);
+lv_obj_t * ui_PC_acTxt;
+void ui_event_PC_acLabel(lv_event_t * e);
+lv_obj_t * ui_PC_acLabel;
 lv_obj_t * ui____initial_actions0;
 const lv_img_dsc_t * ui_imgset_d[1] = {&ui_img_images_d20_png};
 
@@ -350,12 +389,20 @@ void ui_event_HP_hpTotal(lv_event_t * e)
         dndv_HP_healXdmg(e);
     }
 }
-void ui_event_HP_healBtn(lv_event_t * e)
+void ui_event_HP_restLongBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_HP_healInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        dndv_HP_longRest(e);
+    }
+}
+void ui_event_HP_restShortBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_HP_shortRest(e);
     }
 }
 void ui_event_HP_toScreen_PP(lv_event_t * e)
@@ -372,6 +419,7 @@ void ui_event_HP_hpMoreTemp(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpTemp(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_hpMoreTempTxt(lv_event_t * e)
@@ -380,6 +428,7 @@ void ui_event_HP_hpMoreTempTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpTemp(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_hpMoreCurrent(lv_event_t * e)
@@ -388,6 +437,7 @@ void ui_event_HP_hpMoreCurrent(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpCurrent(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_hpMoreCurrentTxt(lv_event_t * e)
@@ -396,6 +446,7 @@ void ui_event_HP_hpMoreCurrentTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpCurrent(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_hpMoreMax(lv_event_t * e)
@@ -404,6 +455,7 @@ void ui_event_HP_hpMoreMax(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpMax(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_hpMoreMaxTxt(lv_event_t * e)
@@ -412,16 +464,16 @@ void ui_event_HP_hpMoreMaxTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_modifyHpMax(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
-void ui_event_HP_healConfirmBtn(lv_event_t * e)
+void ui_event_HP_numConfirmBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_HP_healInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        dndv_healPC(lv_textarea_get_text(ui_HP_healTextArea));
-        lv_textarea_set_text(ui_HP_healTextArea, "");       //THIS IS ALSO CUSTOM   
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_HP_numConfirm(e);
     }
 }
 void ui_event_PlayerProfile(lv_event_t * e)
@@ -474,6 +526,16 @@ void ui_event_PP_condExhaustion(lv_event_t * e)
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        _ui_state_modify(ui_PPP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+    }
+}
+void ui_event_PP_condExhaustionNumBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PP_exhaustIncrement(e);
     }
 }
 void ui_event_PP_condFrightened(lv_event_t * e)
@@ -493,7 +555,7 @@ void ui_event_PP_condNextBtn(lv_event_t * e)
         dndv_PP_condRight(e);
     }
 }
-void ui_event_PP_condLastBtn(lv_event_t * e)
+void ui_event_PP_condPrevBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -515,7 +577,8 @@ void ui_event_PP_acBck(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PP_acInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PP_numAcBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PP_toScreen_Prev(lv_event_t * e)
@@ -531,7 +594,8 @@ void ui_event_PP_targetBtn(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PP_dmgInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PP_numAcBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PP_turnCountBck(lv_event_t * e)
@@ -542,22 +606,6 @@ void ui_event_PP_turnCountBck(lv_event_t * e)
         dndv_PP_InitScreen(e);
     }
 }
-void ui_event_PP_dmgConfirmBtn(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PP_dmgInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    }
-}
-void ui_event_PP_acConfirmBtn(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PP_acInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-    }
-}
 void ui_event_PP_coverBtn_half(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -565,6 +613,13 @@ void ui_event_PP_coverBtn_half(lv_event_t * e)
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PP_coverTxt_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_state_modify(ui_PP_coverBtn_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_coverTxt_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverTxt_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_flag_modify(ui_PP_acCover_half, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        _ui_flag_modify(ui_PP_acCover_threeQuarter, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_PP_coverBtn_threeQuarters(lv_event_t * e)
@@ -574,6 +629,13 @@ void ui_event_PP_coverBtn_threeQuarters(lv_event_t * e)
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PP_coverTxt_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_state_modify(ui_PP_coverBtn_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_coverTxt_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverTxt_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_flag_modify(ui_PP_acCover_threeQuarter, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        _ui_flag_modify(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PP_acCover_half, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
 void ui_event_PP_coverBtn_full(lv_event_t * e)
@@ -583,6 +645,23 @@ void ui_event_PP_coverBtn_full(lv_event_t * e)
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PP_coverTxt_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_state_modify(ui_PP_coverBtn_full, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_coverTxt_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_threeQuarters, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverTxt_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_state_modify(ui_PP_coverBtn_half, LV_STATE_CHECKED, _UI_MODIFY_STATE_REMOVE);
+        _ui_flag_modify(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        _ui_flag_modify(ui_PP_acCover_threeQuarter, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PP_acCover_half, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    }
+}
+void ui_event_PP_numConfirmBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_PP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PP_numAcBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_PP_numConfirm(e);
     }
 }
 void ui_event_PPP_condMoreClose(lv_event_t * e)
@@ -618,7 +697,7 @@ void ui_event_PPP_condDeafened(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PPP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_ADD);
+        _ui_state_modify(ui_PP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
 void ui_event_PPP_condDisarmed(lv_event_t * e)
@@ -636,6 +715,16 @@ void ui_event_PPP_condExhaustion(lv_event_t * e)
     if(event_code == LV_EVENT_CLICKED) {
         _ui_state_modify(ui_PPP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        _ui_state_modify(ui_PP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+    }
+}
+void ui_event_PPP_condExhaustionNumBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PP_exhaustIncrement(e);
     }
 }
 void ui_event_PPP_condFrightened(lv_event_t * e)
@@ -772,6 +861,7 @@ void ui_event_IntroScreen(lv_event_t * e)
         _ui_opacity_set(ui_IS_introText_I1, 0);
         _ui_opacity_set(ui_IS_introText_C1, 0);
         _ui_opacity_set(ui_IS_introText_E2, 0);
+        dndv_IS_screenLoading(e);
     }
     if(event_code == LV_EVENT_SCREEN_LOADED) {
         IntroDropIn_Animation(ui_IS_introText_D1, 400);
@@ -789,7 +879,115 @@ void ui_event_IS_Bck(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_PlayerProfile, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_PlayerProfile_screen_init);
+        _ui_screen_change(&ui_PlayerCreation, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_PlayerCreation_screen_init);
+    }
+}
+void ui_event_PlayerCreation(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_SCREEN_LOADED) {
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    }
+    if(event_code == LV_EVENT_SCREEN_LOAD_START) {
+        dndv_PC_screenLoading(e);
+    }
+}
+void ui_event_PC_condNextBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_profPicNext(e);
+    }
+}
+void ui_event_PC_condLastBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_profPicPrev(e);
+    }
+}
+void ui_event_PC_confirmBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_PlayerProfile, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_PlayerProfile_screen_init);
+        dndv_PC_dataConfirm(e);
+    }
+}
+void ui_event_PC_numConfirmBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_PC_numConfirm(e);
+    }
+}
+void ui_event_PC_wordKeyboard(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_KEY &&  lv_event_get_key(e) == LV_KEY_ENTER) {
+        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    }
+}
+void ui_event_PC_wordConfirmBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_PC_wordConfirm(e);
+    }
+}
+void ui_event_PC_nameTxt(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        dndv_PC_nameEdit(e);
+    }
+}
+void ui_event_PC_hpTxt(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_hpEdit(e);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    }
+}
+void ui_event_PC_hpLabel(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_hpEdit(e);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    }
+}
+void ui_event_PC_acTxt(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_acEdit(e);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+    }
+}
+void ui_event_PC_acLabel(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PC_acEdit(e);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 
@@ -803,7 +1001,8 @@ void ui_init(void)
     lv_disp_set_theme(dispp, theme);
     ui_HealthProfile_screen_init();
     ui_PlayerProfile_screen_init();
-    ui_IntroScreen_screen_init();
-    ui____initial_actions0 = lv_obj_create(NULL);
+    //ui_IntroScreen_screen_init();
+    //ui_PlayerCreation_screen_init();
+    ui____initial_actions0 = lv_obj_create(NULL); //We don't have any initial actions
     lv_disp_load_scr(ui_HealthProfile);
 }

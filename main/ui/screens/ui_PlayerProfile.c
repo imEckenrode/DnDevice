@@ -133,20 +133,20 @@ void ui_PlayerProfile_screen_init(void)
     lv_label_set_text(ui_PP_condNextTxt, ">");
     lv_obj_set_style_text_font(ui_PP_condNextTxt, &ui_font_Dungeon_50, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_condLastBtn = lv_obj_create(ui_PP_condBck);
-    lv_obj_set_width(ui_PP_condLastBtn, 30);
-    lv_obj_set_height(ui_PP_condLastBtn, 30);
-    lv_obj_set_x(ui_PP_condLastBtn, -125);
-    lv_obj_set_y(ui_PP_condLastBtn, 0);
-    lv_obj_set_align(ui_PP_condLastBtn, LV_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_PP_condLastBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_PP_condPrevBtn = lv_obj_create(ui_PP_condBck);
+    lv_obj_set_width(ui_PP_condPrevBtn, 30);
+    lv_obj_set_height(ui_PP_condPrevBtn, 30);
+    lv_obj_set_x(ui_PP_condPrevBtn, -125);
+    lv_obj_set_y(ui_PP_condPrevBtn, 0);
+    lv_obj_set_align(ui_PP_condPrevBtn, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_PP_condPrevBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_PP_condLastTxt = lv_label_create(ui_PP_condLastBtn);
-    lv_obj_set_width(ui_PP_condLastTxt, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_condLastTxt, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_condLastTxt, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_PP_condLastTxt, "<");
-    lv_obj_set_style_text_font(ui_PP_condLastTxt, &ui_font_Dungeon_50, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_PP_condPrevTxt = lv_label_create(ui_PP_condPrevBtn);
+    lv_obj_set_width(ui_PP_condPrevTxt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_PP_condPrevTxt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_PP_condPrevTxt, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_PP_condPrevTxt, "<");
+    lv_obj_set_style_text_font(ui_PP_condPrevTxt, &ui_font_Dungeon_50, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PP_condMoreBtn = lv_obj_create(ui_PP_condBck);
     lv_obj_set_width(ui_PP_condMoreBtn, 30);
@@ -177,15 +177,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_style_bg_color(ui_PP_profilePic, lv_color_hex(0x393939), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_PP_profilePic, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_profPicArtificer = lv_img_create(ui_PP_profilePic);
-    lv_img_set_src(ui_PP_profPicArtificer, &ui_img_playericons_icon_artificer_png);
-    lv_obj_set_width(ui_PP_profPicArtificer, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_profPicArtificer, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_profPicArtificer, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_PP_profPicArtificer, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_PP_profPicArtificer, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PP_profPicArtificer, 100);
-
     ui_PP_profPicWarlock = lv_img_create(ui_PP_profilePic);
     lv_img_set_src(ui_PP_profPicWarlock, &ui_img_playericons_icon_warlock_png);
     lv_obj_set_width(ui_PP_profPicWarlock, LV_SIZE_CONTENT);   /// 1
@@ -194,15 +185,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_profPicWarlock, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_profPicWarlock, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_profPicWarlock, 100);
-
-    ui_PP_profPicTWP = lv_img_create(ui_PP_profilePic);
-    lv_img_set_src(ui_PP_profPicTWP, &ui_img_playericons_trainingwheelsprotocol_png);
-    lv_obj_set_width(ui_PP_profPicTWP, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_profPicTWP, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_profPicTWP, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_PP_profPicTWP, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_PP_profPicTWP, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PP_profPicTWP, 100);
 
     ui_PP_hpBck = lv_obj_create(ui_PP_Bck);
     lv_obj_set_width(ui_PP_hpBck, 80);
@@ -281,10 +263,12 @@ void ui_PlayerProfile_screen_init(void)
     lv_label_set_text(ui_PP_hpTotal, "42");
     lv_obj_set_style_text_font(ui_PP_hpTotal, &ui_font_Black_Chancery_30, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_hpHeartBorder = lv_img_create(ui_PP_hpHeart);
+    ui_PP_hpHeartBorder = lv_img_create(ui_PP_hpBck);
     lv_img_set_src(ui_PP_hpHeartBorder, &ui_img_final_heart_border_png);
     lv_obj_set_width(ui_PP_hpHeartBorder, LV_SIZE_CONTENT);   /// 169
     lv_obj_set_height(ui_PP_hpHeartBorder, LV_SIZE_CONTENT);    /// 169
+    lv_obj_set_x(ui_PP_hpHeartBorder, -1);
+    lv_obj_set_y(ui_PP_hpHeartBorder, 0);
     lv_obj_set_align(ui_PP_hpHeartBorder, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PP_hpHeartBorder, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_hpHeartBorder, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
@@ -325,7 +309,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_width(ui_PP_acCover_total, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_PP_acCover_total, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_PP_acCover_total, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_PP_acCover_total, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_add_flag(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_acCover_total, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_acCover_total, 350);
     lv_obj_set_style_blend_mode(ui_PP_acCover_total, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -338,15 +322,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_acShield, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_acShield, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_acShield, 220);
-
-    ui_PP_acShieldBorder = lv_img_create(ui_PP_acShield);
-    lv_img_set_src(ui_PP_acShieldBorder, &ui_img_final_shield_border_png);
-    lv_obj_set_width(ui_PP_acShieldBorder, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_acShieldBorder, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_acShieldBorder, LV_ALIGN_CENTER);
-    lv_obj_add_flag(ui_PP_acShieldBorder, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_PP_acShieldBorder, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PP_acShieldBorder, 220);
 
     ui_PP_acTotal = lv_label_create(ui_PP_acShield);
     lv_obj_set_width(ui_PP_acTotal, LV_SIZE_CONTENT);   /// 1
@@ -363,6 +338,15 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_align(ui_PP_acMath, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PP_acMath, "17+2+2");
     lv_obj_set_style_text_font(ui_PP_acMath, &ui_font_Black_Chancery_14, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_PP_acShieldBorder = lv_img_create(ui_PP_acBck);
+    lv_img_set_src(ui_PP_acShieldBorder, &ui_img_final_shield_border_png);
+    lv_obj_set_width(ui_PP_acShieldBorder, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_PP_acShieldBorder, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_PP_acShieldBorder, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_PP_acShieldBorder, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_PP_acShieldBorder, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_img_set_zoom(ui_PP_acShieldBorder, 220);
 
     ui_PP_nameBck = lv_obj_create(ui_PP_Bck);
     lv_obj_set_width(ui_PP_nameBck, 290);
@@ -398,7 +382,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_height(ui_PP_toScreen_Prev_txt, LV_SIZE_CONTENT);    /// 23
     lv_obj_set_align(ui_PP_toScreen_Prev_txt, LV_ALIGN_CENTER);
     lv_label_set_long_mode(ui_PP_toScreen_Prev_txt, LV_LABEL_LONG_CLIP);
-    lv_label_set_text(ui_PP_toScreen_Prev_txt, "Back");
+    lv_label_set_text(ui_PP_toScreen_Prev_txt, "H P");
     lv_obj_set_style_text_align(ui_PP_toScreen_Prev_txt, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_toScreen_Prev_txt, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -438,7 +422,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_y(ui_PP_turnCountTxt, 0);
     lv_obj_set_align(ui_PP_turnCountTxt, LV_ALIGN_CENTER);
     lv_label_set_long_mode(ui_PP_turnCountTxt, LV_LABEL_LONG_CLIP);
-    lv_label_set_text(ui_PP_turnCountTxt, "Rounds Until Turn:");
+    lv_label_set_text(ui_PP_turnCountTxt, "     Player Profile");
     lv_obj_set_style_text_align(ui_PP_turnCountTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_turnCountTxt, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
@@ -449,141 +433,78 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_y(ui_PP_turnCountNum, 0);
     lv_obj_set_align(ui_PP_turnCountNum, LV_ALIGN_CENTER);
     lv_label_set_long_mode(ui_PP_turnCountNum, LV_LABEL_LONG_CLIP);
-    lv_label_set_text(ui_PP_turnCountNum, "5");
+    lv_label_set_text(ui_PP_turnCountNum, " ");
     lv_obj_set_style_text_align(ui_PP_turnCountNum, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_turnCountNum, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_dmgInput = lv_obj_create(ui_PP_Bck);
-    lv_obj_set_width(ui_PP_dmgInput, 296);
-    lv_obj_set_height(ui_PP_dmgInput, 182);
-    lv_obj_set_x(ui_PP_dmgInput, 0);
-    lv_obj_set_y(ui_PP_dmgInput, -2);
-    lv_obj_set_align(ui_PP_dmgInput, LV_ALIGN_BOTTOM_MID);
-    lv_obj_add_flag(ui_PP_dmgInput, LV_OBJ_FLAG_HIDDEN);     /// Flags
-    lv_obj_clear_flag(ui_PP_dmgInput, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_PP_dmgInput, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_dmgInput, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_PP_numInput = lv_obj_create(ui_PP_Bck);
+    lv_obj_set_width(ui_PP_numInput, 290);
+    lv_obj_set_height(ui_PP_numInput, 195);
+    lv_obj_set_x(ui_PP_numInput, 0);
+    lv_obj_set_y(ui_PP_numInput, 10);
+    lv_obj_set_align(ui_PP_numInput, LV_ALIGN_BOTTOM_MID);
+    lv_obj_add_flag(ui_PP_numInput, LV_OBJ_FLAG_HIDDEN);     /// Flags
+    lv_obj_clear_flag(ui_PP_numInput, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_PP_numInput, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_numInput, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_dmgKeyboard = lv_keyboard_create(ui_PP_dmgInput);
-    lv_keyboard_set_mode(ui_PP_dmgKeyboard, LV_KEYBOARD_MODE_NUMBER);
-    lv_obj_set_width(ui_PP_dmgKeyboard, 292);
-    lv_obj_set_height(ui_PP_dmgKeyboard, 120);
-    lv_obj_set_x(ui_PP_dmgKeyboard, 0);
-    lv_obj_set_y(ui_PP_dmgKeyboard, 13);
-    lv_obj_set_align(ui_PP_dmgKeyboard, LV_ALIGN_BOTTOM_MID);
+    ui_PP_numKeyboard = lv_keyboard_create(ui_PP_numInput);
+    lv_keyboard_set_mode(ui_PP_numKeyboard, LV_KEYBOARD_MODE_NUMBER);
+    lv_obj_set_width(ui_PP_numKeyboard, 283);
+    lv_obj_set_height(ui_PP_numKeyboard, 120);
+    lv_obj_set_x(ui_PP_numKeyboard, 0);
+    lv_obj_set_y(ui_PP_numKeyboard, 11);
+    lv_obj_set_align(ui_PP_numKeyboard, LV_ALIGN_BOTTOM_MID);
 
-    lv_obj_set_style_bg_color(ui_PP_dmgKeyboard, lv_color_hex(0x393839), LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_dmgKeyboard, 255, LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_numKeyboard, lv_color_hex(0x393839), LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_numKeyboard, 255, LV_PART_ITEMS | LV_STATE_DEFAULT);
 
-    ui_PP_dmgConfirmBtn = lv_obj_create(ui_PP_dmgKeyboard);
-    lv_obj_set_width(ui_PP_dmgConfirmBtn, 113);
-    lv_obj_set_height(ui_PP_dmgConfirmBtn, 57);
-    lv_obj_set_x(ui_PP_dmgConfirmBtn, 87);
-    lv_obj_set_y(ui_PP_dmgConfirmBtn, lv_pct(-26));
-    lv_obj_set_align(ui_PP_dmgConfirmBtn, LV_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_PP_dmgConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_PP_dmgConfirmBtn, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_dmgConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PP_dmgConfirmTxt = lv_label_create(ui_PP_dmgConfirmBtn);
-    lv_obj_set_width(ui_PP_dmgConfirmTxt, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_dmgConfirmTxt, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_dmgConfirmTxt, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_PP_dmgConfirmTxt, "Confirm");
-    lv_obj_set_style_text_font(ui_PP_dmgConfirmTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PP_dmgTextArea = lv_textarea_create(ui_PP_dmgInput);
-    lv_obj_set_width(ui_PP_dmgTextArea, 274);
-    lv_obj_set_height(ui_PP_dmgTextArea, LV_SIZE_CONTENT);    /// 40
-    lv_obj_set_x(ui_PP_dmgTextArea, 0);
-    lv_obj_set_y(ui_PP_dmgTextArea, -61);
-    lv_obj_set_align(ui_PP_dmgTextArea, LV_ALIGN_CENTER);
-    lv_textarea_set_placeholder_text(ui_PP_dmgTextArea, "Insert Damage Amount    ");
-    lv_textarea_set_one_line(ui_PP_dmgTextArea, true);
-    lv_obj_clear_flag(ui_PP_dmgTextArea,
+    ui_PP_numTextArea = lv_textarea_create(ui_PP_numInput);
+    lv_obj_set_width(ui_PP_numTextArea, 265);
+    lv_obj_set_height(ui_PP_numTextArea, LV_SIZE_CONTENT);    /// 40
+    lv_obj_set_x(ui_PP_numTextArea, 0);
+    lv_obj_set_y(ui_PP_numTextArea, -60);
+    lv_obj_set_align(ui_PP_numTextArea, LV_ALIGN_CENTER);
+    lv_textarea_set_placeholder_text(ui_PP_numTextArea, "Insert Damage Amount    ");
+    lv_textarea_set_one_line(ui_PP_numTextArea, true);
+    lv_obj_clear_flag(ui_PP_numTextArea,
                       LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
                       LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
-    lv_obj_set_style_text_align(ui_PP_dmgTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_PP_dmgTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PP_dmgTextArea, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_dmgTextArea, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(ui_PP_numTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_PP_numTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_numTextArea, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_numTextArea, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    lv_obj_set_style_text_color(ui_PP_numTextArea, lv_color_hex(0x808080), LV_PART_CURSOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_PP_numTextArea, 255, LV_PART_CURSOR | LV_STATE_DEFAULT);
 
+    lv_obj_set_style_text_color(ui_PP_numTextArea, lv_color_hex(0x808080), LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_PP_numTextArea, 255, LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
 
-    ui_PP_acInput = lv_obj_create(ui_PP_Bck);
-    lv_obj_set_width(ui_PP_acInput, 296);
-    lv_obj_set_height(ui_PP_acInput, 196);
-    lv_obj_set_x(ui_PP_acInput, 0);
-    lv_obj_set_y(ui_PP_acInput, 8);
-    lv_obj_set_align(ui_PP_acInput, LV_ALIGN_BOTTOM_MID);
-    lv_obj_add_flag(ui_PP_acInput, LV_OBJ_FLAG_HIDDEN);     /// Flags
-    lv_obj_clear_flag(ui_PP_acInput, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_PP_acInput, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_acInput, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_PP_numAcBck = lv_obj_create(ui_PP_numInput);
+    lv_obj_set_width(ui_PP_numAcBck, 290);
+    lv_obj_set_height(ui_PP_numAcBck, 195);
+    lv_obj_set_align(ui_PP_numAcBck, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_PP_numAcBck, LV_OBJ_FLAG_HIDDEN);     /// Flags
+    lv_obj_clear_flag(ui_PP_numAcBck, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_PP_numAcBck, lv_color_hex(0x393939), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_numAcBck, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_acKeyboard = lv_keyboard_create(ui_PP_acInput);
-    lv_keyboard_set_mode(ui_PP_acKeyboard, LV_KEYBOARD_MODE_NUMBER);
-    lv_obj_set_width(ui_PP_acKeyboard, 292);
-    lv_obj_set_height(ui_PP_acKeyboard, 120);
-    lv_obj_set_x(ui_PP_acKeyboard, 0);
-    lv_obj_set_y(ui_PP_acKeyboard, 13);
-    lv_obj_set_align(ui_PP_acKeyboard, LV_ALIGN_BOTTOM_MID);
-
-    lv_obj_set_style_bg_color(ui_PP_acKeyboard, lv_color_hex(0x393839), LV_PART_ITEMS | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_acKeyboard, 255, LV_PART_ITEMS | LV_STATE_DEFAULT);
-
-    ui_PP_acConfirmBtn = lv_obj_create(ui_PP_acKeyboard);
-    lv_obj_set_width(ui_PP_acConfirmBtn, 113);
-    lv_obj_set_height(ui_PP_acConfirmBtn, 57);
-    lv_obj_set_x(ui_PP_acConfirmBtn, 87);
-    lv_obj_set_y(ui_PP_acConfirmBtn, lv_pct(-26));
-    lv_obj_set_align(ui_PP_acConfirmBtn, LV_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_PP_acConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_bg_color(ui_PP_acConfirmBtn, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_acConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PP_acConfirmTxt = lv_label_create(ui_PP_acConfirmBtn);
-    lv_obj_set_width(ui_PP_acConfirmTxt, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_acConfirmTxt, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_PP_acConfirmTxt, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_PP_acConfirmTxt, "Confirm");
-    lv_obj_set_style_text_font(ui_PP_acConfirmTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PP_acTextArea = lv_textarea_create(ui_PP_acInput);
-    lv_obj_set_width(ui_PP_acTextArea, 288);
-    lv_obj_set_height(ui_PP_acTextArea, LV_SIZE_CONTENT);    /// 40
-    lv_obj_set_x(ui_PP_acTextArea, 0);
-    lv_obj_set_y(ui_PP_acTextArea, -47);
-    lv_obj_set_align(ui_PP_acTextArea, LV_ALIGN_CENTER);
-    lv_textarea_set_placeholder_text(ui_PP_acTextArea, "Insert AC    ");
-    lv_textarea_set_one_line(ui_PP_acTextArea, true);
-    lv_obj_clear_flag(ui_PP_acTextArea, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
-                      LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
-    lv_obj_set_style_text_align(ui_PP_acTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_PP_acTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PP_acTextArea, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_acTextArea, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-
-    lv_obj_set_style_text_color(ui_PP_acTextArea, lv_color_hex(0x808080), LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_opa(ui_PP_acTextArea, 255, LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
-
-    ui_PP_coverTxt = lv_label_create(ui_PP_acInput);
+    ui_PP_coverTxt = lv_label_create(ui_PP_numAcBck);
     lv_obj_set_width(ui_PP_coverTxt, LV_SIZE_CONTENT);   /// 1
     lv_obj_set_height(ui_PP_coverTxt, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_PP_coverTxt, -97);
-    lv_obj_set_y(ui_PP_coverTxt, -80);
+    lv_obj_set_x(ui_PP_coverTxt, -94);
+    lv_obj_set_y(ui_PP_coverTxt, -81);
     lv_obj_set_align(ui_PP_coverTxt, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PP_coverTxt, "Cover Select:");
     lv_obj_set_style_text_font(ui_PP_coverTxt, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_coverBtn_half = lv_obj_create(ui_PP_acInput);
-    lv_obj_set_width(ui_PP_coverBtn_half, 60);
+    ui_PP_coverBtn_half = lv_obj_create(ui_PP_numAcBck);
+    lv_obj_set_width(ui_PP_coverBtn_half, 58);
     lv_obj_set_height(ui_PP_coverBtn_half, 23);
-    lv_obj_set_x(ui_PP_coverBtn_half, -18);
-    lv_obj_set_y(ui_PP_coverBtn_half, -82);
+    lv_obj_set_x(ui_PP_coverBtn_half, -16);
+    lv_obj_set_y(ui_PP_coverBtn_half, -83);
     lv_obj_set_align(ui_PP_coverBtn_half, LV_ALIGN_CENTER);
-    lv_obj_add_state(ui_PP_coverBtn_half, LV_STATE_CHECKED);       /// States
     lv_obj_clear_flag(ui_PP_coverBtn_half, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_text_color(ui_PP_coverBtn_half, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverBtn_half, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -595,20 +516,18 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_height(ui_PP_coverTxt_half, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_PP_coverTxt_half, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PP_coverTxt_half, "Half");
-    lv_obj_add_state(ui_PP_coverTxt_half, LV_STATE_CHECKED);       /// States
     lv_obj_set_style_text_color(ui_PP_coverTxt_half, lv_color_hex(0x444444), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_half, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_coverTxt_half, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_PP_coverTxt_half, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_half, 255, LV_PART_MAIN | LV_STATE_CHECKED);
 
-    ui_PP_coverBtn_threeQuarters = lv_obj_create(ui_PP_acInput);
-    lv_obj_set_width(ui_PP_coverBtn_threeQuarters, 60);
+    ui_PP_coverBtn_threeQuarters = lv_obj_create(ui_PP_numAcBck);
+    lv_obj_set_width(ui_PP_coverBtn_threeQuarters, 58);
     lv_obj_set_height(ui_PP_coverBtn_threeQuarters, 23);
-    lv_obj_set_x(ui_PP_coverBtn_threeQuarters, 47);
-    lv_obj_set_y(ui_PP_coverBtn_threeQuarters, -82);
+    lv_obj_set_x(ui_PP_coverBtn_threeQuarters, 45);
+    lv_obj_set_y(ui_PP_coverBtn_threeQuarters, -83);
     lv_obj_set_align(ui_PP_coverBtn_threeQuarters, LV_ALIGN_CENTER);
-    lv_obj_add_state(ui_PP_coverBtn_threeQuarters, LV_STATE_CHECKED);       /// States
     lv_obj_clear_flag(ui_PP_coverBtn_threeQuarters, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_text_color(ui_PP_coverBtn_threeQuarters, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverBtn_threeQuarters, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -620,20 +539,18 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_height(ui_PP_coverTxt_threeQuarters, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_PP_coverTxt_threeQuarters, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PP_coverTxt_threeQuarters, "3 / 4");
-    lv_obj_add_state(ui_PP_coverTxt_threeQuarters, LV_STATE_CHECKED);       /// States
     lv_obj_set_style_text_color(ui_PP_coverTxt_threeQuarters, lv_color_hex(0x444444), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_threeQuarters, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_coverTxt_threeQuarters, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_PP_coverTxt_threeQuarters, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_threeQuarters, 255, LV_PART_MAIN | LV_STATE_CHECKED);
 
-    ui_PP_coverBtn_full = lv_obj_create(ui_PP_acInput);
-    lv_obj_set_width(ui_PP_coverBtn_full, 60);
+    ui_PP_coverBtn_full = lv_obj_create(ui_PP_numAcBck);
+    lv_obj_set_width(ui_PP_coverBtn_full, 58);
     lv_obj_set_height(ui_PP_coverBtn_full, 23);
-    lv_obj_set_x(ui_PP_coverBtn_full, 112);
-    lv_obj_set_y(ui_PP_coverBtn_full, -82);
+    lv_obj_set_x(ui_PP_coverBtn_full, 107);
+    lv_obj_set_y(ui_PP_coverBtn_full, -83);
     lv_obj_set_align(ui_PP_coverBtn_full, LV_ALIGN_CENTER);
-    lv_obj_add_state(ui_PP_coverBtn_full, LV_STATE_CHECKED);       /// States
     lv_obj_clear_flag(ui_PP_coverBtn_full, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_obj_set_style_text_color(ui_PP_coverBtn_full, lv_color_hex(0x808080), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverBtn_full, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
@@ -645,12 +562,60 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_height(ui_PP_coverTxt_full, LV_SIZE_CONTENT);    /// 1
     lv_obj_set_align(ui_PP_coverTxt_full, LV_ALIGN_CENTER);
     lv_label_set_text(ui_PP_coverTxt_full, "Full");
-    lv_obj_add_state(ui_PP_coverTxt_full, LV_STATE_CHECKED);       /// States
     lv_obj_set_style_text_color(ui_PP_coverTxt_full, lv_color_hex(0x444444), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_full, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_coverTxt_full, &ui_font_Black_Chancery_16, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_color(ui_PP_coverTxt_full, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_CHECKED);
     lv_obj_set_style_text_opa(ui_PP_coverTxt_full, 255, LV_PART_MAIN | LV_STATE_CHECKED);
+
+    ui_PP_acTextArea = lv_textarea_create(ui_PP_numAcBck);
+    lv_obj_set_width(ui_PP_acTextArea, 282);
+    lv_obj_set_height(ui_PP_acTextArea, LV_SIZE_CONTENT);    /// 38
+    lv_obj_set_x(ui_PP_acTextArea, 0);
+    lv_obj_set_y(ui_PP_acTextArea, -48);
+    lv_obj_set_align(ui_PP_acTextArea, LV_ALIGN_CENTER);
+    lv_textarea_set_placeholder_text(ui_PP_acTextArea, "Insert AC    ");
+    lv_textarea_set_one_line(ui_PP_acTextArea, true);
+    lv_obj_clear_flag(ui_PP_acTextArea, LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
+                      LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
+    lv_obj_set_style_text_align(ui_PP_acTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_PP_acTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_acTextArea, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_acTextArea, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_text_color(ui_PP_acTextArea, lv_color_hex(0x808080), LV_PART_CURSOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_PP_acTextArea, 255, LV_PART_CURSOR | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_text_color(ui_PP_acTextArea, lv_color_hex(0x808080), LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_opa(ui_PP_acTextArea, 255, LV_PART_TEXTAREA_PLACEHOLDER | LV_STATE_DEFAULT);
+
+    ui_PP_acKeyboard = lv_keyboard_create(ui_PP_numAcBck);
+    lv_keyboard_set_mode(ui_PP_acKeyboard, LV_KEYBOARD_MODE_NUMBER);
+    lv_obj_set_width(ui_PP_acKeyboard, 283);
+    lv_obj_set_height(ui_PP_acKeyboard, 120);
+    lv_obj_set_x(ui_PP_acKeyboard, 0);
+    lv_obj_set_y(ui_PP_acKeyboard, 11);
+    lv_obj_set_align(ui_PP_acKeyboard, LV_ALIGN_BOTTOM_MID);
+
+    lv_obj_set_style_bg_color(ui_PP_acKeyboard, lv_color_hex(0x393839), LV_PART_ITEMS | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_acKeyboard, 255, LV_PART_ITEMS | LV_STATE_DEFAULT);
+
+    ui_PP_numConfirmBtn = lv_obj_create(ui_PP_numInput);
+    lv_obj_set_width(ui_PP_numConfirmBtn, 110);
+    lv_obj_set_height(ui_PP_numConfirmBtn, 57);
+    lv_obj_set_x(ui_PP_numConfirmBtn, 85);
+    lv_obj_set_y(ui_PP_numConfirmBtn, lv_pct(3));
+    lv_obj_set_align(ui_PP_numConfirmBtn, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_PP_numConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_PP_numConfirmBtn, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_numConfirmBtn, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_PP_numConfirmTxt = lv_label_create(ui_PP_numConfirmBtn);
+    lv_obj_set_width(ui_PP_numConfirmTxt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_PP_numConfirmTxt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_align(ui_PP_numConfirmTxt, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_PP_numConfirmTxt, "Confirm");
+    lv_obj_set_style_text_font(ui_PP_numConfirmTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PPP_condMoreBck = lv_obj_create(ui_PlayerProfile);
     lv_obj_set_width(ui_PPP_condMoreBck, 295);
@@ -968,28 +933,29 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_event_cb(ui_PP_condBlinded, ui_event_PP_condBlinded, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condCharmed, ui_event_PP_condCharmed, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condDeafened, ui_event_PP_condDeafened, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_PP_condExhaustionNumBck, ui_event_PP_condExhaustionNumBck, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condExhaustion, ui_event_PP_condExhaustion, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condFrightened, ui_event_PP_condFrightened, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condNextBtn, ui_event_PP_condNextBtn, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_PP_condLastBtn, ui_event_PP_condLastBtn, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_PP_condPrevBtn, ui_event_PP_condPrevBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_condMoreBtn, ui_event_PP_condMoreBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_acBck, ui_event_PP_acBck, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_toScreen_Prev, ui_event_PP_toScreen_Prev, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_targetBtn, ui_event_PP_targetBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_turnCountBck, ui_event_PP_turnCountBck, LV_EVENT_ALL, NULL);
-    lv_keyboard_set_textarea(ui_PP_dmgKeyboard, ui_PP_dmgTextArea);
-    lv_obj_add_event_cb(ui_PP_dmgConfirmBtn, ui_event_PP_dmgConfirmBtn, LV_EVENT_ALL, NULL);
-    lv_keyboard_set_textarea(ui_PP_acKeyboard, ui_PP_acTextArea);
-    lv_obj_add_event_cb(ui_PP_acConfirmBtn, ui_event_PP_acConfirmBtn, LV_EVENT_ALL, NULL);
+    lv_keyboard_set_textarea(ui_PP_numKeyboard, ui_PP_numTextArea);
     lv_obj_add_event_cb(ui_PP_coverBtn_half, ui_event_PP_coverBtn_half, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_coverBtn_threeQuarters, ui_event_PP_coverBtn_threeQuarters, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_coverBtn_full, ui_event_PP_coverBtn_full, LV_EVENT_ALL, NULL);
+    lv_keyboard_set_textarea(ui_PP_acKeyboard, ui_PP_acTextArea);
+    lv_obj_add_event_cb(ui_PP_numConfirmBtn, ui_event_PP_numConfirmBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PP_Bck, ui_event_PP_Bck, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condMoreClose, ui_event_PPP_condMoreClose, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condBlinded, ui_event_PPP_condBlinded, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condCharmed, ui_event_PPP_condCharmed, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condDeafened, ui_event_PPP_condDeafened, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condDisarmed, ui_event_PPP_condDisarmed, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_PPP_condExhaustionNumBck, ui_event_PPP_condExhaustionNumBck, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condExhaustion, ui_event_PPP_condExhaustion, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condFrightened, ui_event_PPP_condFrightened, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PPP_condGrappled, ui_event_PPP_condGrappled, LV_EVENT_ALL, NULL);
