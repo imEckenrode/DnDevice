@@ -94,6 +94,117 @@ Possible Functions (not necessary)
 //---------------------------------------------
 //Use to set whatever is needed when this screen in loaded
 
+
+
+
+// %%%%%%%%%%%%%%%%%%%%%%  ------  New 7/7/24  ------  %%%%%%%%%%%%%%%%%%%%%%  //
+
+
+
+//dndv_PP_exhaustIncrement
+//---------------------------------------------
+//Check the current text in "PP condExhaustionNum":
+//If less than 6, add 1
+//If 6 (or greater) set equal to 1
+
+
+//dndv_HP_longRest
+//---------------------------------------------
+//The long rest button is pressed
+
+
+//dndv_HP_shortRest
+//---------------------------------------------
+//The short rest button is pressed
+
+
+
+//dndv_PC_nameEdit
+//---------------------------------------------
+//After the name is inputted, the player can click the name to edit
+//The "word" keyboard will become visible 
+//The function should take the value being sent to "PC wordTextArea" and use it for the new name
+
+
+
+//dndv_PC_hpEdit
+//---------------------------------------------
+//After the Max HP is inputted, the player can click the HP to edit
+//The "num" keyboard will become visible 
+//The function should take the value being sent to "PC numTextArea" and use it for the new HP
+
+
+
+//dndv_PC_acEdit
+//---------------------------------------------
+//After the AC is inputted, the player can click the AC to edit
+//The "num" keyboard will become visible 
+//The function should take the value being sent to "PC numTextArea" and use it for the new AC
+
+
+
+//dndv_PC_numConfirm
+//---------------------------------------------
+//This is the confirm button for the number keyboard
+//This can be used to move the text from the "PC numTextArea" to where it needs to go
+
+
+
+//dndv_PC_wordConfirm
+//---------------------------------------------
+//This is the confirm button for the number keyboard
+//This can be used to move the text from the "PC wordTextArea" to where it needs to go
+
+
+
+//dndv_HP_numConfirm
+//---------------------------------------------
+//This is the confirm button for the number keyboard
+//This can be used to move the text from the "HP numTextArea" to where it needs to go
+
+
+
+//dndv_PP_numConfirm
+//---------------------------------------------
+//This is the confirm button for the number keyboard
+//This can be used to move the text from the "PP numTextArea" to where it needs to go
+
+
+
+//dndv_PC_screenLoading
+//---------------------------------------------
+//Starts when Player Creation screen starts loading
+//This function should start the player creation
+
+
+
+//dndv_IS_screenLoading
+//---------------------------------------------
+//Starts when Intro Screen starts loading
+
+
+
+//dndv_PC_profPicNext
+//---------------------------------------------
+//Cycle to the next possible profile pic
+//Will need to replace the current image file "PC profilePic"
+
+
+
+//dndv_PC_profPicPrev
+//---------------------------------------------
+//Cycle to the previous possible profile pic
+//Will need to replace the current image file "PC profilePic"
+
+
+
+//dndv_PC_dataConfirm
+//---------------------------------------------
+//All the player data is correct, and the current profile pic is the one that will be chosen
+
+
+
+
 */
 
 
