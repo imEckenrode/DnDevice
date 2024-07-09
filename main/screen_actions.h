@@ -1,12 +1,15 @@
 #pragma once
 
 #include "lvgl/lvgl.h"
+#include "ui/ui.h" //This is circular but allowed because we define both files once
+
 /*
 This maps all display changes to their respective actions.
 
     For every screen action that manipulates a variable, add a function here
 
-Start with dndv so it is clear in ui.c which functions are custom
+Custom events are also defined here if triggered by a user action
+    Start with dndv so it is clear in ui.c which functions are custom
 
     Updating the screen is then done in screen_control
 */
@@ -17,8 +20,10 @@ struct fighter dndv_setPC();
 
 void dndv_healPC(char* input); //Adjust HP by this number (negative numbers mean down)
 
+// This forces a refresh by pretending to update the local PC
 void dndv_refresh();
 
+void dndv_textAreaClearAndRelabel(lv_obj_t * t, char* label);
 
 // All of the ui_events from ui_events.h are instead defined here
 void dndv_HP_screenLoading(lv_event_t * e);

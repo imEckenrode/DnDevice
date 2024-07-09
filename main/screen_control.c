@@ -42,7 +42,7 @@ SemaphoreHandle_t xGuiSemaphore;
  *  REFRESHING THE UI  *
  *                      */
 
-//Refresh the UI. Set animating to true if data was received, but false if just navigating
+//Refresh the UI. Set animating to true if data was received and we want to animate the heart, but false if just navigating
 void ui_refresh(bool animating){
     //First we lock the screen
     xSemaphoreTake(xGuiSemaphore, portMAX_DELAY);
