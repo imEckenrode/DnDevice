@@ -44,18 +44,15 @@ void dndv_HP_numConfirm(lv_event_t * e){
     char* label = lv_textarea_get_placeholder_text(ui_HP_numTextArea);
     //NOTE: Casting it to a short could cause over/underflow and there's no guarantee negatives stay
     short num = stringToLong(lv_textarea_get_text(ui_HP_numTextArea));
-    struct fighter local = readPC();
     if(strcmp(label, HP_MODIFY_TEXT_LABEL_TEMP)==0){
-        local.tempHP = num;
+        setTempHP(num)
         ESP_LOGI(TAG, "Temp Triggered");
     }else if(strcmp(label, HP_MODIFY_TEXT_LABEL_CURRENT)==0){
-        local.HP = num;
+        setHP(num)
     }else if(strcmp(label, HP_MODIFY_TEXT_LABEL_MAX)==0){
-        local.maxHP = num; //trueMaxHP is the actual maxHP
+        setMaxHP(num) //trueMaxHP is the actual maxHP
     }
-    writePC(local);
 }
-
 
 void dndv_PP_screenLoading(lv_event_t * e){dndv_refresh();}
 void dndv_PP_refresh(lv_event_t * e){return;}

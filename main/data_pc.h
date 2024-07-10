@@ -12,7 +12,7 @@ This is for the Player device, so it contains HP
 For device-level data, see device_data.
 All Player data is device-level since it does not need shared from this device. The Key is used as an ID, and thus is included here
 
-The 
+The helper functions all use a dedicated spinlock to guarantee no interference across cores/threads
 
 */
 
@@ -79,9 +79,13 @@ struct fighter readPC();
 // This updates the PC data to whatever is passed in. Make sure it isn't a bunch of zeros
 bool writePC(struct fighter newPC);
 
-// Below are some wrappers for manipulating the struct, in order:
+// Below are the wrappers for manipulating the struct, in order (with data correction)):
 
 //Conditions
 
 //HP
+void setHP(int hp);
+void setTempHP(int hp);
+void setMaxHP(int hp);
+void setTrueMaxHP(int hp);
 void adjustHP(int up);
