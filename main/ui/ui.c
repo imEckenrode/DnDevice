@@ -999,6 +999,11 @@ void ui_init(void)
     lv_theme_t * theme = lv_theme_default_init(dispp, lv_palette_main(LV_PALETTE_BLUE), lv_palette_main(LV_PALETTE_RED),
                                                true, LV_FONT_DEFAULT);
     lv_disp_set_theme(dispp, theme);
+    
+    //Technically, we only need the first screen to be initialized
+    //If screens aren't initialized here, they SHOULD be created and destroyed when loaded and unloaded
+            //However, there may not be enough space because the new page loads before the last unloads?
+
     ui_HealthProfile_screen_init();
     ui_PlayerProfile_screen_init();
     //ui_IntroScreen_screen_init();

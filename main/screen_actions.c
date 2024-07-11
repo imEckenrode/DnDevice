@@ -45,12 +45,12 @@ void dndv_HP_numConfirm(lv_event_t * e){
     //NOTE: Casting it to a short could cause over/underflow and there's no guarantee negatives stay
     short num = stringToLong(lv_textarea_get_text(ui_HP_numTextArea));
     if(strcmp(label, HP_MODIFY_TEXT_LABEL_TEMP)==0){
-        setTempHP(num)
+        setTempHP(num);
         ESP_LOGI(TAG, "Temp Triggered");
     }else if(strcmp(label, HP_MODIFY_TEXT_LABEL_CURRENT)==0){
-        setHP(num)
+        setHP(num);
     }else if(strcmp(label, HP_MODIFY_TEXT_LABEL_MAX)==0){
-        setMaxHP(num) //trueMaxHP is the actual maxHP
+        setMaxHP(num); //trueMaxHP is the actual maxHP
     }
 }
 

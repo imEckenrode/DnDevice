@@ -37,7 +37,7 @@ struct fighter readPC(){
     return *PC;
 }
 
-//TODO: Check if this is safe to do
+//TODO: Check if this is atomic to do
 bool writePC(struct fighter newPC){
     *PC = newPC;
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
@@ -46,10 +46,36 @@ bool writePC(struct fighter newPC){
 
 
 /* On the backend, we always use Read and Write PC from within our spinlock, so everything below is wrapper functions */
+//TODO: May need a special method for reaching 0 HP
 void setHP(int hp){
     taskENTER_CRITICAL(&pcDataSpinlock);
     if(hp >= PC->maxHP){PC->HP = PC->maxHP;}else if(hp <= 0){PC->HP = 0;}else{PC->HP = hp;}
     taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+void setTempHP(int hp){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    if(hp <= 0){PC->tempHP = 0;}else{PC->tempHP = hp;}
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+void setMaxHP(int hp){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    if(hp >= PC->trueMaxHP){PC->maxHP = PC->trueMaxHP;}else if(hp <= 0){PC->maxHP=0;}else{PC->maxHP=hp;}
+    if(PC->maxHP < PC->HP){PC->HP = PC->maxHP;} //Reduce HP to maxHP if applicable
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+void setTrueMaxHP(int hp){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    if(hp <= 0){PC->trueMaxHP = 0;}else{PC->trueMaxHP = hp;}
+    if(PC->trueMaxHP < PC->maxHP){PC->HP = PC->maxHP;} //Reduce MaxHP to trueMaxHP if applicable (just in case; this function should only ever increase)
+    if(PC->maxHP < PC->HP){PC->HP = PC->maxHP;} //Reduce HP to maxHP if applicable
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
 //TODO: setTempHP, etc...
