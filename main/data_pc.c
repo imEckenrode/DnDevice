@@ -25,6 +25,9 @@ void default_pc_init(){
     PC->maxHP = PC->trueMaxHP;
     PC->condition.charmed = true;
 
+    strcpy(PC->nickname, "Bart Ironface Something");
+    //PC->pfpSrc = &ui_img_playericons_icon_warlock_png;
+
     ESP_LOGW("OUTPUT", "HP: %d, MAX: %d, AC: %d, Conditions: %x", PC->HP, PC->maxHP, PC->AC, PC->allConditions);
 
     ESP_LOGW("SIZE", "%d", sizeof(*PC));

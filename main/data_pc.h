@@ -66,7 +66,7 @@ struct __attribute__((packed)) fighter{
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
-    //char nickname[8]; //Full name is a device-level attribute. This also means that PC is fixed size
+    char nickname[32]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size
 } *PC;
 //TODO: Lock this behind a mutex
 

@@ -1002,12 +1002,11 @@ void ui_init(void)
     
     //Technically, we only need the first screen to be initialized
     //If screens aren't initialized here, they SHOULD be created and destroyed when loaded and unloaded
-            //However, there may not be enough space because the new page loads before the last unloads?
 
     ui_HealthProfile_screen_init();
     ui_PlayerProfile_screen_init();
     //ui_IntroScreen_screen_init();
     //ui_PlayerCreation_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL); //We don't have any initial actions
-    lv_disp_load_scr(ui_HealthProfile);
+    lv_disp_load_scr(ui_PlayerProfile);
 }

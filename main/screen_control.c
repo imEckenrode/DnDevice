@@ -71,7 +71,25 @@ void ui_refresh(bool animating){
 
         //If animating, animate. Otherwise, set heart text normally
         lv_label_set_text_fmt(ui_HP_hpTotal, "%d", pc.HP + pc.tempHP);
+
+        //lv_img_set_src(ui_HP_profPic, pc.pfpSrc);
     }
+    /*
+    else if(screen == ui_PlayerProfile){
+        //struct fighter pc = readPC();
+
+        //lv_bar_set_range(ui_PP_hpFill, 0, pc.trueMaxHP);
+        //lv_bar_set_range(ui_PP_hpTempFill, 0, pc.trueMaxHP);
+        //lv_bar_set_value(ui_PP_hpFill,pc.HP, LV_ANIM_OFF);
+        //lv_bar_set_value(ui_PP_hpTempFill, pc.tempHP, LV_ANIM_OFF);
+
+        //lv_img_set_src(ui_PP_profilePic, pc.pfpSrc);
+    }else if(screen == ui_PlayerCreation){
+        struct fighter pc = readPC();
+        lv_label_set_text_fmt(ui_PC_nameTxt, "%s", pc.nickname);
+        lv_label_set_text_fmt(ui_PC_hpTxt, "%d", pc.trueMaxHP);
+        lv_label_set_text_fmt(ui_PC_acTxt, "%d", pc.AC);
+    } */
     
     //Finally, we unlock the screen
     xSemaphoreGive(xGuiSemaphore);
