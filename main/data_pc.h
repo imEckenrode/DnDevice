@@ -56,13 +56,13 @@ struct __attribute__((packed)) fighter{
     };
 
     short HP;           //2 bytes
-    short maxHP;        //2 bytes   //This could be reduced by an effect
+    short maxHP;        //2 bytes   //This could be reduced by an effect, hence the trueMaxHP
     short trueMaxHP;    //2 bytes
     short tempHP;       //2 bytes
                     //All below is 2 bytes
     uint8_t AC:6;
-    uint8_t itemAC:3;
-    uint8_t statusAC:3; //Cover, shield, etc.
+    uint8_t itemAC:3;            //This is currently unused
+    uint8_t statusAC:3; //Cover, shield, etc. (all together will put over this limit...)
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
@@ -78,6 +78,10 @@ struct fighter readPC();
 
 // This updates the PC data to whatever is passed in. Make sure it isn't a bunch of zeros
 bool writePC(struct fighter newPC);
+
+//Long Rest and Short Rest functionality
+void longRest();
+void shortRest(int hp);
 
 // Below are the wrappers for manipulating the struct, in order (with data correction)):
 

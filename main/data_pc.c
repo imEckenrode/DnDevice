@@ -47,6 +47,14 @@ bool writePC(struct fighter newPC){
     return true;
 }
 
+//Long Rest and Short Rest functionality
+void longRest(){
+    setHP(1000000); //Anything higher than maxHP will set to maxHP haha
+}
+
+void shortRest(int hp){
+    adjustHP(hp);
+}
 
 /* On the backend, we always use Read and Write PC from within our spinlock, so everything below is wrapper functions */
 //TODO: May need a special method for reaching 0 HP

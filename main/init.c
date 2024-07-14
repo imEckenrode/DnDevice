@@ -33,6 +33,7 @@ void startup(void){
     default_pc_init();
 
     //refresh the screen here
+    //ui_refresh(true); gonna have to wait a bit before running this (most likely done in the screen itself)
 }
 
 
