@@ -3,8 +3,13 @@
 #include "stdlib.h"
 #include "esp_log.h"
 
-long int stringToLong(char* input){
+long int stringToLong(char* input, int defaultVal){
     char *leftovers;
+
+    if(*input == '\0'){
+        return defaultVal;
+    }
+
     long num = strtol(input, &leftovers, 10);
 
     //This stops at the first character that is not a digit, plus, minus, or whitespace

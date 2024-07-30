@@ -72,6 +72,7 @@ void setTempHP(int hp){
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
+    //TODO: If this causes problems, move the If conditions outside the lock and set temporary variables. Currently we save space over time.
 void setMaxHP(int hp){
     taskENTER_CRITICAL(&pcDataSpinlock);
     if(hp >= PC->trueMaxHP){PC->maxHP = PC->trueMaxHP;}else if(hp <= 0){PC->maxHP=0;}else{PC->maxHP=hp;}

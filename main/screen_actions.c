@@ -9,12 +9,14 @@
 
 #define TAG "ScreenActions"
 
+#define SECRET_CANCEL_CONSTANT -29135 //If there is no input to the field, default to this value and prevent value modifications (TODO: Use for char type too)
+
 struct fighter dndv_getPC(){
    return readPC();
 }
 
 void dndv_healPC(char* input){
-    int heal = (int) stringToLong(input);
+    int heal = (int) stringToLong(input,0);
     adjustHP(heal);
 }
 
@@ -44,7 +46,9 @@ void dndv_HP_modifyHpMax(lv_event_t * e){ESP_LOGI(TAG, "Editing Max"); dndv_text
 void dndv_HP_numConfirm(lv_event_t * e){
     char* label = lv_textarea_get_placeholder_text(ui_HP_numTextArea);
     //NOTE: Casting it to a short could cause over/underflow and there's no guarantee negatives stay
-    short num = stringToLong(lv_textarea_get_text(ui_HP_numTextArea));
+    short num = stringToLong(lv_textarea_get_text(ui_HP_numTextArea), SECRET_CANCEL_CONSTANT);
+    //If nothing was input, fall back to original value
+    if(num == SECRET_CANCEL_CONSTANT){return;}
     if(strcmp(label, HP_MODIFY_TEXT_LABEL_TEMP)==0){
         setTempHP(num);
         ESP_LOGI(TAG, "Temp Triggered");
