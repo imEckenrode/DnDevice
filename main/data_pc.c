@@ -84,7 +84,7 @@ void setMaxHP(int hp){
 void setTrueMaxHP(int hp){
     taskENTER_CRITICAL(&pcDataSpinlock);
     if(hp <= 0){PC->trueMaxHP = 0;}else{PC->trueMaxHP = hp;}
-    if(PC->trueMaxHP < PC->maxHP){PC->HP = PC->maxHP;} //Reduce MaxHP to trueMaxHP if applicable (just in case; this function should only ever increase)
+    PC->maxHP = PC->trueMaxHP;  //Reset maxHP to align with trueMaxHP (TODO: Take the difference)
     if(PC->maxHP < PC->HP){PC->HP = PC->maxHP;} //Reduce HP to maxHP if applicable
     taskEXIT_CRITICAL(&pcDataSpinlock);
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
