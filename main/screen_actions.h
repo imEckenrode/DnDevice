@@ -49,6 +49,7 @@ void dndv_PC_profPicNext(lv_event_t * e);
 void dndv_PC_profPicPrev(lv_event_t * e);
 void dndv_PC_dataConfirm(lv_event_t * e);
 void dndv_PC_inputConfirm(lv_event_t * e);
+void dndv_PC_numConfirm(lv_event_t * e);
 void dndv_PC_nameEdit(lv_event_t * e);
 void dndv_PC_hpEdit(lv_event_t * e);
 void dndv_PC_acEdit(lv_event_t * e);

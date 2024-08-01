@@ -82,41 +82,37 @@ void dndv_IS_screenLoading(lv_event_t * e){return;}
 #define PC_INPUT_LABEL_CHANGE_AC "Enter New AC"
 
 void dndv_PC_screenLoading(lv_event_t * e){return;}
-void dndv_PC_profPicNext(lv_event_t * e){lv_keyboard_set_mode(ui_PC_InputKeyboard, LV_KEYBOARD_MODE_TEXT_UPPER); 
-                                         dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_SET_NAME);} //Temporary for testing purposes
+void dndv_PC_profPicNext(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_SET_NAME);} //Temporary for testing purposes
 void dndv_PC_profPicPrev(lv_event_t * e){return;}
 void dndv_PC_dataConfirm(lv_event_t * e){return;} //Looks Good, Continue
 void dndv_PC_inputConfirm(lv_event_t * e){
     char* label = lv_textarea_get_placeholder_text(ui_PC_InputTextArea);
     char* input = lv_textarea_get_text(ui_PC_InputTextArea);
-    if(strstr(label, "Name")){
-        if(*input!='\0'){   //If the name is empty, we're not changing it
-            setName(input); //TODO: Make
-        }
-        if(strcmp(label, PC_INPUT_LABEL_SET_NAME)==0){
-            dndv_PC_hpEdit(e);
-        }
-    }else{
-        short num = stringToLong(input, SECRET_CANCEL_CONSTANT);
-        //If nothing was input, fall back to original value
-        if(num != SECRET_CANCEL_CONSTANT){
-            if(strstr(label, "AC")==0){
-                setAC(num);
-            }else{
-                setTrueMaxHP(num);
-            }
-        }
-        if(strcmp(label, PC_INPUT_LABEL_SET_HP)==0){
-            dndv_PC_acEdit(e);
-        } //In all other three scenarios, we are closing out
+    if(*input!='\0'){   //If the name is empty, we're not changing it
+        setName(input);
+    }
+    if(strcmp(label, PC_INPUT_LABEL_SET_NAME)==0){
+        dndv_PC_hpEdit(e); //TODO: FIX BY CALLING RIGHT
     }
 }
 
-void dndv_PC_nameEdit(lv_event_t * e){lv_keyboard_set_mode(ui_PC_InputKeyboard, LV_KEYBOARD_MODE_TEXT_UPPER); 
-                                      dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_CHANGE_NAME);}
-void dndv_PC_hpEdit(lv_event_t * e){lv_keyboard_set_mode(ui_PC_InputKeyboard, LV_KEYBOARD_MODE_NUMBER); 
-                                    dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_CHANGE_HP);}
-void dndv_PC_acEdit(lv_event_t * e){lv_keyboard_set_mode(ui_PC_InputKeyboard, LV_KEYBOARD_MODE_NUMBER); 
-                                    dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_CHANGE_AC);}
+void dndv_PC_numConfirm(lv_event_t * e){
+    char* label = lv_textarea_get_placeholder_text(ui_PC_numTextArea);
+    short num = stringToLong(lv_textarea_get_text(ui_PC_numTextArea), SECRET_CANCEL_CONSTANT);
+    //If nothing was input, fall back to original value
+    if(num != SECRET_CANCEL_CONSTANT){
+        if(strstr(label, "AC")!=0){ //If AC is found
+            setAC(num);
+        }else{
+            setTrueMaxHP(num);
+        }
+    }
+    if(strcmp(label, PC_INPUT_LABEL_SET_HP)==0){ //If the labels match
+        dndv_PC_acEdit(e); //TODO: FIX BY CALLING RIGHT
+    } //In all other three scenarios, we are closing out
+}
+void dndv_PC_nameEdit(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_CHANGE_NAME);}
+void dndv_PC_hpEdit(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_PC_numTextArea, PC_INPUT_LABEL_CHANGE_HP);}
+void dndv_PC_acEdit(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_PC_numTextArea, PC_INPUT_LABEL_CHANGE_AC);}
 
 //ESP_LOGI(TAG,"Placement Correct"); dndv_textAreaClearAndRelabel(ui_PC_numInput, "Hi");

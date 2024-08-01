@@ -209,12 +209,12 @@ void ui_event_PlayerCreation(lv_event_t * e);
 lv_obj_t * ui_PlayerCreation;
 lv_obj_t * ui_PC_Bck;
 lv_obj_t * ui_PC_profPic;
-void ui_event_PC_condNextBtn(lv_event_t * e);
-lv_obj_t * ui_PC_condNextBtn;
-lv_obj_t * ui_PC_condNextTxt;
-void ui_event_PC_condLastBtn(lv_event_t * e);
-lv_obj_t * ui_PC_condLastBtn;
-lv_obj_t * ui_PC_condLastTxt;
+void ui_event_PC_pfpNextBtn(lv_event_t * e);
+lv_obj_t * ui_PC_pfpNextBtn;
+lv_obj_t * ui_PC_pfpNextTxt;
+void ui_event_PC_pfpPrevBtn(lv_event_t * e);
+lv_obj_t * ui_PC_pfpPrevBtn;
+lv_obj_t * ui_PC_pfpPrevTxt;
 void ui_event_PC_confirmBck(lv_event_t * e);
 lv_obj_t * ui_PC_confirmBck;
 lv_obj_t * ui_PC_confirmTxt;
@@ -224,6 +224,12 @@ lv_obj_t * ui_PC_InputKeyboard;
 void ui_event_PC_InputConfirmBtn(lv_event_t * e);
 lv_obj_t * ui_PC_InputConfirmBtn;
 lv_obj_t * ui_PC_InputTextArea;
+lv_obj_t * ui_PC_numInput;
+lv_obj_t * ui_PC_numKeyboard;
+void ui_event_PC_numConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_PC_numConfirmBtn;
+lv_obj_t * ui_HP_numConfirmTxt2;
+lv_obj_t * ui_PC_numTextArea;
 void ui_event_PC_nameTxt(lv_event_t * e);
 lv_obj_t * ui_PC_nameTxt;
 void ui_event_PC_hpTxt(lv_event_t * e);
@@ -905,7 +911,7 @@ void ui_event_PlayerCreation(lv_event_t * e)
         dndv_PC_screenLoading(e);
     }
 }
-void ui_event_PC_condNextBtn(lv_event_t * e)
+void ui_event_PC_pfpNextBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -913,7 +919,7 @@ void ui_event_PC_condNextBtn(lv_event_t * e)
         dndv_PC_profPicNext(e);
     }
 }
-void ui_event_PC_condLastBtn(lv_event_t * e)
+void ui_event_PC_pfpPrevBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
@@ -947,6 +953,15 @@ void ui_event_PC_InputConfirmBtn(lv_event_t * e)
         dndv_PC_inputConfirm(e);
     }
 }
+void ui_event_PC_numConfirmBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_PC_numConfirm(e);
+    }
+}
 void ui_event_PC_nameTxt(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -962,7 +977,7 @@ void ui_event_PC_hpTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_hpEdit(e);
-        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_hpLabel(lv_event_t * e)
@@ -971,7 +986,7 @@ void ui_event_PC_hpLabel(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_hpEdit(e);
-        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_acTxt(lv_event_t * e)
@@ -980,7 +995,7 @@ void ui_event_PC_acTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_acEdit(e);
-        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_acLabel(lv_event_t * e)
@@ -989,7 +1004,7 @@ void ui_event_PC_acLabel(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_acEdit(e);
-        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 
@@ -1005,10 +1020,10 @@ void ui_init(void)
     //Technically, we only need the first screen to be initialized
     //If screens aren't initialized here, they SHOULD be created and destroyed when loaded and unloaded
 
-    ui_HealthProfile_screen_init();
-    ui_PlayerProfile_screen_init();
+    //ui_HealthProfile_screen_init();
+    //ui_PlayerProfile_screen_init();
     //ui_IntroScreen_screen_init();
-    //ui_PlayerCreation_screen_init();
+    ui_PlayerCreation_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL); //We don't have any initial actions
-    lv_disp_load_scr(ui_PlayerProfile);
+    lv_disp_load_scr(ui_PlayerCreation);
 }
