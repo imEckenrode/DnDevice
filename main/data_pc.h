@@ -97,6 +97,8 @@ void adjustHP(int up);
 
 //AC
 void setAC(int ac);
+void setCover(int ac);
+
 
 //Name
 void setName(char* newName);

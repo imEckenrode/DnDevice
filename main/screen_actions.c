@@ -68,7 +68,16 @@ void dndv_PP_condRight(lv_event_t * e){dndv_refresh();} //Temporary refresh to t
 void dndv_PP_condLeft(lv_event_t * e){return;}
 void dndv_PP_condMore(lv_event_t * e){return;}
 void dndv_PP_InitScreen(lv_event_t * e){return;} //Navigate to Initiative Screen...can hijack with Player Creation
-void dndv_PP_numConfirm(lv_event_t * e){return;}
+void dndv_PP_numConfirm(lv_event_t * e){
+    short num = stringToLong(lv_textarea_get_text(ui_PP_acTextArea), SECRET_CANCEL_CONSTANT);
+    if(!lv_obj_has_flag(ui_PP_acCover_half, LV_OBJ_FLAG_HIDDEN)){setCover(2);}
+    else if(!lv_obj_has_flag(ui_PP_acCover_threeQuarter, LV_OBJ_FLAG_HIDDEN)){setCover(5);}
+    else if(!lv_obj_has_flag(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN)){setCover(7);}   //Full cover grants immunity to attacks. TODO: migrate cover to 2 bits of info
+    else{setCover(0);}
+    if(num != SECRET_CANCEL_CONSTANT){setAC(num);}
+    lv_textarea_set_text(ui_PP_acTextArea, "");
+}
+
 void dndv_PP_condMoreClose(lv_event_t * e){return;}
 
 

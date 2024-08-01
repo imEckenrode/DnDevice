@@ -20,6 +20,7 @@ void default_pc_init(){
 
     PC->tempHP = 5;
     PC->AC = 10;
+    PC->statusAC = 0;
     PC->HP = 20;
     PC->trueMaxHP = 30;
     PC->maxHP = PC->trueMaxHP;
@@ -94,6 +95,13 @@ void setTrueMaxHP(int hp){
 void setAC(int ac){
     taskENTER_CRITICAL(&pcDataSpinlock);
     if(ac <= 0){PC->AC = 0;}else{PC->AC = ac;}
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+void setCover(int ac){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    if(ac <= 0){PC->statusAC = 0;}else{PC->statusAC = ac;}
     taskEXIT_CRITICAL(&pcDataSpinlock);
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
