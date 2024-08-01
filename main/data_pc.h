@@ -48,7 +48,8 @@ struct conditions{  //Since these are all the same type, they won't jump another
 };*/
 
 //THiS is the structure for all PCs and enemies
-//TODO: Lock this behind a mutex
+
+#define DATA_FIGHTER_NAME_LEN 32
 struct __attribute__((packed)) fighter{
     union{  //2 bytes
         struct conditions condition;
@@ -66,7 +67,7 @@ struct __attribute__((packed)) fighter{
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
-    char nickname[32]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size
+    char nickname[DATA_FIGHTER_NAME_LEN]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size
 } *PC;
 //TODO: Lock this behind a mutex
 
@@ -93,3 +94,9 @@ void setTempHP(int hp);
 void setMaxHP(int hp);
 void setTrueMaxHP(int hp);
 void adjustHP(int up);
+
+//AC
+void setAC(int ac);
+
+//Name
+void setName(char* newName);

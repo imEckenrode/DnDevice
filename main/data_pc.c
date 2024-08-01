@@ -90,7 +90,22 @@ void setTrueMaxHP(int hp){
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
-//TODO: setTempHP, etc...
+
+void setAC(int ac){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    if(ac <= 0){PC->AC = 0;}else{PC->AC = ac;}
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+void setName(char* newName){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    strncpy(PC->nickname, newName, DATA_FIGHTER_NAME_LEN - 1);
+    PC->nickname[DATA_FIGHTER_NAME_LEN-1] = '\0';  //Fighter is filled up with null terminals now, but make sure the last one is a null terminal
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
 
 void adjustHP(int up){
     setHP(PC->HP + up);
