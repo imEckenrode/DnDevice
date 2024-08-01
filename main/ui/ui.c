@@ -1020,10 +1020,10 @@ void ui_init(void)
     //Technically, we only need the first screen to be initialized
     //If screens aren't initialized here, they SHOULD be created and destroyed when loaded and unloaded
 
-    //ui_HealthProfile_screen_init();
-    //ui_PlayerProfile_screen_init();
-    //ui_IntroScreen_screen_init();
+    ui_HealthProfile_screen_init();
+    ui_PlayerProfile_screen_init();
+    ui_IntroScreen_screen_init();
     ui_PlayerCreation_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL); //We don't have any initial actions
-    lv_disp_load_scr(ui_PlayerCreation);
+    lv_disp_load_scr(ui_IntroScreen);
 }
