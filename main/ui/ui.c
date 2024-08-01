@@ -87,8 +87,10 @@ lv_obj_t * ui_PP_condPrevTxt;
 void ui_event_PP_condMoreBtn(lv_event_t * e);
 lv_obj_t * ui_PP_condMoreBtn;
 lv_obj_t * ui_PP_condMoreTxt;
-lv_obj_t * ui_PP_profilePic;
-lv_obj_t * ui_PP_profPicWarlock;
+void ui_event_PP_profPicBck(lv_event_t * e);
+lv_obj_t * ui_PP_profPicBck;
+lv_obj_t * ui_PP_profPic;
+void ui_event_PP_hpBck(lv_event_t * e);
 lv_obj_t * ui_PP_hpBck;
 lv_obj_t * ui_PP_hpFill;
 lv_obj_t * ui_PP_hpTempFill;
@@ -216,18 +218,12 @@ lv_obj_t * ui_PC_condLastTxt;
 void ui_event_PC_confirmBck(lv_event_t * e);
 lv_obj_t * ui_PC_confirmBck;
 lv_obj_t * ui_PC_confirmTxt;
-lv_obj_t * ui_PC_numInput;
-lv_obj_t * ui_PC_numKeyboard;
-void ui_event_PC_numConfirmBtn(lv_event_t * e);
-lv_obj_t * ui_PC_numConfirmBtn;
-lv_obj_t * ui_HP_numConfirmTxt2;
-lv_obj_t * ui_PC_numTextArea;
-lv_obj_t * ui_PC_wordInput;
-void ui_event_PC_wordKeyboard(lv_event_t * e);
-lv_obj_t * ui_PC_wordKeyboard;
-void ui_event_PC_wordConfirmBtn(lv_event_t * e);
-lv_obj_t * ui_PC_wordConfirmBtn;
-lv_obj_t * ui_PC_wordTextArea;
+lv_obj_t * ui_PC_Input;
+void ui_event_PC_InputKeyboard(lv_event_t * e);
+lv_obj_t * ui_PC_InputKeyboard;
+void ui_event_PC_InputConfirmBtn(lv_event_t * e);
+lv_obj_t * ui_PC_InputConfirmBtn;
+lv_obj_t * ui_PC_InputTextArea;
 void ui_event_PC_nameTxt(lv_event_t * e);
 lv_obj_t * ui_PC_nameTxt;
 void ui_event_PC_hpTxt(lv_event_t * e);
@@ -572,6 +568,22 @@ void ui_event_PP_condMoreBtn(lv_event_t * e)
         dndv_PP_condMore(e);
     }
 }
+void ui_event_PP_profPicBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_PlayerCreation, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_PlayerCreation_screen_init);
+    }
+}
+void ui_event_PP_hpBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_HealthProfile, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_HealthProfile_screen_init);
+    }
+}
 void ui_event_PP_acBck(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
@@ -887,8 +899,7 @@ void ui_event_PlayerCreation(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_SCREEN_LOADED) {
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
     if(event_code == LV_EVENT_SCREEN_LOAD_START) {
         dndv_PC_screenLoading(e);
@@ -919,30 +930,21 @@ void ui_event_PC_confirmBck(lv_event_t * e)
         dndv_PC_dataConfirm(e);
     }
 }
-void ui_event_PC_numConfirmBtn(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        dndv_PC_numConfirm(e);
-    }
-}
-void ui_event_PC_wordKeyboard(lv_event_t * e)
+void ui_event_PC_InputKeyboard(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_KEY &&  lv_event_get_key(e) == LV_KEY_ENTER) {
-        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
     }
 }
-void ui_event_PC_wordConfirmBtn(lv_event_t * e)
+void ui_event_PC_InputConfirmBtn(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
-        dndv_PC_wordConfirm(e);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+        dndv_PC_inputConfirm(e);
     }
 }
 void ui_event_PC_nameTxt(lv_event_t * e)
@@ -950,7 +952,7 @@ void ui_event_PC_nameTxt(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_flag_modify(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
         dndv_PC_nameEdit(e);
     }
 }
@@ -960,7 +962,7 @@ void ui_event_PC_hpTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_hpEdit(e);
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_hpLabel(lv_event_t * e)
@@ -969,7 +971,7 @@ void ui_event_PC_hpLabel(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_hpEdit(e);
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_acTxt(lv_event_t * e)
@@ -978,7 +980,7 @@ void ui_event_PC_acTxt(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_acEdit(e);
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_PC_acLabel(lv_event_t * e)
@@ -987,7 +989,7 @@ void ui_event_PC_acLabel(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PC_acEdit(e);
-        _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 

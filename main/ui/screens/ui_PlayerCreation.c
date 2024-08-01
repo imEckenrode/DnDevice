@@ -76,93 +76,45 @@ void ui_PlayerCreation_screen_init(void)
     lv_obj_set_style_text_align(ui_PC_confirmTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PC_confirmTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PC_numInput = lv_obj_create(ui_PC_Bck);
-    lv_obj_set_width(ui_PC_numInput, 296);
-    lv_obj_set_height(ui_PC_numInput, 173);
-    lv_obj_set_x(ui_PC_numInput, 0);
-    lv_obj_set_y(ui_PC_numInput, 9);
-    lv_obj_set_align(ui_PC_numInput, LV_ALIGN_BOTTOM_MID);
-    lv_obj_add_flag(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN);     /// Flags
-    lv_obj_clear_flag(ui_PC_numInput, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_PC_Input = lv_obj_create(ui_PC_Bck);
+    lv_obj_set_width(ui_PC_Input, 296);
+    lv_obj_set_height(ui_PC_Input, 173);
+    lv_obj_set_x(ui_PC_Input, 0);
+    lv_obj_set_y(ui_PC_Input, 9);
+    lv_obj_set_align(ui_PC_Input, LV_ALIGN_BOTTOM_MID);
+    lv_obj_add_flag(ui_PC_Input, LV_OBJ_FLAG_HIDDEN);     /// Flags
+    lv_obj_clear_flag(ui_PC_Input, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
 
-    ui_PC_numKeyboard = lv_keyboard_create(ui_PC_numInput);
-    lv_keyboard_set_mode(ui_PC_numKeyboard, LV_KEYBOARD_MODE_NUMBER);
-    lv_obj_set_width(ui_PC_numKeyboard, 292);
-    lv_obj_set_height(ui_PC_numKeyboard, 120);
-    lv_obj_set_x(ui_PC_numKeyboard, 0);
-    lv_obj_set_y(ui_PC_numKeyboard, 13);
-    lv_obj_set_align(ui_PC_numKeyboard, LV_ALIGN_BOTTOM_MID);
+    ui_PC_InputKeyboard = lv_keyboard_create(ui_PC_Input);
+    lv_keyboard_set_mode(ui_PC_InputKeyboard, LV_KEYBOARD_MODE_TEXT_UPPER);
+    lv_obj_set_width(ui_PC_InputKeyboard, 292);
+    lv_obj_set_height(ui_PC_InputKeyboard, 120);
+    lv_obj_set_x(ui_PC_InputKeyboard, 0);
+    lv_obj_set_y(ui_PC_InputKeyboard, 13);
+    lv_obj_set_align(ui_PC_InputKeyboard, LV_ALIGN_BOTTOM_MID);
 
-    ui_PC_numConfirmBtn = lv_obj_create(ui_PC_numKeyboard);
-    lv_obj_set_width(ui_PC_numConfirmBtn, 113);
-    lv_obj_set_height(ui_PC_numConfirmBtn, 57);
-    lv_obj_set_x(ui_PC_numConfirmBtn, 87);
-    lv_obj_set_y(ui_PC_numConfirmBtn, lv_pct(-26));
-    lv_obj_set_align(ui_PC_numConfirmBtn, LV_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_PC_numConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    ui_PC_InputConfirmBtn = lv_obj_create(ui_PC_InputKeyboard);
+    lv_obj_set_width(ui_PC_InputConfirmBtn, 37);
+    lv_obj_set_height(ui_PC_InputConfirmBtn, 26);
+    lv_obj_set_x(ui_PC_InputConfirmBtn, 124);
+    lv_obj_set_y(ui_PC_InputConfirmBtn, lv_pct(38));
+    lv_obj_set_align(ui_PC_InputConfirmBtn, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_PC_InputConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_opa(ui_PC_InputConfirmBtn, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_HP_numConfirmTxt2 = lv_label_create(ui_PC_numConfirmBtn);
-    lv_obj_set_width(ui_HP_numConfirmTxt2, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_HP_numConfirmTxt2, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_align(ui_HP_numConfirmTxt2, LV_ALIGN_CENTER);
-    lv_label_set_text(ui_HP_numConfirmTxt2, "Confirm");
-    lv_obj_set_style_text_font(ui_HP_numConfirmTxt2, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PC_numTextArea = lv_textarea_create(ui_PC_numInput);
-    lv_obj_set_width(ui_PC_numTextArea, 285);
-    lv_obj_set_height(ui_PC_numTextArea, LV_SIZE_CONTENT);    /// 40
-    lv_obj_set_x(ui_PC_numTextArea, 0);
-    lv_obj_set_y(ui_PC_numTextArea, -61);
-    lv_obj_set_align(ui_PC_numTextArea, LV_ALIGN_CENTER);
-    lv_textarea_set_placeholder_text(ui_PC_numTextArea, "Insert HP Amount    ");
-    lv_textarea_set_one_line(ui_PC_numTextArea, true);
-    lv_obj_clear_flag(ui_PC_numTextArea,
+    ui_PC_InputTextArea = lv_textarea_create(ui_PC_Input);
+    lv_obj_set_width(ui_PC_InputTextArea, 285);
+    lv_obj_set_height(ui_PC_InputTextArea, LV_SIZE_CONTENT);    /// 40
+    lv_obj_set_x(ui_PC_InputTextArea, 0);
+    lv_obj_set_y(ui_PC_InputTextArea, -61);
+    lv_obj_set_align(ui_PC_InputTextArea, LV_ALIGN_CENTER);
+    lv_textarea_set_placeholder_text(ui_PC_InputTextArea, "Insert Player Name   ");
+    lv_textarea_set_one_line(ui_PC_InputTextArea, true);
+    lv_obj_clear_flag(ui_PC_InputTextArea,
                       LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
                       LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
-    lv_obj_set_style_text_align(ui_PC_numTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_PC_numTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-
-
-    ui_PC_wordInput = lv_obj_create(ui_PC_Bck);
-    lv_obj_set_width(ui_PC_wordInput, 296);
-    lv_obj_set_height(ui_PC_wordInput, 173);
-    lv_obj_set_x(ui_PC_wordInput, 0);
-    lv_obj_set_y(ui_PC_wordInput, 9);
-    lv_obj_set_align(ui_PC_wordInput, LV_ALIGN_BOTTOM_MID);
-    lv_obj_add_flag(ui_PC_wordInput, LV_OBJ_FLAG_HIDDEN);     /// Flags
-    lv_obj_clear_flag(ui_PC_wordInput, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-
-    ui_PC_wordKeyboard = lv_keyboard_create(ui_PC_wordInput);
-    lv_keyboard_set_mode(ui_PC_wordKeyboard, LV_KEYBOARD_MODE_TEXT_UPPER);
-    lv_obj_set_width(ui_PC_wordKeyboard, 292);
-    lv_obj_set_height(ui_PC_wordKeyboard, 120);
-    lv_obj_set_x(ui_PC_wordKeyboard, 0);
-    lv_obj_set_y(ui_PC_wordKeyboard, 13);
-    lv_obj_set_align(ui_PC_wordKeyboard, LV_ALIGN_BOTTOM_MID);
-
-    ui_PC_wordConfirmBtn = lv_obj_create(ui_PC_wordKeyboard);
-    lv_obj_set_width(ui_PC_wordConfirmBtn, 37);
-    lv_obj_set_height(ui_PC_wordConfirmBtn, 26);
-    lv_obj_set_x(ui_PC_wordConfirmBtn, 124);
-    lv_obj_set_y(ui_PC_wordConfirmBtn, lv_pct(38));
-    lv_obj_set_align(ui_PC_wordConfirmBtn, LV_ALIGN_CENTER);
-    lv_obj_clear_flag(ui_PC_wordConfirmBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_opa(ui_PC_wordConfirmBtn, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PC_wordTextArea = lv_textarea_create(ui_PC_wordInput);
-    lv_obj_set_width(ui_PC_wordTextArea, 285);
-    lv_obj_set_height(ui_PC_wordTextArea, LV_SIZE_CONTENT);    /// 40
-    lv_obj_set_x(ui_PC_wordTextArea, 0);
-    lv_obj_set_y(ui_PC_wordTextArea, -61);
-    lv_obj_set_align(ui_PC_wordTextArea, LV_ALIGN_CENTER);
-    lv_textarea_set_placeholder_text(ui_PC_wordTextArea, "Insert Player Name   ");
-    lv_textarea_set_one_line(ui_PC_wordTextArea, true);
-    lv_obj_clear_flag(ui_PC_wordTextArea,
-                      LV_OBJ_FLAG_SCROLLABLE | LV_OBJ_FLAG_SCROLL_ELASTIC | LV_OBJ_FLAG_SCROLL_MOMENTUM |
-                      LV_OBJ_FLAG_SCROLL_CHAIN);     /// Flags
-    lv_obj_set_style_text_align(ui_PC_wordTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_PC_wordTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_align(ui_PC_InputTextArea, LV_TEXT_ALIGN_CENTER, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_PC_InputTextArea, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
 
 
 
@@ -229,11 +181,9 @@ void ui_PlayerCreation_screen_init(void)
     lv_obj_add_event_cb(ui_PC_condNextBtn, ui_event_PC_condNextBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PC_condLastBtn, ui_event_PC_condLastBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PC_confirmBck, ui_event_PC_confirmBck, LV_EVENT_ALL, NULL);
-    lv_keyboard_set_textarea(ui_PC_numKeyboard, ui_PC_numTextArea);
-    lv_obj_add_event_cb(ui_PC_numConfirmBtn, ui_event_PC_numConfirmBtn, LV_EVENT_ALL, NULL);
-    lv_keyboard_set_textarea(ui_PC_wordKeyboard, ui_PC_wordTextArea);
-    lv_obj_add_event_cb(ui_PC_wordConfirmBtn, ui_event_PC_wordConfirmBtn, LV_EVENT_ALL, NULL);
-    lv_obj_add_event_cb(ui_PC_wordKeyboard, ui_event_PC_wordKeyboard, LV_EVENT_ALL, NULL);
+    lv_keyboard_set_textarea(ui_PC_InputKeyboard, ui_PC_InputTextArea);
+    lv_obj_add_event_cb(ui_PC_InputConfirmBtn, ui_event_PC_InputConfirmBtn, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_PC_InputKeyboard, ui_event_PC_InputKeyboard, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PC_nameTxt, ui_event_PC_nameTxt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PC_hpTxt, ui_event_PC_hpTxt, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PC_hpLabel, ui_event_PC_hpLabel, LV_EVENT_ALL, NULL);
