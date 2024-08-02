@@ -78,7 +78,7 @@ void dndv_PP_numConfirm(lv_event_t * e){
     lv_textarea_set_text(ui_PP_acTextArea, "");
 }
 
-void dndv_PP_condMoreClose(lv_event_t * e){return;}
+void dndv_PP_condMoreClose(lv_event_t * e){return;} //TODO: Save the conditions to the player some time after updating
 
 
 void dndv_IS_screenLoading(lv_event_t * e){return;}

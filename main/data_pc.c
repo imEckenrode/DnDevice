@@ -19,14 +19,14 @@ void default_pc_init(){
     PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we malloc instead of calloc)
 
     PC->tempHP = 5;
-    PC->AC = 10;
+    PC->AC = 12;
     PC->statusAC = 0;
     PC->HP = 20;
     PC->trueMaxHP = 30;
     PC->maxHP = PC->trueMaxHP;
     PC->condition.charmed = true;
 
-    strcpy(PC->nickname, "Bart Ironface Something");
+    strcpy(PC->nickname, "Blanky McNothing");
     //PC->pfpSrc = &ui_img_playericons_icon_warlock_png;
 
     ESP_LOGW("OUTPUT", "HP: %d, MAX: %d, AC: %d, Conditions: %x", PC->HP, PC->maxHP, PC->AC, PC->allConditions);

@@ -17,11 +17,11 @@ The helper functions all use a dedicated spinlock to guarantee no interference a
 */
 
 
-struct conditions{  //Since these are all the same type, they won't jump another block
+struct __attribute__((packed)) conditions{  //Since these are all the same type, they won't jump another block
     bool blinded:1;
     bool charmed:1;
-    bool therest:1;
-    bool d:1;
+    bool deafened:1;
+    uint8_t exausted:3; //TODO: Maybe move this to the end if packing works poorly
     bool e:1;
     bool f:1;
     bool g:1;
@@ -67,9 +67,9 @@ struct __attribute__((packed)) fighter{
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
+    //Add in PFP image enum
     char nickname[DATA_FIGHTER_NAME_LEN]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size
 } *PC;
-//TODO: Lock this behind a mutex
 
 void default_pc_init();
 
