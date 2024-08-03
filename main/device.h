@@ -7,6 +7,7 @@
 #include "nvs_flash.h"
 #include "esp_err.h"
 #include "esp_log.h"
+#include "lvgl/lvgl.h"
 //We need esp_event out here so we can have the global variable
 /*
 
@@ -21,6 +22,27 @@ struct __attribute__((__packed__)) device {
     char pc_name[20];
 } my;
 
+
+#define DNDV_PFP_COUNT 13
+//And here's the array for profile pictures (initialized in screen_control.c)
+extern lv_img_dsc_t *pfpArray[DNDV_PFP_COUNT]; //To leave all UI to 
+
+//and their related names
+enum DNDV_PFPS{
+    DNDV_PFP_artificer,
+    DNDV_PFP_barbarian,
+    DNDV_PFP_bard,
+    DNDV_PFP_cleric,
+    DNDV_PFP_druid,
+    DNDV_PFP_fighter,
+    DNDV_PFP_monk,
+    DNDV_PFP_paladin,
+    DNDV_PFP_ranger,
+    DNDV_PFP_rogue,
+    DNDV_PFP_sorcerer,
+    DNDV_PFP_warlock,
+    DNDV_PFP_wizard
+};
 
 /*      -  NVS  - 
 Initialize the non-volatile storage library to persist data 

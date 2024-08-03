@@ -274,6 +274,19 @@ LV_IMG_DECLARE(ui_img_conditions_new_unconcious_png);    // assets/Conditions/ne
 LV_IMG_DECLARE(ui_img_images_d20_png);    // assets/Images/d20.png
 
 
+LV_IMG_DECLARE(ui_img_playericons_icon_artificer_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_barbarian_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_bard_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_cleric_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_druid_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_fighter_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_monk_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_paladin_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_ranger_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_rogue_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_sorcerer_png);
+//LV_IMG_DECLARs\ui_img_playericons_icon_warlock_png);
+LV_IMG_DECLARE(ui_img_playericons_icon_wizard_png);
 
 LV_FONT_DECLARE(ui_font_Black_Chancery_14);
 LV_FONT_DECLARE(ui_font_Black_Chancery_16);
@@ -282,8 +295,6 @@ LV_FONT_DECLARE(ui_font_Black_Chancery_25);
 LV_FONT_DECLARE(ui_font_Black_Chancery_30);
 LV_FONT_DECLARE(ui_font_Black_Chancery_50);
 LV_FONT_DECLARE(ui_font_Dungeon_50);
-
-
 
 void ui_init(void);
 

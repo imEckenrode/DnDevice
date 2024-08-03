@@ -117,6 +117,22 @@ void  ui_stuff_init() {
 
     esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
 
+    lv_img_dsc_t *pfpArray[] = {
+        &ui_img_playericons_icon_artificer_png,
+        &ui_img_playericons_icon_barbarian_png,
+        &ui_img_playericons_icon_bard_png,
+        &ui_img_playericons_icon_cleric_png,
+        &ui_img_playericons_icon_druid_png,
+        &ui_img_playericons_icon_fighter_png,
+        &ui_img_playericons_icon_monk_png,
+        &ui_img_playericons_icon_paladin_png,
+        &ui_img_playericons_icon_ranger_png,
+        &ui_img_playericons_icon_rogue_png,
+        &ui_img_playericons_icon_sorcerer_png,
+        &ui_img_playericons_icon_warlock_png,
+        &ui_img_playericons_icon_wizard_png
+    };
+
     //TODO: Refresh every time the screen changes, which should be possible like this
     //lv_display_add_event_cb(, ui_refresh, LV_EVENT_CLICKED, NULL);   /*Assign an event callback (NULL is also 0, but TODO refactor)*/
 }
