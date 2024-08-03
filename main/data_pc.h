@@ -67,7 +67,7 @@ struct __attribute__((packed)) fighter{
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
-    //Add in PFP image enum
+    uint8_t pfp; //This is a shortened "enum DNDV_PFPS" attribute
     char nickname[DATA_FIGHTER_NAME_LEN]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size
 } *PC;
 

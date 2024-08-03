@@ -25,6 +25,7 @@ void default_pc_init(){
     PC->trueMaxHP = 30;
     PC->maxHP = PC->trueMaxHP;
     PC->condition.charmed = true;
+    PC->pfp = DNDV_PFP_FIGHTER;
 
     strcpy(PC->nickname, "Blanky McNothing");
     //PC->pfpSrc = &ui_img_playericons_icon_warlock_png;

@@ -13,7 +13,6 @@ Custom events are also defined here if triggered by a user action
 
     Updating the screen is then done in screen_control
 */
-
 // This forces a refresh by pretending to update the local PC
 void dndv_refresh();
 

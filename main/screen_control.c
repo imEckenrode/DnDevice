@@ -42,6 +42,14 @@ SemaphoreHandle_t xGuiSemaphore;
  *  REFRESHING THE UI  *
  *                      */
 
+// This is the array with all the profile picture pointers
+const lv_img_dsc_t *pfpArray[DNDV_PFPS_COUNT];
+
+
+void dndv_update_pfp(lv_obj_t *image_holder, enum DNDV_PFPS selection){
+    lv_img_set_src(image_holder, pfpArray[selection]);
+}
+
 //Refresh the UI. Set animating to true if data was received and we want to animate the heart, but false if just navigating
 void ui_refresh(bool animating){
     ESP_LOGI(TAG, "Reaching for Semaphore");
@@ -73,7 +81,7 @@ void ui_refresh(bool animating){
         //If animating, animate. Otherwise, set heart text normally
         lv_label_set_text_fmt(ui_HP_hpTotal, "%d", pc.HP + pc.tempHP);
 
-        //lv_img_set_src(ui_HP_profPic, pc.pfpSrc);
+        dndv_update_pfp(ui_HP_profPic, pc.pfp);
     }
     else if(screen == ui_PlayerProfile){
         struct fighter pc = readPC();
@@ -91,12 +99,14 @@ void ui_refresh(bool animating){
         //TODO: Set Conditions (unless that's saved on the screen itself)
         //TODO: Set PFP (unless that's saved on the screen itself)
 
-        //lv_img_set_src(ui_PP_profilePic, pc.pfpSrc);
+        dndv_update_pfp(ui_PP_profPic, pc.pfp);
     }else if(screen == ui_PlayerCreation){
         struct fighter pc = readPC();
         lv_label_set_text_fmt(ui_PC_nameTxt, "%s", pc.nickname);
         lv_label_set_text_fmt(ui_PC_hpTxt, "%d", pc.trueMaxHP);
         lv_label_set_text_fmt(ui_PC_acTxt, "%d", pc.AC);
+
+        dndv_update_pfp(ui_PC_profPic, pc.pfp);
     }
     
     //Finally, we unlock the screen
@@ -117,21 +127,19 @@ void  ui_stuff_init() {
 
     esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
 
-    lv_img_dsc_t *pfpArray[] = {
-        &ui_img_playericons_icon_artificer_png,
-        &ui_img_playericons_icon_barbarian_png,
-        &ui_img_playericons_icon_bard_png,
-        &ui_img_playericons_icon_cleric_png,
-        &ui_img_playericons_icon_druid_png,
-        &ui_img_playericons_icon_fighter_png,
-        &ui_img_playericons_icon_monk_png,
-        &ui_img_playericons_icon_paladin_png,
-        &ui_img_playericons_icon_ranger_png,
-        &ui_img_playericons_icon_rogue_png,
-        &ui_img_playericons_icon_sorcerer_png,
-        &ui_img_playericons_icon_warlock_png,
-        &ui_img_playericons_icon_wizard_png
-    };
+    pfpArray[0] = &ui_img_playericons_icon_artificer_png;
+    //pfpArray[1] = &ui_img_playericons_icon_barbarian_png;
+    //pfpArray[2] = &ui_img_playericons_icon_bard_png;
+    //pfpArray[3] = &ui_img_playericons_icon_cleric_png;
+    //pfpArray[4] = &ui_img_playericons_icon_druid_png;
+    pfpArray[5] = &ui_img_playericons_icon_fighter_png;
+    //pfpArray[6] = &ui_img_playericons_icon_monk_png;
+    //pfpArray[7] = &ui_img_playericons_icon_paladin_png;
+    //pfpArray[8] = &ui_img_playericons_icon_ranger_png;
+    //pfpArray[9] = &ui_img_playericons_icon_rogue_png;
+    //pfpArray[10] = &ui_img_playericons_icon_sorcerer_png;
+    //pfpArray[11] = &ui_img_playericons_icon_warlock_png;
+    //pfpArray[12] = &ui_img_playericons_icon_wizard_png;
 
     //TODO: Refresh every time the screen changes, which should be possible like this
     //lv_display_add_event_cb(, ui_refresh, LV_EVENT_CLICKED, NULL);   /*Assign an event callback (NULL is also 0, but TODO refactor)*/

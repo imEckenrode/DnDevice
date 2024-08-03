@@ -23,25 +23,24 @@ struct __attribute__((__packed__)) device {
 } my;
 
 
-#define DNDV_PFP_COUNT 13
-//And here's the array for profile pictures (initialized in screen_control.c)
-extern lv_img_dsc_t *pfpArray[DNDV_PFP_COUNT]; //To leave all UI to 
-
+// This is the enumeration for the profile pictures
+// Since the PFPs are a display issue, the pointers are stored in screen_control
+#define DNDV_PFPS_COUNT 13
 //and their related names
 enum DNDV_PFPS{
-    DNDV_PFP_artificer,
-    DNDV_PFP_barbarian,
-    DNDV_PFP_bard,
-    DNDV_PFP_cleric,
-    DNDV_PFP_druid,
-    DNDV_PFP_fighter,
-    DNDV_PFP_monk,
-    DNDV_PFP_paladin,
-    DNDV_PFP_ranger,
-    DNDV_PFP_rogue,
-    DNDV_PFP_sorcerer,
-    DNDV_PFP_warlock,
-    DNDV_PFP_wizard
+    DNDV_PFP_ARTIFICER,
+    DNDV_PFP_BARBARIAN,
+    DNDV_PFP_BARD,
+    DNDV_PFP_CLERIC,
+    DNDV_PFP_DRUID,
+    DNDV_PFP_FIGHTER,
+    DNDV_PFP_MONK,
+    DNDV_PFP_PALADIN,
+    DNDV_PFP_RANGER,
+    DNDV_PFP_ROGUE,
+    DNDV_PFP_SORCERER,
+    DNDV_PFP_WARLOCK,
+    DNDV_PFP_WIZARD
 };
 
 /*      -  NVS  - 
