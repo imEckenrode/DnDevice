@@ -14,12 +14,6 @@ Custom events are also defined here if triggered by a user action
     Updating the screen is then done in screen_control
 */
 
-//Getting and setting data is done by creating a struct copy, updating the variables, and posting it back
-struct fighter dndv_getPC();
-struct fighter dndv_setPC();
-
-void dndv_healPC(char* input); //Adjust HP by this number (negative numbers mean down)
-
 // This forces a refresh by pretending to update the local PC
 void dndv_refresh();
 

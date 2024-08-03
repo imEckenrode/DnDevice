@@ -11,15 +11,6 @@
 
 #define SECRET_CANCEL_CONSTANT -29135 //If there is no input to the field, default to this value and prevent value modifications (TODO: Use for char type too)
 
-struct fighter dndv_getPC(){
-   return readPC();
-}
-
-void dndv_healPC(char* input){
-    int heal = (int) stringToLong(input,0);
-    adjustHP(heal);
-}
-
 void dndv_refresh(){
     // This takes long which makes it work? ScreenLoading should be deleted, exclusively use refresh (SCREEN_LOADED)
     writePC(readPC());
