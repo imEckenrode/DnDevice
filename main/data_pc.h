@@ -99,6 +99,7 @@ void adjustHP(int up);
 void setAC(int ac);
 void setCover(int ac);
 
-
+//Profile Picture
+void setPFP(short newPFP);
 //Name
 void setName(char* newName);

@@ -82,10 +82,10 @@ void dndv_IS_screenLoading(lv_event_t * e){return;}
 #define PC_INPUT_LABEL_CHANGE_AC "Enter New AC"
 
 void dndv_PC_screenLoading(lv_event_t * e){return;}
-void dndv_PC_profPicNext(lv_event_t * e){ESP_LOGI(TAG, "BUTTON IS PRESSED NEXT"); 
-        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE); 
-        dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_SET_NAME);} //Temporary for testing purposes
-void dndv_PC_profPicPrev(lv_event_t * e){ESP_LOGI(TAG, "BUTTON IS PRESSED PREV");}
+void dndv_PC_profPicNext(lv_event_t * e){setPFP(readPC().pfp+1);}
+void dndv_PC_profPicPrev(lv_event_t * e){setPFP(readPC().pfp-1);
+        _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE); //Temporary for testing purposes
+        dndv_textAreaClearAndRelabel(ui_PC_InputTextArea, PC_INPUT_LABEL_SET_NAME);}
 void dndv_PC_dataConfirm(lv_event_t * e){return;} //Looks Good, Continue
 void dndv_PC_inputConfirm(lv_event_t * e){
     char* label = lv_textarea_get_placeholder_text(ui_PC_InputTextArea);

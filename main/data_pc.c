@@ -107,6 +107,14 @@ void setCover(int ac){
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
+void setPFP(short newPFP){
+    uint8_t actual = (newPFP % DNDV_PFPS_COUNT + DNDV_PFPS_COUNT) % DNDV_PFPS_COUNT; //This guarantees a positive modulus
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    PC->pfp = actual;
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
 void setName(char* newName){
     taskENTER_CRITICAL(&pcDataSpinlock);
     strncpy(PC->nickname, newName, DATA_FIGHTER_NAME_LEN - 1);
