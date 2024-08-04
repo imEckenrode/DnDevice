@@ -405,6 +405,7 @@ void ui_event_HP_restShortBtn(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_HP_shortRest(e);
+        _ui_flag_modify(ui_HP_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
     }
 }
 void ui_event_HP_toScreen_PP(lv_event_t * e)

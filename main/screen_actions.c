@@ -30,7 +30,7 @@ void dndv_textAreaClearAndRelabel(lv_obj_t * t, char* label){
 void dndv_HP_screenLoading(lv_event_t * e){dndv_refresh();}
 void dndv_HP_healXdmg(lv_event_t * e){return;}
 void dndv_HP_longRest(lv_event_t * e){longRest();}
-void dndv_HP_shortRest(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_HP_numTextArea, HP_MODIFY_TEXT_LABEL_CURRENT);} //TODO make a popup and use numConfirm
+void dndv_HP_shortRest(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_HP_numTextArea, HP_MODIFY_TEXT_LABEL_SHORT_REST);} //TODO make a popup and use numConfirm
 void dndv_HP_modifyHpTemp(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_HP_numTextArea, HP_MODIFY_TEXT_LABEL_TEMP);}
 void dndv_HP_modifyHpCurrent(lv_event_t * e){dndv_textAreaClearAndRelabel(ui_HP_numTextArea, HP_MODIFY_TEXT_LABEL_CURRENT);}
 void dndv_HP_modifyHpMax(lv_event_t * e){ESP_LOGI(TAG, "Editing Max"); dndv_textAreaClearAndRelabel(ui_HP_numTextArea, HP_MODIFY_TEXT_LABEL_MAX);}

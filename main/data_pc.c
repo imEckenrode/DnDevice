@@ -54,8 +54,9 @@ void longRest(){
     setHP(1000000); //Anything higher than maxHP will set to maxHP haha
 }
 
+//You can't lose HP while completing a short rest
 void shortRest(int hp){
-    adjustHP(hp);
+    if(hp>0){adjustHP(hp);}
 }
 
 /* On the backend, we always use Read and Write PC from within our spinlock, so everything below is wrapper functions */
