@@ -46,7 +46,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_x(ui_PP_condCharmed, -55);
     lv_obj_set_y(ui_PP_condCharmed, 0);
     lv_obj_set_align(ui_PP_condCharmed, LV_ALIGN_CENTER);
-    //lv_obj_add_state(ui_PP_condCharmed, LV_STATE_CHECKED);       /// States
+    lv_obj_add_state(ui_PP_condCharmed, LV_STATE_CHECKED);       /// States
     lv_obj_add_flag(ui_PP_condCharmed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condCharmed, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condCharmed, 200);
@@ -196,7 +196,21 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_style_bg_color(ui_PP_hpBck, lv_color_hex(0x393939), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_opa(ui_PP_hpBck, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_PP_hpFill = lv_bar_create(ui_PP_hpBck);
+    ui_PP_hpMaxFill = lv_bar_create(ui_PP_hpBck);
+    lv_bar_set_value(ui_PP_hpMaxFill, 90, LV_ANIM_OFF);
+    lv_bar_set_start_value(ui_PP_hpMaxFill, 0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_PP_hpMaxFill, 70);
+    lv_obj_set_height(ui_PP_hpMaxFill, 71);
+    lv_obj_set_align(ui_PP_hpMaxFill, LV_ALIGN_CENTER);
+    lv_obj_set_style_radius(ui_PP_hpMaxFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_hpMaxFill, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_hpMaxFill, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_radius(ui_PP_hpMaxFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_hpMaxFill, lv_color_hex(0x393939), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_hpMaxFill, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+
+    ui_PP_hpFill = lv_bar_create(ui_PP_hpMaxFill);
     lv_bar_set_value(ui_PP_hpFill, 75, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_PP_hpFill, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_PP_hpFill, 70);
@@ -204,7 +218,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_align(ui_PP_hpFill, LV_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_PP_hpFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_PP_hpFill, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_hpFill, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_hpFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_style_radius(ui_PP_hpFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_PP_hpFill, lv_color_hex(0xFF0009), LV_PART_INDICATOR | LV_STATE_DEFAULT);
@@ -221,6 +235,8 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_height(ui_PP_hpTempFill, 71);
     lv_obj_set_align(ui_PP_hpTempFill, LV_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_PP_hpTempFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_PP_hpTempFill, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_PP_hpTempFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_blend_mode(ui_PP_hpTempFill, LV_BLEND_MODE_NORMAL, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_style_radius(ui_PP_hpTempFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
@@ -231,17 +247,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_style_bg_grad_stop(ui_PP_hpTempFill, 200, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_grad_dir(ui_PP_hpTempFill, LV_GRAD_DIR_VER, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_opa(ui_PP_hpTempFill, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    ui_PP_hpReduceMax = lv_obj_create(ui_PP_hpTempFill);
-    lv_obj_set_width(ui_PP_hpReduceMax, 70);
-    lv_obj_set_height(ui_PP_hpReduceMax, 1);
-    lv_obj_set_align(ui_PP_hpReduceMax, LV_ALIGN_TOP_MID);
-    lv_obj_clear_flag(ui_PP_hpReduceMax, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_PP_hpReduceMax, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_PP_hpReduceMax, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_PP_hpReduceMax, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_PP_hpReduceMax, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_PP_hpReduceMax, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PP_hpHeart = lv_img_create(ui_PP_hpBck);
     lv_img_set_src(ui_PP_hpHeart, &ui_img_final_heart_png);
@@ -312,7 +317,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_acCover_total, LV_OBJ_FLAG_HIDDEN | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_acCover_total, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_acCover_total, 350);
-    //lv_obj_set_style_blend_mode(ui_PP_acCover_total, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_blend_mode(ui_PP_acCover_total, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_PP_acShield = lv_img_create(ui_PP_acBck);
     lv_img_set_src(ui_PP_acShield, &ui_img_final_shield_png);

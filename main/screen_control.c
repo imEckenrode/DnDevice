@@ -71,13 +71,13 @@ void ui_refresh(bool animating){
         lv_label_set_text_fmt(ui_HP_hpMoreMax, "%d", pc.maxHP);
 
         //Update the heart
+        lv_bar_set_range(ui_HP_hpMaxFill, 0, pc.trueMaxHP);
         lv_bar_set_range(ui_HP_hpFill, 0, pc.trueMaxHP);
         lv_bar_set_range(ui_HP_hpTempFill, 0, pc.trueMaxHP);
+        lv_bar_set_value(ui_HP_hpMaxFill, pc.maxHP, LV_ANIM_ON);
         lv_bar_set_value(ui_HP_hpFill,pc.HP, LV_ANIM_ON);
         lv_bar_set_value(ui_HP_hpTempFill, pc.tempHP, LV_ANIM_ON); //TODO turn off anim?
         
-        //TODO: Update the reducedMaxHP box
-
         //If animating, animate. Otherwise, set heart text normally
         lv_label_set_text_fmt(ui_HP_hpTotal, "%d", pc.HP + pc.tempHP);
 
@@ -85,8 +85,10 @@ void ui_refresh(bool animating){
     }
     else if(screen == ui_PlayerProfile){
         struct fighter pc = readPC();
+        lv_bar_set_range(ui_PP_hpMaxFill, 0, pc.trueMaxHP);
         lv_bar_set_range(ui_PP_hpFill, 0, pc.trueMaxHP);
         lv_bar_set_range(ui_PP_hpTempFill, 0, pc.trueMaxHP);
+        lv_bar_set_value(ui_PP_hpMaxFill, pc.maxHP, LV_ANIM_OFF);
         lv_bar_set_value(ui_PP_hpFill,pc.HP, LV_ANIM_OFF);
         lv_bar_set_value(ui_PP_hpTempFill, pc.tempHP, LV_ANIM_OFF);
         lv_label_set_text_fmt(ui_PP_hpTotal, "%d", pc.HP + pc.tempHP);

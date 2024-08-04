@@ -29,7 +29,21 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_set_style_bg_opa(ui_HP_hpBck, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_border_width(ui_HP_hpBck, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_HP_hpFill = lv_bar_create(ui_HP_hpBck);
+    ui_HP_hpMaxFill = lv_bar_create(ui_HP_hpBck);
+    lv_bar_set_value(ui_HP_hpMaxFill, 90, LV_ANIM_OFF);
+    lv_bar_set_start_value(ui_HP_hpMaxFill, 0, LV_ANIM_OFF);
+    lv_obj_set_width(ui_HP_hpMaxFill, 98);
+    lv_obj_set_height(ui_HP_hpMaxFill, 99);
+    lv_obj_set_align(ui_HP_hpMaxFill, LV_ALIGN_CENTER);
+    lv_obj_set_style_radius(ui_HP_hpMaxFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_HP_hpMaxFill, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_HP_hpMaxFill, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    lv_obj_set_style_radius(ui_HP_hpMaxFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_HP_hpMaxFill, lv_color_hex(0x393939), LV_PART_INDICATOR | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_HP_hpMaxFill, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
+
+    ui_HP_hpFill = lv_bar_create(ui_HP_hpMaxFill);
     lv_bar_set_value(ui_HP_hpFill, 75, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_HP_hpFill, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_HP_hpFill, 98);
@@ -37,7 +51,7 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_set_align(ui_HP_hpFill, LV_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_HP_hpFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_HP_hpFill, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_HP_hpFill, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_HP_hpFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_style_radius(ui_HP_hpFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_color(ui_HP_hpFill, lv_color_hex(0xFF0009), LV_PART_INDICATOR | LV_STATE_DEFAULT);
@@ -48,12 +62,14 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_set_style_bg_grad_dir(ui_HP_hpFill, LV_GRAD_DIR_VER, LV_PART_INDICATOR | LV_STATE_DEFAULT);
 
     ui_HP_hpTempFill = lv_bar_create(ui_HP_hpFill);
-    lv_bar_set_value(ui_HP_hpTempFill, 20, LV_ANIM_OFF);
+    lv_bar_set_value(ui_HP_hpTempFill, 30, LV_ANIM_OFF);
     lv_bar_set_start_value(ui_HP_hpTempFill, 0, LV_ANIM_OFF);
     lv_obj_set_width(ui_HP_hpTempFill, 98);
     lv_obj_set_height(ui_HP_hpTempFill, 99);
     lv_obj_set_align(ui_HP_hpTempFill, LV_ALIGN_CENTER);
     lv_obj_set_style_radius(ui_HP_hpTempFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_color(ui_HP_hpTempFill, lv_color_hex(0xFFFFFF), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_HP_hpTempFill, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_blend_mode(ui_HP_hpTempFill, LV_BLEND_MODE_NORMAL, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_set_style_radius(ui_HP_hpTempFill, 0, LV_PART_INDICATOR | LV_STATE_DEFAULT);
@@ -64,17 +80,6 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_set_style_bg_grad_stop(ui_HP_hpTempFill, 200, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_bg_grad_dir(ui_HP_hpTempFill, LV_GRAD_DIR_VER, LV_PART_INDICATOR | LV_STATE_DEFAULT);
     lv_obj_set_style_opa(ui_HP_hpTempFill, 255, LV_PART_INDICATOR | LV_STATE_DEFAULT);
-
-    ui_HP_hpReduceMax = lv_obj_create(ui_HP_hpTempFill);
-    lv_obj_set_width(ui_HP_hpReduceMax, 99);
-    lv_obj_set_height(ui_HP_hpReduceMax, 1);
-    lv_obj_set_align(ui_HP_hpReduceMax, LV_ALIGN_TOP_MID);
-    lv_obj_clear_flag(ui_HP_hpReduceMax, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_obj_set_style_radius(ui_HP_hpReduceMax, 0, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_color(ui_HP_hpReduceMax, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_bg_opa(ui_HP_hpReduceMax, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_color(ui_HP_hpReduceMax, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_border_opa(ui_HP_hpReduceMax, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_HP_hpHeart = lv_img_create(ui_HP_hpBck);
     lv_img_set_src(ui_HP_hpHeart, &ui_img_final_heart_png);
