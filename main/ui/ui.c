@@ -1028,5 +1028,5 @@ void ui_init(void)
     ui_IntroScreen_screen_init();
     ui_PlayerCreation_screen_init();
     ui____initial_actions0 = lv_obj_create(NULL); //We don't have any initial actions
-    lv_disp_load_scr(ui_IntroScreen);
+    lv_disp_load_scr(ui_PlayerCreation);
 }
