@@ -45,6 +45,12 @@ SemaphoreHandle_t xGuiSemaphore;
 // This is the array with all the profile picture pointers
 const lv_img_dsc_t *pfpArray[DNDV_PFPS_COUNT];
 
+// This is the position to condition mapping
+enum DNDV_CONDITIONS pos2Cond[DNDV_CONDITIONS_COUNT];   //NOTE: Making this a uint8_t may save memory
+// and this is the condition to image mapping
+const lv_img_dsc_t *condImgArray[DNDV_CONDITIONS_COUNT];
+uint8_t condPage; // This is the condition "page" we are on (0-indexed)
+
 
 void dndv_update_pfp(lv_obj_t *image_holder, enum DNDV_PFPS selection){
     lv_img_set_src(image_holder, pfpArray[selection]);
@@ -122,13 +128,7 @@ static void ui_refresh_on_data_change(void* handler_arg, esp_event_base_t base, 
     ui_refresh(true);
 }
 
-
-void  ui_stuff_init() {
-
-    xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
-
-    esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
-
+void pfp_init(){
     for(uint8_t i=0; i<DNDV_PFPS_COUNT; ++i){
         pfpArray[i] = NULL;
     }
@@ -146,6 +146,45 @@ void  ui_stuff_init() {
     //pfpArray[10] = &ui_img_playericons_icon_sorcerer_png;
     pfpArray[11] = &ui_img_playericons_icon_warlock_png;
     //pfpArray[12] = &ui_img_playericons_icon_wizard_png;
+}
+
+void cond_init(){
+    condPage = 0;
+    
+    for(uint8_t i=0; i<DNDV_CONDITIONS_COUNT; ++i){
+        pos2Cond[i] = i;
+    }
+
+    condImgArray[0] = &ui_img_conditions_new_blinded_png;
+    condImgArray[1] = &ui_img_conditions_new_charmed_png;
+    condImgArray[2] = &ui_img_conditions_new_deafened_png;
+    condImgArray[3] = &ui_img_conditionextra_new_disarmed_png;
+    condImgArray[4] = &ui_img_conditions_new_exhausion_png;  //TODO: fix the misspelling
+    condImgArray[5] = &ui_img_conditions_new_frightened_png;
+    condImgArray[6] = &ui_img_conditions_new_grappled_png;
+    condImgArray[7] = &ui_img_conditionextra_new_hidden_png;
+    condImgArray[8] = &ui_img_conditions_new_incapacitated_png;
+    condImgArray[9] = &ui_img_conditions_new_invisible_png;
+    condImgArray[10] = &ui_img_conditionextra_new_obscured_png;
+    condImgArray[11] = &ui_img_conditions_new_paralyzed_png;
+    condImgArray[12] = &ui_img_conditions_new_petrified_png;
+    condImgArray[13] = &ui_img_conditions_new_poisoned_png;
+    condImgArray[14] = &ui_img_conditions_new_prone_png;
+    condImgArray[15] = &ui_img_conditionextra_new_raging_png;
+    condImgArray[16] = &ui_img_conditions_new_restrained_png;
+    condImgArray[17] = &ui_img_conditionextra_new_surprised_png;
+    condImgArray[18] = &ui_img_conditions_new_stunned_png;
+    condImgArray[19] = &ui_img_conditions_new_unconcious_png;  //TODO: fix the misspelling
+}
+
+void  ui_stuff_init() {
+
+    xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
+
+    esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
+
+    pfp_init();
+    cond_init();
 
     //TODO: Refresh every time the screen changes, which should be possible like this
     //lv_display_add_event_cb(, ui_refresh, LV_EVENT_CLICKED, NULL);   /*Assign an event callback (NULL is also 0, but TODO refactor)*/

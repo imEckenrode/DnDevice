@@ -3,6 +3,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
+#include "device.h"
+
 /*
 
 This contains all game variables and manipulations of said variables
@@ -21,19 +23,23 @@ struct __attribute__((packed)) conditions{  //Since these are all the same type,
     bool blinded:1;
     bool charmed:1;
     bool deafened:1;
-    uint8_t exausted:3; //TODO: Maybe move this to the end if packing works poorly
-    bool e:1;
-    bool f:1;
-    bool g:1;
-    bool h:1;
-    bool i:1;
-    bool j:1;
-    bool k:1;
-    bool l:1;
-    bool m:1;
-    bool n:1;
-    bool o:1;
-    bool p:1;
+    bool disarmed:1;
+    bool exhaustion:1;
+    bool frightened:1;
+    bool grappled:1;
+    bool hidden:1;
+    bool incapacitated:1;
+    bool invisible:1;
+    bool obscured:1;
+    bool paralyzed:1;
+    bool petrified:1;
+    bool poisoned:1;
+    bool prone:1;
+    bool raging:1;
+    bool restrained:1;
+    bool surprised:1;
+    bool stunned:1;
+    bool unconscious:1;
 }; //rage, disarmed, that too...but 18 total so it'll be there!
 
 /*struct stats {  //This is not used by this iteration
@@ -51,21 +57,22 @@ struct __attribute__((packed)) conditions{  //Since these are all the same type,
 
 #define DATA_FIGHTER_NAME_LEN 32
 struct __attribute__((packed)) fighter{
-    union{  //2 bytes
-        struct conditions condition;
-        uint16_t allConditions; //This is simply 16 bits to set all conditions to 0
-    };
-
     short HP;           //2 bytes
     short maxHP;        //2 bytes   //This could be reduced by an effect, hence the trueMaxHP
     short trueMaxHP;    //2 bytes
     short tempHP;       //2 bytes
                     //All below is 2 bytes
-    uint8_t AC:6;
-    uint8_t itemAC:3;            //This is currently unused
-    uint8_t statusAC:3; //Cover, shield, etc. (all together will put over this limit...)
+    uint8_t AC; //This is up from 6
+    uint8_t itemAC:4;            //This is currently unused
+    uint8_t statusAC:4; //Cover, shield, etc.  TODO: this would be easiest to separate into cover and not
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
+
+    uint8_t exhaustion:3;   //This keeps exhaustion toggleable separate from the level
+    union{  //bytes
+        struct conditions condition;
+        uint32_t allConditions:DNDV_CONDITIONS_COUNT;
+    };
 
     uint8_t pfp; //This is a shortened "enum DNDV_PFPS" attribute
     char nickname[DATA_FIGHTER_NAME_LEN]; //Full name is a device-level attribute, but for now we allow for the full name here. This also means that PC is fixed size

@@ -43,6 +43,33 @@ enum DNDV_PFPS{
     DNDV_PFP_WIZARD
 };
 
+// This is the enumeration for the conditions
+// Tracking the locations on the screen is done in screen_control
+#define DNDV_CONDITIONS_COUNT 20
+
+enum DNDV_CONDITIONS{
+    DNDV_COND_BLINDED,
+    DNDV_COND_CHARMED,
+    DNDV_COND_DEAFENED,
+    DNDV_COND_DISARMED,
+    DNDV_COND_EXHAUSTION,
+    DNDV_COND_FRIGHTENED,
+    DNDV_COND_GRAPPLED,
+    DNDV_COND_HIDDEN,
+    DNDV_COND_INCAPACITATED,
+    DNDV_COND_INVISIBLE,
+    DNDV_COND_OBSCURED,
+    DNDV_COND_PARALYZED,
+    DNDV_COND_PETRIFIED,
+    DNDV_COND_POISONED,
+    DNDV_COND_PRONE,
+    DNDV_COND_RAGING,
+    DNDV_COND_RESTRAINED,
+    DNDV_COND_SURPRISED,
+    DNDV_COND_STUNNED,
+    DNDV_COND_UNCONSCIOUS
+};
+
 /*      -  NVS  - 
 Initialize the non-volatile storage library to persist data 
     Required for: ESP-NOW   */
