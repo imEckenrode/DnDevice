@@ -16,7 +16,6 @@
 #include "esp_timer.h"
 
 #include "esp_event.h"
-#include "device.h"
 #include "data_pc.h"
 
 //And I need to include ui.h so we can initialize the uis
@@ -155,7 +154,7 @@ void cond_init(){
         pos2Cond[i] = i;
     }
 
-    condImgArray[0] = &ui_img_conditions_new_blinded_png;
+    condImgArray[DNDV_COND_BLINDED] = &ui_img_conditions_new_blinded_png;
     condImgArray[1] = &ui_img_conditions_new_charmed_png;
     condImgArray[2] = &ui_img_conditions_new_deafened_png;
     condImgArray[3] = &ui_img_conditionextra_new_disarmed_png;

@@ -4,6 +4,7 @@
 #include "helper_functions.h"
 #include "stdlib.h"
 #include "esp_log.h"
+#include "screen_control.h"
 //Here's all the externs for all the variables I manipulate
 //Never need to extern functions, but here 
 
@@ -52,11 +53,18 @@ void dndv_HP_numConfirm(lv_event_t * e){
     }
 }
 
+
+void PP_displayConditions(){ //TODO: For later additions, this will utilize "struct conditions"
+    // Display the correct conditions. TOOD: Calculate on the fly here (vs. going through a player)
+    return;
+}
+
+
 void dndv_PP_screenLoading(lv_event_t * e){dndv_refresh();}
 void dndv_PP_refresh(lv_event_t * e){return;}
 void dndv_PP_exhaustIncrement(lv_event_t * e){return;}
 void dndv_PP_condRight(lv_event_t * e){dndv_refresh();} //Temporary refresh to test screen
-void dndv_PP_condLeft(lv_event_t * e){return;}
+void dndv_PP_condLeft(lv_event_t * e){;}
 void dndv_PP_condMore(lv_event_t * e){return;}
 void dndv_PP_InitScreen(lv_event_t * e){return;} //Navigate to Initiative Screen...can hijack with Player Creation
 void dndv_PP_numConfirm(lv_event_t * e){

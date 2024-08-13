@@ -37,7 +37,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_condBlinded, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condBlinded, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condBlinded, 200);
-    lv_obj_set_style_blend_mode(ui_PP_condBlinded, LV_BLEND_MODE_SUBTRACTIVE, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_blend_mode(ui_PP_condBlinded, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condCharmed = lv_img_create(ui_PP_condBck);
     lv_img_set_src(ui_PP_condCharmed, &ui_img_conditions_new_charmed_png);
@@ -50,8 +50,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_condCharmed, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condCharmed, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condCharmed, 200);
-    lv_obj_set_style_blend_mode(ui_PP_condCharmed, LV_BLEND_MODE_NORMAL, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_blend_mode(ui_PP_condCharmed, LV_BLEND_MODE_SUBTRACTIVE, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_blend_mode(ui_PP_condCharmed, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condDeafened = lv_img_create(ui_PP_condBck);
     lv_img_set_src(ui_PP_condDeafened, &ui_img_conditions_new_deafened_png);
@@ -64,7 +63,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_condDeafened, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condDeafened, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condDeafened, 200);
-    lv_obj_set_style_blend_mode(ui_PP_condDeafened, LV_BLEND_MODE_SUBTRACTIVE, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_blend_mode(ui_PP_condDeafened, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condExhaustion = lv_img_create(ui_PP_condBck);
     lv_img_set_src(ui_PP_condExhaustion, &ui_img_conditions_new_exhausion_png);
@@ -77,7 +76,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_condExhaustion, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condExhaustion, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condExhaustion, 200);
-    lv_obj_set_style_blend_mode(ui_PP_condExhaustion, LV_BLEND_MODE_SUBTRACTIVE, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_blend_mode(ui_PP_condExhaustion, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condExhaustionNumBck = lv_obj_create(ui_PP_condExhaustion);
     lv_obj_set_width(ui_PP_condExhaustionNumBck, 10);
@@ -116,7 +115,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_flag(ui_PP_condFrightened, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_condFrightened, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_condFrightened, 200);
-    lv_obj_set_style_blend_mode(ui_PP_condFrightened, LV_BLEND_MODE_SUBTRACTIVE, LV_PART_MAIN | LV_STATE_CHECKED);
+    lv_obj_set_style_blend_mode(ui_PP_condFrightened, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condNextBtn = lv_obj_create(ui_PP_condBck);
     lv_obj_set_width(ui_PP_condNextBtn, 30);
