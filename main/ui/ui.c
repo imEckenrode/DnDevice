@@ -65,19 +65,19 @@ lv_obj_t * ui_PlayerProfile;
 void ui_event_PP_Bck(lv_event_t * e);
 lv_obj_t * ui_PP_Bck;
 lv_obj_t * ui_PP_condBck;
-void ui_event_PP_condBlinded(lv_event_t * e);
-lv_obj_t * ui_PP_condBlinded;
-void ui_event_PP_condCharmed(lv_event_t * e);
-lv_obj_t * ui_PP_condCharmed;
-void ui_event_PP_condDeafened(lv_event_t * e);
-lv_obj_t * ui_PP_condDeafened;
-void ui_event_PP_condExhaustion(lv_event_t * e);
-lv_obj_t * ui_PP_condExhaustion;
+void ui_event_PP_cond0(lv_event_t * e);
+lv_obj_t * ui_PP_cond0;
+void ui_event_PP_cond1(lv_event_t * e);
+lv_obj_t * ui_PP_cond1;
+void ui_event_PP_cond2(lv_event_t * e);
+lv_obj_t * ui_PP_cond2;
+void ui_event_PP_cond3(lv_event_t * e);
+lv_obj_t * ui_PP_cond3;
 void ui_event_PP_condExhaustionNumBck(lv_event_t * e);
 lv_obj_t * ui_PP_condExhaustionNumBck;
 lv_obj_t * ui_PP_condExhaustionNum;
-void ui_event_PP_condFrightened(lv_event_t * e);
-lv_obj_t * ui_PP_condFrightened;
+void ui_event_PP_cond4(lv_event_t * e);
+lv_obj_t * ui_PP_cond4;
 void ui_event_PP_condNextBtn(lv_event_t * e);
 lv_obj_t * ui_PP_condNextBtn;
 lv_obj_t * ui_PP_condNextTxt;
@@ -142,49 +142,49 @@ lv_obj_t * ui_PPP_condMoreBck;
 void ui_event_PPP_condMoreClose(lv_event_t * e);
 lv_obj_t * ui_PPP_condMoreClose;
 lv_obj_t * ui_PPP_condMoreTxt;
-void ui_event_PPP_condBlinded(lv_event_t * e);
-lv_obj_t * ui_PPP_condBlinded;
-void ui_event_PPP_condCharmed(lv_event_t * e);
-lv_obj_t * ui_PPP_condCharmed;
-void ui_event_PPP_condDeafened(lv_event_t * e);
-lv_obj_t * ui_PPP_condDeafened;
-void ui_event_PPP_condDisarmed(lv_event_t * e);
-lv_obj_t * ui_PPP_condDisarmed;
-void ui_event_PPP_condExhaustion(lv_event_t * e);
-lv_obj_t * ui_PPP_condExhaustion;
+void ui_event_PPP_cond0(lv_event_t * e);
+lv_obj_t * ui_PPP_cond0;
+void ui_event_PPP_cond1(lv_event_t * e);
+lv_obj_t * ui_PPP_cond1;
+void ui_event_PPP_cond2(lv_event_t * e);
+lv_obj_t * ui_PPP_cond2;
+void ui_event_PPP_cond3(lv_event_t * e);
+lv_obj_t * ui_PPP_cond3;
+void ui_event_PPP_cond4(lv_event_t * e);
+lv_obj_t * ui_PPP_cond4;
 void ui_event_PPP_condExhaustionNumBck(lv_event_t * e);
 lv_obj_t * ui_PPP_condExhaustionNumBck;
 lv_obj_t * ui_PPP_condExhaustionNum;
-void ui_event_PPP_condFrightened(lv_event_t * e);
-lv_obj_t * ui_PPP_condFrightened;
-void ui_event_PPP_condGrappled(lv_event_t * e);
-lv_obj_t * ui_PPP_condGrappled;
-void ui_event_PPP_condHidden(lv_event_t * e);
-lv_obj_t * ui_PPP_condHidden;
-void ui_event_PPP_condIncapacitated(lv_event_t * e);
-lv_obj_t * ui_PPP_condIncapacitated;
-void ui_event_PPP_condInvisible(lv_event_t * e);
-lv_obj_t * ui_PPP_condInvisible;
-void ui_event_PPP_condObscured(lv_event_t * e);
-lv_obj_t * ui_PPP_condObscured;
-void ui_event_PPP_condParalyzed(lv_event_t * e);
-lv_obj_t * ui_PPP_condParalyzed;
-void ui_event_PPP_condPetrified(lv_event_t * e);
-lv_obj_t * ui_PPP_condPetrified;
-void ui_event_PPP_condPoisoned(lv_event_t * e);
-lv_obj_t * ui_PPP_condPoisoned;
-void ui_event_PPP_condProne(lv_event_t * e);
-lv_obj_t * ui_PPP_condProne;
-void ui_event_PPP_condRaging(lv_event_t * e);
-lv_obj_t * ui_PPP_condRaging;
-void ui_event_PPP_condRestained(lv_event_t * e);
-lv_obj_t * ui_PPP_condRestained;
-void ui_event_PPP_condSurprised(lv_event_t * e);
-lv_obj_t * ui_PPP_condSurprised;
-void ui_event_PPP_condStunned(lv_event_t * e);
-lv_obj_t * ui_PPP_condStunned;
-void ui_event_PPP_condUnconcious(lv_event_t * e);
-lv_obj_t * ui_PPP_condUnconcious;
+void ui_event_PPP_cond5(lv_event_t * e);
+lv_obj_t * ui_PPP_cond5;
+void ui_event_PPP_cond6(lv_event_t * e);
+lv_obj_t * ui_PPP_cond6;
+void ui_event_PPP_cond7(lv_event_t * e);
+lv_obj_t * ui_PPP_cond7;
+void ui_event_PPP_cond8(lv_event_t * e);
+lv_obj_t * ui_PPP_cond8;
+void ui_event_PPP_cond9(lv_event_t * e);
+lv_obj_t * ui_PPP_cond9;
+void ui_event_PPP_cond10(lv_event_t * e);
+lv_obj_t * ui_PPP_cond10;
+void ui_event_PPP_cond11(lv_event_t * e);
+lv_obj_t * ui_PPP_cond11;
+void ui_event_PPP_cond12(lv_event_t * e);
+lv_obj_t * ui_PPP_cond12;
+void ui_event_PPP_cond13(lv_event_t * e);
+lv_obj_t * ui_PPP_cond13;
+void ui_event_PPP_cond14(lv_event_t * e);
+lv_obj_t * ui_PPP_cond14;
+void ui_event_PPP_cond15(lv_event_t * e);
+lv_obj_t * ui_PPP_cond15;
+void ui_event_PPP_cond16(lv_event_t * e);
+lv_obj_t * ui_PPP_cond16;
+void ui_event_PPP_cond17(lv_event_t * e);
+lv_obj_t * ui_PPP_cond17;
+void ui_event_PPP_cond18(lv_event_t * e);
+lv_obj_t * ui_PPP_cond18;
+void ui_event_PPP_cond19(lv_event_t * e);
+lv_obj_t * ui_PPP_cond19;
 
 
 // SCREEN: ui_IntroScreen
@@ -495,41 +495,42 @@ void ui_event_PP_Bck(lv_event_t * e)
         dndv_PP_refresh(e);
     }
 }
-void ui_event_PP_condBlinded(lv_event_t * e)
+void ui_event_PP_cond0(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_condBlinded, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_condBlinded, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PP_toggleCond(e);
     }
 }
-void ui_event_PP_condCharmed(lv_event_t * e)
+void ui_event_PP_cond1(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_condCharmed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_condCharmed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PP_condDeafened(lv_event_t * e)
+void ui_event_PP_cond2(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PP_condExhaustion(lv_event_t * e)
+void ui_event_PP_cond3(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
-        _ui_state_modify(ui_PPP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
     }
 }
@@ -541,13 +542,13 @@ void ui_event_PP_condExhaustionNumBck(lv_event_t * e)
         dndv_PP_exhaustIncrement(e);
     }
 }
-void ui_event_PP_condFrightened(lv_event_t * e)
+void ui_event_PP_cond4(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_condFrightened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_condFrightened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond5, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
 void ui_event_PP_condNextBtn(lv_event_t * e)
@@ -694,49 +695,49 @@ void ui_event_PPP_condMoreClose(lv_event_t * e)
         dndv_PP_condMoreClose(e);
     }
 }
-void ui_event_PPP_condBlinded(lv_event_t * e)
+void ui_event_PPP_cond0(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condBlinded, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_condBlinded, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condCharmed(lv_event_t * e)
+void ui_event_PPP_cond1(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condCharmed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_condCharmed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condDeafened(lv_event_t * e)
+void ui_event_PPP_cond2(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_condDeafened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condDisarmed(lv_event_t * e)
+void ui_event_PPP_cond3(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condDisarmed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condExhaustion(lv_event_t * e)
+void ui_event_PPP_cond4(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
-        _ui_state_modify(ui_PP_condExhaustion, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
     }
 }
@@ -748,125 +749,125 @@ void ui_event_PPP_condExhaustionNumBck(lv_event_t * e)
         dndv_PP_exhaustIncrement(e);
     }
 }
-void ui_event_PPP_condFrightened(lv_event_t * e)
+void ui_event_PPP_cond5(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condFrightened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_condFrightened, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond5, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condGrappled(lv_event_t * e)
+void ui_event_PPP_cond6(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condGrappled, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond6, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condHidden(lv_event_t * e)
+void ui_event_PPP_cond7(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condHidden, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond7, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condIncapacitated(lv_event_t * e)
+void ui_event_PPP_cond8(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condIncapacitated, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond8, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condInvisible(lv_event_t * e)
+void ui_event_PPP_cond9(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condInvisible, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond9, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condObscured(lv_event_t * e)
+void ui_event_PPP_cond10(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condObscured, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond10, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condParalyzed(lv_event_t * e)
+void ui_event_PPP_cond11(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condParalyzed, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond11, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condPetrified(lv_event_t * e)
+void ui_event_PPP_cond12(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condPetrified, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond12, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condPoisoned(lv_event_t * e)
+void ui_event_PPP_cond13(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condPoisoned, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond13, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condProne(lv_event_t * e)
+void ui_event_PPP_cond14(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condProne, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond14, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condRaging(lv_event_t * e)
+void ui_event_PPP_cond15(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condRaging, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond15, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condRestained(lv_event_t * e)
+void ui_event_PPP_cond16(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condRestained, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond16, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condSurprised(lv_event_t * e)
+void ui_event_PPP_cond17(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condSurprised, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond17, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condStunned(lv_event_t * e)
+void ui_event_PPP_cond18(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condStunned, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond18, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
-void ui_event_PPP_condUnconcious(lv_event_t * e)
+void ui_event_PPP_cond19(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_condUnconcious, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        _ui_state_modify(ui_PPP_cond19, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
 void ui_event_IntroScreen(lv_event_t * e)
