@@ -38,7 +38,7 @@ static void guiTask(void *pvParameter);
 SemaphoreHandle_t xGuiSemaphore;
 
 /*                      *
- *  REFRESHING THE UI  *
+ *  IMAGE DATA ARRAYS   *
  *                      */
 
 // This is the array with all the profile picture pointers
@@ -49,10 +49,45 @@ enum DNDV_CONDITIONS pos2Cond[DNDV_CONDITIONS_COUNT];   //NOTE: Making this a ui
 // and this is the condition to image mapping
 const lv_img_dsc_t *condImgArray[DNDV_CONDITIONS_COUNT];
 uint8_t condPage; // This is the condition "page" we are on (0-indexed)
+//See dndv_set_condPage below
 
+/*                      *
+ *  REFRESHING THE UI   *
+ *                      */
 
 void dndv_update_pfp(lv_obj_t *image_holder, enum DNDV_PFPS selection){
     lv_img_set_src(image_holder, pfpArray[selection]);
+}
+
+
+void ui_PP_update_conditions_pics(){
+    // This could also be done in a loop if we set up the objects themselves in a loop
+    uint8_t pos = condPage*(DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT);
+
+    //WARNING/TODO: This does not catch out of bounds (AKA we currently assume that DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT is exactly 5)
+    lv_img_set_src(ui_PP_cond0, condImgArray[pos2Cond[pos++]]);
+    lv_img_set_src(ui_PP_cond1, condImgArray[pos2Cond[pos++]]);
+    lv_img_set_src(ui_PP_cond2, condImgArray[pos2Cond[pos++]]);
+    lv_img_set_src(ui_PP_cond3, condImgArray[pos2Cond[pos++]]);
+    lv_img_set_src(ui_PP_cond4, condImgArray[pos2Cond[pos]]);
+}
+
+void ui_PP_update_conditions(){
+    ui_PP_update_conditions_pics();
+    //TODO (NEXT): Add and Remove the Checked flag depending on the data
+}
+
+void ui_PPP_update_conditions(){
+    return;
+}
+
+//This is used to update the condPage variable and also update it visually
+void dndv_set_condPage(bool adjusting, int8_t pagesToTurn){
+    if(adjusting){
+        pagesToTurn += condPage;
+    }
+    condPage = (pagesToTurn % DNDV_UI_CONDITIONS_PAGE_COUNT + DNDV_UI_CONDITIONS_PAGE_COUNT) % DNDV_UI_CONDITIONS_PAGE_COUNT; //This guarantees a positive modulus
+    ui_PP_update_conditions();
 }
 
 //Refresh the UI. Set animating to true if data was received and we want to animate the heart, but false if just navigating
@@ -89,24 +124,26 @@ void ui_refresh(bool animating){
         dndv_update_pfp(ui_HP_profPic, pc.pfp);
     }
     else if(screen == ui_PlayerProfile){
-        struct fighter pc = readPC();
-        lv_bar_set_range(ui_PP_hpMaxFill, 0, pc.trueMaxHP);
-        lv_bar_set_range(ui_PP_hpFill, 0, pc.trueMaxHP);
-        lv_bar_set_range(ui_PP_hpTempFill, 0, pc.trueMaxHP);
-        lv_bar_set_value(ui_PP_hpMaxFill, pc.maxHP, LV_ANIM_OFF);
-        lv_bar_set_value(ui_PP_hpFill,pc.HP, LV_ANIM_OFF);
-        lv_bar_set_value(ui_PP_hpTempFill, pc.tempHP, LV_ANIM_OFF);
-        lv_label_set_text_fmt(ui_PP_hpTotal, "%d", pc.HP + pc.tempHP);
+        if(lv_obj_has_flag(ui_PPP_condMoreBck,LV_OBJ_FLAG_HIDDEN)){
+            struct fighter pc = readPC();
+            lv_bar_set_range(ui_PP_hpMaxFill, 0, pc.trueMaxHP);
+            lv_bar_set_range(ui_PP_hpFill, 0, pc.trueMaxHP);
+            lv_bar_set_range(ui_PP_hpTempFill, 0, pc.trueMaxHP);
+            lv_bar_set_value(ui_PP_hpMaxFill, pc.maxHP, LV_ANIM_OFF);
+            lv_bar_set_value(ui_PP_hpFill,pc.HP, LV_ANIM_OFF);
+            lv_bar_set_value(ui_PP_hpTempFill, pc.tempHP, LV_ANIM_OFF);
+            lv_label_set_text_fmt(ui_PP_hpTotal, "%d", pc.HP + pc.tempHP);
 
-        lv_label_set_text_fmt(ui_PP_name, "%s", pc.nickname);
+            lv_label_set_text_fmt(ui_PP_name, "%s", pc.nickname);
 
-        lv_label_set_text_fmt(ui_PP_acTotal, "%d", pc.AC + pc.statusAC);
-        lv_label_set_text_fmt(ui_PP_acMath, "%d+%d", pc.AC, pc.statusAC);
+            lv_label_set_text_fmt(ui_PP_acTotal, "%d", pc.AC + pc.statusAC);
+            lv_label_set_text_fmt(ui_PP_acMath, "%d+%d", pc.AC, pc.statusAC);
 
-        //TODO: Set Conditions (unless that's saved on the screen itself)
-        //TODO: Set PFP (unless that's saved on the screen itself)
-
-        dndv_update_pfp(ui_PP_profPic, pc.pfp);
+            ui_PP_update_conditions(pc.allConditions);
+            dndv_update_pfp(ui_PP_profPic, pc.pfp);
+        }else{
+            ui_PPP_update_conditions();
+        }
     }else if(screen == ui_PlayerCreation){
         struct fighter pc = readPC();
         lv_label_set_text_fmt(ui_PC_nameTxt, "%s", pc.nickname);

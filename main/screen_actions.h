@@ -29,6 +29,7 @@ void dndv_HP_modifyHpMax(lv_event_t * e);
 void dndv_HP_numConfirm(lv_event_t * e);
 void dndv_PP_screenLoading(lv_event_t * e);
 void dndv_PP_refresh(lv_event_t * e);
+void dndv_PP_toggleCond(lv_event_t * e);
 void dndv_PP_exhaustIncrement(lv_event_t * e);
 void dndv_PP_condRight(lv_event_t * e);
 void dndv_PP_condLeft(lv_event_t * e);
