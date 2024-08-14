@@ -123,9 +123,9 @@ void setCondition(uint8_t address, bool set){
         }else{
             taskENTER_CRITICAL(&pcDataSpinlock);
             PC->allConditions &= ~(1 << (address%DNDV_CONDITIONS_COUNT));
-            taskEXIT_CRITICAL(&pcDataSpinlock);
+            taskEXIT_CRITICAL(&pcDataSpinlock); 
         }
-        esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+        esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);//TODO: Make a new base specific to conditions?
     }
 }
 
@@ -139,16 +139,20 @@ void toggleCondition(uint8_t address){
     }
 }
 
+uint8_t getExhaustionLevel(){
+    return PC->exhaustionLevel;
+}
+
 void setExhaustionLevel(uint8_t level){
     taskENTER_CRITICAL(&pcDataSpinlock);
     PC->exhaustionLevel = level%7;  //Exhaustion can only be a value between 0 and 6
-    taskEXIT_CRITICAL(&pcDataSpinlock);
-    if(PC->exhaustionLevel == 0){
-        //setCondition(DNDV_COND_EXHAUSTION, 0)
+    if(PC->exhaustionLevel!=0){
+        PC->condition.exhaustion = 1;
     }else{
-        //setCondition(DNDV_COND_EXHAUSTION, 1)
+        PC->condition.exhaustion = 0;
     }
-    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0); //TODO: Make a new base specific to conditions?
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
 void clearConditions(){

@@ -78,7 +78,20 @@ void ui_PlayerProfile_screen_init(void)
     lv_img_set_zoom(ui_PP_cond3, 200);
     lv_obj_set_style_blend_mode(ui_PP_cond3, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
-    ui_PP_condExhaustionNumBck = lv_obj_create(ui_PP_cond3);
+    ui_PP_cond4 = lv_img_create(ui_PP_condBck);
+    lv_img_set_src(ui_PP_cond4, &ui_img_conditions_new_frightened_png);
+    lv_obj_set_width(ui_PP_cond4, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_PP_cond4, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_PP_cond4, 50);
+    lv_obj_set_y(ui_PP_cond4, 0);
+    lv_obj_set_align(ui_PP_cond4, LV_ALIGN_CENTER);
+    lv_obj_add_state(ui_PP_cond4, LV_STATE_CHECKED);       /// States
+    lv_obj_add_flag(ui_PP_cond4, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
+    lv_obj_clear_flag(ui_PP_cond4, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_img_set_zoom(ui_PP_cond4, 200);
+    lv_obj_set_style_blend_mode(ui_PP_cond4, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
+
+    ui_PP_condExhaustionNumBck = lv_obj_create(ui_PP_cond4);
     lv_obj_set_width(ui_PP_condExhaustionNumBck, 10);
     lv_obj_set_height(ui_PP_condExhaustionNumBck, 12);
     lv_obj_set_x(ui_PP_condExhaustionNumBck, -9);
@@ -103,19 +116,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_style_text_color(ui_PP_condExhaustionNum, lv_color_hex(0x000000), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_opa(ui_PP_condExhaustionNum, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_text_font(ui_PP_condExhaustionNum, &ui_font_Black_Chancery_14, LV_PART_MAIN | LV_STATE_DEFAULT);
-
-    ui_PP_cond4 = lv_img_create(ui_PP_condBck);
-    lv_img_set_src(ui_PP_cond4, &ui_img_conditions_new_frightened_png);
-    lv_obj_set_width(ui_PP_cond4, LV_SIZE_CONTENT);   /// 1
-    lv_obj_set_height(ui_PP_cond4, LV_SIZE_CONTENT);    /// 1
-    lv_obj_set_x(ui_PP_cond4, 50);
-    lv_obj_set_y(ui_PP_cond4, 0);
-    lv_obj_set_align(ui_PP_cond4, LV_ALIGN_CENTER);
-    lv_obj_add_state(ui_PP_cond4, LV_STATE_CHECKED);       /// States
-    lv_obj_add_flag(ui_PP_cond4, LV_OBJ_FLAG_CLICKABLE | LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
-    lv_obj_clear_flag(ui_PP_cond4, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PP_cond4, 200);
-    lv_obj_set_style_blend_mode(ui_PP_cond4, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
 
     ui_PP_condNextBtn = lv_obj_create(ui_PP_condBck);
     lv_obj_set_width(ui_PP_condNextBtn, 30);

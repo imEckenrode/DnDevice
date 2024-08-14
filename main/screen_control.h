@@ -14,7 +14,7 @@
 // This is the array with all the profile picture pointers
 extern const lv_img_dsc_t *pfpArray[DNDV_PFPS_COUNT];
 // This is the position to condition mapping
-extern enum DNDV_CONDITIONS pos2Cond[DNDV_CONDITIONS_COUNT];   //NOTE: Making this a uint8_t may save memory
+extern uint8_t pos2Cond[DNDV_CONDITIONS_COUNT];      //NOTE: This is a uint8_t to save memory on data transfer, but the real type is enum DNDV_CONDITIONS
 // and this is the condition to image mapping
 extern const lv_img_dsc_t *condImgArray[DNDV_CONDITIONS_COUNT];
 #define DNDV_UI_CONDITIONS_PAGE_COUNT 4

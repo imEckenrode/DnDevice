@@ -45,7 +45,7 @@ SemaphoreHandle_t xGuiSemaphore;
 const lv_img_dsc_t *pfpArray[DNDV_PFPS_COUNT];
 
 // This is the position to condition mapping
-enum DNDV_CONDITIONS pos2Cond[DNDV_CONDITIONS_COUNT];   //NOTE: Making this a uint8_t may save memory
+uint8_t pos2Cond[DNDV_CONDITIONS_COUNT];
 // and this is the condition to image mapping
 const lv_img_dsc_t *condImgArray[DNDV_CONDITIONS_COUNT];
 uint8_t condPage; // This is the condition "page" we are on (0-indexed)
@@ -59,27 +59,30 @@ void dndv_update_pfp(lv_obj_t *image_holder, enum DNDV_PFPS selection){
     lv_img_set_src(image_holder, pfpArray[selection]);
 }
 
+void ui_PP_update_cond(lv_obj_t* obj, uint8_t position){
+    uint8_t currentCond = pos2Cond[position];
+    if(currentCond == DNDV_COND_EXHAUSTION){    //Special Exhaustion handling: bring the number to the condition and show it
+        lv_obj_set_parent(ui_PP_condExhaustionNumBck, obj);
+        _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, 1&hasCondition(currentCond));
+        lv_label_set_text_fmt(ui_PP_condExhaustionNum, "%d", getExhaustionLevel());
+    }else{
+        if(lv_obj_get_child_cnt(obj)>0){        //Hide the exhaustion label if it is on here andunused
+            lv_obj_add_flag(lv_obj_get_child(obj,0), LV_OBJ_FLAG_HIDDEN);
+        }
+    }
+    _ui_state_modify(obj, LV_STATE_CHECKED, 1&hasCondition(currentCond)); //If condition is on, we remove the Checked state via state 1
+    lv_img_set_src(obj, condImgArray[currentCond]);
+}
 
-void ui_PP_update_conditions(){    // This could also be done in a loop if we set up the objects themselves in a loop
+void ui_PP_update_conditions(){    // This can be called separately from the ui_refresh function because we look up what we need from the PC here
     uint8_t pos = condPage*(DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT);
-    //WARNING/TODO: This does not catch out of bounds (we could simply modulo by DNDV_CONDITIONS_COUNT) and instead assumes the constant above is 5 as designed
 
-    _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos])); //If condition is on, we remove the Checked state via state 1
-    lv_img_set_src(ui_PP_cond0, condImgArray[pos2Cond[pos++]]);
-
-    _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos])); //If condition is off, we add the Checked state via state 0
-    lv_img_set_src(ui_PP_cond1, condImgArray[pos2Cond[pos++]]);
-
-    _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
-    lv_img_set_src(ui_PP_cond2, condImgArray[pos2Cond[pos++]]);
-
-    _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
-    lv_img_set_src(ui_PP_cond3, condImgArray[pos2Cond[pos++]]);
-
-    _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
-    lv_img_set_src(ui_PP_cond4, condImgArray[pos2Cond[pos]]);
-
-    //TODO: Show the appropriate Exhaustion number
+    //TODO: Check for pos OOB
+    ui_PP_update_cond(ui_PP_cond0, pos++);
+    ui_PP_update_cond(ui_PP_cond1, pos++);
+    ui_PP_update_cond(ui_PP_cond2, pos++);
+    ui_PP_update_cond(ui_PP_cond3, pos++);
+    ui_PP_update_cond(ui_PP_cond4, pos);
 }
 
 void ui_PPP_update_conditions(){
@@ -144,12 +147,10 @@ void ui_refresh(bool animating){
             lv_label_set_text_fmt(ui_PP_acTotal, "%d", pc.AC + pc.statusAC);
             lv_label_set_text_fmt(ui_PP_acMath, "%d+%d", pc.AC, pc.statusAC);
 
-            ui_PP_update_conditions(pc.allConditions);
+            ui_PP_update_conditions();
             dndv_update_pfp(ui_PP_profPic, pc.pfp);
-            ESP_LOGI(TAG, "Updated the rest");
         }else{
             ui_PPP_update_conditions();
-            ESP_LOGI(TAG, "Did not update the rest");
         }
     }else if(screen == ui_PlayerCreation){
         struct fighter pc = readPC();

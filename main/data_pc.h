@@ -110,6 +110,7 @@ void setCover(int ac);
 bool hasCondition(uint8_t address);
 void setCondition(uint8_t address, bool set);
 void toggleCondition(uint8_t address);
+uint8_t getExhaustionLevel();
 void setExhaustionLevel(uint8_t level);
 void clearConditions();
 
