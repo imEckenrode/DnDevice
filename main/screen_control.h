@@ -22,8 +22,6 @@ extern uint8_t condPage;
 
 void dndv_set_condPage(bool adjusting, int8_t pagesToTurn);
 
-void ui_PP_update_conditions_pics(); //TEMPORARY FOR TESTING
-
 void ui_stuff_init(void);
 
 void ui_refresh(bool animating);

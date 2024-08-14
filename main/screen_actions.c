@@ -66,13 +66,13 @@ void dndv_PP_refresh(lv_event_t * e){return;}
 void dndv_PP_toggleCond(lv_event_t * e){  //All conditions toggle this and we update accordingly here
     uint8_t pos = ((uint8_t) lv_obj_get_user_data(lv_event_get_target(e))) + condPage*(DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT); //This should always be 5 unless we do a huge structural change
     ESP_LOGI(TAG,"This condition is %d on page %d",pos2Cond[pos], condPage);
-    //Toggle the condition using that number
+    toggleCondition(pos);
 };    //TODO: Move Exhaustion Long Press out of here and manually escape if pressed here
 
 
 
 void dndv_PP_exhaustIncrement(lv_event_t * e){return;}
-void dndv_PP_condRight(lv_event_t * e){dndv_set_condPage(true,1);ui_PP_update_conditions_pics();} //Temporary refresh here
+void dndv_PP_condRight(lv_event_t * e){dndv_set_condPage(true,1);}
 void dndv_PP_condLeft(lv_event_t * e){dndv_set_condPage(true,-1);}
 void dndv_PP_condMore(lv_event_t * e){return;} //TODO: Update the order 
 void dndv_PP_InitScreen(lv_event_t * e){return;} //Navigate to Initiative Screen...can hijack with Player Creation

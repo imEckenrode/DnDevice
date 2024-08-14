@@ -68,7 +68,7 @@ struct __attribute__((packed)) fighter{
     uint8_t deathsaves:2;  
     uint8_t deathfails:2;
 
-    uint8_t exhaustion:3;   //This keeps exhaustion toggleable separate from the level
+    uint8_t exhaustionLevel:3;   //This keeps exhaustion level separate from the toggleable and keeps the conditions struct uniform
     union{  //bytes
         struct conditions condition;
         uint32_t allConditions:DNDV_CONDITIONS_COUNT;
@@ -105,6 +105,13 @@ void adjustHP(int up);
 //AC
 void setAC(int ac);
 void setCover(int ac);
+
+//Conditions
+bool hasCondition(uint8_t address);
+void setCondition(uint8_t address, bool set);
+void toggleCondition(uint8_t address);
+void setExhaustionLevel(uint8_t level);
+void clearConditions();
 
 //Profile Picture
 void setPFP(short newPFP);

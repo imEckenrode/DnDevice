@@ -107,6 +107,59 @@ void setCover(int ac){
     esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
 }
 
+
+bool hasCondition(uint8_t address){
+    return ((PC->allConditions & (1 << address%DNDV_CONDITIONS_COUNT)) != 0);
+}
+
+void setCondition(uint8_t address, bool set){
+    if(address == DNDV_COND_EXHAUSTION){
+        setExhaustionLevel(1&set);  //Send a 1 if we're setting it on and 0 if we're setting it off
+    }else{
+        if(set){
+            taskENTER_CRITICAL(&pcDataSpinlock);
+            PC->allConditions |= (1 << (address%DNDV_CONDITIONS_COUNT));
+            taskEXIT_CRITICAL(&pcDataSpinlock);
+        }else{
+            taskENTER_CRITICAL(&pcDataSpinlock);
+            PC->allConditions &= ~(1 << (address%DNDV_CONDITIONS_COUNT));
+            taskEXIT_CRITICAL(&pcDataSpinlock);
+        }
+        esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+    }
+}
+
+void toggleCondition(uint8_t address){
+    // If we're toggling the Exhaustion condition, increment the level by 1 instead of a simple on and off
+    if(address == DNDV_COND_EXHAUSTION){
+        setExhaustionLevel(PC->exhaustionLevel+1);
+    }else{
+        bool newBool = !hasCondition(address); //The compiler should bring in the one line of code here, so this is the most readable
+        setCondition(address, newBool);
+    }
+}
+
+void setExhaustionLevel(uint8_t level){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    PC->exhaustionLevel = level%7;  //Exhaustion can only be a value between 0 and 6
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    if(PC->exhaustionLevel == 0){
+        //setCondition(DNDV_COND_EXHAUSTION, 0)
+    }else{
+        //setCondition(DNDV_COND_EXHAUSTION, 1)
+    }
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0); //TODO: Make a new base specific to conditions?
+}
+
+void clearConditions(){
+    taskENTER_CRITICAL(&pcDataSpinlock);
+    PC->allConditions = 0;
+    PC->exhaustionLevel = 0;
+    taskEXIT_CRITICAL(&pcDataSpinlock);
+    esp_event_post_to(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, NULL, 0,0);
+}
+
+
 void setPFP(short newPFP){
     uint8_t actual = (newPFP % DNDV_PFPS_COUNT + DNDV_PFPS_COUNT) % DNDV_PFPS_COUNT; //This guarantees a positive modulus
     taskENTER_CRITICAL(&pcDataSpinlock);

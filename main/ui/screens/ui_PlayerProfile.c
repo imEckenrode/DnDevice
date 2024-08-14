@@ -38,7 +38,6 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_clear_flag(ui_PP_cond0, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_PP_cond0, 200);
     lv_obj_set_style_blend_mode(ui_PP_cond0, LV_BLEND_MODE_MULTIPLY, LV_PART_MAIN | LV_STATE_CHECKED);
-    lv_obj_set_user_data(ui_PP_cond0,0);
 
     ui_PP_cond1 = lv_img_create(ui_PP_condBck);
     lv_img_set_src(ui_PP_cond1, &ui_img_conditions_new_charmed_png);
@@ -981,4 +980,30 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_add_event_cb(ui_PPP_cond19, ui_event_PPP_cond19, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_PlayerProfile, ui_event_PlayerProfile, LV_EVENT_ALL, NULL);
 
+    //And finally, custom data all in one place
+    lv_obj_set_user_data(ui_PP_cond0,0);
+    lv_obj_set_user_data(ui_PP_cond1,1);
+    lv_obj_set_user_data(ui_PP_cond2,2);
+    lv_obj_set_user_data(ui_PP_cond3,3);
+    lv_obj_set_user_data(ui_PP_cond4,4);
+
+    lv_obj_set_user_data(ui_PPP_cond1,1);
+    lv_obj_set_user_data(ui_PPP_cond2,2);
+    lv_obj_set_user_data(ui_PPP_cond3,3);
+    lv_obj_set_user_data(ui_PPP_cond4,4);
+    lv_obj_set_user_data(ui_PPP_cond5,5);
+    lv_obj_set_user_data(ui_PPP_cond6,6);
+    lv_obj_set_user_data(ui_PPP_cond7,7);
+    lv_obj_set_user_data(ui_PPP_cond8,8);
+    lv_obj_set_user_data(ui_PPP_cond9,9);
+    lv_obj_set_user_data(ui_PPP_cond10,10);
+    lv_obj_set_user_data(ui_PPP_cond11,11);
+    lv_obj_set_user_data(ui_PPP_cond12,12);
+    lv_obj_set_user_data(ui_PPP_cond13,13);
+    lv_obj_set_user_data(ui_PPP_cond14,14);
+    lv_obj_set_user_data(ui_PPP_cond15,15);
+    lv_obj_set_user_data(ui_PPP_cond16,16);
+    lv_obj_set_user_data(ui_PPP_cond17,17);
+    lv_obj_set_user_data(ui_PPP_cond18,18);
+    lv_obj_set_user_data(ui_PPP_cond19,19);
 }

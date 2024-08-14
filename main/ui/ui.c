@@ -500,8 +500,6 @@ void ui_event_PP_cond0(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
         dndv_PP_toggleCond(e);
     }
 }
@@ -510,8 +508,7 @@ void ui_event_PP_cond1(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PP_toggleCond(e);
     }
 }
 void ui_event_PP_cond2(lv_event_t * e)
@@ -519,8 +516,7 @@ void ui_event_PP_cond2(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PP_toggleCond(e);
     }
 }
 void ui_event_PP_cond3(lv_event_t * e)
@@ -528,10 +524,7 @@ void ui_event_PP_cond3(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
-        _ui_state_modify(ui_PPP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        dndv_PP_toggleCond(e);
     }
 }
 void ui_event_PP_condExhaustionNumBck(lv_event_t * e)
@@ -547,8 +540,7 @@ void ui_event_PP_cond4(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PPP_cond5, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PP_toggleCond(e);
     }
 }
 void ui_event_PP_condNextBtn(lv_event_t * e)

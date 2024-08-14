@@ -60,21 +60,26 @@ void dndv_update_pfp(lv_obj_t *image_holder, enum DNDV_PFPS selection){
 }
 
 
-void ui_PP_update_conditions_pics(){
-    // This could also be done in a loop if we set up the objects themselves in a loop
+void ui_PP_update_conditions(){    // This could also be done in a loop if we set up the objects themselves in a loop
     uint8_t pos = condPage*(DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT);
+    //WARNING/TODO: This does not catch out of bounds (we could simply modulo by DNDV_CONDITIONS_COUNT) and instead assumes the constant above is 5 as designed
 
-    //WARNING/TODO: This does not catch out of bounds (AKA we currently assume that DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT is exactly 5)
+    _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos])); //If condition is on, we remove the Checked state via state 1
     lv_img_set_src(ui_PP_cond0, condImgArray[pos2Cond[pos++]]);
-    lv_img_set_src(ui_PP_cond1, condImgArray[pos2Cond[pos++]]);
-    lv_img_set_src(ui_PP_cond2, condImgArray[pos2Cond[pos++]]);
-    lv_img_set_src(ui_PP_cond3, condImgArray[pos2Cond[pos++]]);
-    lv_img_set_src(ui_PP_cond4, condImgArray[pos2Cond[pos]]);
-}
 
-void ui_PP_update_conditions(){
-    ui_PP_update_conditions_pics();
-    //TODO (NEXT): Add and Remove the Checked flag depending on the data
+    _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos])); //If condition is off, we add the Checked state via state 0
+    lv_img_set_src(ui_PP_cond1, condImgArray[pos2Cond[pos++]]);
+
+    _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
+    lv_img_set_src(ui_PP_cond2, condImgArray[pos2Cond[pos++]]);
+
+    _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
+    lv_img_set_src(ui_PP_cond3, condImgArray[pos2Cond[pos++]]);
+
+    _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, 1&hasCondition(pos2Cond[pos]));
+    lv_img_set_src(ui_PP_cond4, condImgArray[pos2Cond[pos]]);
+
+    //TODO: Show the appropriate Exhaustion number
 }
 
 void ui_PPP_update_conditions(){
@@ -141,8 +146,10 @@ void ui_refresh(bool animating){
 
             ui_PP_update_conditions(pc.allConditions);
             dndv_update_pfp(ui_PP_profPic, pc.pfp);
+            ESP_LOGI(TAG, "Updated the rest");
         }else{
             ui_PPP_update_conditions();
+            ESP_LOGI(TAG, "Did not update the rest");
         }
     }else if(screen == ui_PlayerCreation){
         struct fighter pc = readPC();
