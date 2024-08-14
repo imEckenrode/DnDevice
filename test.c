@@ -8,6 +8,29 @@ char SETUP_OPTIONS[2][30]={"New Character","Done Entering Characters"};
 char TURN_OPTIONS[TURN_OPTIONS_COUNT][30]={"End Combat","End Turn","Attack Roll","Saving Throw","Print Initiative List"};  //Hold Turn, Heal
                     typedef enum turnStatus{endCombat, endTurn, attackRoll, savingThrow,seeInitiativeList,passTurn=5} turnStatus;
 
+struct __attribute__((packed)) conditions{  //Since these are all the same type, they won't jump another block
+    bool blinded:1;
+    bool charmed:1;
+    bool deafened:1;
+    bool disarmed:1;
+    bool exhaustion:1;
+    bool frightened:1;
+    bool grappled:1;
+    bool hidden:1;
+    bool incapacitated:1;
+    bool invisible:1;
+    bool obscured:1;
+    bool paralyzed:1;
+    bool petrified:1;
+    bool poisoned:1;
+    bool prone:1;
+    bool raging:1;
+    bool restrained:1;
+    bool surprised:1;
+    bool stunned:1;
+    bool unconscious:1;
+}; 
+
 typedef struct fighter{
     short key;
     char name[16];
@@ -15,6 +38,11 @@ typedef struct fighter{
     short AC;
     short atkMod;
     short initiative;
+
+    union{  //bytes
+        struct conditions condition;
+        int allConditions:20;
+    };
     //short mac;
 }
 Fighter;
@@ -342,6 +370,11 @@ void printCombatantList(){
         printf("%s:\t\tHP: %d\tInitiative:%d\n",combatants[i].name,combatants[i].gm.HP,combatants[i].initiative);
     }
     printf("\n");
+
+    // Conditions test
+    //fList[0].condition.charmed = !fList[0].condition.charmed;
+    //fList[0].allConditions+=1;
+    //printf("%s: %d, %d, %d",fList[0].name, fList[0].allConditions, fList[0].condition.charmed,fList[0].condition.blinded);
 }
 
 short turn(Combatant* f){     //Change this to a pointer (not really needed tbh).      //Instead of passing a fighter, we'd have a Combatant (the active fighter per device)
