@@ -85,9 +85,46 @@ void ui_PP_update_conditions(){    // This can be called separately from the ui_
     ui_PP_update_cond(ui_PP_cond4, pos);
 }
 
-void ui_PPP_update_conditions(){
-    return;
+void ui_PPP_update_cond(lv_obj_t* obj, uint8_t position){
+    uint8_t currentCond = pos2Cond[position];
+    if(currentCond == DNDV_COND_EXHAUSTION){    //Special Exhaustion handling: bring the number to the condition and show it
+        lv_obj_set_parent(ui_PPP_condExhaustionNumBck, obj);
+        _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, 1&hasCondition(currentCond));
+        lv_label_set_text_fmt(ui_PPP_condExhaustionNum, "%d", getExhaustionLevel());
+    }else{
+        if(lv_obj_get_child_cnt(obj)>0){        //Hide the exhaustion label if it is on here and unused
+            lv_obj_add_flag(lv_obj_get_child(obj,0), LV_OBJ_FLAG_HIDDEN);
+        }
+    }
+    _ui_state_modify(obj, LV_STATE_CHECKED, 1&hasCondition(currentCond)); //If condition is on, we remove the Checked state via state 1
+    lv_img_set_src(obj, condImgArray[currentCond]);
 }
+
+void ui_PPP_update_conditions(){
+    // TODO: This could be refined with an array, so check if that would be more useful despite the memory consumption.
+    uint8_t pos = 0;
+    ui_PPP_update_cond(ui_PPP_cond0, pos++);
+    ui_PPP_update_cond(ui_PPP_cond1, pos++);
+    ui_PPP_update_cond(ui_PPP_cond2, pos++);
+    ui_PPP_update_cond(ui_PPP_cond3, pos++);
+    ui_PPP_update_cond(ui_PPP_cond4, pos++);
+    ui_PPP_update_cond(ui_PPP_cond5, pos++);
+    ui_PPP_update_cond(ui_PPP_cond6, pos++);
+    ui_PPP_update_cond(ui_PPP_cond7, pos++);
+    ui_PPP_update_cond(ui_PPP_cond8, pos++);
+    ui_PPP_update_cond(ui_PPP_cond9, pos++);
+    ui_PPP_update_cond(ui_PPP_cond10, pos++);
+    ui_PPP_update_cond(ui_PPP_cond11, pos++);
+    ui_PPP_update_cond(ui_PPP_cond12, pos++);
+    ui_PPP_update_cond(ui_PPP_cond13, pos++);
+    ui_PPP_update_cond(ui_PPP_cond14, pos++);
+    ui_PPP_update_cond(ui_PPP_cond15, pos++);
+    ui_PPP_update_cond(ui_PPP_cond16, pos++);
+    ui_PPP_update_cond(ui_PPP_cond17, pos++);
+    ui_PPP_update_cond(ui_PPP_cond18, pos++);
+    ui_PPP_update_cond(ui_PPP_cond19, pos);
+}
+
 
 //This is used to update the condPage variable and also update it visually
 void dndv_set_condPage(bool adjusting, int8_t pagesToTurn){

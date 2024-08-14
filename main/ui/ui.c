@@ -527,20 +527,20 @@ void ui_event_PP_cond3(lv_event_t * e)
         dndv_PP_toggleCond(e);
     }
 }
-void ui_event_PP_condExhaustionNumBck(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        dndv_PP_exhaustIncrement(e);
-    }
-}
 void ui_event_PP_cond4(lv_event_t * e)
 {
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PP_toggleCond(e);
+    }
+}
+void ui_event_PP_condExhaustionNumBck(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PP_exhaustIncrement(e);
     }
 }
 void ui_event_PP_condNextBtn(lv_event_t * e)
@@ -692,8 +692,7 @@ void ui_event_PPP_cond0(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_cond0, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PPP_toggleCond(e);
     }
 }
 void ui_event_PPP_cond1(lv_event_t * e)
@@ -701,8 +700,7 @@ void ui_event_PPP_cond1(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_cond1, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PPP_toggleCond(e);
     }
 }
 void ui_event_PPP_cond2(lv_event_t * e)
@@ -710,8 +708,7 @@ void ui_event_PPP_cond2(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_cond2, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PPP_toggleCond(e);
     }
 }
 void ui_event_PPP_cond3(lv_event_t * e)
@@ -719,7 +716,7 @@ void ui_event_PPP_cond3(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
+        dndv_PPP_toggleCond(e);
     }
 }
 void ui_event_PPP_cond4(lv_event_t * e)
@@ -727,10 +724,127 @@ void ui_event_PPP_cond4(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_flag_modify(ui_PPP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
-        _ui_state_modify(ui_PP_cond3, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_flag_modify(ui_PP_condExhaustionNumBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_TOGGLE);
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond5(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond6(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond7(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond8(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond9(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond10(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond11(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond12(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond13(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond14(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond15(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond16(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond17(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond18(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
+    }
+}
+void ui_event_PPP_cond19(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        dndv_PPP_toggleCond(e);
     }
 }
 void ui_event_PPP_condExhaustionNumBck(lv_event_t * e)
@@ -739,127 +853,6 @@ void ui_event_PPP_condExhaustionNumBck(lv_event_t * e)
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
         dndv_PP_exhaustIncrement(e);
-    }
-}
-void ui_event_PPP_cond5(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond5, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-        _ui_state_modify(ui_PP_cond4, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond6(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond6, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond7(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond7, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond8(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond8, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond9(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond9, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond10(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond10, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond11(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond11, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond12(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond12, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond13(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond13, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond14(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond14, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond15(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond15, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond16(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond16, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond17(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond17, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond18(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond18, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
-    }
-}
-void ui_event_PPP_cond19(lv_event_t * e)
-{
-    lv_event_code_t event_code = lv_event_get_code(e);
-    lv_obj_t * target = lv_event_get_target(e);
-    if(event_code == LV_EVENT_CLICKED) {
-        _ui_state_modify(ui_PPP_cond19, LV_STATE_CHECKED, _UI_MODIFY_STATE_TOGGLE);
     }
 }
 void ui_event_IntroScreen(lv_event_t * e)

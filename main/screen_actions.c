@@ -66,14 +66,13 @@ void dndv_PP_refresh(lv_event_t * e){return;}
 void dndv_PP_toggleCond(lv_event_t * e){  //All conditions toggle this and we update accordingly here
     uint8_t pos = ((uint8_t) lv_obj_get_user_data(lv_event_get_target(e))) + condPage*(DNDV_CONDITIONS_COUNT/DNDV_UI_CONDITIONS_PAGE_COUNT); //This should always be 5 unless we do a huge structural change
     toggleCondition(pos2Cond[pos]);
-};    //TODO: Move Exhaustion Long Press out of here and manually escape if pressed here
-
+};    //TODO: If implementing Long Press To Clear, catch Long Press and manually escape if pressed here
 
 
 void dndv_PP_exhaustIncrement(lv_event_t * e){return;}
 void dndv_PP_condRight(lv_event_t * e){dndv_set_condPage(true,1);}
 void dndv_PP_condLeft(lv_event_t * e){dndv_set_condPage(true,-1);}
-void dndv_PP_condMore(lv_event_t * e){return;} //TODO: Update the order 
+void dndv_PP_condMore(lv_event_t * e){ui_PPP_update_conditions();;}
 void dndv_PP_InitScreen(lv_event_t * e){return;} //Navigate to Initiative Screen...can hijack with Player Creation
 void dndv_PP_numConfirm(lv_event_t * e){
     short num = stringToLong(lv_textarea_get_text(ui_PP_acTextArea), SECRET_CANCEL_CONSTANT);
@@ -85,7 +84,11 @@ void dndv_PP_numConfirm(lv_event_t * e){
     lv_textarea_set_text(ui_PP_acTextArea, "");
 }
 
-void dndv_PP_condMoreClose(lv_event_t * e){return;} //TODO: Save the conditions to the player some time after updating
+void dndv_PP_condMoreClose(lv_event_t * e){ui_PP_update_conditions();}
+void dndv_PPP_toggleCond(lv_event_t * e){
+    uint8_t pos = ((uint8_t) lv_obj_get_user_data(lv_event_get_target(e))); //This should always be 5 unless we do a huge structural change
+    toggleCondition(pos2Cond[pos]);
+};
 
 
 void dndv_IS_screenLoading(lv_event_t * e){return;}

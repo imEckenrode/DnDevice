@@ -21,7 +21,8 @@ extern const lv_img_dsc_t *condImgArray[DNDV_CONDITIONS_COUNT];
 extern uint8_t condPage;
 
 void dndv_set_condPage(bool adjusting, int8_t pagesToTurn);
-
+void ui_PP_update_conditions();
+void ui_PPP_update_conditions();
 void ui_stuff_init(void);
 
 void ui_refresh(bool animating);
