@@ -15,7 +15,7 @@ static portMUX_TYPE pcDataSpinlock = portMUX_INITIALIZER_UNLOCKED;
 void default_pc_init(){
     ESP_LOGW("START", "Hello there!");
     PC = calloc(1,sizeof(struct fighter));
-    PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we malloc instead of calloc)
+    PC->allConditions = 0;      //Do this to start all conditions at False (since we're overwriting all else, we could malloc instead of calloc)
 
     PC->tempHP = 5;
     PC->AC = 12;
@@ -23,14 +23,11 @@ void default_pc_init(){
     PC->HP = 20;
     PC->trueMaxHP = 30;
     PC->maxHP = PC->trueMaxHP;
-    PC->condition.charmed = true;
-    PC->pfp = DNDV_PFP_FIGHTER;
+    PC->pfp = DNDV_PFP_WARLOCK;
 
     strcpy(PC->nickname, "Blanky McNothing");
-    //PC->pfpSrc = &ui_img_playericons_icon_warlock_png;
 
     ESP_LOGW("OUTPUT", "HP: %d, MAX: %d, AC: %d, Conditions: %x", PC->HP, PC->maxHP, PC->AC, PC->allConditions);
-
     ESP_LOGW("SIZE", "%d", sizeof(*PC));
 
     //free(PC); if we ever become the DM
