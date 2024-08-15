@@ -88,6 +88,17 @@ void ui_IntroScreen_screen_init(void)
     lv_label_set_text(ui_IS_introText_E2, "e");
     lv_obj_set_style_text_font(ui_IS_introText_E2, &ui_font_Black_Chancery_50, LV_PART_MAIN | LV_STATE_DEFAULT);
 
+    ui_IS_continueTxt = lv_label_create(ui_IntroScreen);
+    lv_obj_set_width(ui_IS_continueTxt, 0);
+    lv_obj_set_height(ui_IS_continueTxt, LV_SIZE_CONTENT);    /// 22
+    lv_obj_set_x(ui_IS_continueTxt, 0);
+    lv_obj_set_y(ui_IS_continueTxt, 80);
+    lv_obj_set_align(ui_IS_continueTxt, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_IS_continueTxt, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_IS_continueTxt, "Touch Screen to Start");
+    lv_obj_set_style_text_align(ui_IS_continueTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IS_continueTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+
     lv_obj_add_event_cb(ui_IS_Bck, ui_event_IS_Bck, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_IntroScreen, ui_event_IntroScreen, LV_EVENT_ALL, NULL);
 

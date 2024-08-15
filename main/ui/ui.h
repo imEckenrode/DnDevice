@@ -18,6 +18,7 @@ extern "C" {
 void DmgMain_Animation(lv_obj_t * TargetObject, int delay);
 void HealMain_Animation(lv_obj_t * TargetObject, int delay);
 void IntroDropIn_Animation(lv_obj_t * TargetObject, int delay);
+void IntroRevealTxt_Animation(lv_obj_t * TargetObject, int delay);
 // SCREEN: ui_HealthProfile
 void ui_HealthProfile_screen_init(void);
 void ui_event_HealthProfile(lv_event_t * e);
@@ -203,6 +204,7 @@ extern lv_obj_t * ui_IS_introText_V1;
 extern lv_obj_t * ui_IS_introText_I1;
 extern lv_obj_t * ui_IS_introText_C1;
 extern lv_obj_t * ui_IS_introText_E2;
+extern lv_obj_t * ui_IS_continueTxt;
 // SCREEN: ui_PlayerCreation
 void ui_PlayerCreation_screen_init(void);
 void ui_event_PlayerCreation(lv_event_t * e);
