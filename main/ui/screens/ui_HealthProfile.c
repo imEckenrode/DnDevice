@@ -176,7 +176,7 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_set_align(ui_HP_profPic, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_HP_profPic, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_HP_profPic, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_HP_profPic, 35);
+    lv_img_set_zoom(ui_HP_profPic, 70);
 
     ui_HP_toScreen_XX = lv_obj_create(ui_HP_Bck);
     lv_obj_set_width(ui_HP_toScreen_XX, 60);

@@ -183,7 +183,7 @@ void ui_PlayerProfile_screen_init(void)
     lv_obj_set_align(ui_PP_profPic, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PP_profPic, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PP_profPic, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PP_profPic, 100);
+    lv_img_set_zoom(ui_PP_profPic, 200);
 
     ui_PP_hpBck = lv_obj_create(ui_PP_Bck);
     lv_obj_set_width(ui_PP_hpBck, 80);

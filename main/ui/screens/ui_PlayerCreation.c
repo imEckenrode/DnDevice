@@ -27,7 +27,7 @@ void ui_PlayerCreation_screen_init(void)
     lv_obj_set_align(ui_PC_profPic, LV_ALIGN_CENTER);
     lv_obj_add_flag(ui_PC_profPic, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_PC_profPic, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
-    lv_img_set_zoom(ui_PC_profPic, 150);
+    lv_img_set_zoom(ui_PC_profPic, 300);
 
     ui_PC_pfpNextBtn = lv_obj_create(ui_PC_Bck);
     lv_obj_set_width(ui_PC_pfpNextBtn, 30);

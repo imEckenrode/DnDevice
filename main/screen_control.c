@@ -218,15 +218,15 @@ void pfp_init(){
     pfpArray[1] = &ui_img_playericons_icon_barbarian_png;
     pfpArray[2] = &ui_img_playericons_icon_bard_png;
     pfpArray[3] = &ui_img_playericons_icon_cleric_png;
-    //pfpArray[4] = &ui_img_playericons_icon_druid_png;
-    //pfpArray[5] = &ui_img_playericons_icon_fighter_png;
-    //pfpArray[6] = &ui_img_playericons_icon_monk_png;
-    //pfpArray[7] = &ui_img_playericons_icon_paladin_png;
-    //pfpArray[8] = &ui_img_playericons_icon_ranger_png;
-    //pfpArray[9] = &ui_img_playericons_icon_rogue_png;
-    //pfpArray[10] = &ui_img_playericons_icon_sorcerer_png;
+    pfpArray[4] = &ui_img_playericons_icon_druid_png;
+    pfpArray[5] = &ui_img_playericons_icon_fighter_png;
+    pfpArray[6] = &ui_img_playericons_icon_monk_png;
+    pfpArray[7] = &ui_img_playericons_icon_paladin_png;
+    pfpArray[8] = &ui_img_playericons_icon_ranger_png;
+    pfpArray[9] = &ui_img_playericons_icon_rogue_png;
+    pfpArray[10] = &ui_img_playericons_icon_sorcerer_png;
     pfpArray[11] = &ui_img_playericons_icon_warlock_png;
-    //pfpArray[12] = &ui_img_playericons_icon_wizard_png;
+    pfpArray[12] = &ui_img_playericons_icon_wizard_png;
 }
 
 void cond_init(){
