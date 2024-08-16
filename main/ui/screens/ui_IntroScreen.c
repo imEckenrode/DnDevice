@@ -88,18 +88,91 @@ void ui_IntroScreen_screen_init(void)
     lv_label_set_text(ui_IS_introText_E2, "e");
     lv_obj_set_style_text_font(ui_IS_introText_E2, &ui_font_Black_Chancery_50, LV_PART_MAIN | LV_STATE_DEFAULT);
 
-    ui_IS_continueTxt = lv_label_create(ui_IntroScreen);
-    lv_obj_set_width(ui_IS_continueTxt, 0);
-    lv_obj_set_height(ui_IS_continueTxt, LV_SIZE_CONTENT);    /// 22
-    lv_obj_set_x(ui_IS_continueTxt, 0);
-    lv_obj_set_y(ui_IS_continueTxt, 80);
-    lv_obj_set_align(ui_IS_continueTxt, LV_ALIGN_CENTER);
-    lv_label_set_long_mode(ui_IS_continueTxt, LV_LABEL_LONG_CLIP);
-    lv_label_set_text(ui_IS_continueTxt, "Touch Screen to Start");
-    lv_obj_set_style_text_align(ui_IS_continueTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
-    lv_obj_set_style_text_font(ui_IS_continueTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+    ui_IS_touchScreenTxt = lv_label_create(ui_IntroScreen);
+    lv_obj_set_width(ui_IS_touchScreenTxt, 0);
+    lv_obj_set_height(ui_IS_touchScreenTxt, LV_SIZE_CONTENT);    /// 22
+    lv_obj_set_x(ui_IS_touchScreenTxt, 0);
+    lv_obj_set_y(ui_IS_touchScreenTxt, 80);
+    lv_obj_set_align(ui_IS_touchScreenTxt, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_IS_touchScreenTxt, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_IS_touchScreenTxt, "Touch Screen to Start");
+    lv_obj_set_style_text_align(ui_IS_touchScreenTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IS_touchScreenTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_continueBck = lv_obj_create(ui_IntroScreen);
+    lv_obj_set_width(ui_IS_continueBck, 275);
+    lv_obj_set_height(ui_IS_continueBck, 200);
+    lv_obj_set_align(ui_IS_continueBck, LV_ALIGN_CENTER);
+    lv_obj_add_flag(ui_IS_continueBck, LV_OBJ_FLAG_HIDDEN);     /// Flags
+    lv_obj_clear_flag(ui_IS_continueBck, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+    lv_obj_set_style_bg_color(ui_IS_continueBck, lv_color_hex(0x393939), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_bg_opa(ui_IS_continueBck, 240, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_welcomeBackTxt = lv_label_create(ui_IS_continueBck);
+    lv_obj_set_width(ui_IS_welcomeBackTxt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_IS_welcomeBackTxt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_IS_welcomeBackTxt, 0);
+    lv_obj_set_y(ui_IS_welcomeBackTxt, -68);
+    lv_obj_set_align(ui_IS_welcomeBackTxt, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_IS_welcomeBackTxt, "Welcome Back");
+    lv_obj_set_style_text_font(ui_IS_welcomeBackTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_nameTxt = lv_label_create(ui_IS_continueBck);
+    lv_obj_set_width(ui_IS_nameTxt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_IS_nameTxt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_IS_nameTxt, 0);
+    lv_obj_set_y(ui_IS_nameTxt, -37);
+    lv_obj_set_align(ui_IS_nameTxt, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_IS_nameTxt, LV_LABEL_LONG_SCROLL_CIRCULAR);
+    lv_label_set_text(ui_IS_nameTxt, "Character Name Here");
+    lv_obj_set_style_text_font(ui_IS_nameTxt, &ui_font_Black_Chancery_25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_continueAdventureTxt = lv_label_create(ui_IS_continueBck);
+    lv_obj_set_width(ui_IS_continueAdventureTxt, LV_SIZE_CONTENT);   /// 1
+    lv_obj_set_height(ui_IS_continueAdventureTxt, LV_SIZE_CONTENT);    /// 1
+    lv_obj_set_x(ui_IS_continueAdventureTxt, 0);
+    lv_obj_set_y(ui_IS_continueAdventureTxt, 25);
+    lv_obj_set_align(ui_IS_continueAdventureTxt, LV_ALIGN_CENTER);
+    lv_label_set_text(ui_IS_continueAdventureTxt, "Continue Your Adventure?");
+    lv_obj_set_style_text_font(ui_IS_continueAdventureTxt, &ui_font_Black_Chancery_20, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_yesBtn = lv_obj_create(ui_IS_continueBck);
+    lv_obj_set_width(ui_IS_yesBtn, 84);
+    lv_obj_set_height(ui_IS_yesBtn, 44);
+    lv_obj_set_x(ui_IS_yesBtn, 60);
+    lv_obj_set_y(ui_IS_yesBtn, 67);
+    lv_obj_set_align(ui_IS_yesBtn, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_IS_yesBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_IS_yesTxt = lv_label_create(ui_IS_yesBtn);
+    lv_obj_set_width(ui_IS_yesTxt, LV_SIZE_CONTENT);   /// 136
+    lv_obj_set_height(ui_IS_yesTxt, LV_SIZE_CONTENT);    /// 22
+    lv_obj_set_align(ui_IS_yesTxt, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_IS_yesTxt, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_IS_yesTxt, "Yes");
+    lv_obj_set_style_text_align(ui_IS_yesTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IS_yesTxt, &ui_font_Black_Chancery_25, LV_PART_MAIN | LV_STATE_DEFAULT);
+
+    ui_IS_noBtn = lv_obj_create(ui_IS_continueBck);
+    lv_obj_set_width(ui_IS_noBtn, 84);
+    lv_obj_set_height(ui_IS_noBtn, 44);
+    lv_obj_set_x(ui_IS_noBtn, -60);
+    lv_obj_set_y(ui_IS_noBtn, 67);
+    lv_obj_set_align(ui_IS_noBtn, LV_ALIGN_CENTER);
+    lv_obj_clear_flag(ui_IS_noBtn, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
+
+    ui_IS_noTxt = lv_label_create(ui_IS_noBtn);
+    lv_obj_set_width(ui_IS_noTxt, LV_SIZE_CONTENT);   /// 136
+    lv_obj_set_height(ui_IS_noTxt, LV_SIZE_CONTENT);    /// 22
+    lv_obj_set_align(ui_IS_noTxt, LV_ALIGN_CENTER);
+    lv_label_set_long_mode(ui_IS_noTxt, LV_LABEL_LONG_CLIP);
+    lv_label_set_text(ui_IS_noTxt, "No");
+    lv_obj_set_style_text_align(ui_IS_noTxt, LV_TEXT_ALIGN_LEFT, LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_text_font(ui_IS_noTxt, &ui_font_Black_Chancery_25, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     lv_obj_add_event_cb(ui_IS_Bck, ui_event_IS_Bck, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_IS_yesBtn, ui_event_IS_yesBtn, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_IS_noBtn, ui_event_IS_noBtn, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_IntroScreen, ui_event_IntroScreen, LV_EVENT_ALL, NULL);
 
 }

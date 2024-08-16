@@ -91,7 +91,7 @@ void dndv_PPP_toggleCond(lv_event_t * e){
 };
 
 
-void dndv_IS_screenLoading(lv_event_t * e){return;}
+void dndv_IS_updatePlayerData(lv_event_t * e){lv_label_set_text_fmt(ui_IS_nameTxt, "%s", readPC().nickname);}
 
 #define PC_INPUT_LABEL_SET_NAME "Enter Name"
 #define PC_INPUT_LABEL_SET_HP "Enter Max HP"
@@ -112,7 +112,7 @@ void dndv_PC_inputConfirm(lv_event_t * e){
     if(*input!='\0'){   //If the name is empty, we're not changing it
         setName(input);
     }
-    if(strcmp(label, PC_INPUT_LABEL_SET_NAME)==0){
+    if(strcmp(label, PC_INPUT_LABEL_CHANGE_NAME)!=0){   //If we're not just changing the name, continue on to update the rest
         _ui_flag_modify(ui_PC_numInput, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE); // We edit ui flags within ui.c normally, but we're manually opening this here
         dndv_textAreaClearAndRelabel(ui_PC_numTextArea, PC_INPUT_LABEL_SET_HP);
     }

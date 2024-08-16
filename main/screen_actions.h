@@ -38,7 +38,7 @@ void dndv_PP_InitScreen(lv_event_t * e);
 void dndv_PP_numConfirm(lv_event_t * e);
 void dndv_PP_condMoreClose(lv_event_t * e);
 void dndv_PPP_toggleCond(lv_event_t * e);
-void dndv_IS_screenLoading(lv_event_t * e);
+void dndv_IS_updatePlayerData(lv_event_t * e);
 void dndv_PC_screenLoading(lv_event_t * e);
 void dndv_PC_profPicNext(lv_event_t * e);
 void dndv_PC_profPicPrev(lv_event_t * e);

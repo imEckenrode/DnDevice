@@ -202,7 +202,17 @@ lv_obj_t * ui_IS_introText_V1;
 lv_obj_t * ui_IS_introText_I1;
 lv_obj_t * ui_IS_introText_C1;
 lv_obj_t * ui_IS_introText_E2;
-lv_obj_t * ui_IS_continueTxt;
+lv_obj_t * ui_IS_touchScreenTxt;
+lv_obj_t * ui_IS_continueBck;
+lv_obj_t * ui_IS_welcomeBackTxt;
+lv_obj_t * ui_IS_nameTxt;
+lv_obj_t * ui_IS_continueAdventureTxt;
+void ui_event_IS_yesBtn(lv_event_t * e);
+lv_obj_t * ui_IS_yesBtn;
+lv_obj_t * ui_IS_yesTxt;
+void ui_event_IS_noBtn(lv_event_t * e);
+lv_obj_t * ui_IS_noBtn;
+lv_obj_t * ui_IS_noTxt;
 
 
 // SCREEN: ui_PlayerCreation
@@ -892,7 +902,6 @@ void ui_event_IntroScreen(lv_event_t * e)
         _ui_opacity_set(ui_IS_introText_I1, 0);
         _ui_opacity_set(ui_IS_introText_C1, 0);
         _ui_opacity_set(ui_IS_introText_E2, 0);
-        dndv_IS_screenLoading(e);
     }
     if(event_code == LV_EVENT_SCREEN_LOADED) {
         IntroDropIn_Animation(ui_IS_introText_D1, 400);
@@ -903,7 +912,8 @@ void ui_event_IntroScreen(lv_event_t * e)
         IntroDropIn_Animation(ui_IS_introText_I1, 1400);
         IntroDropIn_Animation(ui_IS_introText_C1, 1600);
         IntroDropIn_Animation(ui_IS_introText_E2, 1800);
-        IntroRevealTxt_Animation(ui_IS_continueTxt, 2500);
+        IntroRevealTxt_Animation(ui_IS_touchScreenTxt, 2500);
+        dndv_IS_updatePlayerData(e);
     }
 }
 void ui_event_IS_Bck(lv_event_t * e)
@@ -911,7 +921,24 @@ void ui_event_IS_Bck(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
     lv_obj_t * target = lv_event_get_target(e);
     if(event_code == LV_EVENT_CLICKED) {
-        _ui_screen_change(&ui_PlayerCreation, LV_SCR_LOAD_ANIM_FADE_ON, 500, 500, &ui_PlayerCreation_screen_init);
+        _ui_flag_modify(ui_IS_continueBck, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE);
+        _ui_flag_modify(ui_IS_touchScreenTxt, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_ADD);
+    }
+}
+void ui_event_IS_yesBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_PlayerProfile, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_PlayerProfile_screen_init);
+    }
+}
+void ui_event_IS_noBtn(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+    lv_obj_t * target = lv_event_get_target(e);
+    if(event_code == LV_EVENT_CLICKED) {
+        _ui_screen_change(&ui_PlayerCreation, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_PlayerCreation_screen_init);
     }
 }
 void ui_event_PlayerCreation(lv_event_t * e)
