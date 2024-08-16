@@ -209,6 +209,10 @@ static void ui_refresh_on_data_change(void* handler_arg, esp_event_base_t base, 
     ui_refresh(true);
 }
 
+static void ui_refresh_on_screen_load(void* handler_arg, esp_event_base_t base, int32_t id, void* event_data){
+    ui_refresh(false);
+}
+
 void pfp_init(){
     for(uint8_t i=0; i<DNDV_PFPS_COUNT; ++i){
         pfpArray[i] = NULL;
@@ -263,11 +267,12 @@ void  ui_stuff_init() {
     xTaskCreatePinnedToCore(guiTask, "gui", 4096*2, NULL, 0, NULL, 1);
 
     esp_event_handler_instance_register_with(dndv_event_h, DATA_CHANGED_BASE, PC_DATA_CHANGED, ui_refresh_on_data_change, NULL, NULL);
+    esp_event_handler_instance_register_with(dndv_event_h, UI_UPDATE_BASE, UI_SCREEN_REFRESH, ui_refresh_on_screen_load, NULL, NULL);
 
     pfp_init();
     cond_init();
 
-    //TODO: Refresh every time the screen changes, which should be possible like this
+    //Possible TODO: Currently screen_actions uses dndv_refresh() to refresh the screens, but we could also use something like this
     //lv_display_add_event_cb(, ui_refresh, LV_EVENT_CLICKED, NULL);   /*Assign an event callback (NULL is also 0, but TODO refactor)*/
 }
 

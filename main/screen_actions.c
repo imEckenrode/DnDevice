@@ -13,8 +13,7 @@
 #define SECRET_CANCEL_CONSTANT -29135 //If there is no input to the field, default to this value and prevent value modifications (TODO: Use for char type too)
 
 void dndv_refresh(){
-    // This takes long which makes it work? ScreenLoading should be deleted, exclusively use refresh (SCREEN_LOADED)
-    writePC(readPC());
+    esp_event_post_to(dndv_event_h, UI_UPDATE_BASE, UI_SCREEN_REFRESH, NULL, 0,0);
 }
 
 void dndv_textAreaClearAndRelabel(lv_obj_t * t, char* label){
@@ -100,7 +99,7 @@ void dndv_IS_updatePlayerData(lv_event_t * e){lv_label_set_text_fmt(ui_IS_nameTx
 #define PC_INPUT_LABEL_CHANGE_HP "Enter New Max HP"
 #define PC_INPUT_LABEL_CHANGE_AC "Enter New AC"
 
-void dndv_PC_screenLoading(lv_event_t * e){return;}
+void dndv_PC_screenLoading(lv_event_t * e){dndv_refresh();}
 void dndv_PC_profPicNext(lv_event_t * e){setPFP(readPC().pfp+1);}
 void dndv_PC_profPicPrev(lv_event_t * e){setPFP(readPC().pfp-1);
         _ui_flag_modify(ui_PC_Input, LV_OBJ_FLAG_HIDDEN, _UI_MODIFY_FLAG_REMOVE); //Temporary for testing purposes
