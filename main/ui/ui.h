@@ -204,7 +204,17 @@ extern lv_obj_t * ui_IS_introText_V1;
 extern lv_obj_t * ui_IS_introText_I1;
 extern lv_obj_t * ui_IS_introText_C1;
 extern lv_obj_t * ui_IS_introText_E2;
-extern lv_obj_t * ui_IS_continueTxt;
+extern lv_obj_t * ui_IS_touchScreenTxt;
+extern lv_obj_t * ui_IS_continueBck;
+extern lv_obj_t * ui_IS_welcomeBackTxt;
+extern lv_obj_t * ui_IS_nameTxt;
+extern lv_obj_t * ui_IS_continueAdventureTxt;
+void ui_event_IS_yesBtn(lv_event_t * e);
+extern lv_obj_t * ui_IS_yesBtn;
+extern lv_obj_t * ui_IS_yesTxt;
+void ui_event_IS_noBtn(lv_event_t * e);
+extern lv_obj_t * ui_IS_noBtn;
+extern lv_obj_t * ui_IS_noTxt;
 // SCREEN: ui_PlayerCreation
 void ui_PlayerCreation_screen_init(void);
 void ui_event_PlayerCreation(lv_event_t * e);
