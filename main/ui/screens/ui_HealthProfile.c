@@ -107,7 +107,7 @@ void ui_HealthProfile_screen_init(void)
     lv_obj_add_flag(ui_HP_hpHeartBorder, LV_OBJ_FLAG_ADV_HITTEST);     /// Flags
     lv_obj_clear_flag(ui_HP_hpHeartBorder, LV_OBJ_FLAG_SCROLLABLE);      /// Flags
     lv_img_set_zoom(ui_HP_hpHeartBorder, 149);
-    lv_obj_set_style_img_recolor(ui_HP_hpHeartBorder, lv_color_hex(0x393839), LV_PART_MAIN | LV_STATE_DEFAULT);
+    lv_obj_set_style_img_recolor(ui_HP_hpHeartBorder, lv_color_hex(0x393939), LV_PART_MAIN | LV_STATE_DEFAULT);
     lv_obj_set_style_img_recolor_opa(ui_HP_hpHeartBorder, 255, LV_PART_MAIN | LV_STATE_DEFAULT);
 
     ui_HP_restLongBtn = lv_obj_create(ui_HP_Bck);
